@@ -1,0 +1,4 @@
+#SYS_TYPE		compiler	package_spec
+x86_E5v2_IntelIB	clang@3.8.0	openblas+openmp+shared
+x86_E5v2_MellanoxIB	clang@3.8.0	openblas+openmp+shared
+x86_E5v3_IntelIB	clang@3.8.0	openblas+openmp+shared
