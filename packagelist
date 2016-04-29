@@ -1,19 +1,39 @@
 #SYS_TYPE		compiler	package_spec
 
-# openblas+openmp
+# OpenBLAS
 x86_E5v2_IntelIB	gcc@5.3.0	openblas+openmp+shared
 x86_E5v2_Mellanox_GPU	gcc@5.3.0	openblas+openmp+shared
 x86_E5v3_IntelIB	gcc@5.3.0	openblas+openmp+shared
 x86_E5v2_IntelIB	gcc@4.9.3	openblas+openmp+shared
 x86_E5v2_Mellanox_GPU	gcc@4.9.3	openblas+openmp+shared
 x86_E5v3_IntelIB	gcc@4.9.3	openblas+openmp+shared
-# openblas~openmp
-x86_E5v2_IntelIB	clang@3.8.0	openblas~openmp+shared
-x86_E5v2_Mellanox_GPU	clang@3.8.0	openblas~openmp+shared
-x86_E5v3_IntelIB	clang@3.8.0	openblas~openmp+shared
+##########
+# x86_E5v2_IntelIB	clang@3.8.0	openblas~openmp+shared FAILS : NO FORTRAN COMPILER
+# x86_E5v2_Mellanox_GPU	clang@3.8.0	openblas~openmp+shared
+# x86_E5v3_IntelIB	clang@3.8.0	openblas~openmp+shared
+##########
 x86_E5v2_IntelIB	gcc@5.3.0	openblas~openmp+shared
 x86_E5v2_Mellanox_GPU	gcc@5.3.0	openblas~openmp+shared
 x86_E5v3_IntelIB	gcc@5.3.0	openblas~openmp+shared
 x86_E5v2_IntelIB	gcc@4.9.3	openblas~openmp+shared
 x86_E5v2_Mellanox_GPU	gcc@4.9.3	openblas~openmp+shared
 x86_E5v3_IntelIB	gcc@4.9.3	openblas~openmp+shared
+
+# Netlib-lapack
+x86_E5v2_IntelIB	gcc@5.3.0	netlib-lapack
+x86_E5v2_Mellanox_GPU	gcc@5.3.0	netlib-lapack
+x86_E5v3_IntelIB	gcc@5.3.0	netlib-lapack
+x86_E5v2_IntelIB	gcc@4.9.3	netlib-lapack
+x86_E5v2_Mellanox_GPU	gcc@4.9.3	netlib-lapack
+x86_E5v3_IntelIB	gcc@4.9.3	netlib-lapack
+
+# OpenMPI
+x86_E5v2_IntelIB	gcc@5.3.0	openmpi+psm+slurm+thread_multiple+sqlite3
+x86_E5v2_Mellanox_GPU	gcc@5.3.0	openmpi+psm+slurm+thread_multiple+sqlite3
+x86_E5v3_IntelIB	gcc@5.3.0	openmpi+psm+slurm+thread_multiple+sqlite3
+x86_E5v2_IntelIB	gcc@4.9.3	openmpi+psm+slurm+thread_multiple+sqlite3
+x86_E5v2_Mellanox_GPU	gcc@4.9.3	openmpi+psm+slurm+thread_multiple+sqlite3
+x86_E5v3_IntelIB	gcc@4.9.3	openmpi+psm+slurm+thread_multiple+sqlite3
+x86_E5v2_IntelIB	clang@3.8.0	openmpi+psm+slurm+thread_multiple+sqlite3
+x86_E5v2_Mellanox_GPU	clang@3.8.0	openmpi+psm+slurm+thread_multiple+sqlite3
+x86_E5v3_IntelIB	clang@3.8.0	openmpi+psm+slurm+thread_multiple+sqlite3
