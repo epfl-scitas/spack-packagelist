@@ -1,0 +1,59 @@
+allowed:
+  systems:
+    - x86_E5v2_IntelIB
+    - x86_E5v2_Mellanox_GPU
+    - x86_E5v3_IntelIB
+  compilers:
+    - gcc@4.4.7
+    - gcc@5.3
+    - intel@16.0.2
+  mpi:
+    - openmpi@1.10.2+psm+slurm+thread_multiple+sqlite3
+    - mvapich2@2.2b+psm+slurm
+    - intelmpi@5.1.3
+  lapack:
+    - openblas
+    - openblas+threaded
+
+packages:
+  core:
+    systems: 'all'
+    compilers:
+      - gcc@4.4.7
+    specs:
+      - cmake@3.5.2
+      - m4@2.4.6
+      - autoconf@2.69
+      - automake@1.15
+      - libtool@2.4.6
+      - lmod@6.4.1
+  gnu:
+    systems: 'all'
+    compilers:
+      - gcc@5.3
+    specs:
+      - valgrind@3.11
+#      - gdb@7.11
+#      - fftw@3.3.4
+#      - fftw@3.3.4+openmp
+#      - glpk@4.57+gmp
+#      - gsl@2.1
+#      - hdf5@1.8.16+szip
+#      - metis@5.1.0
+      - openblas
+      - openblas+threaded
+      - openmpi@1.10.2+psm+slurm+thread_multiple+sqlite3
+      - mvapich2@2.2b+psm+slurm
+#    parallel:
+#      mpi:
+#        - openmpi@1.10.2+psm+slurm+thread_multiple+sqlite3
+#        - mvapich2@2.2b
+#      specs:
+#        - boost@1.61.0+icu_support+mpi+python
+#        - fftw@3.3.4+mpi
+#        - fftw@3.3.4+mpi+openmp
+#        - hdf5@1.8.16+mpi~cxx+szip
+
+
+
+
