@@ -15,7 +15,11 @@ class ConfigurationFileParser(object):
     """
     def __init__(self, configuration):
         self.allowed_services = configuration.pop('allowed')
-        self.current_services = {key: [] for key in self.allowed_services}
+        self.current_services = {}
+        # FIXME : self.current_services = {key: [] for key in self.allowed_services} when python will be upgraded
+        for key in self.allowed_services:
+            self.current_services[key] = []
+
         self.names = []
         self.packages = configuration.pop('packages')
 
