@@ -5,7 +5,7 @@ allowed:
     - x86_E5v3_IntelIB
   compilers:
     - gcc@4.4.7
-    - gcc@5.3
+    - gcc@5.3.0
     - intel@16.0.2
   mpi:
     - openmpi@1.10.2+psm+slurm+thread_multiple+sqlite3
@@ -30,7 +30,7 @@ packages:
   gnu:
     systems: 'all'
     compilers:
-      - gcc@5.3
+      - gcc@5.3.0
     specs:
       - valgrind@3.11
 #      - gdb@7.11
