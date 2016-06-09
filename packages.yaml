@@ -13,7 +13,7 @@ allowed:
     - intelmpi@5.1.3
   lapack:
     - openblas
-    - openblas+threaded
+    - openblas+openmp
 
 packages:
   core:
@@ -41,7 +41,7 @@ packages:
 #      - hdf5@1.8.16+szip
 #      - metis@5.1.0
       - openblas
-      - openblas+threaded
+      - openblas+openmp
       - openmpi@1.10.2+psm+slurm+thread_multiple+sqlite3
       - mvapich2@2.2b+psm+slurm
 #    parallel:
