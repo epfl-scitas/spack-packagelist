@@ -41,7 +41,7 @@ packages:
 #      - hdf5@1.8.16+szip
 #      - metis@5.1.0
       - openblas@0.2.18
-      - openblas@0.2.18+openmp
+#      - openblas@0.2.18+openmp
       - openmpi@1.10.2+pmi+psm+slurm+thread_multiple+sqlite3
       - mvapich2@2.2b+psm+slurm
 #    parallel:
