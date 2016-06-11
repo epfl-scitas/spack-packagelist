@@ -34,12 +34,12 @@ packages:
     specs:
       - valgrind@3.11.0~boost~mpi
       - gdb@7.11
-#      - fftw@3.3.4
-#      - fftw@3.3.4+openmp
-#      - glpk@4.57+gmp
-#      - gsl@2.1
-#      - hdf5@1.8.16+szip
-#      - metis@5.1.0
+      - fftw@3.3.4
+      - fftw@3.3.4+openmp
+      - glpk@4.57+gmp
+      - gsl@2.1
+      - hdf5@1.8.16+szip
+      - metis@5.1.0
       - openblas@0.2.18
       - openblas@0.2.18+openmp
       - openmpi@1.10.2+pmi+psm+slurm+thread_multiple+sqlite3~hwloc
