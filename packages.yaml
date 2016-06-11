@@ -44,14 +44,14 @@ packages:
       - openblas@0.2.18+openmp
       - openmpi@1.10.2+pmi+psm+slurm+thread_multiple+sqlite3~hwloc
       - mvapich2@2.2b+psm+slurm
-#    parallel:
-#      mpi:
-#        - openmpi@1.10.2+pmi+psm+slurm+thread_multiple+sqlite3~hwloc
-#        - mvapich2@2.2b
-#      specs:
+    parallel:
+      mpi:
+        - openmpi@1.10.2+pmi+psm+slurm+thread_multiple+sqlite3~hwloc
+        - mvapich2@2.2b+psm+slurm
+      specs:
 #        - boost@1.61.0+icu_support+mpi+python
-#        - fftw@3.3.4+mpi
-#        - fftw@3.3.4+mpi+openmp
+        - fftw@3.3.4+mpi
+        - fftw@3.3.4+mpi+openmp
 #        - hdf5@1.8.16+mpi~cxx+szip
 
 
