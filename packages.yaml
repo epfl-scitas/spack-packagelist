@@ -56,7 +56,7 @@ packages:
         - fftw@3.3.4+mpi
         - fftw@3.3.4+mpi+openmp
         - hdf5@1.8.16+mpi~cxx+szip
-        - scotch@6.0.3+esmumps
+        - scotch@6.0.3+esmumps+mpi
 
 
 
