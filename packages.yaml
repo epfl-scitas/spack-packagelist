@@ -40,6 +40,7 @@ packages:
       - gsl@2.1
       - hdf5@1.8.16+szip
       - metis@5.1.0
+      - scotch@6.0.3+esmumps
       - openblas@0.2.18
       - openblas@0.2.18+openmp
       - openmpi@1.10.2+pmi+psm+slurm+thread_multiple+sqlite3~hwloc
@@ -51,10 +52,11 @@ packages:
         - openmpi@1.10.2+pmi+psm+slurm+thread_multiple+sqlite3~hwloc
         - mvapich2@2.2b+psm+slurm
       specs:
-#        - boost@1.61.0+icu_support+mpi+python
+        - boost@1.61.0+icu_support+mpi+python
         - fftw@3.3.4+mpi
         - fftw@3.3.4+mpi+openmp
         - hdf5@1.8.16+mpi~cxx+szip
+        - scotch@6.0.3+esmumps
 
 
 
