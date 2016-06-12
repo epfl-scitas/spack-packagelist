@@ -57,6 +57,20 @@ packages:
         - fftw@3.3.4+mpi+openmp
         - hdf5@1.8.16+mpi~cxx+szip
         - scotch@6.0.3+esmumps+mpi
+        - scorep@1.4.2
+      dense_linear_algebra:
+        lapack:
+          - openblas@0.2.18
+          - openblas@0.2.18+openmp
+        specs:
+          - arpack-ng@3.3.0+mpi
+    dense_linear_algebra:
+      lapack:
+        - openblas@0.2.18
+        - openblas@0.2.18+openmp
+      specs:
+        - arpack-ng@3.3.0~mpi
+
 
 
 
