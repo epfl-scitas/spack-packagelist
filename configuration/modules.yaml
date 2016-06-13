@@ -22,3 +22,7 @@ modules:
      environment:
        set:
          CC: clang
+   openmpi:
+     environment:
+       set:
+         OMPI_MCA_btl_openib_warn_default_gid_prefix: '0'
