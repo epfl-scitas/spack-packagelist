@@ -54,6 +54,7 @@ packages:
       - mvapich2@2.2b+psm+slurm
       - python@3.5.1
       - python@2.7.11
+      - netcdf@4.4.0~mpi^hdf5@1.8.16+szip
     parallel:
       mpi:
         - openmpi@1.10.2+pmi+psm+slurm+thread_multiple+sqlite3~hwloc
@@ -66,6 +67,7 @@ packages:
         - scotch@6.0.3+esmumps+mpi
         - scorep@1.4.2
         - parmetis@4.0.3
+        - netcdf@4.4.0+mpi^hdf5@1.8.16+mpi~cxx+szip
       dense_linear_algebra:
         lapack:
           - openblas@0.2.18
