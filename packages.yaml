@@ -72,13 +72,13 @@ packages:
           - openblas@0.2.18+openmp
         specs:
           - arpack-ng@3.3.0+mpi
+          - netlib-scalapack@2.0.2
     dense_linear_algebra:
       lapack:
         - openblas@0.2.18
         - openblas@0.2.18+openmp
       specs:
         - arpack-ng@3.3.0~mpi
-        - netlib-scalapack@2.0.2
 
 
 
