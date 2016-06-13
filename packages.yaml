@@ -46,8 +46,8 @@ packages:
       - glpk@4.57+gmp
       - gsl@2.1
       - hdf5@1.8.16+szip
-      - metis@5.1.0
-      - scotch@6.0.3+esmumps
+      - metis@5.1.0+real64
+      - scotch@6.0.3+esmumps~metis
       - openblas@0.2.18
       - openblas@0.2.18+openmp
       - openmpi@1.10.2+pmi+psm+slurm+thread_multiple+sqlite3~hwloc
@@ -64,9 +64,9 @@ packages:
         - fftw@3.3.4+mpi
         - fftw@3.3.4+mpi+openmp
         - hdf5@1.8.16+mpi~cxx+szip
-        - scotch@6.0.3+esmumps+mpi
+        - scotch@6.0.3+esmumps+mpi~metis
         - scorep@1.4.2
-        - parmetis@4.0.3
+        - parmetis@4.0.3^metis@5.1.0+real64
         - netcdf@4.4.0+mpi^hdf5@1.8.16+mpi~cxx+szip
       dense_linear_algebra:
         lapack:
@@ -75,6 +75,7 @@ packages:
         specs:
           - arpack-ng@3.3.0+mpi
           - netlib-scalapack@2.0.2
+          - mumps@5.1.0+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis
     dense_linear_algebra:
       lapack:
         - openblas@0.2.18
