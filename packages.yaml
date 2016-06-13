@@ -27,6 +27,13 @@ packages:
       - automake@1.15
       - libtool@2.4.6
       - lmod@6.4.1
+  cuda:
+    systems:
+      - x86_E5v2_Mellanox_GPU
+    compilers:
+      - gcc@4.4.7
+    specs:
+      - cuda@7.5.18
   gnu:
     systems: 'all'
     compilers:
