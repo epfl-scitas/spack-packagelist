@@ -65,6 +65,7 @@ packages:
         - hdf5@1.8.16+mpi~cxx+szip
         - scotch@6.0.3+esmumps+mpi
         - scorep@1.4.2
+        - parmetis@4.0.3
       dense_linear_algebra:
         lapack:
           - openblas@0.2.18
@@ -77,6 +78,7 @@ packages:
         - openblas@0.2.18+openmp
       specs:
         - arpack-ng@3.3.0~mpi
+        - netlib-scalapack@2.0.2
 
 
 

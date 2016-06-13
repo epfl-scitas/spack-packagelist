@@ -1,7 +1,7 @@
 modules:
   enable : ['tcl', 'lmod']
   lmod:
-    whitelist: ['gcc', 'llvm', 'cmake', 'autoconf', 'automake', 'libtool', 'm4']
+    whitelist: ['gcc', 'llvm', 'cmake', 'autoconf', 'automake', 'libtool', 'm4', 'cuda']
     blacklist: ['%gcc@4.4.7']
     core_compilers: ['gcc@4.4.7']
     hierarchical_scheme: ['lapack']
