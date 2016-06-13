@@ -1,28 +1,29 @@
 modules:
- enable : ['tcl', 'lmod']
- lmod:
-   whitelist: ['gcc', 'llvm', 'cmake', 'autoconf', 'automake', 'libtool', 'm4']
-   blacklist: ['%gcc@4.4.7']
-   core_compilers: ['gcc@4.4.7']
-   hierarchical_scheme: ['lapack']
-   all:
-     filter:
-       environment_blacklist: ['CPATH', 'LIBRARY_PATH']
-     suffixes:
-       +mpi: parallel
-   gcc:
-     environment:
-       set:
-        CC: gcc
-        CXX: g++
-        FC: gfortran
-        F90: gfortran
-        F77: gfortran
-   llvm:
-     environment:
-       set:
-         CC: clang
-   openmpi:
-     environment:
-       set:
-         OMPI_MCA_btl_openib_warn_default_gid_prefix: '0'
+  enable : ['tcl', 'lmod']
+  lmod:
+    whitelist: ['gcc', 'llvm', 'cmake', 'autoconf', 'automake', 'libtool', 'm4']
+    blacklist: ['%gcc@4.4.7']
+    core_compilers: ['gcc@4.4.7']
+    hierarchical_scheme: ['lapack']
+    all:
+      filter:
+        environment_blacklist: ['CPATH', 'LIBRARY_PATH']
+      suffixes:
+        +mpi: parallel
+    gcc:
+      environment:
+        set:
+         CC: gcc
+         CXX: g++
+         FC: gfortran
+         F90: gfortran
+         F77: gfortran
+    llvm:
+      environment:
+        set:
+          CC: clang
+    openmpi:
+      environment:
+        set:
+          SLURM_MPI_TYPE: pmi2
+          OMPI_MCA_btl_openib_warn_default_gid_prefix: '0'
