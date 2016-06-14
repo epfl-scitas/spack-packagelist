@@ -68,6 +68,9 @@ packages:
         - scorep@1.4.2
         - parmetis@4.0.3^metis@5.1.0+real64
         - netcdf@4.4.0+mpi^hdf5@1.8.16+mpi~cxx+szip
+        # Applications
+        - gromacs@5.1.2+mpi^fftw@3.3.4+mpi
+        - gromacs@5.1.2+mpi^fftw@3.3.4+mpi+openmp
       dense_linear_algebra:
         lapack:
           - openblas@0.2.18
@@ -75,7 +78,7 @@ packages:
         specs:
           - arpack-ng@3.3.0+mpi
           - netlib-scalapack@2.0.2
-          - mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis
+#          - mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis
     dense_linear_algebra:
       lapack:
         - openblas@0.2.18
