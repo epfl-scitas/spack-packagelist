@@ -29,15 +29,7 @@ class ConfigurationFileParser(object):
             if not all(x in specifications for x in self.axis):
                 raise RuntimeError('combination \'{0}\' doesn\'t specify all axis'.format(key))
             self.combinations[name] = self._build_combination(name, specifications)
-
-        self.allowed_services = configuration.pop('allowed')
-        self.current_services = {}
-        # FIXME : self.current_services = {key: [] for key in self.allowed_services} when python will be upgraded
-        for key in self.allowed_services:
-            self.current_services[key] = []
-
-        self.names = []
-        self.packages = configuration.pop('packages')
+        self.packages = configuration['packages']
 
     def _build_combination(self, name, specifications):
         # Each entry can be either a string or a list
@@ -79,62 +71,40 @@ class ConfigurationFileParser(object):
             exploded.append(item)
         return exploded
 
-    def _reduce_stack(self, key):
-        reduction = set()
-        for x in self.current_services[key]:
-            reduction.update(x)
-        # The set of compilers and systems must always be non-empty
-        if key == 'compilers' and not reduction:
-            raise RuntimeError('compilers set is empty')
-        if key == 'systems' and not reduction:
-            raise RuntimeError('systems set is empty')
-
-        return reduction
-
     def _process(self, name, value):
         # Enter configuration for name
-        self.names.append(name)
-        header = '#\n' + '# ' + '::'.join(self.names) + '\n#'
+        header = '#\n' + '# ' + name + '\n#'
         yield header
-        services = set(value) & set(self.allowed_services)
-        # Move services to the right stack
-        for key in services:
-            if value[key] == 'all':
-                value[key] = self.allowed_services[key]
-            self.current_services[key].append(value.pop(key))
 
-        specs = value.pop('specs', tuple())
+        ##
+        # Construct the targets
+        ##
 
-        # Construct the current set of providers
-        compilers = self._reduce_stack('compilers')
-        systems = self._reduce_stack('systems')
+        # Merge
+        targets = []
+        for target_name in value['target_matrix']:
+            targets.extend(self.combinations[target_name])
+        # Filter
+        for key, allowed in value.get('target_filter', {}).items():
+            targets = [x for x in targets if x[key] in allowed]
+        # Reduce
+        requires = value['requires']
+        for ii, x in enumerate(targets):
+            item = targets[ii]
+            targets[ii] = {key: item[key] for key in requires}
+        # Make a dict hashable on the fly
+        targets = [dict(y) for y in set([tuple(x.items()) for x in targets])]
 
-        other_services = []
-        for key in self.allowed_services:
-            if key in ('compilers', 'systems'):
-                continue
-            if self.current_services[key]:
-                other_services.append(self._reduce_stack(key))
-
-        # Handle specs at this level
-        for compiler, system, base_spec in itertools.product(compilers, systems, specs):
-            if other_services:
-                for deps in itertools.product(*other_services):
-                    spec = '^'.join(deps)
-                    spec = '^'.join((base_spec, spec))
-                    yield ' '.join((system, compiler, spec))
-            else:
-                yield ' '.join((system, compiler, base_spec))
-
-        # Recurse for deeper nesting
-        for key, item in value.iteritems():
-            for x in self._process(key, item):
-                yield x
-
-        # Clean up the stack
-        for key in services:
-            self.current_services[key].pop()
-        self.names.pop()
+        # Construct the right values
+        specs = value.get('specs', tuple())
+        for item in targets:
+            compiler = item.pop('compiler')
+            architecture = item.pop('architecture')
+            for base_spec in specs:
+                parts = [base_spec]
+                parts.extend([v for v in item.values()])
+                spec = '^'.join(parts)
+                yield ' '.join((architecture, compiler, spec))
 
     def items(self):
         for name, value in self.packages.iteritems():

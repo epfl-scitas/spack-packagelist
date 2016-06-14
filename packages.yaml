@@ -8,7 +8,7 @@ combinations:
   core:
     architecture: 'x86_E5v2_IntelIB:x86_E5v2_Mellanox_GPU:x86_E5v3_IntelIB'
     compiler: 'gcc@4.4.7'
-    mpi: None
+    mpi: 'a:b'
     lapack: None
   gnu:
     architecture:
@@ -25,8 +25,8 @@ packages:
     target_matrix:
       - core
     requires:
-      architecture: true
-      compiler: true
+      - architecture
+      - compiler
     specs:
       - cmake@3.5.2
       - m4@1.4.17
@@ -38,18 +38,18 @@ packages:
     target_matrix:
       - core
     target_filter:
-      system: 'x86_E5v2_Mellanox_GPU'
+      architecture: ['x86_E5v2_Mellanox_GPU']
     requires:
-      architecture: true
-      compiler: true
+      - architecture
+      - compiler
     specs:
       - cuda@7.5.18
   serial:
     target_matrix:
       - gnu
     requires:
-      architecture: true
-      compiler: true
+      - architecture
+      - compiler
     specs:
       - valgrind@3.11.0~boost~mpi
       - gdb@7.11
@@ -71,18 +71,18 @@ packages:
     target_matrix:
       - gnu
     requires:
-      architecture: true
-      compiler: true
-      lapack: true
+      - architecture
+      - compiler
+      - lapack
     specs:
       - arpack-ng@3.3.0~mpi
   mpi:
     target_matrix:
       - gnu
     requires:
-      architecture: true
-      compiler: true
-      mpi: true
+      - architecture
+      - compiler
+      - mpi
     specs:
       - boost@1.61.0+icu_support+mpi+python
       - fftw@3.3.4+mpi~openmp
@@ -99,10 +99,10 @@ packages:
     target_matrix:
       - gnu
     requires:
-      architecture: true
-      compiler: true
-      mpi: true
-      lapack: true
+      - architecture
+      - compiler
+      - mpi
+      - lapack
     specs:
       - arpack-ng@3.3.0+mpi
       - netlib-scalapack@2.0.2
@@ -111,11 +111,11 @@ packages:
     target_matrix:
       - gnu
     target_filter:
-      lapack: 'openblas@0.2.18~openmp'
+      lapack: ['openblas@0.2.18~openmp']
     requires:
-      architecture: true
-      compiler: true
-      mpi: true
-      lapack: true
+      - architecture
+      - compiler
+      - mpi
+      - lapack
     specs:
       - espresso@5.3.0+mpi+scalapack^fftw@3.3.4+mpi~openmp^netlib-scalapack@2.0.2
