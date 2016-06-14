@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
+import collections
 import itertools
 import yaml
 
@@ -14,6 +15,21 @@ class ConfigurationFileParser(object):
     each of which represents a package to be installed in a given configuration
     """
     def __init__(self, configuration):
+        self.configuration = configuration
+        self.axis = configuration['axis']
+        # Check for compiler and architecture to be there
+        if 'compiler' not in self.axis:
+            raise RuntimeError('\'compiler\' must be set in the axis')
+        if 'architecture' not in self.axis:
+            raise RuntimeError('\'architecture\' must be set in the axis')
+        # Create the right combinations of services
+        self.combinations = collections.defaultdict(list)
+        for name, specifications in configuration['combinations'].iteritems():
+            # Check that all the axis are specified
+            if not all(x in specifications for x in self.axis):
+                raise RuntimeError('combination \'{0}\' doesn\'t specify all axis'.format(key))
+            self.combinations[name] = self._build_combination(name, specifications)
+
         self.allowed_services = configuration.pop('allowed')
         self.current_services = {}
         # FIXME : self.current_services = {key: [] for key in self.allowed_services} when python will be upgraded
@@ -22,6 +38,46 @@ class ConfigurationFileParser(object):
 
         self.names = []
         self.packages = configuration.pop('packages')
+
+    def _build_combination(self, name, specifications):
+        # Each entry can be either a string or a list
+        # All the lists MUST have the same length
+        keys_that_are_list = {key: len(x) for key, x in specifications.items() if isinstance(x, list)}
+        if len(keys_that_are_list) and len(set(keys_that_are_list.values())) != 1:
+            raise RuntimeError('lists in combination \'{0}\' MUST have the same length'.format(name))
+        # Explode all the lists in specifications if they are present
+        exploded = []
+        if not keys_that_are_list:
+            exploded.append(specifications)
+        else:
+            exploded = self._explode_list_in_specification(keys_that_are_list, specifications)
+
+        # Process each entry to have a list of unique combinations
+        combinations = []
+
+        for ii, x in enumerate(exploded):
+            # Turn ':' separated values into lists
+            intermediate = {key: value.split(':') for key, value in x.items()}
+            # Turn a dict of lists into a list of list of tuples
+            item = []
+            for key, l in intermediate.items():
+                item.append([(key, value) for value in l])
+            # Now itertools.product to the rescue
+            for entry in itertools.product(*item):
+                combinations.append(dict(entry))
+        return combinations
+
+    def _explode_list_in_specification(self, keys_that_are_list, specifications):
+        exploded = []
+        others = {key: value for key, value in specifications.iteritems() if key not in keys_that_are_list}
+        list_length = keys_that_are_list.values()[0]
+        for idx in range(list_length):
+            item = {}
+            item.update(others)
+            for key in keys_that_are_list:
+                item[key] = specifications[key][idx]
+            exploded.append(item)
+        return exploded
 
     def _reduce_stack(self, key):
         reduction = set()
