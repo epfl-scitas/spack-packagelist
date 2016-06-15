@@ -93,7 +93,7 @@ class ConfigurationFileParser(object):
         requires = value['requires']
         for ii, x in enumerate(targets):
             item = targets[ii]
-            targets[ii] = {key: item[key] for key in requires}
+            targets[ii] = dict([(key, item[key]) for key in requires])
         # Make a dict hashable on the fly
         targets = [dict(y) for y in set([tuple(x.items()) for x in targets])]
 
