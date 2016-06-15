@@ -34,7 +34,8 @@ class ConfigurationFileParser(object):
     def _build_combination(self, name, specifications):
         # Each entry can be either a string or a list
         # All the lists MUST have the same length
-        keys_that_are_list = {key: len(x) for key, x in specifications.items() if isinstance(x, list)}
+        # FIXME : python@2.6
+        keys_that_are_list = dict([(key, len(x)) for key, x in specifications.items() if isinstance(x, list)])
         if len(keys_that_are_list) and len(set(keys_that_are_list.values())) != 1:
             raise RuntimeError('lists in combination \'{0}\' MUST have the same length'.format(name))
         # Explode all the lists in specifications if they are present
@@ -49,7 +50,8 @@ class ConfigurationFileParser(object):
 
         for ii, x in enumerate(exploded):
             # Turn ':' separated values into lists
-            intermediate = {key: value.split(':') for key, value in x.items()}
+            # FIXME : python@2.6
+            intermediate = dict([(key, value.split(':')) for key, value in x.items()])
             # Turn a dict of lists into a list of list of tuples
             item = []
             for key, l in intermediate.items():
