@@ -9,7 +9,7 @@ modules:
       filter:
         environment_blacklist: ['CPATH', 'LIBRARY_PATH']
       suffixes:
-        +mpi: parallel
+        +mpi: mpi
     gcc:
       environment:
         set:

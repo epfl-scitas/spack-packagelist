@@ -4,10 +4,3 @@ packages:
     version: ['@external']
     paths:
       openssl@external: /usr/lib64
-  hwloc:
-    buildable: False
-    version: ['@external']
-    paths:
-      hwloc@external: /usr/lib64
-
-
