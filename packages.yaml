@@ -8,7 +8,7 @@ combinations:
   core:
     architecture: 'x86_E5v2_IntelIB:x86_E5v2_Mellanox_GPU:x86_E5v3_IntelIB'
     compiler: 'gcc@4.4.7'
-    mpi: 'a:b'
+    mpi: None
     lapack: None
   gnu:
     architecture:
@@ -60,10 +60,10 @@ packages:
       - hdf5@1.8.16+szip
       - metis@5.1.0+real64
       - scotch@6.0.3+esmumps~metis
-      - openblas@0.2.18~openmp
-      - openblas@0.2.18+openmp
-      - openmpi@1.10.2+pmi+psm+slurm+thread_multiple+sqlite3~hwloc
-      - mvapich2@2.2b+psm+slurm
+      #- openblas@0.2.18~openmp
+      #- openblas@0.2.18+openmp
+      #- openmpi@1.10.2+pmi+psm+slurm+thread_multiple+sqlite3~hwloc
+      #- mvapich2@2.2b+psm+slurm
       - python@3.5.1
       - python@2.7.11
       - netcdf@4.4.0~mpi^hdf5@1.8.16+szip
