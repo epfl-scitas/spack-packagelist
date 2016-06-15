@@ -63,7 +63,7 @@ class ConfigurationFileParser(object):
 
     def _explode_list_in_specification(self, keys_that_are_list, specifications):
         exploded = []
-        others = {key: value for key, value in specifications.iteritems() if key not in keys_that_are_list}
+        others = dict([(key, value) for key, value in specifications.iteritems() if key not in keys_that_are_list])
         list_length = keys_that_are_list.values()[0]
         for idx in range(list_length):
             item = {}
