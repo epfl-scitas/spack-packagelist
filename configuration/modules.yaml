@@ -1,5 +1,20 @@
 modules:
   enable : ['tcl', 'lmod']
+  prefix_inspections:
+    bin:
+      - PATH
+    man:
+      - MANPATH
+    lib:
+      - LD_LIBRARY_PATH
+    lib64:
+      - LD_LIBRARY_PATH
+    lib/pkgconfig:
+      - PKGCONFIG
+    lib64/pkgconfig:
+      - PKGCONFIG
+    '':
+      - CMAKE_PREFIX_PATH
   lmod:
     whitelist: [
       'gcc',
