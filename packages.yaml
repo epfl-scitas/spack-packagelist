@@ -114,4 +114,4 @@ packages:
       - mpi
       - lapack
     specs:
-      - espresso@5.4.0+mpi+scalapack^fftw@3.3.4+mpi~openmp^netlib-scalapack@2.0.2
+      - espresso@5.3.0+mpi+scalapack^fftw@3.3.4+mpi~openmp^netlib-scalapack@2.0.2
