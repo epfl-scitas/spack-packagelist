@@ -60,10 +60,6 @@ packages:
       - hdf5@1.8.16+szip
       - metis@5.1.0+real64
       - scotch@6.0.3+esmumps~metis
-      #- openblas@0.2.18~openmp
-      #- openblas@0.2.18+openmp
-      #- openmpi@1.10.2+pmi+psm+slurm+thread_multiple+sqlite3~hwloc
-      #- mvapich2@2.2b+psm+slurm
       - python@3.5.1
       - python@2.7.11
       - netcdf@4.4.0~mpi^hdf5@1.8.16+szip
@@ -118,4 +114,4 @@ packages:
       - mpi
       - lapack
     specs:
-      - espresso@5.3.0+mpi+scalapack^fftw@3.3.4+mpi~openmp^netlib-scalapack@2.0.2
+      - espresso@5.4.0+mpi+scalapack^fftw@3.3.4+mpi~openmp^netlib-scalapack@2.0.2
