@@ -23,11 +23,11 @@ modules:
     whitelist: [
       'gcc',
       'llvm',
-      'cmake%gcc4.4.7',
-      'autoconf%gcc4.4.7',
-      'automake%gcc4.4.7',
-      'libtool%gcc4.4.7',
-      'm4%gcc4.4.7',
+      #'cmake%gcc4.4.7',
+      #'autoconf%gcc4.4.7',
+      #'automake%gcc4.4.7',
+      #'libtool%gcc4.4.7',
+      #'m4%gcc4.4.7',
       'cuda']
     blacklist: [
       '%gcc@4.4.7',
