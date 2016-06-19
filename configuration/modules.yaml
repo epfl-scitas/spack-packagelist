@@ -1,14 +1,33 @@
 modules:
   enable : ['tcl', 'lmod']
+  prefix_inspections:
+    bin:
+      - PATH
+    man:
+      - MANPATH
+    lib:
+      - LIBRARY_PATH
+      - LD_LIBRARY_PATH
+    lib64:
+      - LIBRARY_PATH
+      - LD_LIBRARY_PATH
+    include:
+      - CPATH
+    lib/pkgconfig:
+      - PKGCONFIG
+    lib64/pkgconfig:
+      - PKGCONFIG
+    '':
+      - CMAKE_PREFIX_PATH
   lmod:
     whitelist: [
       'gcc',
       'llvm',
-      'cmake%gcc4.4.7',
-      'autoconf%gcc4.4.7',
-      'automake%gcc4.4.7',
-      'libtool%gcc4.4.7',
-      'm4%gcc4.4.7',
+      #'cmake%gcc4.4.7',
+      #'autoconf%gcc4.4.7',
+      #'automake%gcc4.4.7',
+      #'libtool%gcc4.4.7',
+      #'m4%gcc4.4.7',
       'cuda']
     blacklist: [
       '%gcc@4.4.7',
