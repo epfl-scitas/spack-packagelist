@@ -19,11 +19,11 @@ modules:
     whitelist: [
       'gcc',
       'llvm',
-      'cmake%gcc4.4.7',
-      'autoconf%gcc4.4.7',
-      'automake%gcc4.4.7',
-      'libtool%gcc4.4.7',
-      'm4%gcc4.4.7',
+      'cmake',
+      'autoconf',
+      'automake',
+      'libtool',
+      'm4',
       'cuda']
     blacklist: [
       '%gcc@4.4.7',
@@ -34,8 +34,6 @@ modules:
     core_compilers: ['gcc@4.4.7']
     hierarchical_scheme: ['lapack']
     all:
-      filter:
-        environment_blacklist: ['CPATH', 'LIBRARY_PATH']
       suffixes:
         +mpi: mpi
     gcc:
@@ -55,3 +53,18 @@ modules:
         set:
           SLURM_MPI_TYPE: pmi2
           OMPI_MCA_btl_openib_warn_default_gid_prefix: '0'
+    intel:
+      environment:
+        set:
+          CC: icc
+          CXX: icpc
+          FC: ifort
+          F90: ifort
+          F77: ifort
+          ICCCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl.cfg
+          ICPCCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl.cfg
+          IFORTCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl.cfg
+        prepend_path:
+          PATH: '/ssoft/spack/external/intel/2016/compilers_and_libraries_2016/linux/bin/intel64:/ssoft/spack/develop/opt/spack/x86_E5v2_IntelIB/gcc-4.4.7/gcc-4.9.3-qujus7v5mazx526wcqlcrfglztx5t3vm/bin:/ssoft/spack/develop/opt/spack/x86_E5v2_IntelIB/gcc-4.4.7/binutils-2.26-vmczmtcrxzqxcfypcgogblwxvvrhpwad/bin'
+          LD_LIBRARY_PATH: '/ssoft/spack/external/intel/2016/compilers_and_libraries_2016/linux/lib/intel64:/ssoft/spack/develop/opt/spack/x86_E5v2_IntelIB/gcc-4.4.7/gcc-4.9.3-qujus7v5mazx526wcqlcrfglztx5t3vm/lib64'
+          MANPATH: /ssoft/spack/external/intel/2016/compilers_and_libraries_2016/linux/man/common
