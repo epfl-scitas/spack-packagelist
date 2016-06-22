@@ -141,4 +141,4 @@ packages:
       - mpi
       - lapack
     specs:
-      espresso@5.4.0+mpi+scalapack^fftw@3.3.4+mpi~openmp
+      - espresso@5.4.0+mpi+scalapack^fftw@3.3.4+mpi~openmp
