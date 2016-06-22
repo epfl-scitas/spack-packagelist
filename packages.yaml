@@ -120,10 +120,9 @@ packages:
     specs:
       - netlib-scalapack@2.0.2
 #      - mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis
-  'mpi::lapack~openmp':
+  'mpi::lapack~openmp::gnu':
     target_matrix:
       - gnu
-      - intel
     target_filter:
       lapack: ['openblas@0.2.18~openmp', 'mkl']
     requires:
@@ -133,3 +132,13 @@ packages:
       - lapack
     specs:
       - espresso@5.4.0+mpi+scalapack^fftw@3.3.4+mpi~openmp^netlib-scalapack@2.0.2
+  'mpi::lapack::intel':
+    target_matrix:
+      - intel
+    requires:
+      - architecture
+      - compiler
+      - mpi
+      - lapack
+    specs:
+      espresso@5.4.0+mpi+scalapack^fftw@3.3.4+mpi~openmp
