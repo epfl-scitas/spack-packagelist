@@ -55,6 +55,7 @@ n/lib64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.
     all:
       suffixes:
         +mpi: mpi
+        +openmp: openmp
     gcc:
       environment:
         set:
