@@ -98,17 +98,17 @@ packages:
       # Applications
       - gromacs@5.1.2+mpi^fftw@3.3.4+mpi
       - gromacs@5.1.2+mpi^fftw@3.3.4+mpi+openmp
-  'mpi::lapack':
-    target_matrix:
-      - gnu
-      - intel
-    requires:
-      - architecture
-      - compiler
-      - mpi
-      - lapack
-    specs:
-      - netlib-scalapack@2.0.2
+#  'mpi::lapack':
+#    target_matrix:
+#      - gnu
+#      - intel
+#    requires:
+#      - architecture
+#      - compiler
+#      - mpi
+#      - lapack
+#    specs:
+#      - mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis
   'mpi::lapack::gnu':
     target_matrix:
       - gnu
@@ -119,7 +119,6 @@ packages:
       - lapack
     specs:
       - netlib-scalapack@2.0.2
-#      - mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis
   'mpi::lapack~openmp::gnu':
     target_matrix:
       - gnu
