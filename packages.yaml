@@ -22,7 +22,7 @@ combinations:
       - 'openmpi@1.10.2+pmi~psm+slurm+thread_multiple+sqlite3:mvapich2@2.2b+sock+slurm'
     lapack: 'openblas@0.2.18~openmp:openblas@0.2.18+openmp'
   intel:
-    architecture: 'x86_E5v2_IntelIB'
+    architecture: 'x86_E5v1_IntelIB:x86_E5v2:x86_E5v2_IntelIB:x86_E5v2_Mellanox_GPU:x86_E5v3_IntelIB'
     compiler: 'intel@16.0.3'
     mpi: 'intelmpi@5.1.3'
     lapack: 'mkl'
