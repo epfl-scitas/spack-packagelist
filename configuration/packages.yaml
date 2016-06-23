@@ -2,5 +2,21 @@ packages:
   openssl:
     buildable: False
     version: ['@external']
+    compiler: ['gcc@4.4.7']
     paths:
       openssl@external: /usr/lib64
+  intel:
+    buildable: False
+    version: ['@16.0.3']
+    paths:
+      intel@16.0.3%gcc@4.4.7: /ssoft/spack/external/intel/2016/compilers_and_libraries_2016/linux
+  intelmpi:
+    buildable: False
+    version: ['@5.1.3']
+    paths:
+      intelmpi@5.1.3%intel@16.0.3: /ssoft/spack/external/intel/2016/impi/5.1.3.210
+  mkl:
+    buildable: False
+    version: ['@11.3.3']
+    paths:
+      mkl@11.3.3%intel@16.0.3: /ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/mkl

@@ -6,28 +6,24 @@ modules:
     man:
       - MANPATH
     lib:
-      - LIBRARY_PATH
       - LD_LIBRARY_PATH
     lib64:
-      - LIBRARY_PATH
       - LD_LIBRARY_PATH
-    include:
-      - CPATH
     lib/pkgconfig:
-      - PKGCONFIG
+      - PKG_CONFIG_PATH
     lib64/pkgconfig:
-      - PKGCONFIG
+      - PKG_CONFIG_PATH
     '':
       - CMAKE_PREFIX_PATH
   lmod:
     whitelist: [
       'gcc',
       'llvm',
-      #'cmake%gcc4.4.7',
-      #'autoconf%gcc4.4.7',
-      #'automake%gcc4.4.7',
-      #'libtool%gcc4.4.7',
-      #'m4%gcc4.4.7',
+      'cmake',
+      'autoconf',
+      'automake',
+      'libtool',
+      'm4',
       'cuda']
     blacklist: [
       '%gcc@4.4.7',
@@ -38,8 +34,6 @@ modules:
     core_compilers: ['gcc@4.4.7']
     hierarchical_scheme: ['lapack']
     all:
-      filter:
-        environment_blacklist: ['CPATH', 'LIBRARY_PATH']
       suffixes:
         +mpi: mpi
     gcc:
@@ -59,3 +53,18 @@ modules:
         set:
           SLURM_MPI_TYPE: pmi2
           OMPI_MCA_btl_openib_warn_default_gid_prefix: '0'
+    intel:
+      environment:
+        set:
+          CC: icc
+          CXX: icpc
+          FC: ifort
+          F90: ifort
+          F77: ifort
+          ICCCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl.cfg
+          ICPCCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl.cfg
+          IFORTCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl.cfg
+        prepend_path:
+          PATH: '/ssoft/spack/external/intel/2016/compilers_and_libraries_2016/linux/bin/intel64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/gcc-4.9.3-2gys3tu6lq35ge6woeixfo4tfz5nnvzn/bin:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.26-cwd2djeg3mu6sngjnb5uulbhfszvr6su/bin'
+          LD_LIBRARY_PATH: '/ssoft/spack/external/intel/2016/compilers_and_libraries_2016/linux/lib/intel64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/gcc-4.9.3-2gys3tu6lq35ge6woeixfo4tfz5nnvzn/lib64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.26-cwd2djeg3mu6sngjnb5uulbhfszvr6su/lib'
+          MANPATH: /ssoft/spack/external/intel/2016/compilers_and_libraries_2016/linux/man/common
