@@ -3,6 +3,8 @@ modules:
   prefix_inspections:
     bin:
       - PATH
+    bin64:
+      - PATH
     man:
       - MANPATH
     lib:
@@ -38,6 +40,7 @@ n/lib64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.
     whitelist: [
       'gcc',
       'llvm',
+      'intel',
       'cmake',
       'autoconf',
       'automake',

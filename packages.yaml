@@ -100,7 +100,6 @@ packages:
       - netcdf@4.4.0+mpi^hdf5@1.8.16+mpi~cxx+szip
       # Applications
       - gromacs@5.1.2+mpi^fftw@3.3.4+mpi
-      - gromacs@5.1.2+mpi^fftw@3.3.4+mpi+openmp
   'mpi::lapack':
     target_matrix:
       - gnu
