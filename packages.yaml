@@ -81,6 +81,7 @@ packages:
       - lapack
     specs:
       - arpack-ng@3.3.0~mpi
+      - R+external-lapack
   mpi:
     target_matrix:
       - gnu
