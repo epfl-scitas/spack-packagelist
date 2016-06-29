@@ -95,3 +95,21 @@ modules:
           PATH: '/ssoft/spack/external/intel/2016/compilers_and_libraries_2016/linux/bin/intel64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/gcc-4.9.3-2gys3tu6lq35ge6woeixfo4tfz5nnvzn/bin:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.26-cwd2djeg3mu6sngjnb5uulbhfszvr6su/bin'
           LD_LIBRARY_PATH: '/ssoft/spack/external/intel/2016/compilers_and_libraries_2016/linux/lib/intel64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/gcc-4.9.3-2gys3tu6lq35ge6woeixfo4tfz5nnvzn/lib64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.26-cwd2djeg3mu6sngjnb5uulbhfszvr6su/lib'
           MANPATH: /ssoft/spack/external/intel/2016/compilers_and_libraries_2016/linux/man/common
+    intelmpi: # Default for Intel MPI
+      environment:
+        set:
+          I_MPI_FABRICS: 'shm:tmi'
+          IPATH_NO_CPUAFFINITY: '1'
+          I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
+    'intelmpi arch=x86_E5v2_Mellanox_GPU:': # Weird syntax, but double colon means override
+      environment:
+        set:
+          I_MPI_FABRICS: 'shm:ofa'
+          IPATH_NO_CPUAFFINITY: '1'
+          I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
+    'intelmpi arch=x86_E5v2_Mellanox_GPU:':
+      environment:
+        set:
+          I_MPI_FABRICS: 'shm:tcp'
+          IPATH_NO_CPUAFFINITY: '1'
+          I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
