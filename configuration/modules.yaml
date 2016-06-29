@@ -107,7 +107,7 @@ modules:
           I_MPI_FABRICS: 'shm:ofa'
           IPATH_NO_CPUAFFINITY: '1'
           I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
-    'intelmpi arch=x86_E5v2_Mellanox_GPU:':
+    'intelmpi arch=x86_E5v2:':
       environment:
         set:
           I_MPI_FABRICS: 'shm:tcp'
