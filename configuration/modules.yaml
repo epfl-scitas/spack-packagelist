@@ -58,7 +58,7 @@ modules:
       suffixes:
         +mpi: mpi
         +openmp: openmp
-        'fftw+openmp': openmp
+        '^fftw+openmp': openmp
     cuda:
       environment:
         set:
