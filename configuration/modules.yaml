@@ -103,6 +103,11 @@ modules:
           I_MPI_FABRICS: 'shm:tmi'
           IPATH_NO_CPUAFFINITY: '1'
           I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
+          MPICC: mpiicc
+          MPICXX: mpiicpc
+          MPIF90: mpiifort
+          MPIF77: mpiifort
+          MPIFC: mpiifort
     'intelmpi arch=x86_E5v2_Mellanox_GPU:': # Weird syntax, but double colon means override
       environment:
         set:
@@ -115,3 +120,14 @@ modules:
           I_MPI_FABRICS: 'shm:tcp'
           IPATH_NO_CPUAFFINITY: '1'
           I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
+    'hdf5~mpi+cxx':
+      environment:
+        set:
+          HDF5_CC: h5cc
+          HDF5_CXX: 'h5c++'
+          HDF5_FC: h5fc
+    'hdf5+mpi~cxx':
+      environment:
+        set:
+          HDF5_CC: h5pcc
+          HDF5_FC: h5pfc
