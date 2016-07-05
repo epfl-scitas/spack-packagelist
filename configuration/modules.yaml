@@ -114,12 +114,22 @@ modules:
           I_MPI_FABRICS: 'shm:ofa'
           IPATH_NO_CPUAFFINITY: '1'
           I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
+          MPICC: mpiicc
+          MPICXX: mpiicpc
+          MPIF90: mpiifort
+          MPIF77: mpiifort
+          MPIFC: mpiifort
     'intelmpi arch=x86_E5v2:':
       environment:
         set:
           I_MPI_FABRICS: 'shm:tcp'
           IPATH_NO_CPUAFFINITY: '1'
           I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
+          MPICC: mpiicc
+          MPICXX: mpiicpc
+          MPIF90: mpiifort
+          MPIF77: mpiifort
+          MPIFC: mpiifort
     'hdf5~mpi+cxx':
       environment:
         set:
