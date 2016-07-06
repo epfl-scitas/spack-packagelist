@@ -42,6 +42,7 @@ packages:
       - libtool@2.4.6
       - lmod@6.4.1
       - gnuplot@5.0.1~wx
+      - git@2.8.1
   cuda-runtime:
     target_matrix:
       - core
