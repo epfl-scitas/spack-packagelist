@@ -88,7 +88,7 @@ packages:
       - R+external-lapack
       - eigen@3.2.7+fftw+metis+scotch+suitesparse^metis@5.1.0+real64^scotch@6.0.3+esmumps~metis^fftw@3.3.4
       - opencv+eigen+ipp%gcc@5.3.0^py-numpy+blas+lapack
-      - suite-sparse@4.5.1
+      - suite-sparse@4.5.1^metis@5.1.0+real64
   mpi:
     target_matrix:
       - gnu
