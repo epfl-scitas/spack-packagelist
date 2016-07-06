@@ -43,6 +43,7 @@ packages:
       - lmod@6.4.1
       - gnuplot@5.0.1~wx
       - git@2.8.1
+      - MATLAB@R2016a
   cuda-runtime:
     target_matrix:
       - core
