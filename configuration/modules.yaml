@@ -45,6 +45,7 @@ modules:
       'automake',
       'libtool',
       'm4',
+      'matlab',
       'cuda']
     blacklist: [
       '%gcc@4.4.7',

@@ -20,3 +20,8 @@ packages:
     version: ['@11.3.3']
     paths:
       mkl@11.3.3%intel@16.0.3: /ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/mkl
+  matlab:
+    buildable: False
+    version: ['@R2016a']
+    paths:
+      matlab@R2016a%gcc@4.4.7: /ssoft/spack/external/MATLAB/R2016a
