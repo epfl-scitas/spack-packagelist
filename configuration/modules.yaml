@@ -46,7 +46,8 @@ modules:
       'libtool',
       'm4',
       'matlab',
-      'cuda']
+      'cuda',
+      'git']
     blacklist: [
       '%gcc@4.4.7',
       'autoconf',
