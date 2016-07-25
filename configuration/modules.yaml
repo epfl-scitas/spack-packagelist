@@ -61,10 +61,12 @@ modules:
         +mpi: mpi
         +openmp: openmp
         '^fftw+openmp': openmp
+      environment:
+        set:
+          '{name}_ROOT': '{prefix}'
     cuda:
       environment:
         set:
-          CUDA_ROOT: /ssoft/spack/lafnetscha/opt/spack/x86_E5v2_Mellanox_GPU/gcc-4.4.7/cuda-7.5.18-ob4oee2pngue3l7ygnwiy7wme7rlgrew
           CUDA_LIBRARY: /ssoft/spack/lafnetscha/opt/spack/x86_E5v2_Mellanox_GPU/gcc-4.4.7/cuda-7.5.18-ob4oee2pngue3l7ygnwiy7wme7rlgrew/lib64
           CUDA_INCLUDE: /ssoft/spack/lafnetscha/opt/spack/x86_E5v2_Mellanox_GPU/gcc-4.4.7/cuda-7.5.18-ob4oee2pngue3l7ygnwiy7wme7rlgrew/include
     gcc:
