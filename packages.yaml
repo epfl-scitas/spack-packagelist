@@ -90,6 +90,19 @@ packages:
       - eigen@3.2.7+fftw+metis+scotch+suitesparse^metis@5.1.0+real64^scotch@6.0.3+esmumps~metis^fftw@3.3.4
       - opencv+eigen+ipp%gcc@5.3.0^py-numpy+blas+lapack
       - suite-sparse@4.5.1^metis@5.1.0+real64
+  'lapack+openmp':
+    target_matrix:
+      - gnu
+      - intel
+    target_filter:
+      lapack: ['openblas@0.2.18+openmp', 'mkl']
+    requires:
+      - architecture
+      - compiler
+      - lapack
+    specs:
+      - py-numpy+blas+lapack@1.11.0^python@3.5.1
+      - py-numpy+blas+lapack@1.11.0^python@2.7.11
   mpi:
     target_matrix:
       - gnu
