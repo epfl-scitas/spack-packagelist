@@ -58,7 +58,7 @@ modules:
       'py-setuptools',
       'py-numpy',
       'py-scipy',
-      'py-matplotlib'
+      'py-matplotlib',
       'py-pip']
     core_compilers: ['gcc@4.4.7']
     hierarchical_scheme: ['lapack']
