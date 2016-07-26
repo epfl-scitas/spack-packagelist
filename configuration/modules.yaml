@@ -30,7 +30,10 @@ modules:
       'autoconf',
       'automake',
       'libtool',
-      'm4']
+      'm4',
+      'py-nose',
+      'py-setuptools',
+      'py-numpy']
     core_compilers: ['gcc@4.4.7']
     hierarchical_scheme: ['lapack']
     all:

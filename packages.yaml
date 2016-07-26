@@ -98,6 +98,19 @@ packages:
       # Applications
       - gromacs@5.1.2+mpi^fftw@3.3.4+mpi
       - gromacs@5.1.2+mpi^fftw@3.3.4+mpi+openmp
+  'lapack+openmp':
+    target_matrix:
+      - gnu
+      - intel
+    target_filter:
+      lapack: ['openblas@0.2.18+openmp', 'mkl']
+    requires:
+      - architecture
+      - compiler
+      - lapack
+    specs:
+      - py-numpy+blas+lapack@1.11.0^python@3.5.1
+      - py-numpy+blas+lapack@1.11.0^python@2.7.11
   'mpi::lapack':
     target_matrix:
       - gnu
