@@ -59,7 +59,17 @@ modules:
       'py-numpy',
       'py-scipy',
       'py-matplotlib',
-      'py-pip']
+      'py-pip',
+      'py-dateutil',
+      'py-funcsigs',
+      'py-mock',
+      'py-pbr',
+      'py-pyparsing',
+      'py-pytz',
+      'py-matplotlib',
+      'py-cython',
+      'py-qutip',
+      'py-scipy']
     core_compilers: ['gcc@4.4.7']
     hierarchical_scheme: ['lapack']
     all:

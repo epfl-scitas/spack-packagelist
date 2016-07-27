@@ -173,3 +173,11 @@ packages:
     specs:
       - py-numpy+blas+lapack@1.11.0^python@3.5.1
       - py-numpy+blas+lapack@1.11.0^python@2.7.11
+      - py-scipy^py-numpy+blas+lapack@1.11.0^python@3.5.1
+      - py-scipy^py-numpy+blas+lapack@1.11.0^python@2.7.11
+      - py-matplotlib^py-numpy+blas+lapack@1.11.0^python@3.5.1
+      - py-matplotlib^py-numpy+blas+lapack@1.11.0^python@2.7.11
+      - py-qutip+f90mc^py-scipy^py-numpy+blas+lapack@1.11.0^python@3.5.1
+      - py-qutip+f90mc^py-scipy^py-numpy+blas+lapack@1.11.0^python@2.7.11
+      - py-cython^python@3.5.1
+      - py-cython^python@2.7.11
