@@ -165,7 +165,7 @@ packages:
       - gnu
       - intel
     target_filter:
-      lapack: ['openblas@0.2.18~openmp', 'mkl']
+      lapack: ['openblas@0.2.18+openmp', 'mkl']
     requires:
       - architecture
       - compiler
