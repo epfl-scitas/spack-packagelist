@@ -32,7 +32,7 @@ modules:
           IFORTCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl.cfg
         prepend_path:
           PATH: '/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/bin/intel64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/gcc-4.9.3-2gys3tu6lq35ge6woeixfo4tfz5nnvzn/bin:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.26-cwd2djeg3mu6sngjnb5uulbhfszvr6su/bin'
-          LD_LIBRARY_PATH: '/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/lib/intel64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/gcc-4.9.3-2gys3tu6lq35ge6woeixfo4tfz5nnvzn/lib64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.26-cwd2djeg3mu6sngjnb5uulbhfszvr6su/lib'
+          LD_LIBRARY_PATH: '/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/compiler/lib/intel64:/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/lib/intel64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/gcc-4.9.3-2gys3tu6lq35ge6woeixfo4tfz5nnvzn/lib64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.26-cwd2djeg3mu6sngjnb5uulbhfszvr6su/lib'
           MANPATH: /ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/man/common
   lmod:
     hash_length: 0
@@ -106,7 +106,7 @@ modules:
           IFORTCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl.cfg
         prepend_path:
           PATH: '/ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186/bin64:/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/bin/intel64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/gcc-4.9.3-2gys3tu6lq35ge6woeixfo4tfz5nnvzn/bin:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.26-cwd2djeg3mu6sngjnb5uulbhfszvr6su/bin'
-          LD_LIBRARY_PATH: '/ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186/lib64:/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/lib/intel64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/gcc-4.9.3-2gys3tu6lq35ge6woeixfo4tfz5nnvzn/lib64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.26-cwd2djeg3mu6sngjnb5uulbhfszvr6su/lib'
+          LD_LIBRARY_PATH: '/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/compiler/lib/intel64:/ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186/lib64:/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/lib/intel64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/gcc-4.9.3-2gys3tu6lq35ge6woeixfo4tfz5nnvzn/lib64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.26-cwd2djeg3mu6sngjnb5uulbhfszvr6su/lib'
           MANPATH: /ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/man/common
     intelmpi: # Default for Intel MPI
       environment:
