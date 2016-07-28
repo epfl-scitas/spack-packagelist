@@ -69,7 +69,8 @@ modules:
       'py-matplotlib',
       'py-cython',
       'py-qutip',
-      'py-scipy']
+      'py-scipy',
+      'py-six']
     core_compilers: ['gcc@4.4.7']
     hierarchical_scheme: ['lapack']
     all:
