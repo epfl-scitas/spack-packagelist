@@ -91,7 +91,7 @@ packages:
     specs:
       - py-cython@0.23.5
       - py-pip@8.1.2
-      - py-psycopg2@2.6.2
+      - py-psycopg2@2.6.2^py-pip@8.1.2
   lapack:
     target_matrix:
       - gnu
@@ -189,6 +189,6 @@ packages:
       - lapack
     specs:
       - py-numpy+blas+lapack@1.11.0
-      - py-scipy^py-numpy+blas+lapack@1.11.0
-      - py-matplotlib^py-numpy+blas+lapack@1.11.0
-      - py-qutip+f90mc^py-scipy^py-numpy+blas+lapack@1.11.0
+      - py-scipy@0.17.0^py-numpy+blas+lapack@1.11.0
+      - py-matplotliby@0.17.0^py-numpy+blas+lapack@1.11.0
+      - py-qutip+f90mc@3.1.0^py-scipyy@0.17.0^py-numpy+blas+lapack@1.11.0^py-cython@0.23.5

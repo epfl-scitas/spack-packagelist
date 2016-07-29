@@ -48,7 +48,8 @@ modules:
       'm4',
       'matlab',
       'cuda',
-      'git']
+      'git',
+      'tmux']
     blacklist: [
       '%gcc@4.4.7',
       'autoconf',
