@@ -27,7 +27,7 @@ class ConfigurationFileParser(object):
         for name, specifications in configuration['combinations'].iteritems():
             # Check that all the axis are specified
             if not all(x in specifications for x in self.axis):
-                raise RuntimeError('combination \'{0}\' doesn\'t specify all axis'.format(key))
+                raise RuntimeError('combination \'{0}\' doesn\'t specify all axis'.format(name))
             self.combinations[name] = self._build_combination(name, specifications)
         self.packages = configuration['packages']
 
