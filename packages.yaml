@@ -3,13 +3,15 @@ axis:
   - compiler
   - mpi
   - lapack
-
+  - python
+  
 combinations:
   core:
     architecture: 'x86_E5v1_IntelIB:x86_E5v2:x86_E5v2_IntelIB:x86_E5v2_Mellanox_GPU:x86_E5v3_IntelIB'
     compiler: 'gcc@4.4.7'
     mpi: None
     lapack: None
+    python: None
   gnu:
     architecture:
       - 'x86_E5v1_IntelIB:x86_E5v2_IntelIB:x86_E5v3_IntelIB'
@@ -21,11 +23,13 @@ combinations:
       - 'openmpi@1.10.2+pmi+psm+slurm+thread_multiple+sqlite3:mvapich2@2.2b+nemesisib+slurm'
       - 'openmpi@1.10.2+pmi~psm+slurm+thread_multiple+sqlite3:mvapich2@2.2b+sock+slurm'
     lapack: 'openblas@0.2.18~openmp:openblas@0.2.18+openmp'
+    python: 'python@3.5.1:python@2.7.11'
   intel:
     architecture: 'x86_E5v1_IntelIB:x86_E5v2:x86_E5v2_IntelIB:x86_E5v2_Mellanox_GPU:x86_E5v3_IntelIB'
     compiler: 'intel@16.0.3'
     mpi: 'intelmpi@5.1.3'
     lapack: 'mkl'
+    python: 'python@3.5.1:python@2.7.11'
 
 packages:
   core:
@@ -76,6 +80,18 @@ packages:
       - python@2.7.11
       - netcdf@4.4.0~mpi^hdf5@1.8.16+szip
       - gts@121130
+  'serial::python':
+    target_matrix:
+      - gnu
+      - intel
+    requires:
+      - architecture
+      - compiler
+      - python
+    specs:
+      - py-cython@0.23.5
+      - py-pip@8.1.2
+      - py-psycopg2@2.6.2
   lapack:
     target_matrix:
       - gnu
@@ -160,7 +176,7 @@ packages:
       - espresso@5.4.0+mpi+scalapack^fftw@3.3.4+mpi~openmp
       - gmsh@2.12.0+mpi+hdf5+fltk^hdf5@1.8.16+mpi~cxx+szip
       - mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis
-  'lapack+openmp':
+  'python::lapack+openmp':
     target_matrix:
       - gnu
       - intel
@@ -169,15 +185,10 @@ packages:
     requires:
       - architecture
       - compiler
+      - python
       - lapack
     specs:
-      - py-numpy+blas+lapack@1.11.0^python@3.5.1
-      - py-numpy+blas+lapack@1.11.0^python@2.7.11
-      - py-scipy^py-numpy+blas+lapack@1.11.0^python@3.5.1
-      - py-scipy^py-numpy+blas+lapack@1.11.0^python@2.7.11
-      - py-matplotlib^py-numpy+blas+lapack@1.11.0^python@3.5.1
-      - py-matplotlib^py-numpy+blas+lapack@1.11.0^python@2.7.11
-      - py-qutip+f90mc^py-scipy^py-numpy+blas+lapack@1.11.0^python@3.5.1
-      - py-qutip+f90mc^py-scipy^py-numpy+blas+lapack@1.11.0^python@2.7.11
-      - py-cython^python@3.5.1
-      - py-cython^python@2.7.11
+      - py-numpy+blas+lapack@1.11.0
+      - py-scipy^py-numpy+blas+lapack@1.11.0
+      - py-matplotlib^py-numpy+blas+lapack@1.11.0
+      - py-qutip+f90mc^py-scipy^py-numpy+blas+lapack@1.11.0

@@ -70,7 +70,8 @@ modules:
       'py-cython',
       'py-qutip',
       'py-scipy',
-      'py-six']
+      'py-six',
+      'py-psycopg2']
     core_compilers: ['gcc@4.4.7']
     hierarchical_scheme: ['lapack']
     all:
