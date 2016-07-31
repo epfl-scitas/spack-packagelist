@@ -191,4 +191,4 @@ packages:
       - py-numpy+blas+lapack@1.11.0
       - py-scipy@0.17.0^py-numpy+blas+lapack@1.11.0
       - py-matplotlib@1.4.3^py-numpy+blas+lapack@1.11.0
-      - py-qutip+f90mc@3.1.0^py-scipyy@0.17.0^py-numpy+blas+lapack@1.11.0^py-cython@0.23.5
+      - py-qutip+f90mc@3.1.0^py-scipy@0.17.0^py-numpy+blas+lapack@1.11.0^py-cython@0.23.5
