@@ -126,6 +126,7 @@ modules:
     intelmpi: # Default for Intel MPI
       environment:
         set:
+          I_MPI_ROOT: /ssoft/spack/external/intel/2016/impi/5.1.3.210
           I_MPI_FABRICS: 'shm:tmi'
           IPATH_NO_CPUAFFINITY: '1'
           I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
@@ -137,6 +138,7 @@ modules:
     'intelmpi arch=x86_E5v2_Mellanox_GPU:': # Weird syntax, but double colon means override
       environment:
         set:
+          I_MPI_ROOT: /ssoft/spack/external/intel/2016/impi/5.1.3.210
           I_MPI_FABRICS: 'shm:ofa'
           IPATH_NO_CPUAFFINITY: '1'
           I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
@@ -148,6 +150,7 @@ modules:
     'intelmpi arch=x86_E5v2:':
       environment:
         set:
+          I_MPI_ROOT: /ssoft/spack/external/intel/2016/impi/5.1.3.210
           I_MPI_FABRICS: 'shm:tcp'
           IPATH_NO_CPUAFFINITY: '1'
           I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
@@ -156,6 +159,10 @@ modules:
           MPIF90: mpiifort
           MPIF77: mpiifort
           MPIFC: mpiifort
+    mkl:
+      environment:
+        set:
+          MKLROOT: /ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/mkl
     'hdf5~mpi+cxx':
       environment:
         set:
