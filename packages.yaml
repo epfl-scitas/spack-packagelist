@@ -4,7 +4,7 @@ axis:
   - mpi
   - lapack
   - python
-  
+
 combinations:
   core:
     architecture: 'x86_E5v1_IntelIB:x86_E5v2:x86_E5v2_IntelIB:x86_E5v2_Mellanox_GPU:x86_E5v3_IntelIB'
