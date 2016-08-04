@@ -125,7 +125,7 @@ packages:
       - netcdf@4.4.0+mpi^hdf5@1.8.16+mpi~cxx+szip
       - cgal@4.7^boost@1.61.0+icu_support+mpi+python
       # Applications
-      - gromacs@5.1.2+mpi^fftw@3.3.4+mpi
+      - gromacs@5.1.2+mpi+pmepatch^fftw@3.3.4+mpi
       - swiftsim@0.3.0+mpi ^ metis@5.1.0+real64 ^ hdf5@1.8.16+mpi~cxx+szip
   'mpi::lapack':
     target_matrix:
