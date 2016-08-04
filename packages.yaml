@@ -106,7 +106,7 @@ packages:
       - eigen@3.2.7+fftw+metis+scotch+suitesparse^metis@5.1.0+real64^scotch@6.0.3+esmumps~metis^fftw@3.3.4
       - opencv+eigen+ipp%gcc@5.3.0^py-numpy+blas+lapack
       - suite-sparse@4.5.1^metis@5.1.0+real64
-      - plumed@2.2.3~mpi^gsl@2.1
+      - plumed@2.2.3~mpi+gsl^gsl@2.1
   mpi:
     target_matrix:
       - gnu
@@ -162,7 +162,7 @@ packages:
       - mpi
       - lapack
     specs:
-      - plumed@2.2.3+mpi^gsl@2.1
+      - plumed@2.2.3+mpi+gsl^gsl@2.1
       - espresso@5.4.0+mpi+scalapack^fftw@3.3.4+mpi~openmp^netlib-scalapack@2.0.2
       - gmsh@2.12.0+mpi+hdf5+fltk^hdf5@1.8.16+mpi~cxx+szip
       - mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis^netlib-scalapack@2.0.2
@@ -175,7 +175,7 @@ packages:
       - mpi
       - lapack
     specs:
-      - plumed@2.2.3+mpi^gsl@2.1
+      - plumed@2.2.3+mpi+gsl^gsl@2.1
       - espresso@5.4.0+mpi+scalapack^fftw@3.3.4+mpi~openmp
       - gmsh@2.12.0+mpi+hdf5+fltk^hdf5@1.8.16+mpi~cxx+szip
       - mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis

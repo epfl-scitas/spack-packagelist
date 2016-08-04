@@ -5,6 +5,12 @@ packages:
     compiler: ['gcc@4.4.7']
     paths:
       openssl@external: /usr/lib64
+  libxml2:
+    buildable: False
+    version: ['@external']
+    compiler: ['gcc@4.4.7']
+    paths:
+      openssl@external: /usr/lib64
   intel:
     buildable: False
     version: ['@16.0.3']
