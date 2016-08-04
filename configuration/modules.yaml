@@ -34,7 +34,6 @@ modules:
           PATH: '/ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186/bin64:/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/bin/intel64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.26-cwd2djeg3mu6sngjnb5uulbhfszvr6su/bin'
           LD_LIBRARY_PATH: '/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/compiler/lib/intel64:/ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186/lib64:/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/lib/intel64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.26-cwd2djeg3mu6sngjnb5uulbhfszvr6su/lib'
           MANPATH: /ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/man/common
-          CPATH: '/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/compiler/include:/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/compiler/include/intel64'
   lmod:
     hash_length: 0
     whitelist: [
@@ -122,7 +121,6 @@ modules:
           PATH: '/ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186/bin64:/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/bin/intel64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.26-cwd2djeg3mu6sngjnb5uulbhfszvr6su/bin'
           LD_LIBRARY_PATH: '/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/compiler/lib/intel64:/ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186/lib64:/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/lib/intel64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.26-cwd2djeg3mu6sngjnb5uulbhfszvr6su/lib'
           MANPATH: /ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/man/common
-          CPATH: '/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/compiler/include:/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/compiler/include/intel64'
     intelmpi: # Default for Intel MPI
       environment:
         set:
