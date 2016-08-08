@@ -139,7 +139,7 @@ packages:
       - lapack
     specs:
       - arpack-ng@3.3.0+mpi
-      - petsc@3.7.2+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre^hdf5@1.8.16+mpi~cxx+szip^mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis^boost@1.61.0+icu_support+mpi+python^python@2.7.11^boost@1.61.0+icu_support+mpi+python^python@2.7.11
+      - petsc@3.7.2+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre^hdf5@1.8.16+mpi~cxx+szip^mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis^boost@1.61.0+icu_support+mpi+python^python@2.7.1
 #      - fenics@1.6.0+mpi+hdf5+parmetis+scotch^petsc@3.7.2+double+hdf5+metis+mpi+mumps~superlu-dist~hypre^hdf5@1.8.16+mpi~cxx+szip^mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis
   'mpi::lapack::gnu':
     target_matrix:
