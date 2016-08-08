@@ -172,3 +172,7 @@ modules:
         set:
           HDF5_CC: h5pcc
           HDF5_FC: h5pfc
+    plumed:
+      environment:
+        unset:
+          - PLUMED_ROOT
