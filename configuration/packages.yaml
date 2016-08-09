@@ -51,3 +51,8 @@ packages:
     version: ['@9.0.1']
     paths:
       mathematica@9.0.1%gcc@4.4.7: /ssoft/spack/external/Mathematica/9.0.1
+  totalview:
+    buildable: False
+    version: ['@8.15.10-2']
+    paths:
+      totalview@8.15.10-2%gcc@4.4.7: /ssoft/spack/external/toolworks/totalview.8.15.10-2
