@@ -49,6 +49,8 @@ packages:
       - git@2.8.1
       - tmux@2.1
       - matlab@R2016a
+      - mathematica@9.0.1
+      - ansys@17.1
   cuda-runtime:
     target_matrix:
       - core
