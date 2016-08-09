@@ -52,6 +52,7 @@ modules:
       'matlab',
       'mathematica',
       'ansys',
+      'totalview',
       'likwid']
     blacklist: [
       '%gcc@4.4.7',
