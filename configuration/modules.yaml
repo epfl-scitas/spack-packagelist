@@ -48,7 +48,11 @@ modules:
       'matlab',
       'cuda',
       'git',
-      'tmux']
+      'tmux',
+      'matlab',
+      'mathematica',
+      'ansys',
+      'likwid']
     blacklist: [
       '%gcc@4.4.7',
       'autoconf',
