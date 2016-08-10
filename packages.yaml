@@ -51,6 +51,7 @@ packages:
       - matlab@R2016a
       - mathematica@9.0.1
       - ansys@17.1
+      - likwid@4.1.1
       - totalview@8.15.10-2
   cuda-runtime:
     target_matrix:
