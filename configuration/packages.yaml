@@ -7,9 +7,9 @@ packages:
       openssl@external: /usr/lib64
   abaqus:
     buildable: False
-    version: ['@16.4-1']
+    version: ['@6.14-1']
     paths:
-      abaqus@16.4-1%intel@16.0.3: /ssoft/spack/external/abaqus/6.14-1
+      abaqus@6.14-1%intel@16.0.3: /ssoft/spack/external/abaqus/6.14-1
   ansys:
     buildable: False
     version: ['@17.1']
