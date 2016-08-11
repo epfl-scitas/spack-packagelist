@@ -80,7 +80,7 @@ modules:
       'py-psycopg2',
       'py-ply',
       'py-sympy',
-      'py-mpmath'
+      'py-mpmath',
       'swig']
     core_compilers: ['gcc@4.4.7']
     hierarchical_scheme: ['lapack']
