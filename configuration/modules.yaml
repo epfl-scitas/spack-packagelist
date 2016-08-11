@@ -72,7 +72,11 @@ modules:
       'py-qutip',
       'py-scipy',
       'py-six',
-      'py-psycopg2']
+      'py-psycopg2',
+      'py-ply',
+      'py-sympy',
+      'py-mpmath'
+      'swig']
     core_compilers: ['gcc@4.4.7']
     hierarchical_scheme: ['lapack']
     all:
