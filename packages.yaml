@@ -49,6 +49,10 @@ packages:
       - git@2.8.1
       - tmux@2.1
       - matlab@R2016a
+      - mathematica@9.0.1
+      - ansys@17.1
+      - likwid@4.1.1
+      - totalview@8.15.10-2
   cuda-runtime:
     target_matrix:
       - core
@@ -59,6 +63,14 @@ packages:
       - compiler
     specs:
       - cuda@7.5.18
+  serial_intel_only:
+    target_matrix:
+      - intel
+    requires:
+      - architecture
+      - compiler
+    specs:
+      - abaqus@6.14-1
   serial:
     target_matrix:
       - gnu
