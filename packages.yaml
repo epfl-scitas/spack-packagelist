@@ -92,6 +92,7 @@ packages:
       - python@2.7.11
       - netcdf@4.4.0~mpi^hdf5@1.8.16+szip
       - gts@121130
+      - eigen@3.2.7
   'serial::python':
     target_matrix:
       - gnu
@@ -116,7 +117,6 @@ packages:
     specs:
       - arpack-ng@3.3.0~mpi
       - R+external-lapack
-      - eigen@3.2.7+fftw+metis+scotch+suitesparse^metis@5.1.0+real64^scotch@6.0.3+esmumps~metis^fftw@3.3.4
       - opencv+eigen+ipp%gcc@5.3.0^py-numpy+blas+lapack
       - suite-sparse@4.5.1^metis@5.1.0+real64
       - plumed@2.2.3~mpi+gsl^gsl@2.1
@@ -178,7 +178,7 @@ packages:
       - gmsh@2.12.0+mpi+hdf5+fltk^hdf5@1.8.16+mpi~cxx+szip
       - mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis^netlib-scalapack@2.0.2
       - petsc@3.6.3+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre^hdf5@1.8.16+mpi~cxx+szip^mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis^netlib-scalapack@2.0.2^boost@1.61.0+icu_support+mpi+python^python@2.7.11
-      - fenics@2016.1.0+petsc+hdf5~trilinos^petsc@3.6.3+double+hdf5+metis+mpi+mumps~superlu-dist~hypre+boost^hdf5@1.8.16+mpi~cxx+szip^mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis^netlib-scalapack@2.0.2^boost@1.61.0+icu_support+mpi+python^python@2.7.11^eigen@3.2.7+fftw+metis+scotch+suitesparse^fftw@3.3.4
+      - fenics@2016.1.0+petsc+hdf5~trilinos+suite-sparse+mpi^petsc@3.6.3+double+hdf5+metis+mpi+mumps~superlu-dist~hypre+boost^hdf5@1.8.16+mpi~cxx+szip^mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis^netlib-scalapack@2.0.2^boost@1.61.0+icu_support+mpi+python^python@2.7.11^eigen@3.2.7^suite-sparse@4.5.1
   'mpi::lapack::intel':
     target_matrix:
       - intel
@@ -193,6 +193,7 @@ packages:
       - gmsh@2.12.0+mpi+hdf5+fltk^hdf5@1.8.16+mpi~cxx+szip
       - mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis
       - petsc@3.6.3+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre^hdf5@1.8.16+mpi~cxx+szip^mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis^boost@1.61.0+icu_support+mpi+python^python@2.7.11
+      - fenics@2016.1.0+petsc+hdf5~trilinos+suite-sparse+mpi^petsc@3.6.3+double+hdf5+metis+mpi+mumps~superlu-dist~hypre+boost^hdf5@1.8.16+mpi~cxx+szip^mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis^boost@1.61.0+icu_support+mpi+python^python@2.7.11^eigen@3.2.7^suite-sparse@4.5.1
   'python::lapack+openmp':
     target_matrix:
       - gnu
