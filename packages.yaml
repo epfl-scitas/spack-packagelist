@@ -194,6 +194,7 @@ packages:
       - mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis
       - petsc@3.6.3+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre^hdf5@1.8.16+mpi~cxx+szip^mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis^boost@1.61.0+icu_support+mpi+python^python@2.7.11
       - fenics@2016.1.0+petsc+hdf5~trilinos+suite-sparse+mpi^petsc@3.6.3+double+hdf5+metis+mpi+mumps~superlu-dist~hypre+boost^hdf5@1.8.16+mpi~cxx+szip^mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis^boost@1.61.0+icu_support+mpi+python^python@2.7.11^eigen@3.2.7^suite-sparse@4.5.1
+      - molpro@2015-12-18+int8~openmp
   'python::lapack+openmp':
     target_matrix:
       - gnu
