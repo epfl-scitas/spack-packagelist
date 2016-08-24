@@ -164,6 +164,7 @@ packages:
       - lapack
     specs:
       - netlib-scalapack@2.0.2
+      - elpa@2016.05.003 ^ netlib-scalapack@2.0.2
   'mpi::lapack~openmp::gnu':
     target_matrix:
       - gnu
@@ -191,12 +192,13 @@ packages:
       - mpi
       - lapack
     specs:
+      - elpa@2016.05.003
       - plumed@2.2.3+mpi+gsl^gsl@2.1
-      - espresso@5.4.0+mpi+scalapack^fftw@3.3.4+mpi~openmp
-      - gmsh@2.12.0+mpi+hdf5+fltk^hdf5@1.8.16+mpi~cxx+szip
       - mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis
       - petsc@3.6.3+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre^hdf5@1.8.16+mpi~cxx+szip^mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis^boost@1.61.0+icu_support+mpi+python^python@2.7.11
       - fenics@2016.1.0+petsc+hdf5~trilinos+suite-sparse+mpi^petsc@3.6.3+double+hdf5+metis+mpi+mumps~superlu-dist~hypre+boost^hdf5@1.8.16+mpi~cxx+szip^mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis^boost@1.61.0+icu_support+mpi+python^python@2.7.11^eigen@3.2.7^suite-sparse@4.5.1
+      - espresso@5.4.0+mpi+scalapack^fftw@3.3.4+mpi~openmp
+      - gmsh@2.12.0+mpi+hdf5+fltk^hdf5@1.8.16+mpi~cxx+szip
       - molpro@2015-12-18+int8~openmp
       - cp2k@3.0+mpi~plumed^parmetis@4.0.3^metis@5.1.0+real64
   'python::lapack+openmp':
