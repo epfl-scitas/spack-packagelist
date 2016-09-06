@@ -89,6 +89,7 @@ modules:
         +mpi: mpi
         +openmp: openmp
         '^fftw+openmp': openmp
+        +plumed: plumed
       environment:
         set:
           '{name}_ROOT': '{prefix}'
