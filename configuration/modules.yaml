@@ -183,6 +183,8 @@ modules:
           HDF5_FC: h5pfc
     plumed:
       environment:
+        set:
+          PLUMED_KERNEL: '{prefix}/lib/libplumedKernel.so'
         unset:
           - PLUMED_ROOT
     molpro:
