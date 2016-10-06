@@ -207,6 +207,7 @@ packages:
     specs:
       - paraview+mpi+osmesa+qt+python@5.1.2^py-matplotlib@1.4.3^py-numpy+blas+lapack@1.11.0^qt@4.8.6^python@2.7.11
       - foam-extend+metis+scotch+parmetis+ptscotch+paraview^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis^paraview+mpi+osmesa+qt+python@5.1.2^py-matplotlib@1.4.3^py-numpy+blas+lapack@1.11.0^qt@4.8.6^python@2.7.11
+      - gpaw+mpi@1.1.0^py-numpy+blas+lapack@1.11.0^netlib-scalapack@2.0.2^python@2.7.11^py-ase@3.11.0
   'mvapich2::lapack~openmp::gnu':
     target_matrix:
       - gnu
@@ -258,3 +259,4 @@ packages:
       - py-scipy@0.17.0^py-numpy+blas+lapack@1.11.0
       - py-matplotlib@1.4.3^py-numpy+blas+lapack@1.11.0
       - py-qutip+f90mc@3.1.0^py-scipy@0.17.0^py-numpy+blas+lapack@1.11.0^py-cython@0.23.5
+      - py-ase+matplotlib+scipy@3.11.0^py-matplotlib@1.4.3^py-numpy+blas+lapack@1.11.0
