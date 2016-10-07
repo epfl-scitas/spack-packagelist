@@ -82,6 +82,7 @@ modules:
       'py-sympy',
       'py-mpmath',
       'py-ase',
+      'py-vitualenv'
       'swig']
     core_compilers: ['gcc@4.4.7']
     hierarchical_scheme: ['lapack']
