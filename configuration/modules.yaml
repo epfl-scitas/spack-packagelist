@@ -53,7 +53,8 @@ modules:
       'mathematica',
       'ansys',
       'totalview',
-      'likwid']
+      'likwid',
+      'comsol']
     blacklist: [
       '%gcc@4.4.7',
       'autoconf',
