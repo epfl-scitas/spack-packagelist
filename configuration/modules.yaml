@@ -5,6 +5,8 @@ modules:
       - PATH
     bin64:
       - PATH
+    share/man:
+      - MANPATH
     man:
       - MANPATH
     lib:
