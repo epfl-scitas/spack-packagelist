@@ -82,8 +82,7 @@ modules:
       'py-setuptools',
       'py-six',
       'py-sympy',
-      'py-vitualenv',
-      'swig']
+      'py-vitualenv']
     core_compilers: ['gcc@4.4.7']
     hierarchical_scheme: ['lapack']
     all:
