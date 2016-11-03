@@ -5,6 +5,8 @@ modules:
       - PATH
     bin64:
       - PATH
+    share/man:
+      - MANPATH
     man:
       - MANPATH
     lib:
@@ -53,7 +55,8 @@ modules:
       'mathematica',
       'ansys',
       'totalview',
-      'likwid']
+      'likwid',
+      'comsol']
     blacklist: [
       '%gcc@4.4.7',
       'autoconf',
