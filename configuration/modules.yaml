@@ -61,6 +61,7 @@ modules:
       '%gcc@4.4.7',
       'autoconf',
       'automake',
+      'boost~mpi'
       'libtool',
       'm4',
       'py-ase',
