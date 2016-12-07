@@ -129,7 +129,6 @@ packages:
     specs:
       - arpack-ng@3.3.0~mpi
       - R+external-lapack
-      - opencv+eigen+ipp^py-numpy+blas+lapack
       - suite-sparse@4.5.1^metis@5.1.0+real64
       - plumed@2.2.3~mpi+gsl^gsl@2.1
   mpi:
@@ -177,6 +176,18 @@ packages:
     specs:
       - netlib-scalapack@2.0.2
       - elpa@2016.05.003 ^ netlib-scalapack@2.0.2
+  'serial::lapack~openmp::gnu':
+    target_matrix:
+      - gnu
+    target_filter:
+      lapack: ['openblas@0.2.18~openmp']
+    requires:
+      - architecture
+      - compiler
+      - lapack
+    specs:
+      - opencv+eigen+ipp^py-numpy+blas+lapack
+      - caffe ^hdf5@1.8.16+szip ^opencv+eigen+ipp%gcc@5.3.0 ^py-numpy+blas+lapack
   'mpi::lapack~openmp::gnu':
     target_matrix:
       - gnu
@@ -197,7 +208,6 @@ packages:
       - cp2k@3.0+mpi~plumed^netlib-scalapack@2.0.2^parmetis@4.0.3^metis@5.1.0+real64
       - cp2k@3.0+mpi+plumed^netlib-scalapack@2.0.2^parmetis@4.0.3^metis@5.1.0+real64^plumed@2.2.3+mpi+gsl^gsl@2.1
       - gromacs@5.1.2+mpi+pmepatch+plumed^fftw@3.3.4+mpi^plumed@2.2.3+mpi+gsl^gsl@2.1
-      - caffe ^hdf5@1.8.16+szip ^opencv+eigen+ipp%gcc@5.3.0 ^py-numpy+blas+lapack
   'mpi::lapack+openmp::gnu':
     target_matrix:
       - gnu
