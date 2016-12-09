@@ -47,6 +47,7 @@ modules:
       'automake',
       'caffe',
       'libtool',
+      'openblas'
       'm4',
       'matlab',
       'cuda',
