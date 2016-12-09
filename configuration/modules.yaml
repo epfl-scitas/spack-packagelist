@@ -45,6 +45,7 @@ modules:
       'cmake',
       'autoconf',
       'automake',
+      'caffe',
       'libtool',
       'm4',
       'matlab',
@@ -59,6 +60,7 @@ modules:
       'comsol']
     blacklist: [
       '%gcc@4.4.7',
+      '%gcc@4.9.3',
       'autoconf',
       'automake',
       'boost~mpi',
