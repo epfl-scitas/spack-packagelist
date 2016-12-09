@@ -95,6 +95,7 @@ modules:
         +openmp: openmp
         '^fftw+openmp': openmp
         +plumed: plumed
+        '^cuda': cuda
       environment:
         set:
           '{name}_ROOT': '{prefix}'
