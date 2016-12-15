@@ -175,6 +175,7 @@ modules:
       environment:
         set:
           MKLROOT: /ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/mkl
+          CMAKE_LIBRARY_PATH: /ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/mkl/lib/intel64
     'hdf5~mpi+cxx':
       environment:
         set:
