@@ -30,6 +30,12 @@ combinations:
     mpi: 'intelmpi@5.1.3'
     lapack: 'mkl'
     python: 'python@3.5.1:python@2.7.11'
+  gnucuda:
+    architecture: 'x86_E5v2_Mellanox_GPU'
+    compiler: 'gcc@4.9.3'
+    mpi: None
+    lapack: 'openblas@0.2.18~openmp'
+    python: 'python@3.5.1:python@2.7.11'
 
 packages:
   core:
@@ -109,6 +115,7 @@ packages:
       - py-sympy@1.0
       - py-ply@3.8
       - py-virtualenv@15.0.1
+      - py-pytest@3.0.0
   'serial::gnu':
     target_matrix:
       - gnu
@@ -128,7 +135,6 @@ packages:
     specs:
       - arpack-ng@3.3.0~mpi
       - R+external-lapack
-      - opencv+eigen+ipp%gcc@5.3.0^py-numpy+blas+lapack
       - suite-sparse@4.5.1^metis@5.1.0+real64
       - plumed@2.2.3~mpi+gsl^gsl@2.1
   mpi:
@@ -176,6 +182,18 @@ packages:
     specs:
       - netlib-scalapack@2.0.2
       - elpa@2016.05.003 ^ netlib-scalapack@2.0.2
+  'serial::lapack~openmp::gnu':
+    target_matrix:
+      - gnu
+    target_filter:
+      lapack: ['openblas@0.2.18~openmp']
+    requires:
+      - architecture
+      - compiler
+      - lapack
+    specs:
+      - opencv+eigen+ipp^py-numpy+blas+lapack
+      - caffe ^hdf5@1.8.16+szip ^opencv+eigen+ipp%gcc@5.3.0 ^py-numpy+blas+lapack
   'mpi::lapack~openmp::gnu':
     target_matrix:
       - gnu
@@ -260,3 +278,12 @@ packages:
       - py-matplotlib@1.4.3^py-numpy+blas+lapack@1.11.0
       - py-qutip+f90mc@3.1.0^py-scipy@0.17.0^py-numpy+blas+lapack@1.11.0^py-cython@0.23.5
       - py-ase+matplotlib+scipy@3.11.0^py-matplotlib@1.4.3^py-numpy+blas+lapack@1.11.0
+  cuda:
+    target_matrix:
+      - gnucuda
+    requires:
+      - architecture
+      - compiler
+      - lapack
+    specs:
+      - caffe+cuda ^hdf5@1.8.16+szip ^opencv+eigen+ipp ^py-numpy+blas+lapack ^cuda@7.5.18

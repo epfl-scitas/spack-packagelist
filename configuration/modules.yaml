@@ -45,7 +45,9 @@ modules:
       'cmake',
       'autoconf',
       'automake',
+      'caffe',
       'libtool',
+      'openblas',
       'm4',
       'matlab',
       'cuda',
@@ -59,8 +61,10 @@ modules:
       'comsol']
     blacklist: [
       '%gcc@4.4.7',
+      '%gcc@4.9.3',
       'autoconf',
       'automake',
+      'boost~mpi',
       'libtool',
       'm4',
       'py-ase',
@@ -94,6 +98,7 @@ modules:
         +openmp: openmp
         '^fftw+openmp': openmp
         +plumed: plumed
+        '^cuda': cuda
       environment:
         set:
           '{name}_ROOT': '{prefix}'
