@@ -51,6 +51,7 @@ modules:
       'm4',
       'matlab',
       'cuda',
+      'cudnn',
       'git',
       'tmux',
       'matlab',
