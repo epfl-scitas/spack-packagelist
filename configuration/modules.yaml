@@ -59,7 +59,9 @@ modules:
       'ansys',
       'totalview',
       'likwid',
-      'comsol']
+      'comsol',
+      'gaussian'
+      ]
     blacklist: [
       '%gcc@4.4.7',
       '%gcc@4.9.3',
