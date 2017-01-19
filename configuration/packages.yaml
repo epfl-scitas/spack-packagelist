@@ -46,6 +46,11 @@ packages:
     version: ['@11.3.3']
     paths:
       mkl@11.3.3%intel@16.0.3: /ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/mkl
+  gaussian:
+    buildable: False
+    version: ['@g09-D.01']
+    paths:
+      gaussian@g09-D.01%gcc@4.4.7: /ssoft/spack/external/gaussian/g09-D.01/intel-sse4.2
   matlab:
     buildable: False
     version: ['@R2016a']
