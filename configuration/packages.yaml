@@ -31,6 +31,7 @@ packages:
     version: ['@16.0.3']
     paths:
       intel@16.0.3%gcc@4.4.7: /ssoft/spack/external/intel/2016/compilers_and_libraries_2016/linux
+      intel@16.0.3%gcc@4.8.5: /ssoft/spack/external/intel/2016/compilers_and_libraries_2016/linux
   intelmpi:
     buildable: False
     version: ['@5.1.3']
