@@ -21,7 +21,7 @@ modules:
       - CMAKE_PREFIX_PATH
   tcl:
   # Intel tcl module is needed to add compiler in spack.<release>.compilers
-    intel:
+    'intel%gcc@4.4.7':
       environment:
         set:
           CC: icc
@@ -36,6 +36,19 @@ modules:
           PATH: '/ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186/bin64:/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/bin/intel64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.26-cwd2djeg3mu6sngjnb5uulbhfszvr6su/bin'
           LD_LIBRARY_PATH: '/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/compiler/lib/intel64:/ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186/lib64:/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/lib/intel64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.26-cwd2djeg3mu6sngjnb5uulbhfszvr6su/lib'
           MANPATH: /ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/man/common
+    'intel%gcc@4.8.5':
+      environment:
+        set:
+          CC: icc
+          CXX: icpc
+          FC: ifort
+          F90: ifort
+          F77: ifort
+        prepend_path:
+          PATH: '/ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186/bin64:/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/bin/intel64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.26-cwd2djeg3mu6sngjnb5uulbhfszvr6su/bin'
+          LD_LIBRARY_PATH: '/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/compiler/lib/intel64:/ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186/lib64:/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/lib/intel64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.26-cwd2djeg3mu6sngjnb5uulbhfszvr6su/lib'
+          MANPATH: /ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/man/common
+
   lmod:
     hash_length: 0
     whitelist: [
@@ -93,7 +106,7 @@ modules:
       'py-six',
       'py-sympy',
       'py-vitualenv']
-    core_compilers: ['gcc@4.4.7']
+    core_compilers: ['gcc@4.4.7', 'gcc@4.8.5']
     hierarchical_scheme: ['lapack']
     all:
       suffixes:
@@ -136,13 +149,16 @@ modules:
           F90: ifort
           F77: ifort
           AMPLXE_ROOT: /ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186
-          ICCCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl.cfg
-          ICPCCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl.cfg
-          IFORTCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl.cfg
         prepend_path:
           PATH: '/ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186/bin64:/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/bin/intel64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.26-cwd2djeg3mu6sngjnb5uulbhfszvr6su/bin'
           LD_LIBRARY_PATH: '/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/compiler/lib/intel64:/ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186/lib64:/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/lib/intel64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.26-cwd2djeg3mu6sngjnb5uulbhfszvr6su/lib'
           MANPATH: /ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/man/common
+    'intel%gcc4.4.7':
+      environment:
+        set:
+          ICCCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl.cfg
+          ICPCCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl.cfg
+          IFORTCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl.cfg
     intelmpi: # Default for Intel MPI
       environment:
         set:

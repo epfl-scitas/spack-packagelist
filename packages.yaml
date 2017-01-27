@@ -7,8 +7,12 @@ axis:
 
 combinations:
   core:
-    architecture: 'x86_E5v1_IntelIB:x86_E5v2:x86_E5v2_IntelIB:x86_E5v2_Mellanox_GPU:x86_E5v3_IntelIB'
-    compiler: 'gcc@4.4.7'
+    architecture:
+    - 'x86_E5v1_IntelIB:x86_E5v2:x86_E5v2_IntelIB:x86_E5v2_Mellanox_GPU:x86_E5v3_IntelIB'
+    - 'x86_E5v4_Mellanox'
+    compiler:
+    - 'gcc@4.4.7'
+    - 'gcc@4.8.5'
     mpi: None
     lapack: None
     python: None
