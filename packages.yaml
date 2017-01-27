@@ -26,7 +26,7 @@ combinations:
     mpi:
       - 'openmpi@1.10.2+pmi+psm+slurm+thread_multiple+sqlite3:mvapich2@2.2b+psm+slurm'
       - 'openmpi@1.10.2+pmi+psm+slurm+thread_multiple+sqlite3:mvapich2@2.2b+nemesisib+slurm'
-      - 'openmpi@1.10.2+pmi+mxm+slurm+thread_multiple+sqlite3:mvapich2@2.2b+nemesisib+slurm'
+      - 'openmpi@1.10.2+pmi~psm+slurm+thread_multiple+sqlite3:mvapich2@2.2b+nemesisib+slurm'
       - 'openmpi@1.10.2+pmi~psm+slurm+thread_multiple+sqlite3:mvapich2@2.2b+sock+slurm'
     lapack: 'openblas@0.2.18~openmp:openblas@0.2.18+openmp'
     python: 'python@3.5.1:python@2.7.11'
