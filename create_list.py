@@ -14,7 +14,7 @@ class ConfigurationFileParser(object):
 
     each of which represents a package to be installed in a given configuration
     """
-    def __init__(self, configuration):
+    def __init__(self, configuration, only=None):
         self.configuration = configuration
         self.axis = configuration['axis']
         # Check for compiler and architecture to be there
@@ -30,6 +30,7 @@ class ConfigurationFileParser(object):
                 raise RuntimeError('combination \'{0}\' doesn\'t specify all axis'.format(name))
             self.combinations[name] = self._build_combination(name, specifications)
         self.packages = configuration['packages']
+        self.only = only
 
     def _build_combination(self, name, specifications):
         # Each entry can be either a string or a list
@@ -110,6 +111,8 @@ class ConfigurationFileParser(object):
 
     def items(self):
         for name, value in self.packages.iteritems():
+            if self.only and name not in self.only:
+                continue
             for item in self._process(name, value):
                 yield item
 
@@ -134,11 +137,17 @@ parser.add_argument(
     required=True
 )
 
+parser.add_argument(
+    '--only',
+    help='generate only a part of the specs',
+    default=None
+)
+
 args = parser.parse_args()
 configuration = yaml.load(args.input)
 
 lines = []
-for item in ConfigurationFileParser(configuration).items():
+for item in ConfigurationFileParser(configuration, args.only).items():
     lines.append(item)
     print(item)
 
