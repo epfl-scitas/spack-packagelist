@@ -211,6 +211,7 @@ packages:
       - cp2k@3.0+mpi~plumed^netlib-scalapack@2.0.2^parmetis@4.0.3^metis@5.1.0+real64
       - cp2k@3.0+mpi+plumed^netlib-scalapack@2.0.2^parmetis@4.0.3^metis@5.1.0+real64^plumed@2.2.3+mpi+gsl^gsl@2.1
       - gromacs@5.1.2+mpi+pmepatch+plumed^fftw@3.3.4+mpi^plumed@2.2.3+mpi+gsl^gsl@2.1
+      - amber@16+mpi^python@2.7.11
   'mpi::lapack+openmp::gnu':
     target_matrix:
       - gnu
@@ -258,6 +259,7 @@ packages:
       - cp2k@3.0+mpi+plumed^parmetis@4.0.3^metis@5.1.0+real64^plumed@2.2.3+mpi+gsl^gsl@2.1
       - gromacs@5.1.2+mpi+pmepatch+plumed^fftw@3.3.4+mpi^plumed@2.2.3+mpi+gsl^gsl@2.1
       - nwchem@6.6
+      - amber@16+mpi^python@2.7.11
   'python::lapack+openmp':
     target_matrix:
       - gnu
