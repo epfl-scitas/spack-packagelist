@@ -107,6 +107,7 @@ modules:
       'py-qutip',
       'py-scipy',
       'py-scipy',
+      'py-scikit-learn',
       'py-setuptools',
       'py-six',
       'py-sympy',
