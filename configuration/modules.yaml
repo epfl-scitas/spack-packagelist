@@ -100,6 +100,7 @@ modules:
       'py-pbr',
       'py-pip',
       'py-ply',
+      'py-pytest',
       'py-psycopg2',
       'py-pyparsing',
       'py-pytz',
