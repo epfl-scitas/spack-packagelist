@@ -245,3 +245,10 @@ modules:
       environment:
         prepend_path:
           'PATH': '{prefix}/molprop_2015_1_linux_x86_64_i8/bin'
+    'amber@16':
+      environment:
+        set:
+          'AMBERHOME': '{prefix}/amber16'
+        prepend_path:
+          'PATH': '{prefix}/amber16/bin'
+          'LD_LIBRARY_PATH': '{prefix}/amber16/lib'
