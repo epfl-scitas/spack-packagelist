@@ -305,3 +305,10 @@ packages:
       - cuda@8.0.44
       - cudnn@5.1.cuda8 ^ cuda@8.0.44
 #     - caffe+cuda ^hdf5@1.8.16+szip ^opencv+eigen+ipp ^py-numpy+blas+lapack ^cuda@8.0.44
+  tensorflow:
+    buildable: False
+    version: ['@0.10.0rc0']
+    paths:
+      tensorflow+cuda@0.10.0rc0%gcc@5.3.0: /ssoft/spack/external/tensorflow/0.10.0rc0/tensorflow_venv_gpu 
+      tensorflow~cuda@0.10.0rc0%gcc@5.3.0: /ssoft/spack/external/tensorflow/0.10.0rc0/tensorflow_venv_cpu 
+ 
