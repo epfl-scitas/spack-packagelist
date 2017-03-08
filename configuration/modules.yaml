@@ -87,6 +87,8 @@ modules:
       'boost~mpi',
       'libtool',
       'm4',
+      'tcl',
+      'tk',
       'py-ase',
       'py-cython',
       'py-dateutil',

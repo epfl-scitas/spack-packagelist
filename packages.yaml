@@ -87,6 +87,7 @@ packages:
       - gdb@7.11
       - fftw@3.3.4
       - fftw@3.3.4+openmp
+      - nfft@3.3.2^fftw@3.3.4
       - glpk@4.57+gmp
       - gsl@2.1
       - hdf5@1.8.16+szip
@@ -98,6 +99,8 @@ packages:
       - gts@121130
       - eigen@3.2.7
       - voropp+pic@0.4.6
+      - tcl@8.6.5
+      - tk@8.6.3^tcl@8.6.5
   'serial::python':
     target_matrix:
       - gnu
@@ -214,6 +217,7 @@ packages:
       - gromacs@5.1.2+mpi+pmepatch+plumed^fftw@3.3.4+mpi^plumed@2.2.3+mpi+gsl^gsl@2.1
       - amber@16+mpi^python@2.7.11
       - lammps+lib+rigid+user-nc-dump+meam+voronoi+user-atc+manybody^netcdf@4.4.0+mpi^hdf5@1.8.16+mpi~cxx+szip^voropp+pic@0.4.6
+      - simpson@master^gsl@2.1^nfft@3.3.2^fftw@3.3.4^tk@8.6.3^tcl@8.6.5
   'mpi::lapack+openmp::gnu':
     target_matrix:
       - gnu
@@ -263,6 +267,7 @@ packages:
       - nwchem@6.6
       - amber@16+mpi^python@2.7.11
       - lammps+lib+rigid+user-nc-dump+meam+voronoi+user-atc+manybody^netcdf@4.4.0+mpi^hdf5@1.8.16+mpi~cxx+szip^voropp+pic@0.4.6
+      - simpson@master^gsl@2.1^nfft@3.3.2^fftw@3.3.4^tk@8.6.3^tcl@8.6.5
   'python::lapack+openmp':
     target_matrix:
       - gnu
