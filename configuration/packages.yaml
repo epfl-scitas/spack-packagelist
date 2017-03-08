@@ -74,10 +74,9 @@ packages:
     paths:
       totalview@8.15.10-2%gcc@4.4.7: /ssoft/spack/external/toolworks/totalview.8.15.10-2
       totalview@8.15.10-2%gcc@4.8.5: /ssoft/spack/external/toolworks/totalview.8.15.10-2
-  tensorflow:
+   tensorflow:
     buildable: False
     version: ['@0.10.0rc0']
     paths:
-      tensorflow@0.10.0rc0+cuda@7.5.18+cudnn@4.0.cuda7%gcc@5.3.0: /ssoft/spack/external/tensorflow/0.10.0rc0/tensorflow_venv_gpu 
+      tensorflow@0.10.0rc0+cuda%gcc@4.9.3^cuda@7.5.18^cudnn@4.0.cuda7: /ssoft/spack/external/tensorflow/0.10.0rc0/tensorflow_venv_gpu 
       tensorflow~cuda@0.10.0rc0%gcc@5.3.0: /ssoft/spack/external/tensorflow/0.10.0rc0/tensorflow_venv_cpu 
- 
