@@ -310,3 +310,34 @@ packages:
       - cuda@8.0.44
       - cudnn@5.1.cuda8 ^ cuda@8.0.44
 #     - caffe+cuda ^hdf5@1.8.16+szip ^opencv+eigen+ipp ^py-numpy+blas+lapack ^cuda@8.0.44
+  'cuda8::python':
+    target_matrix:
+      - gnu
+    target_filter:
+      architecture: ['x86_E5v2_Mellanox_GPU']
+      lapack: ['openblas@0.2.18+openmp']
+    requires:
+      - architecture
+      - compiler
+      - python
+      - lapack
+    specs:
+      - py-theano+cuda^py-numpy+blas+lapack@1.11.0
+  'serial~cuda8::python':
+    target_matrix:
+      - gnu
+      - intel
+    target_filter:
+      architecture: ['x86_E5v1_IntelIB',
+      'x86_E5v2_IntelIB',
+      'x86_E5v3_IntelIB',
+      'x86_E5v4_Mellanox',
+      'x86_E5v2']
+      lapack: ['openblas@0.2.18+openmp']
+    requires:
+      - architecture
+      - compiler
+      - python
+      - lapack
+    specs:
+      - py-theano~cuda^py-numpy+blas+lapack@1.11.0

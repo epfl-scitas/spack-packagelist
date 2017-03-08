@@ -113,7 +113,8 @@ modules:
       'py-setuptools',
       'py-six',
       'py-sympy',
-      'py-vitualenv']
+      'py-vitualenv',
+      'py-theano']
     core_compilers: ['gcc@4.4.7', 'gcc@4.8.5']
     hierarchical_scheme: ['lapack']
     all:
