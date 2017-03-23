@@ -67,6 +67,7 @@ packages:
       - totalview@8.15.10-2
       - comsol@5.2a
       - gaussian@g09-D.01
+      - spark@2.0.2+hadoop
   serial_intel_only:
     target_matrix:
       - intel
