@@ -76,7 +76,8 @@ modules:
       'totalview',
       'likwid',
       'comsol',
-      'gaussian'
+      'gaussian',
+      'tensorflow'
       ]
     blacklist: [
       '%gcc@4.4.7',
