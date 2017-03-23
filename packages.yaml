@@ -296,6 +296,7 @@ packages:
       - cuda@7.5.18
       - cudnn@5.1.cuda7 ^ cuda@7.5.18
       - cudnn@4.0.cuda7 ^ cuda@7.5.18
+      - tensorflow+cuda
 #     - caffe+cuda ^hdf5@1.8.16+szip ^opencv+eigen+ipp ^py-numpy+blas+lapack ^cuda@7.5.18
   cuda8:
     target_matrix:
@@ -341,3 +342,18 @@ packages:
       - lapack
     specs:
       - py-theano~cuda^py-numpy+blas+lapack@1.11.0
+  'serial::gnu::nocuda':
+    target_matrix:
+      - gnu
+    target_filter:
+      architecture:
+        - 'x86_E5v1_IntelIB'
+        - 'x86_E5v2'
+        - 'x86_E5v2_IntelIB'
+        - 'x86_E5v3_IntelIB'
+        - 'x86_E5v4_Mellanox'
+    requires:
+      - architecture
+      - compiler
+    specs:
+      - tensorflow~cuda
