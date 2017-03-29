@@ -231,6 +231,14 @@ modules:
         set:
           MKLROOT: /ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/mkl
           CMAKE_LIBRARY_PATH: /ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/mkl/lib/intel64
+    'mvapich2 arch=x86_E5v2_Mellanox_GPU':
+      environment:
+        set:
+          MV2_RNDV_PROTOCOL: R3
+    'mvapich2 arch=x86_E5v4_Mellanox':
+      environment:
+        set:
+          MV2_RNDV_PROTOCOL: R3
     'hdf5~mpi+cxx':
       environment:
         set:
