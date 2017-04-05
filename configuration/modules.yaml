@@ -131,6 +131,10 @@ modules:
       environment:
         set:
           '{name}_ROOT': '{prefix}'
+    comsol:
+      environment:
+        set:
+          MATLABPATH: '{prefix}/mli'
     cuda:
       environment:
         set:
