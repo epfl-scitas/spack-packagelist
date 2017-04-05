@@ -133,7 +133,7 @@ modules:
           '{name}_ROOT': '{prefix}'
     comsol:
       environment:
-        set:
+        prepend_path:
           MATLABPATH: '{prefix}/mli'
     cuda:
       environment:
