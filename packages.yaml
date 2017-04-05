@@ -373,5 +373,6 @@ packages:
       - architecture
       - compiler
       - lapack
+      - mpi
     specs:
       - amber@16+mpi+cuda ^python@2.7.11 ^ cuda@8.0.44
