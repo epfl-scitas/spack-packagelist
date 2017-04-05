@@ -42,6 +42,14 @@ combinations:
     mpi: None
     lapack: 'openblas@0.2.18~openmp'
     python: 'python@3.5.1:python@2.7.11'
+  gnucuda8:
+    architecture: 'x86_E5v2_Mellanox_GPU'
+    compiler: 'gcc@5.3.0'
+    mpi:
+      - 'openmpi@1.10.2+pmi+psm+slurm+thread_multiple+sqlite3'
+      - 'mvapich2@2.2b+nemesisib+slurm'
+    lapack: 'openblas@0.2.18~openmp'
+    python: 'python@3.5.1:python@2.7.11'
 
 packages:
   core:
@@ -358,3 +366,12 @@ packages:
       - compiler
     specs:
       - tensorflow~cuda
+  cuda8::lapack:
+    target_matrix:
+      - gnucuda8
+    requires:
+      - architecture
+      - compiler
+      - lapack
+    specs:
+      - amber@16+mpi+cuda ^python@2.7.11 ^ cuda@8.0.44
