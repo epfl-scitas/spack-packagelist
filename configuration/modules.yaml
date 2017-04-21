@@ -78,6 +78,7 @@ modules:
       'comsol',
       'gaussian',
       'tensorflow',
+      'scala',
       'spark',
       'hadoop',
       'jdk'
@@ -271,5 +272,7 @@ modules:
         prepend_path:
           'PATH': '{prefix}/amber16/bin'
           'LD_LIBRARY_PATH': '{prefix}/amber16/lib'
+    scala:
+      autoload: 'direct'
     spark:
       autoload: 'direct'
