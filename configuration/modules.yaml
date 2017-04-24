@@ -273,3 +273,7 @@ modules:
           'LD_LIBRARY_PATH': '{prefix}/amber16/lib'
     spark:
       autoload: 'direct'
+    opencv:
+      environment:
+        prepend_path:
+          PYTHONPATH: '{prefix}/lib/python2.7/site-packages'
