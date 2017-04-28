@@ -76,6 +76,7 @@ packages:
       - comsol@5.2a
       - gaussian@g09-D.01
       - scala@2.12.1
+      - scala@2.11.11
       - spark@2.0.2+hadoop
   serial_intel_only:
     target_matrix:
