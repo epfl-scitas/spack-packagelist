@@ -57,16 +57,16 @@ combinations:
     mpi:
       - 'openmpi@2.0.2 fabrics=pmi schedulers=slurm +thread_multiple+sqlite3:mvapich2@2.2 fabrics=mrail process_managers=slurm'
     lapack: 'openblas@0.2.18~openmp:openblas@0.2.18+openmp'
-    python: 'python@3.6.1:python@2.7.11'
+    python: 'python@3.6.1:python@2.7.13'
 
   # Intel is the stack used to build software that runs on CPUs with
   # a proprietary stack
   intel:
     architecture: 'x86_E5v1_IntelIB:x86_E5v2:x86_E5v2_IntelIB:x86_E5v3_IntelIB:x86_E5v4_Mellanox'
-    compiler: 'intel@16.0.3'
-    mpi: 'intel-mpi@5.1.3'
-    lapack: 'intel-mkl'
-    python: 'python@3.5.1:python@2.7.11'
+    compiler: 'intel@17.0.2'
+    mpi: 'intel-mpi@2017.2.174'
+    lapack: 'intel-mkl@2017.2.174'
+    python: 'python@3.6.1:python@2.7.13'
 
 
 packages:
@@ -94,8 +94,28 @@ packages:
       - totalview@8.15.10-2
       - comsol@5.2a
       - gaussian@g09-D.01
-      - scala@2.12.2
-      - spark@2.1.0+hadoop
+      - scala@2.12.2  # FIXME: missing in develop
+      - spark@2.1.0+hadoop  # FIXME: missing in develop
+
+  # List of python packages that do not require
+  # BLAS / LAPACK
+  'serial::python':
+    target_matrix:
+      - gnu-stable
+      - gnu-bleeding-edge
+      - intel
+    requires:
+      - architecture
+      - compiler
+      - python
+    specs:
+      - py-cython@0.25.2
+      - py-pip@9.0.1
+      - py-psycopg2@2.6.2 ^py-pip@9.0.1  # FIXME: missing in develop
+      - py-sympy@1.0
+      - py-ply@3.8
+      - py-virtualenv@15.1.0
+      - py-pytest@3.0.7
 
   serial_intel_only:
     target_matrix:
@@ -105,6 +125,9 @@ packages:
       - compiler
     specs:
       - abaqus@6.14-1
+
+
+
   serial:
     target_matrix:
       - gnu
@@ -132,22 +155,6 @@ packages:
       - voropp+pic@0.4.6
       - tcl@8.6.5
       - tk@8.6.3^tcl@8.6.5
-  'serial::python':
-    target_matrix:
-      - gnu
-      - intel
-    requires:
-      - architecture
-      - compiler
-      - python
-    specs:
-      - py-cython@0.23.5
-      - py-pip@8.1.2
-      - py-psycopg2@2.6.2^py-pip@8.1.2
-      - py-sympy@1.0
-      - py-ply@3.8
-      - py-virtualenv@15.0.1
-      - py-pytest@3.0.0
   'serial::gnu':
     target_matrix:
       - gnu
