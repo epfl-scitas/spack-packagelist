@@ -6,6 +6,8 @@ axis:
   - python
 
 combinations:
+
+  # Core is the matrix that is used to build software with system compilers
   core:
     architecture:
     - 'x86_E5v1_IntelIB:x86_E5v2:x86_E5v2_IntelIB:x86_E5v2_Mellanox_GPU:x86_E5v3_IntelIB'
@@ -16,42 +18,60 @@ combinations:
     mpi: None
     lapack: None
     python: None
-  gnu:
+
+  # GNU is the matrix used to build software that runs on CPUs
+  # with a FOSS stack - stable version
+  gnu-stable:
     architecture:
       - 'x86_E5v1_IntelIB:x86_E5v2_IntelIB:x86_E5v3_IntelIB'
-      - 'x86_E5v2_Mellanox_GPU'
       - 'x86_E5v4_Mellanox'
       - 'x86_E5v2'
+    compiler: 'gcc@5.4.0'
+    mpi:
+      - 'openmpi@2.0.2 fabrics=pmi,psm schedulers=slurm +thread_multiple+sqlite3:mvapich2@2.2 fabrics=psm process_managers=slurm'
+      - 'openmpi@2.0.2 fabrics=pmi schedulers=slurm +thread_multiple+sqlite3:mvapich2@2.2 fabrics=mrail process_managers=slurm'
+      - 'openmpi@2.0.2 fabrics=pmi schedulers=slurm +thread_multiple+sqlite3:mvapich2@2.2 fabrics=sock process_managers=slurm'
+    lapack: 'openblas@0.2.19~openmp:openblas@0.2.19+openmp'
+    python: 'python@3.6.1:python@2.7.13'
+
+  # GNU is the matrix used to build software that runs on CPUs
+  # with a FOSS stack - bleeding edge version
+  gnu-bleeding-edge:
+    architecture:
+      - 'x86_E5v1_IntelIB:x86_E5v2_IntelIB:x86_E5v3_IntelIB'
+      - 'x86_E5v4_Mellanox'
+      - 'x86_E5v2'
+    compiler: 'gcc@6.3.0'
+    mpi:
+      - 'openmpi@2.1.0 fabrics=pmi,psm schedulers=slurm +thread_multiple+sqlite3:mvapich2@2.3a fabrics=psm process_managers=slurm'
+      - 'openmpi@2.1.0 fabrics=pmi schedulers=slurm +thread_multiple+sqlite3:mvapich2@2.3a fabrics=mrail process_managers=slurm'
+      - 'openmpi@2.1.0 fabrics=pmi schedulers=slurm +thread_multiple+sqlite3:mvapich2@2.3a fabrics=sock process_managers=slurm'
+    lapack: 'openblas@0.2.19~openmp:openblas@0.2.19+openmp'
+    python: 'python@3.6.1:python@2.7.13'
+
+  # GNU-GPU is the matrix used to build software that runs on GPUs
+  # with a FOSS stack
+  gnu-gpu:
+    architecture: 'x86_E5v2_Mellanox_GPU'
     compiler: 'gcc@5.3.0'
     mpi:
-      - 'openmpi@1.10.2+pmi+psm+slurm+thread_multiple+sqlite3:mvapich2@2.2b+psm+slurm'
-      - 'openmpi@1.10.2+pmi+psm+slurm+thread_multiple+sqlite3:mvapich2@2.2b+nemesisib+slurm'
-      - 'openmpi@1.10.2+pmi~psm+slurm+thread_multiple+sqlite3:mvapich2@2.2b+mrail+slurm'
-      - 'openmpi@1.10.2+pmi~psm+slurm+thread_multiple+sqlite3:mvapich2@2.2b+sock+slurm'
+      - 'openmpi@2.0.2 fabrics=pmi schedulers=slurm +thread_multiple+sqlite3:mvapich2@2.2 fabrics=mrail process_managers=slurm'
     lapack: 'openblas@0.2.18~openmp:openblas@0.2.18+openmp'
-    python: 'python@3.5.1:python@2.7.11'
+    python: 'python@3.6.1:python@2.7.11'
+
+  # Intel is the stack used to build software that runs on CPUs with
+  # a proprietary stack
   intel:
-    architecture: 'x86_E5v1_IntelIB:x86_E5v2:x86_E5v2_IntelIB:x86_E5v2_Mellanox_GPU:x86_E5v3_IntelIB:x86_E5v4_Mellanox'
+    architecture: 'x86_E5v1_IntelIB:x86_E5v2:x86_E5v2_IntelIB:x86_E5v3_IntelIB:x86_E5v4_Mellanox'
     compiler: 'intel@16.0.3'
-    mpi: 'intelmpi@5.1.3'
-    lapack: 'mkl'
-    python: 'python@3.5.1:python@2.7.11'
-  gnucuda7:
-    architecture: 'x86_E5v2_Mellanox_GPU'
-    compiler: 'gcc@4.9.3'
-    mpi: None
-    lapack: 'openblas@0.2.18~openmp'
-    python: 'python@3.5.1:python@2.7.11'
-  gnucuda8:
-    architecture: 'x86_E5v2_Mellanox_GPU'
-    compiler: 'gcc@5.3.0'
-    mpi:
-      - 'openmpi@1.10.2+pmi+psm+slurm+thread_multiple+sqlite3'
-      - 'mvapich2@2.2b+nemesisib+slurm'
-    lapack: 'openblas@0.2.18~openmp'
+    mpi: 'intel-mpi@5.1.3'
+    lapack: 'intel-mkl'
     python: 'python@3.5.1:python@2.7.11'
 
+
 packages:
+
+  # List of packages that are built with core compilers
   core:
     target_matrix:
       - core
@@ -59,24 +79,24 @@ packages:
       - architecture
       - compiler
     specs:
-      - cmake@3.5.2
-      - m4@1.4.17
+      - cmake@3.8.0
+      - m4@1.4.18
       - autoconf@2.69
       - automake@1.15
       - libtool@2.4.6
-      - lmod@6.4.1
-      - gnuplot@5.0.1~wx
-      - git@2.8.1
-      - tmux@2.1
+      - lmod@7.4.8
+      - gnuplot@5.0.5~wx
+      - git@2.12.2
+      - tmux@2.4
       - matlab@R2016a
       - mathematica@9.0.1
       - ansys@17.1
-      - likwid@4.1.1
       - totalview@8.15.10-2
       - comsol@5.2a
       - gaussian@g09-D.01
-      - scala@2.12.1
-      - spark@2.0.2+hadoop
+      - scala@2.12.2
+      - spark@2.1.0+hadoop
+
   serial_intel_only:
     target_matrix:
       - intel
