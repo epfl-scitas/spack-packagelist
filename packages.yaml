@@ -148,6 +148,22 @@ packages:
       - tcl@8.6.6
       - tk@8.6.6 ^tcl@8.6.6
 
+  # Serial code that uses LAPACK
+  lapack:
+    target_matrix:
+      - gnu-stable
+      - gnu-bleeding-edge
+      - intel
+    requires:
+      - architecture
+      - compiler
+      - lapack
+    specs:
+      - arpack-ng@3.4.0~mpi
+      - r@3.3.2+external-lapack
+      - suite-sparse@4.5.5 ^metis@5.1.0+real64
+      - plumed@2.3.0~mpi+gsl ^gsl@2.3
+
   #serial_intel_only:
   #  target_matrix:
   #    - intel
@@ -165,19 +181,6 @@ packages:
   #    - compiler
   #  specs:
   #    - qt@4.8.6
-  #lapack:
-  #  target_matrix:
-  #    - gnu
-  #    - intel
-  #  requires:
-  #    - architecture
-  #    - compiler
-  #    - lapack
-  #  specs:
-  #    - arpack-ng@3.3.0~mpi
-  #    - R+external-lapack
-  #    - suite-sparse@4.5.1^metis@5.1.0+real64
-  #    - plumed@2.2.3~mpi+gsl^gsl@2.1
   #mpi:
   #  target_matrix:
   #    - gnu
