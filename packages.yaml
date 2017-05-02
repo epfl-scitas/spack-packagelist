@@ -53,10 +53,10 @@ combinations:
   # with a FOSS stack
   gnu-gpu:
     architecture: 'x86_E5v2_Mellanox_GPU'
-    compiler: 'gcc@5.3.0'
+    compiler: 'gcc@5.4.0'
     mpi:
       - 'openmpi@2.0.2 fabrics=pmi schedulers=slurm +thread_multiple+sqlite3:mvapich2@2.2 fabrics=mrail process_managers=slurm'
-    lapack: 'openblas@0.2.18~openmp:openblas@0.2.18+openmp'
+    lapack: 'openblas@0.2.19~openmp:openblas@0.2.19+openmp'
     python: 'python@3.6.1:python@2.7.13'
 
   # Intel is the stack used to build software that runs on CPUs with
@@ -164,6 +164,33 @@ packages:
       - suite-sparse@4.5.5 ^metis@5.1.0+real64
       - plumed@2.3.0~mpi+gsl ^gsl@2.3
 
+  # MPI code that doesn't use LAPACK
+  mpi:
+    target_matrix:
+      - gnu-stable
+      - gnu-bleeding-edge
+      - intel
+    requires:
+      - architecture
+      - compiler
+      - mpi
+    specs:
+      - boost@1.64.0+icu+mpi+python ^python@2.7.13
+      - fftw@3.3.6-pl2+mpi~openmp
+      - fftw@3.3.6-pl2+mpi+openmp
+      - hdf5@1.10.0-patch1+szip+mpi~cxx
+      - scotch@6.0.4+esmumps+mpi~metis
+      - scorep@3.0
+      - parmetis@4.0.3 ^metis@5.1.0+real64
+      - netcdf@4.4.1.1+mpi ^hdf5@1.10.0-patch1+szip+mpi~cxx
+      - netcdf-fortran@4.4 ^netcdf@4.4.1.1+mpi ^hdf5@1.10.0-patch1+szip+mpi~cxx
+      - cgal@4.9.1 ^boost@1.64.0+icu+mpi+python ^python@2.7.13
+      #- grackle@2.2 ^hdf5@1.10.0-patch1+szip+mpi~cxx
+      # Applications
+      - gromacs@2016.3+mpi+pmepatch ^fftw@3.3.6-pl2+mpi~openmp
+      # - swiftsim@0.3.0+mpi ^ metis@5.1.0+real64 ^ hdf5@1.8.16+mpi~cxx+szip
+      - foam-extend+metis+scotch+parmetis+ptscotch~paraview ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^python@2.7.13
+
   #serial_intel_only:
   #  target_matrix:
   #    - intel
@@ -181,30 +208,7 @@ packages:
   #    - compiler
   #  specs:
   #    - qt@4.8.6
-  #mpi:
-  #  target_matrix:
-  #    - gnu
-  #    - intel
-  #  requires:
-  #    - architecture
-  #    - compiler
-  #    - mpi
-  #  specs:
-  #    - boost@1.61.0+icu_support+mpi+python^python@2.7.11
-  #    - fftw@3.3.4+mpi~openmp
-  #    - fftw@3.3.4+mpi+openmp
-  #    - hdf5@1.8.16+mpi~cxx+szip
-  #    - scotch@6.0.3+esmumps+mpi~metis
-  #    - scorep@1.4.2
-  #    - parmetis@4.0.3^metis@5.1.0+real64
-  #    - netcdf@4.4.0+mpi^hdf5@1.8.16+mpi~cxx+szip
-  #    - netcdf-fortran@4.4.3 ^netcdf@4.4.0+mpi^hdf5@1.8.16+mpi~cxx+szip
-  #    - cgal@4.7^boost@1.61.0+icu_support+mpi+python
-  #    - grackle@2.2 ^ hdf5@1.8.16+mpi~cxx+szip
-  #    # Applications
-  #    - gromacs@5.1.2+mpi+pmepatch^fftw@3.3.4+mpi
-  #    - swiftsim@0.3.0+mpi ^ metis@5.1.0+real64 ^ hdf5@1.8.16+mpi~cxx+szip
-  #    - foam-extend+metis+scotch+parmetis+ptscotch~paraview^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis^python@2.7.11
+
   #'mpi::lapack':
   #  target_matrix:
   #    - gnu
