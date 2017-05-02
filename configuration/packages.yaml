@@ -21,7 +21,8 @@ packages:
   intel:
     buildable: False
     paths:
-      intel@17.0.2: /ssoft/spack/external/intel/2017/compilers_and_libraries_2017/linux
+      intel@17.0.2%gcc@4.4.7: /ssoft/spack/external/intel/2017/compilers_and_libraries_2017/linux
+      intel@17.0.2%gcc@4.8.5: /ssoft/spack/external/intel/2017/compilers_and_libraries_2017/linux
 
   intel-mpi:
     buildable: False
