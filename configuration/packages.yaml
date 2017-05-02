@@ -37,8 +37,8 @@ packages:
   intel-mkl:
     buildable: False
     paths:
-      mkl~openmp@2017.2.174%intel@17.0.2: /ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/mkl
-      mkl+openmp@2017.2.174%intel@17.0.2: /ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/mkl
+      intel-mkl~openmp@2017.2.174%intel@17.0.2: /ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/mkl
+      intel-mkl+openmp@2017.2.174%intel@17.0.2: /ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/mkl
 
   ####
   # Third party software
