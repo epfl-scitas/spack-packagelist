@@ -276,6 +276,9 @@ modules:
       autoload: 'direct'
     spark:
       autoload: 'direct'
+      environment:
+        prepend_path:
+          PATH: '/ssoft/spack/scripts/all/spark'
     opencv:
       environment:
         prepend_path:
