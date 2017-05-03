@@ -144,7 +144,7 @@ modules:
         '^cuda': cuda
       environment:
         set:
-          '{name}_ROOT': '{prefix}'
+          '${PACKAGE}_ROOT': '${PREFIX}'
 
     ####
     # Compilers
@@ -284,21 +284,21 @@ modules:
     'amber@16':
       environment:
         set:
-          'AMBERHOME': '{prefix}/amber16'
+          'AMBERHOME': '${PREFIX}/amber16'
         prepend_path:
-          'PATH': '{prefix}/amber16/bin'
-          'LD_LIBRARY_PATH': '{prefix}/amber16/lib'
+          'PATH': '${PREFIX}/amber16/bin'
+          'LD_LIBRARY_PATH': '${PREFIX}/amber16/lib'
 
     comsol:
       environment:
         prepend_path:
-          MATLABPATH: '{prefix}/mli'
+          MATLABPATH: '${PREFIX}/mli'
 
     cuda:
       environment:
         set:
-          CUDA_LIBRARY: '{prefix}/lib64'
-          CUDA_INCLUDE: '{prefix}/include'
+          CUDA_LIBRARY: '${PREFIX}/lib64'
+          CUDA_INCLUDE: '${PREFIX}/include'
 
     'hdf5~mpi+cxx':
       environment:
@@ -316,18 +316,18 @@ modules:
     plumed:
       environment:
         set:
-          PLUMED_KERNEL: '{prefix}/lib/libplumedKernel.so'
+          PLUMED_KERNEL: '${PREFIX}/lib/libplumedKernel.so'
         unset:
           - PLUMED_ROOT
     molpro:
       environment:
         prepend_path:
-          'PATH': '{prefix}/molprop_2015_1_linux_x86_64_i8/bin'
+          'PATH': '${PREFIX}/molprop_2015_1_linux_x86_64_i8/bin'
 
     opencv:
       environment:
         prepend_path:
-          PYTHONPATH: '{prefix}/lib/python2.7/site-packages'
+          PYTHONPATH: '${PREFIX}/lib/python2.7/site-packages'
 
     scala:
       autoload: 'direct'
