@@ -1,0 +1,9 @@
+config:
+  # Root of the installation tree
+  install_tree: /ssoft/spack/cornalin/rc1/opt
+
+  # Root of the module files
+  module_roots:
+    tcl: /ssoft/spack/cornalin/rc1/share/modules
+    lmod: /ssoft/spack/cornalin/rc1/share/lmod
+    dotkit: /ssoft/spack/cornalin/rc1/share/dotkit
