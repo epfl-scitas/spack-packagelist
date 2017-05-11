@@ -283,3 +283,8 @@ modules:
       environment:
         prepend_path:
           PYTHONPATH: '{prefix}/lib/python2.7/site-packages'
+    'cp2k %gcc':
+      environment:
+        set:
+          # This is a workaround to a bug in the build
+          OMP_NUM_THREADS=1
