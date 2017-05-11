@@ -287,4 +287,4 @@ modules:
       environment:
         set:
           # This is a workaround to a bug in the build
-          OMP_NUM_THREADS=1
+          OMP_NUM_THREADS: '1'
