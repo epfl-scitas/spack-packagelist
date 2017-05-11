@@ -220,8 +220,8 @@ packages:
       - lapack
     specs:
       - plumed@2.3.0+mpi+gsl ^gsl@2.3
-      - cp2k@4.1+mpi~plumed parmetis@4.0.3 ^metis@5.1.0+real64
-      - cp2k@4.1+mpi+plumed parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.2.3+mpi+gsl ^gsl@2.1
+      - cp2k@4.1+mpi~plumed ^parmetis@4.0.3 ^metis@5.1.0+real64
+      - cp2k@4.1+mpi+plumed ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.2.3+mpi+gsl ^gsl@2.1
 
   #serial_intel_only:
   #  target_matrix:
