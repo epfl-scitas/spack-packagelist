@@ -94,7 +94,7 @@ packages:
       - totalview@8.15.10-2
       - comsol@5.2a
       - gaussian@g09-D.01
-      - scala@2.12.2
+      - scala@2.12.1
       - spark@2.1.0+hadoop
 
   # List of python packages that do not require
