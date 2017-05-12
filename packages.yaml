@@ -205,6 +205,21 @@ packages:
     specs:
       - arpack-ng@3.4.0+mpi
 
+  # Libraries that needs both MPI and LAPACK - GNU specific
+  mpi-lapack-libraries-gnu:
+    target_matrix:
+      - gnu-stable
+      - gnu-bleeding-edge
+    requires:
+      - architecture
+      - compiler
+      - mpi
+      - lapack
+    specs:
+      - netlib-scalapack@2.0.2
+      - elpa@2016.05.004 ^netlib-scalapack@2.0.2
+
+
   ##########
   # Applications
   ##########
@@ -231,7 +246,7 @@ packages:
   #    - compiler
   #  specs:
   #    - abaqus@6.14-1
-  #
+
   #'serial::gnu':
   #  target_matrix:
   #    - gnu
@@ -241,17 +256,6 @@ packages:
   #  specs:
   #    - qt@4.8.6
 
-  #'mpi::lapack::gnu':
-  #  target_matrix:
-  #    - gnu
-  #  requires:
-  #    - architecture
-  #    - compiler
-  #    - mpi
-  #    - lapack
-  #  specs:
-  #    - netlib-scalapack@2.0.2
-  #    - elpa@2016.05.003 ^ netlib-scalapack@2.0.2
   #'serial::lapack~openmp::gnu':
   #  target_matrix:
   #    - gnu
@@ -264,6 +268,7 @@ packages:
   #  specs:
   #    - opencv+eigen+ipp^py-numpy+blas+lapack
   #    - caffe ^hdf5@1.8.16+szip ^opencv+eigen+ipp%gcc@5.3.0 ^py-numpy+blas+lapack
+
   #'mpi::lapack~openmp::gnu':
   #  target_matrix:
   #    - gnu
@@ -287,6 +292,7 @@ packages:
   #    - amber@16+mpi^python@2.7.11
   #    - lammps+lib+rigid+user-nc-dump+meam+voronoi+user-atc+manybody^netcdf@4.4.0+mpi^hdf5@1.8.16+mpi~cxx+szip^voropp+pic@0.4.6
   #    - simpson@master^gsl@2.1^nfft@3.3.2^fftw@3.3.4^tk@8.6.3^tcl@8.6.5
+
   #'mpi::lapack+openmp::gnu':
   #  target_matrix:
   #    - gnu
@@ -313,6 +319,7 @@ packages:
   #    - lapack
   #  specs:
   #    - nwchem@6.6^netlib-scalapack@2.0.2
+
   #'mpi::lapack::intel':
   #  target_matrix:
   #    - intel
@@ -352,6 +359,7 @@ packages:
   #    - py-qutip+f90mc@3.1.0^py-scipy@0.17.0^py-numpy+blas+lapack@1.11.0^py-cython@0.23.5
   #    - py-ase+matplotlib+scipy@3.11.0^py-matplotlib@1.4.3^py-numpy+blas+lapack@1.11.0
   #    - py-scikit-learn ^ py-scipy@0.17.0^py-numpy+blas+lapack@1.11.0
+
   #cuda7:
   #  target_matrix:
   #    - gnucuda7
@@ -364,6 +372,7 @@ packages:
   #    - cudnn@4.0.cuda7 ^ cuda@7.5.18
   #    - tensorflow+cuda
 # #    - caffe+cuda ^hdf5@1.8.16+szip ^opencv+eigen+ipp ^py-numpy+blas+lapack ^cuda@7.5.18
+
   #cuda8:
   #  target_matrix:
   #    - gnu
@@ -377,6 +386,7 @@ packages:
   #    - cuda@8.0.44
   #    - cudnn@5.1.cuda8 ^ cuda@8.0.44
 # #    - caffe+cuda ^hdf5@1.8.16+szip ^opencv+eigen+ipp ^py-numpy+blas+lapack ^cuda@8.0.44
+
   #'cuda8::python':
   #  target_matrix:
   #    - gnu
@@ -423,6 +433,7 @@ packages:
   #    - compiler
   #  specs:
   #    - tensorflow~cuda
+
   #cuda8::lapack:
   #  target_matrix:
   #    - gnucuda8
