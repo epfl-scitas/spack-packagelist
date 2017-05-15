@@ -268,7 +268,6 @@ packages:
     requires:
       - architecture
       - compiler
-      - mpi
       - lapack
     specs:
       - r@3.3.2+external-lapack
