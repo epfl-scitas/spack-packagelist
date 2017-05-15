@@ -185,7 +185,6 @@ packages:
       - arpack-ng@3.4.0~mpi
       # - r@3.3.2+external-lapack # FIXME: move this elsewhere, like in application
       - suite-sparse@4.5.5 ^metis@5.1.0+real64
-      - plumed@2.3.0~mpi+gsl ^gsl@2.3
 
   # MPI code that doesn't use LAPACK
   mpi:
