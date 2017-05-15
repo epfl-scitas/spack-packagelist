@@ -183,7 +183,6 @@ packages:
       - lapack
     specs:
       - arpack-ng@3.4.0~mpi
-      # - r@3.3.2+external-lapack # FIXME: move this elsewhere, like in application
       - suite-sparse@4.5.5 ^metis@5.1.0+real64
 
   # MPI code that doesn't use LAPACK
@@ -261,6 +260,19 @@ packages:
       - cp2k@4.1+mpi~plumed ^parmetis@4.0.3 ^metis@5.1.0+real64
       - cp2k@4.1+mpi+plumed ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.2.3+mpi+gsl ^gsl@2.3
       - nwchem@6.6
+
+  # Serial applications built with the Intel stack that use LAPACK
+  intel-lapack-applications:
+    target_matrix:
+      - intel
+    requires:
+      - architecture
+      - compiler
+      - mpi
+      - lapack
+    specs:
+      - r@3.3.2+external-lapack
+
 
   # MPI applications built with the GNU stable stack that use LAPACK
   gnu-mpi-lapack-applications:
