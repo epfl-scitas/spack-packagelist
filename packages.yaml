@@ -183,7 +183,7 @@ packages:
       - lapack
     specs:
       - arpack-ng@3.4.0~mpi
-      - r@3.3.2+external-lapack
+      # - r@3.3.2+external-lapack # FIXME: move this elsewhere, like in application
       - suite-sparse@4.5.5 ^metis@5.1.0+real64
       - plumed@2.3.0~mpi+gsl ^gsl@2.3
 
@@ -260,7 +260,29 @@ packages:
     specs:
       - plumed@2.3.0+mpi+gsl ^gsl@2.3
       - cp2k@4.1+mpi~plumed ^parmetis@4.0.3 ^metis@5.1.0+real64
-      - cp2k@4.1+mpi+plumed ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.2.3+mpi+gsl ^gsl@2.1
+      - cp2k@4.1+mpi+plumed ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.2.3+mpi+gsl ^gsl@2.3
+      - nwchem@6.6
+
+  # MPI applications built with the GNU stable stack that use LAPACK
+  gnu-mpi-lapack-applications:
+    target_matrix:
+      - gnu-stable
+    target_filter:
+      lapack: ['openblas@0.2.19~openmp']
+      mpi:
+        - 'mvapich2@2.2 fabrics=psm process_managers=slurm'
+        - 'mvapich2@2.2 fabrics=mrail process_managers=slurm'
+        - 'mvapich2@2.2 fabrics=sock process_managers=slurm'
+    requires:
+      - architecture
+      - compiler
+      - mpi
+      - lapack
+    specs:
+      - plumed@2.3.0+mpi+gsl ^gsl@2.3
+      - cp2k@4.1+mpi~plumed ^netlib-scalapack@2.0.2 ^parmetis@4.0.3 ^metis@5.1.0+real64
+      - cp2k@4.1+mpi+plumed ^netlib-scalapack@2.0.2 ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.2.3+mpi+gsl ^gsl@2.3
+      - nwchem@6.6 ^netlib-scalapack@2.0.2
 
   #serial_intel_only:
   #  target_matrix:
@@ -304,14 +326,11 @@ packages:
   #    - mpi
   #    - lapack
   #  specs:
-  #    - plumed@2.2.3+mpi+gsl^gsl@2.1
   #    - espresso@5.4.0+mpi+scalapack^fftw@3.3.4+mpi~openmp^netlib-scalapack@2.0.2
   #    - gmsh@2.14.1+mpi+hdf5+fltk~compression^hdf5@1.8.16+mpi~cxx+szip
   #    - mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis^netlib-scalapack@2.0.2
   #    - petsc@3.6.3+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre^hdf5@1.8.16+mpi~cxx+szip^mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis^netlib-scalapack@2.0.2^boost@1.61.0+icu_support+mpi+python^python@2.7.11
   #    - fenics@2016.1.0+petsc+hdf5~trilinos+suite-sparse+mpi^petsc@3.6.3+double+hdf5+metis+mpi+mumps~superlu-dist~hypre+boost^hdf5@1.8.16+mpi~cxx+szip^mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis^netlib-scalapack@2.0.2^boost@1.61.0+icu_support+mpi+python^python@2.7.11^eigen@3.2.7^suite-sparse@4.5.1
-  #    - cp2k@4.1+mpi~plumed ^netlib-scalapack@2.0.2^parmetis@4.0.3^metis@5.1.0+real64
-  #    - cp2k@4.1+mpi+plumed ^netlib-scalapack@2.0.2^parmetis@4.0.3^metis@5.1.0+real64^plumed@2.2.3+mpi+gsl^gsl@2.1
   #    - gromacs@5.1.2+mpi+pmepatch+plumed^fftw@3.3.4+mpi^plumed@2.2.3+mpi+gsl^gsl@2.1
   #    - amber@16+mpi^python@2.7.11
   #    - lammps+lib+rigid+user-nc-dump+meam+voronoi+user-atc+manybody^netcdf@4.4.0+mpi^hdf5@1.8.16+mpi~cxx+szip^voropp+pic@0.4.6
@@ -330,6 +349,7 @@ packages:
   #  specs:
   #    - paraview+mpi+osmesa+qt+python@5.1.2^py-matplotlib@1.4.3^py-numpy+blas+lapack@1.11.0^qt@4.8.6^python@2.7.11
   #    - gpaw+mpi@1.1.0^py-numpy+blas+lapack@1.11.0^netlib-scalapack@2.0.2^python@2.7.11^py-ase@3.11.0
+
   #'mvapich2::lapack~openmp::gnu':
   #  target_matrix:
   #    - gnu
