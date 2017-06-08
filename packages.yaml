@@ -304,6 +304,15 @@ packages:
     specs:
       - cuda@8.0.61
 
+  gnu-gpu-mpi-applications:
+    target_matrix:
+      - gnu-gpu
+    requires:
+      - architecture
+      - compiler
+      - mpi
+    specs:
+      - relion@2.0.3+cuda+double+double-gpu+gui ^fftw@3.3.6-pl2+mpi~openmp ^cuda@8.0.61
 
   #serial_intel_only:
   #  target_matrix:
