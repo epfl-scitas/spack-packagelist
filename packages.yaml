@@ -206,7 +206,6 @@ packages:
       - netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx
       - netcdf-fortran@4.4 ^netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx
       - cgal@4.9.1 ^boost@1.64.0+icu+mpi+python ^python@2.7.13
-      #- grackle@2.2 ^hdf5@1.10.1+szip+mpi~cxx
       # Applications
       - gromacs@2016.3+mpi+pmepatch ^fftw@3.3.6-pl2+mpi~openmp # FIXME: lacks pmepatch
       - foam-extend+metis+scotch+parmetis+ptscotch~paraview ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^python@2.7.13
@@ -293,7 +292,7 @@ packages:
       - cp2k@4.1+mpi~plumed ^netlib-scalapack@2.0.2 ^parmetis@4.0.3 ^metis@5.1.0+real64
       - cp2k@4.1+mpi+plumed ^netlib-scalapack@2.0.2 ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.3.0+mpi+gsl ^gsl@2.3
       - nwchem@6.6 ^netlib-scalapack@2.0.2 ^python@2.7.13
-      - abinit@8.2.2~hdf5~openmp+scalapack ^fftw@3.3.6-pl2+mpi~openmp ^netlib-scalapack@2.0.2
+      - abinit@8.2.2~hdf5~openmp+mpi+scalapack ^fftw@3.3.6-pl2+mpi~openmp ^netlib-scalapack@2.0.2
 
   gnu-gpu-serial:
     target_matrix:
