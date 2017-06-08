@@ -239,6 +239,16 @@ packages:
       - netlib-scalapack@2.0.2
       - elpa@2016.05.004 ^netlib-scalapack@2.0.2
 
+  mpi-lapack-libraries-intel:
+    target_matrix:
+      - intel
+    requires:
+      - architecture
+      - compiler
+      - mpi
+      - lapack
+    specs:
+      - elpa@2016.05.004
 
 
   ##########
@@ -378,20 +388,6 @@ packages:
   #  specs:
   #    - paraview+mpi+osmesa+qt+python@5.1.2^py-matplotlib@1.4.3^py-numpy+blas+lapack@1.11.0^qt@4.8.6^python@2.7.11
   #    - gpaw+mpi@1.1.0^py-numpy+blas+lapack@1.11.0^netlib-scalapack@2.0.2^python@2.7.11^py-ase@3.11.0
-
-  #'mvapich2::lapack~openmp::gnu':
-  #  target_matrix:
-  #    - gnu
-  #  target_filter:
-  #    lapack: ['openblas@0.2.18~openmp']
-  #    mpi: ['mvapich2@2.2b+psm+slurm', 'mvapich2@2.2b+nemesisib+slurm', 'mvapich2@2.2b+sock+slurm']
-  #  requires:
-  #    - architecture
-  #    - compiler
-  #    - mpi
-  #    - lapack
-  #  specs:
-  #    - nwchem@6.6^netlib-scalapack@2.0.2
 
   #'mpi::lapack::intel':
   #  target_matrix:
