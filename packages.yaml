@@ -166,7 +166,6 @@ packages:
       - netcdf@4.4.1.1~mpi ^hdf5@1.10.1+szip~mpi
       - netcdf-fortran@4.4.4 ^netcdf@4.4.1.1~mpi ^hdf5@1.10.1+szip~mpi
       - gts@121130
-      - eigen@3.3.1
       - voropp+pic@0.4.6
       - tcl@8.6.6
       - tk@8.6.6 ^tcl@8.6.6
@@ -238,6 +237,7 @@ packages:
     specs:
       - netlib-scalapack@2.0.2
       - elpa@2016.05.004 ^netlib-scalapack@2.0.2
+      - eigen@3.3.1
 
   mpi-lapack-libraries-intel:
     target_matrix:
@@ -249,7 +249,7 @@ packages:
       - lapack
     specs:
       - elpa@2016.05.004
-
+      - eigen@3.3.1
 
   ##########
   # Applications
