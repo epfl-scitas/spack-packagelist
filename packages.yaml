@@ -56,7 +56,7 @@ combinations:
     compiler: 'gcc@5.4.0'
     mpi:
       - 'openmpi@2.0.2 fabrics=pmi schedulers=slurm +thread_multiple+sqlite3:mvapich2@2.2 fabrics=mrail process_managers=slurm'
-    lapack: 'openblas@0.2.19~openmp:openblas@0.2.19+openmp'
+    lapack: 'openblas@0.2.19~openmp'
     python: 'python@3.6.1:python@2.7.13'
 
   # Intel is the stack used to build software that runs on CPUs with
@@ -259,7 +259,7 @@ packages:
       - plumed@2.3.0+mpi+gsl ^gsl@2.3
       - cp2k@4.1+mpi~plumed ^parmetis@4.0.3 ^metis@5.1.0+real64
       - cp2k@4.1+mpi+plumed ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.3.0+mpi+gsl ^gsl@2.3
-      - nwchem@6.6
+      # - nwchem@6.6 ^python@2.7.13
 
   # Serial applications built with the Intel stack that use LAPACK
   intel-lapack-applications:
@@ -292,7 +292,18 @@ packages:
       - plumed@2.3.0+mpi+gsl ^gsl@2.3
       - cp2k@4.1+mpi~plumed ^netlib-scalapack@2.0.2 ^parmetis@4.0.3 ^metis@5.1.0+real64
       - cp2k@4.1+mpi+plumed ^netlib-scalapack@2.0.2 ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.3.0+mpi+gsl ^gsl@2.3
-      - nwchem@6.6 ^netlib-scalapack@2.0.2
+      - nwchem@6.6 ^netlib-scalapack@2.0.2 ^python@2.7.13
+      - abinit@8.2.2~hdf5~openmp+scalapack ^fftw@3.3.6-pl2+mpi~openmp ^netlib-scalapack@2.0.2
+
+  gnu-gpu-serial:
+    target_matrix:
+      - gnu-gpu
+    requires:
+      - architecture
+      - compiler
+    specs:
+      - cuda@8.0.61
+
 
   #serial_intel_only:
   #  target_matrix:
