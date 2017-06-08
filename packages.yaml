@@ -237,7 +237,7 @@ packages:
     specs:
       - netlib-scalapack@2.0.2
       - elpa@2016.05.004 ^netlib-scalapack@2.0.2
-      - eigen@3.3.1
+      - eigen@3.3.1~debug+fftw+metis+mpfr+scotch+suitesparse ^fftw@3.3.6-pl2+mpi~openmp
 
   mpi-lapack-libraries-intel:
     target_matrix:
