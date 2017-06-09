@@ -326,6 +326,18 @@ packages:
     specs:
       - cuda@8.0.61
 
+  gnu-gpu-python-lapack:
+    target_matrix:
+      - gnu-gpu
+    requires:
+      - architecture
+      - compiler
+      - python
+      - lapack
+    specs:
+      - py-theano@0.8.2+gpu ^py-scipy@0.19.0 ^py-numpy+blas+lapack@1.12.1 ^cuda@8.0.61
+
+
   gnu-gpu-mpi-applications:
     target_matrix:
       - gnu-gpu
@@ -451,20 +463,6 @@ packages:
   #    - cuda@8.0.44
   #    - cudnn@5.1.cuda8 ^ cuda@8.0.44
 # #    - caffe+cuda ^hdf5@1.8.16+szip ^opencv+eigen+ipp ^py-numpy+blas+lapack ^cuda@8.0.44
-
-  #'cuda8::python':
-  #  target_matrix:
-  #    - gnu
-  #  target_filter:
-  #    architecture: ['x86_E5v2_Mellanox_GPU']
-  #    lapack: ['openblas@0.2.18+openmp']
-  #  requires:
-  #    - architecture
-  #    - compiler
-  #    - python
-  #    - lapack
-  #  specs:
-  #    - py-theano+cuda^py-numpy+blas+lapack@1.11.0
 
   #'serial::gnu::nocuda':
   #  target_matrix:
