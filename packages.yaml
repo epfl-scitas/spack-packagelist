@@ -138,7 +138,7 @@ packages:
       # - py-qutip+f90mc@3.1.0^py-scipy@0.17.0^py-numpy+blas+lapack@1.11.0^py-cython@0.23.5
       # - py-ase+matplotlib+scipy@3.11.0^py-matplotlib@1.4.3^py-numpy+blas+lapack@1.11.0
       - py-scikit-learn@0.18.1 ^py-scipy@0.19.0 ^py-numpy+blas+lapack@1.12.1
-
+      - py-theano@0.8.2~gpu ^py-scipy@0.19.0 ^py-numpy+blas+lapack@1.12.1
 
   # Code compiled with all the stacks that does not require
   # MPI or LAPACK
@@ -252,7 +252,7 @@ packages:
       - eigen@3.3.1~debug+fftw+metis+mpfr+scotch+suitesparse ^fftw@3.3.6-pl2+mpi~openmp
 
   ##########
-  # Applications
+  # Applications / Frameworks
   ##########
 
   # MPI applications built with the Intel stack that use LAPACK
@@ -282,6 +282,15 @@ packages:
       - r@3.3.2+external-lapack
 
 
+  gnu-serial-applications:
+    target_matrix:
+      - gnu-stable
+    requires:
+      - architecture
+      - compiler
+    specs:
+      - qt@4.8.6
+
   # MPI applications built with the GNU stable stack that use LAPACK
   gnu-mpi-lapack-applications:
     target_matrix:
@@ -303,6 +312,10 @@ packages:
       - cp2k@4.1+mpi+plumed ^netlib-scalapack@2.0.2 ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.3.0+mpi+gsl ^gsl@2.3
       - nwchem@6.6 ^netlib-scalapack@2.0.2 ^python@2.7.13
       - abinit@8.2.2~hdf5~openmp+mpi+scalapack ^fftw@3.3.6-pl2+mpi~openmp ^netlib-scalapack@2.0.2
+
+  ##########
+  # GPU Nodes
+  ##########
 
   gnu-gpu-serial:
     target_matrix:
@@ -339,6 +352,7 @@ packages:
   #    - architecture
   #    - compiler
   #  specs:
+  #  FIXME
   #    - qt@4.8.6
 
   #'serial::lapack~openmp::gnu':
@@ -451,25 +465,6 @@ packages:
   #    - lapack
   #  specs:
   #    - py-theano+cuda^py-numpy+blas+lapack@1.11.0
-
-  #'serial~cuda8::python':
-  #  target_matrix:
-  #    - gnu
-  #    - intel
-  #  target_filter:
-  #    architecture: ['x86_E5v1_IntelIB',
-  #    'x86_E5v2_IntelIB',
-  #    'x86_E5v3_IntelIB',
-  #    'x86_E5v4_Mellanox',
-  #    'x86_E5v2']
-  #    lapack: ['openblas@0.2.18+openmp']
-  #  requires:
-  #    - architecture
-  #    - compiler
-  #    - python
-  #    - lapack
-  #  specs:
-  #    - py-theano~cuda^py-numpy+blas+lapack@1.11.0
 
   #'serial::gnu::nocuda':
   #  target_matrix:
