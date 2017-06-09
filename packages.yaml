@@ -206,8 +206,8 @@ packages:
       - netcdf-fortran@4.4 ^netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx
       - cgal@4.9.1 ^boost@1.64.0+icu+mpi+python ^python@2.7.13
       # Applications
-      - gromacs@2016.3+mpi+pmepatch ^fftw@3.3.6-pl2+mpi~openmp # FIXME: lacks pmepatch
-      - foam-extend+metis+scotch+parmetis+ptscotch~paraview ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^python@2.7.13
+      #- gromacs@2016.3+mpi+pmepatch ^fftw@3.3.6-pl2+mpi~openmp # FIXME: lacks pmepatch
+      #- foam-extend+metis+scotch+parmetis+ptscotch~paraview ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^python@2.7.13
 
 
   # Libraries that needs both MPI and LAPACK
@@ -312,6 +312,7 @@ packages:
       - cp2k@4.1+mpi+plumed ^netlib-scalapack@2.0.2 ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.3.0+mpi+gsl ^gsl@2.3
       - nwchem@6.6 ^netlib-scalapack@2.0.2 ^python@2.7.13
       - abinit@8.2.2~hdf5~openmp+mpi+scalapack ^fftw@3.3.6-pl2+mpi~openmp ^netlib-scalapack@2.0.2
+      - espresso@6.1.0+mpi+scalapack ^fftw@3.3.6-pl2+mpi~openmp ^netlib-scalapack@2.0.2
 
   ##########
   # GPU Nodes
@@ -325,6 +326,7 @@ packages:
       - compiler
     specs:
       - cuda@8.0.61
+      - cudnn@6.0 ^cuda@8.0.61
 
   gnu-gpu-python-lapack:
     target_matrix:
@@ -356,16 +358,6 @@ packages:
   #    - compiler
   #  specs:
   #    - abaqus@6.14-1
-
-  #'serial::gnu':
-  #  target_matrix:
-  #    - gnu
-  #  requires:
-  #    - architecture
-  #    - compiler
-  #  specs:
-  #  FIXME
-  #    - qt@4.8.6
 
   #'serial::lapack~openmp::gnu':
   #  target_matrix:
@@ -444,9 +436,6 @@ packages:
   #    - architecture
   #    - compiler
   #  specs:
-  #    - cuda@7.5.18
-  #    - cudnn@5.1.cuda7 ^ cuda@7.5.18
-  #    - cudnn@4.0.cuda7 ^ cuda@7.5.18
   #    - tensorflow+cuda
 # #    - caffe+cuda ^hdf5@1.8.16+szip ^opencv+eigen+ipp ^py-numpy+blas+lapack ^cuda@7.5.18
 
@@ -460,9 +449,7 @@ packages:
   #    - architecture
   #    - compiler
   #  specs:
-  #    - cuda@8.0.44
-  #    - cudnn@5.1.cuda8 ^ cuda@8.0.44
-# #    - caffe+cuda ^hdf5@1.8.16+szip ^opencv+eigen+ipp ^py-numpy+blas+lapack ^cuda@8.0.44
+  #    - caffe+cuda ^hdf5@1.8.16+szip ^opencv+eigen+ipp ^py-numpy+blas+lapack ^cuda@8.0.44
 
   #'serial::gnu::nocuda':
   #  target_matrix:
