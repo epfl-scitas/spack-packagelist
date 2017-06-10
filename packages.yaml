@@ -205,10 +205,6 @@ packages:
       - netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx
       - netcdf-fortran@4.4 ^netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx
       - cgal@4.9.1 ^boost@1.64.0+icu+mpi+python ^python@2.7.13
-      # Applications
-      #- gromacs@2016.3+mpi+pmepatch ^fftw@3.3.6-pl2+mpi~openmp # FIXME: lacks pmepatch
-      #- foam-extend+metis+scotch+parmetis+ptscotch~paraview ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^python@2.7.13
-
 
   # Libraries that needs both MPI and LAPACK
   mpi-lapack-libraries:
@@ -238,6 +234,9 @@ packages:
       - netlib-scalapack@2.0.2
       - elpa@2016.05.004 ^netlib-scalapack@2.0.2
       - eigen@3.3.1~debug+fftw+metis+mpfr+scotch+suitesparse ^fftw@3.3.6-pl2+mpi~openmp
+      # FIXME: - mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^netlib-scalapack@2.0.2
+      # TODO: - petsc@3.6.3+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre ^hdf5@1.8.16+mpi~cxx+szip ^mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^netlib-scalapack@2.0.2 ^boost@1.64.0+icu+mpi+python ^python@2.7.13
+
 
   mpi-lapack-libraries-intel:
     target_matrix:
@@ -254,6 +253,18 @@ packages:
   ##########
   # Applications / Frameworks
   ##########
+
+  # MPI applications built with the Intel stack
+  intel-mpi-applications:
+    target_matrix:
+      - intel
+    requires:
+      - architecture
+      - compiler
+      - mpi
+    specs:
+      - gromacs@2016.3+mpi ^fftw@3.3.6-pl2+mpi~openmp
+      # FIXME:- foam-extend+metis+scotch+parmetis+ptscotch~paraview ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^python@2.7.13
 
   # MPI applications built with the Intel stack that use LAPACK
   intel-mpi-lapack-applications:
@@ -281,7 +292,7 @@ packages:
     specs:
       - r@3.3.2+external-lapack
 
-
+  # Serial applications built with the GNU stable stack
   gnu-serial-applications:
     target_matrix:
       - gnu-stable
@@ -290,6 +301,22 @@ packages:
       - compiler
     specs:
       - qt@4.8.6
+
+  # MPI applications built with the GNU stable stack that use LAPACK
+  gnu-mpi-lapack-applications:
+    target_matrix:
+      - gnu-stable
+    target_filter:
+      mpi:
+        - 'mvapich2@2.2 fabrics=psm process_managers=slurm'
+        - 'mvapich2@2.2 fabrics=mrail process_managers=slurm'
+        - 'mvapich2@2.2 fabrics=sock process_managers=slurm'
+    requires:
+      - architecture
+      - compiler
+      - mpi
+    specs:
+      - gromacs@2016.3+mpi ^fftw@3.3.6-pl2+mpi~openmp
 
   # MPI applications built with the GNU stable stack that use LAPACK
   gnu-mpi-lapack-applications:
@@ -385,8 +412,6 @@ packages:
   #  specs:
   #    - espresso@5.4.0+mpi+scalapack^fftw@3.3.4+mpi~openmp^netlib-scalapack@2.0.2
   #    - gmsh@2.14.1+mpi+hdf5+fltk~compression^hdf5@1.8.16+mpi~cxx+szip
-  #    - mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis^netlib-scalapack@2.0.2
-  #    - petsc@3.6.3+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre^hdf5@1.8.16+mpi~cxx+szip^mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis^netlib-scalapack@2.0.2^boost@1.61.0+icu_support+mpi+python^python@2.7.11
   #    - fenics@2016.1.0+petsc+hdf5~trilinos+suite-sparse+mpi^petsc@3.6.3+double+hdf5+metis+mpi+mumps~superlu-dist~hypre+boost^hdf5@1.8.16+mpi~cxx+szip^mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis^netlib-scalapack@2.0.2^boost@1.61.0+icu_support+mpi+python^python@2.7.11^eigen@3.2.7^suite-sparse@4.5.1
   #    - gromacs@5.1.2+mpi+pmepatch+plumed^fftw@3.3.4+mpi^plumed@2.2.3+mpi+gsl^gsl@2.1
   #    - amber@16+mpi^python@2.7.11
