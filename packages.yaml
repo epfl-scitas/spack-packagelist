@@ -279,7 +279,7 @@ packages:
       - plumed@2.3.0+mpi+gsl ^gsl@2.3
       - cp2k@4.1+mpi~plumed ^parmetis@4.0.3 ^metis@5.1.0+real64
       - cp2k@4.1+mpi+plumed ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.3.0+mpi+gsl ^gsl@2.3
-      # - nwchem@6.6 ^python@2.7.13
+      # TODO: - nwchem@6.6 ^python@2.7.13
 
   # Serial applications built with the Intel stack that use LAPACK
   intel-lapack-applications:
@@ -302,8 +302,8 @@ packages:
     specs:
       - qt@4.8.6
 
-  # MPI applications built with the GNU stable stack that use LAPACK
-  gnu-mpi-lapack-applications:
+  # MPI applications built with the GNU stable stack
+  gnu-mpi-applications:
     target_matrix:
       - gnu-stable
     target_filter:
