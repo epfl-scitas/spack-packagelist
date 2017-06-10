@@ -254,6 +254,16 @@ packages:
   # Applications / Frameworks
   ##########
 
+  # Serial applications built with the Intel stack
+  intel-serial-applications:
+    target_matrix:
+      - intel
+    requires:
+      - architecture
+      - compiler
+    specs:
+      - qt@4.8.6
+
   # MPI applications built with the Intel stack
   intel-mpi-applications:
     target_matrix:
