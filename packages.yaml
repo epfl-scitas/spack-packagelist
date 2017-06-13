@@ -203,7 +203,7 @@ packages:
       - scorep@3.0
       - parmetis@4.0.3 ^metis@5.1.0+real64
       - netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx
-      - netcdf-fortran@4.4 ^netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx
+      - netcdf-fortran@4.4.4 ^netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx
       - cgal@4.9.1 ^boost@1.64.0+icu+mpi+python ^python@2.7.13
 
   # Libraries that needs both MPI and LAPACK
@@ -312,6 +312,19 @@ packages:
       - compiler
     specs:
       - qt@4.8.6
+
+  # Serial applications built with the GNU stable stack that use LAPACK
+  gnu-lapack-applications:
+    target_matrix:
+      - gnu-stable
+    target_filter:
+      lapack: ['openblas@0.2.19~openmp']
+    requires:
+      - architecture
+      - compiler
+      - lapack
+    specs:
+      - opencv+qt+vtk ^qt@4.8.6
 
   # MPI applications built with the GNU stable stack
   gnu-mpi-applications:
