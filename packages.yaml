@@ -263,6 +263,7 @@ packages:
       - compiler
     specs:
       - qt@4.8.6
+      - opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6
 
   # MPI applications built with the Intel stack
   intel-mpi-applications:
@@ -312,19 +313,7 @@ packages:
       - compiler
     specs:
       - qt@4.8.6
-
-  # Serial applications built with the GNU stable stack that use LAPACK
-  gnu-lapack-applications:
-    target_matrix:
-      - gnu-stable
-    target_filter:
-      lapack: ['openblas@0.2.19~openmp']
-    requires:
-      - architecture
-      - compiler
-      - lapack
-    specs:
-      - opencv+qt+vtk ^qt@4.8.6
+      - opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6
 
   # MPI applications built with the GNU stable stack
   gnu-mpi-applications:
@@ -420,7 +409,6 @@ packages:
   #    - compiler
   #    - lapack
   #  specs:
-  #    - opencv+eigen+ipp^py-numpy+blas+lapack
   #    - caffe ^hdf5@1.8.16+szip ^opencv+eigen+ipp%gcc@5.3.0 ^py-numpy+blas+lapack
 
   #'mpi::lapack~openmp::gnu':
