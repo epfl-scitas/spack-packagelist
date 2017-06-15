@@ -291,6 +291,7 @@ packages:
       - cp2k@4.1+mpi~plumed ^parmetis@4.0.3 ^metis@5.1.0+real64
       - cp2k@4.1+mpi+plumed ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.3.0+mpi+gsl ^gsl@2.3
       - espresso@6.1.0+mpi+scalapack ^fftw@3.3.6-pl2+mpi~openmp
+      - namd fftw=mkl interface=python @2.12 ^ charm backend=mpi @6.7.1 ^ python@2.7.13 ^ tcl@8.6.6
       # TODO: - nwchem@6.6 ^python@2.7.13
 
   # Serial applications built with the Intel stack that use LAPACK
@@ -330,6 +331,7 @@ packages:
       - mpi
     specs:
       - gromacs@2016.3+mpi ^fftw@3.3.6-pl2+mpi~openmp
+      - namd fftw=3 interface=python @2.12 ^ charm backend=mpi @6.7.1 ^ fftw@3.3.6-pl2 ^ python@2.7.13 ^ tcl@8.6.6
 
   # MPI applications built with the GNU stable stack that use LAPACK
   gnu-mpi-lapack-applications:
