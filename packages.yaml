@@ -360,7 +360,7 @@ packages:
       - nwchem@6.6 ^netlib-scalapack@2.0.2 ^python@2.7.13
       - abinit@8.2.2~hdf5~openmp+mpi+scalapack ^fftw@3.3.6-pl2+mpi~openmp ^netlib-scalapack@2.0.2
       - espresso@6.1.0+mpi+scalapack ^fftw@3.3.6-pl2+mpi~openmp ^netlib-scalapack@2.0.2
-      - caffe@1.0+python+opencv  ^hdf5@1.10.1+szip+mpi~cxx ^opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6 ^py-numpy+blas+lapack@1.12.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
+      # TODO: - caffe@1.0+python+opencv  ^hdf5@1.10.1+szip+mpi~cxx ^opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6 ^py-numpy+blas+lapack@1.12.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
       # TODO: - amber@16+mpi ^py-scipy@0.19.0 ^py-matplotlib@2.0.0 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13
       # TODO: - gmsh@3.0.1+mpi+hdf5+fltk+compression ^hdf5@1.10.1+szip+mpi~cxx
 
@@ -410,6 +410,7 @@ packages:
       - mpi
     specs:
       - amber@16+mpi+cuda ^py-scipy@0.19.0 ^py-matplotlib@2.0.0 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13 ^cuda@8.0.61
+      # TODO: - caffe@1.0+python+opencv+cuda  ^hdf5@1.10.1+szip+mpi~cxx ^opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6 ^py-numpy+blas+lapack@1.12.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13 ^cuda@8.0.61
 
   #'mpi::lapack~openmp::gnu':
   #  target_matrix:
@@ -455,15 +456,3 @@ packages:
   #    - molpro@2015-12-18+int8~openmp
   #    - lammps+lib+rigid+user-nc-dump+meam+voronoi+user-atc+manybody^netcdf@4.4.0+mpi^hdf5@1.8.16+mpi~cxx+szip^voropp+pic@0.4.6
   #    - simpson@master^gsl@2.1^nfft@3.3.2^fftw@3.3.4^tk@8.6.3^tcl@8.6.5
-
-  #cuda8:
-  #  target_matrix:
-  #    - gnu
-  #  target_filter:
-  #    architecture: ['x86_E5v2_Mellanox_GPU']
-  #    lapack: ['openblas@0.2.18~openmp']
-  #  requires:
-  #    - architecture
-  #    - compiler
-  #  specs:
-  #    - caffe+cuda ^hdf5@1.8.16+szip ^opencv+eigen+ipp ^py-numpy+blas+lapack ^cuda@8.0.44
