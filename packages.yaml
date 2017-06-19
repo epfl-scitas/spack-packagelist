@@ -289,6 +289,7 @@ packages:
       - lapack
     specs:
       - plumed@2.3.0+mpi+gsl ^gsl@2.3
+      - gromacs@2016.3+mpi+plumed ^fftw@3.3.6-pl2+mpi~openmp ^plumed@2.3.0+mpi+gsl ^gsl@2.3
       - cp2k@4.1+mpi~plumed ^parmetis@4.0.3 ^metis@5.1.0+real64
       - cp2k@4.1+mpi+plumed ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.3.0+mpi+gsl ^gsl@2.3
       - espresso@6.1.0+mpi+scalapack ^fftw@3.3.6-pl2+mpi~openmp
@@ -353,6 +354,7 @@ packages:
       - lapack
     specs:
       - plumed@2.3.0+mpi+gsl ^gsl@2.3
+      - gromacs@2016.3+mpi+plumed ^fftw@3.3.6-pl2+mpi~openmp ^plumed@2.3.0+mpi+gsl ^gsl@2.3
       - cp2k@4.1+mpi~plumed ^netlib-scalapack@2.0.2 ^parmetis@4.0.3 ^metis@5.1.0+real64
       - cp2k@4.1+mpi+plumed ^netlib-scalapack@2.0.2 ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.3.0+mpi+gsl ^gsl@2.3
       - nwchem@6.6 ^netlib-scalapack@2.0.2 ^python@2.7.13
@@ -409,7 +411,6 @@ packages:
   #    - lapack
   #  specs:
   #    - fenics@2016.1.0+petsc+hdf5~trilinos+suite-sparse+mpi^petsc@3.6.3+double+hdf5+metis+mpi+mumps~superlu-dist~hypre+boost^hdf5@1.8.16+mpi~cxx+szip^mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis^netlib-scalapack@2.0.2^boost@1.61.0+icu_support+mpi+python^python@2.7.11^eigen@3.2.7^suite-sparse@4.5.1
-  #    - gromacs@5.1.2+mpi+pmepatch+plumed^fftw@3.3.4+mpi^plumed@2.2.3+mpi+gsl^gsl@2.1
   #    - amber@16+mpi^python@2.7.11
   #    - lammps+lib+rigid+user-nc-dump+meam+voronoi+user-atc+manybody^netcdf@4.4.0+mpi^hdf5@1.8.16+mpi~cxx+szip^voropp+pic@0.4.6
   #    - simpson@master^gsl@2.1^nfft@3.3.2^fftw@3.3.4^tk@8.6.3^tcl@8.6.5
@@ -441,7 +442,6 @@ packages:
   #    - petsc@3.6.3+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre^hdf5@1.8.16+mpi~cxx+szip^mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis^boost@1.61.0+icu_support+mpi+python^python@2.7.11
   #    - fenics@2016.1.0+petsc+hdf5~trilinos+suite-sparse+mpi^petsc@3.6.3+double+hdf5+metis+mpi+mumps~superlu-dist~hypre+boost^hdf5@1.8.16+mpi~cxx+szip^mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis^boost@1.61.0+icu_support+mpi+python^python@2.7.11^eigen@3.2.7^suite-sparse@4.5.1
   #    - molpro@2015-12-18+int8~openmp
-  #    - gromacs@5.1.2+mpi+pmepatch+plumed^fftw@3.3.4+mpi^plumed@2.2.3+mpi+gsl^gsl@2.1
   #    - amber@16+mpi^python@2.7.11
   #    - lammps+lib+rigid+user-nc-dump+meam+voronoi+user-atc+manybody^netcdf@4.4.0+mpi^hdf5@1.8.16+mpi~cxx+szip^voropp+pic@0.4.6
   #    - simpson@master^gsl@2.1^nfft@3.3.2^fftw@3.3.4^tk@8.6.3^tcl@8.6.5
