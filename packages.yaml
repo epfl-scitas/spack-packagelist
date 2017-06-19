@@ -195,7 +195,7 @@ packages:
       - compiler
       - mpi
     specs:
-      - boost@1.64.0+icu+mpi+python ^python@2.7.13
+      - boost@1.63.0+icu+mpi+python ^python@2.7.13
       - fftw@3.3.6-pl2+mpi~openmp
       - fftw@3.3.6-pl2+mpi+openmp
       - hdf5@1.10.1+szip+mpi~cxx
@@ -204,7 +204,7 @@ packages:
       - parmetis@4.0.3 ^metis@5.1.0+real64
       - netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx
       - netcdf-fortran@4.4.4 ^netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx
-      - cgal@4.9.1 ^boost@1.64.0+icu+mpi+python ^python@2.7.13
+      - cgal@4.9.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
 
   # Libraries that needs both MPI and LAPACK
   mpi-lapack-libraries:
@@ -235,7 +235,7 @@ packages:
       - elpa@2016.05.004 ^netlib-scalapack@2.0.2
       - eigen@3.3.1~debug+fftw+metis+mpfr+scotch+suitesparse ^fftw@3.3.6-pl2+mpi~openmp
       # FIXME: - mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^netlib-scalapack@2.0.2
-      # TODO: - petsc@3.6.3+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre ^hdf5@1.8.16+mpi~cxx+szip ^mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^netlib-scalapack@2.0.2 ^boost@1.64.0+icu+mpi+python ^python@2.7.13
+      # TODO: - petsc@3.6.3+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre ^hdf5@1.8.16+mpi~cxx+szip ^mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^netlib-scalapack@2.0.2 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
 
 
   mpi-lapack-libraries-intel:
@@ -292,6 +292,7 @@ packages:
       - cp2k@4.1+mpi+plumed ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.3.0+mpi+gsl ^gsl@2.3
       - espresso@6.1.0+mpi+scalapack ^fftw@3.3.6-pl2+mpi~openmp
       # TODO: - nwchem@6.6 ^python@2.7.13
+      # TODO: - caffe@1.0+python+opencv  ^hdf5@1.10.1+szip+mpi~cxx ^opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6 ^py-numpy+blas+lapack@1.12.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
 
   # Serial applications built with the Intel stack that use LAPACK
   intel-lapack-applications:
@@ -353,6 +354,7 @@ packages:
       - nwchem@6.6 ^netlib-scalapack@2.0.2 ^python@2.7.13
       - abinit@8.2.2~hdf5~openmp+mpi+scalapack ^fftw@3.3.6-pl2+mpi~openmp ^netlib-scalapack@2.0.2
       - espresso@6.1.0+mpi+scalapack ^fftw@3.3.6-pl2+mpi~openmp ^netlib-scalapack@2.0.2
+      - caffe@1.0+python+opencv  ^hdf5@1.10.1+szip+mpi~cxx ^opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6 ^py-numpy+blas+lapack@1.12.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
 
   ##########
   # GPU Nodes
@@ -398,18 +400,6 @@ packages:
   #    - compiler
   #  specs:
   #    - abaqus@6.14-1
-
-  #'serial::lapack~openmp::gnu':
-  #  target_matrix:
-  #    - gnu
-  #  target_filter:
-  #    lapack: ['openblas@0.2.18~openmp']
-  #  requires:
-  #    - architecture
-  #    - compiler
-  #    - lapack
-  #  specs:
-  #    - caffe ^hdf5@1.8.16+szip ^opencv+eigen+ipp%gcc@5.3.0 ^py-numpy+blas+lapack
 
   #'mpi::lapack~openmp::gnu':
   #  target_matrix:
@@ -458,7 +448,6 @@ packages:
   #    - gmsh@2.14.1+mpi+hdf5+fltk~compression^hdf5@1.8.16+mpi~cxx+szip
   #    - molpro@2015-12-18+int8~openmp
   #    - gromacs@5.1.2+mpi+pmepatch+plumed^fftw@3.3.4+mpi^plumed@2.2.3+mpi+gsl^gsl@2.1
-  #    - nwchem@6.6
   #    - amber@16+mpi^python@2.7.11
   #    - lammps+lib+rigid+user-nc-dump+meam+voronoi+user-atc+manybody^netcdf@4.4.0+mpi^hdf5@1.8.16+mpi~cxx+szip^voropp+pic@0.4.6
   #    - simpson@master^gsl@2.1^nfft@3.3.2^fftw@3.3.4^tk@8.6.3^tcl@8.6.5
