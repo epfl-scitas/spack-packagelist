@@ -249,6 +249,7 @@ packages:
     specs:
       - elpa@2016.05.004
       - eigen@3.3.1~debug+fftw+metis+mpfr+scotch+suitesparse ^fftw@3.3.6-pl2+mpi~openmp
+      # FIXME: - mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis
 
   ##########
   # Applications / Frameworks
@@ -363,6 +364,7 @@ packages:
       # TODO: - caffe@1.0+python+opencv  ^hdf5@1.10.1+szip+mpi~cxx ^opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6 ^py-numpy+blas+lapack@1.12.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
       # TODO: - amber@16+mpi ^py-scipy@0.19.0 ^py-matplotlib@2.0.0 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13
       # TODO: - gmsh@3.0.1+mpi+hdf5+fltk+compression ^hdf5@1.10.1+szip+mpi~cxx
+      # TODO: - paraview@5.3.0+mpi+osmesa+qt+python ^py-matplotlib@2.0.0 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13 ^qt@4.8.6
 
   ##########
   # GPU Nodes
@@ -427,20 +429,6 @@ packages:
   #    - lammps+lib+rigid+user-nc-dump+meam+voronoi+user-atc+manybody^netcdf@4.4.0+mpi^hdf5@1.8.16+mpi~cxx+szip^voropp+pic@0.4.6
   #    - simpson@master^gsl@2.1^nfft@3.3.2^fftw@3.3.4^tk@8.6.3^tcl@8.6.5
 
-  #'mpi::lapack+openmp::gnu':
-  #  target_matrix:
-  #    - gnu
-  #  target_filter:
-  #    lapack: ['openblas@0.2.18+openmp']
-  #  requires:
-  #    - architecture
-  #    - compiler
-  #    - mpi
-  #    - lapack
-  #  specs:
-  #    - paraview+mpi+osmesa+qt+python@5.1.2^py-matplotlib@1.4.3^py-numpy+blas+lapack@1.11.0^qt@4.8.6^python@2.7.11
-  #    - gpaw+mpi@1.1.0^py-numpy+blas+lapack@1.11.0^netlib-scalapack@2.0.2^python@2.7.11^py-ase@3.11.0
-
   #'mpi::lapack::intel':
   #  target_matrix:
   #    - intel
@@ -450,9 +438,7 @@ packages:
   #    - mpi
   #    - lapack
   #  specs:
-  #    - mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis
   #    - petsc@3.6.3+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre^hdf5@1.8.16+mpi~cxx+szip^mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis^boost@1.61.0+icu_support+mpi+python^python@2.7.11
   #    - fenics@2016.1.0+petsc+hdf5~trilinos+suite-sparse+mpi^petsc@3.6.3+double+hdf5+metis+mpi+mumps~superlu-dist~hypre+boost^hdf5@1.8.16+mpi~cxx+szip^mumps@5.0.1+mpi+parmetis+metis+scotch+ptscotch^parmetis@4.0.3^metis@5.1.0+real64^scotch@6.0.3+esmumps+mpi~metis^boost@1.61.0+icu_support+mpi+python^python@2.7.11^eigen@3.2.7^suite-sparse@4.5.1
-  #    - molpro@2015-12-18+int8~openmp
   #    - lammps+lib+rigid+user-nc-dump+meam+voronoi+user-atc+manybody^netcdf@4.4.0+mpi^hdf5@1.8.16+mpi~cxx+szip^voropp+pic@0.4.6
   #    - simpson@master^gsl@2.1^nfft@3.3.2^fftw@3.3.4^tk@8.6.3^tcl@8.6.5
