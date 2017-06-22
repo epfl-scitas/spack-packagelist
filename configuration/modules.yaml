@@ -95,8 +95,10 @@ modules:
       'scala',
       'spark',
       'hadoop',
-      'jdk'
-      ]
+      'jdk',
+      'tar%gcc@4.8.5',
+      'tar%gcc@4.4.7'
+    ]
 
     blacklist: [
       '%gcc@4.4.7',
@@ -142,7 +144,9 @@ modules:
       'py-subprocess32',
       'py-sympy',
       'py-virtualenv',
-      'py-theano']
+      'py-theano',
+      'tar'
+    ]
 
     all:
       suffixes:
@@ -294,6 +298,10 @@ modules:
     ####
     # Other software
     ####
+
+    espresso:
+      suffixes:
+        +hdf5: hdf5
 
     'amber@16':
       environment:
