@@ -10,11 +10,8 @@ combinations:
   # Core is the matrix that is used to build software with system compilers
   core:
     architecture:
-    - 'x86_E5v1_IntelIB:x86_E5v2:x86_E5v2_IntelIB:x86_E5v2_Mellanox_GPU:x86_E5v3_IntelIB'
-    - 'x86_E5v4_Mellanox'
-    compiler:
-    - 'gcc@4.4.7'
-    - 'gcc@4.8.5'
+    - 'x86_E5v2:x86_E5v2_IntelIB:x86_E5v2_Mellanox_GPU:x86_E5v3_IntelIB:x86_E5v4_Mellanox'
+    compiler: 'gcc@4.8.5'
     mpi: None
     lapack: None
     python: None
@@ -23,7 +20,7 @@ combinations:
   # with a FOSS stack - stable version
   gnu-stable:
     architecture:
-      - 'x86_E5v1_IntelIB:x86_E5v2_IntelIB:x86_E5v3_IntelIB'
+      - 'x86_E5v2_IntelIB:x86_E5v3_IntelIB'
       - 'x86_E5v4_Mellanox'
       - 'x86_E5v2'
     compiler: 'gcc@5.4.0'
@@ -38,14 +35,14 @@ combinations:
   # with a FOSS stack - bleeding edge version
   gnu-bleeding-edge:
     architecture:
-      - 'x86_E5v1_IntelIB:x86_E5v2_IntelIB:x86_E5v3_IntelIB'
+      - 'x86_E5v2_IntelIB:x86_E5v3_IntelIB'
       - 'x86_E5v4_Mellanox'
       - 'x86_E5v2'
-    compiler: 'gcc@6.3.0:gcc@7.1.0'
+    compiler: 'gcc@7.1.0'
     mpi:
       - 'openmpi@2.1.0 fabrics=pmi,psm schedulers=slurm +thread_multiple+sqlite3:mvapich2@2.3a fabrics=psm process_managers=slurm'
       - 'openmpi@2.1.0 fabrics=pmi schedulers=slurm +thread_multiple+sqlite3:mvapich2@2.3a fabrics=mrail process_managers=slurm'
-      - 'openmpi@2.1.0 fabrics=pmi schedulers=slurm +thread_multiple+sqlite3:mvapich2@2.3a fabrics=sock process_managers=slurm'
+      - 'openmpi@2.1.0 fabrics=pmi schedulers=slurm +thread_multiple+sqlite3'
     lapack: 'openblas@0.2.19~openmp:openblas@0.2.19+openmp'
     python: 'python@3.6.1:python@2.7.13'
 
