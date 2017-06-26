@@ -33,22 +33,6 @@ modules:
           FC: ifort
           F90: ifort
           F77: ifort
-
-    # Intel tcl module is needed to add compiler in spack.<release>.compilers
-    'intel%gcc@4.4.7':
-      environment:
-        set:
-          ICCCFG: /ssoft/spack/external/intel/config/2017/compilers_and_libraries_2017.2.174/icl.cfg
-          ICPCCFG: /ssoft/spack/external/intel/config/2017/compilers_and_libraries_2017.2.174/icl.cfg
-          IFORTCFG: /ssoft/spack/external/intel/config/2017/compilers_and_libraries_2017.2.174/icl.cfg
-        prepend_path:
-          PATH: '/ssoft/spack/external/intel/2017/vtune_amplifier_xe_2017/bin64:/ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/bin/intel64:/ssoft/spack/cornalin/rc1/opt/spack/linux-rhel6-x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.28-6tvlmbgxegmajf5kthgm76azeo2cd3t4/bin'
-          LD_LIBRARY_PATH: '/ssoft/spack/cornalin/rc1/opt/spack/linux-rhel6-x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.28-6tvlmbgxegmajf5kthgm76azeo2cd3t4/lib:/ssoft/spack/cornalin/rc1/opt/spack/linux-rhel6-x86_E5v1_IntelIB/gcc-4.4.7/gcc-5.4.0-m2dusvculeorwfjrpouxaiha4v2nkusq/lib64:/ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/compiler/lib/intel64:/ssoft/spack/external/intel/2017/vtune_amplifier_xe_2017/lib64:/ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/lib/intel64'
-          MANPATH: /ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/man/common
-
-    'intel%gcc@4.8.5':
-      environment:
-        set:
           ICCCFG: /ssoft/spack/external/intel/config/2017/compilers_and_libraries_2017.2.174/icl_rhel7.cfg
           ICPCCFG: /ssoft/spack/external/intel/config/2017/compilers_and_libraries_2017.2.174/icl_rhel7.cfg
           IFORTCFG: /ssoft/spack/external/intel/config/2017/compilers_and_libraries_2017.2.174/icl_rhel7.cfg
@@ -61,7 +45,6 @@ modules:
     hash_length: 0
 
     core_compilers:
-      - 'gcc@4.4.7'
       - 'gcc@4.8.5'
 
     hierarchy:
@@ -101,7 +84,6 @@ modules:
     ]
 
     blacklist: [
-      '%gcc@4.4.7',
       '%gcc@4.8.5',
       'autoconf',
       'automake',
@@ -187,27 +169,11 @@ modules:
           F90: ifort
           F77: ifort
           AMPLXE_ROOT: /ssoft/spack/external/intel/2017/vtune_amplifier_xe_2017
-        prepend_path:
-          MANPATH: /ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/man/common
-
-    'intel%gcc@4.4.7':
-      environment:
-        set:
-          ICCCFG: /ssoft/spack/external/intel/config/2017/compilers_and_libraries_2017.2.174/icl.cfg
-          ICPCCFG: /ssoft/spack/external/intel/config/2017/compilers_and_libraries_2017.2.174/icl.cfg
-          IFORTCFG: /ssoft/spack/external/intel/config/2017/compilers_and_libraries_2017.2.174/icl.cfg
-        prepend_path:
-          PATH: '/ssoft/spack/external/intel/2017/vtune_amplifier_xe_2017/bin64:/ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/bin/intel64:/ssoft/spack/cornalin/rc1/opt/spack/linux-rhel6-x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.28-6tvlmbgxegmajf5kthgm76azeo2cd3t4/bin'
-          LD_LIBRARY_PATH: '/ssoft/spack/cornalin/rc1/opt/spack/linux-rhel6-x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.28-6tvlmbgxegmajf5kthgm76azeo2cd3t4/lib:/ssoft/spack/cornalin/rc1/opt/spack/linux-rhel6-x86_E5v1_IntelIB/gcc-4.4.7/gcc-5.4.0-m2dusvculeorwfjrpouxaiha4v2nkusq/lib64:/ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/compiler/lib/intel64:/ssoft/spack/external/intel/2017/vtune_amplifier_xe_2017/lib64:/ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/lib/intel64'
-
-
-    'intel%gcc@4.8.5':
-      environment:
-        set:
           ICCCFG: /ssoft/spack/external/intel/config/2017/compilers_and_libraries_2017.2.174/icl_rhel7.cfg
           ICPCCFG: /ssoft/spack/external/intel/config/2017/compilers_and_libraries_2017.2.174/icl_rhel7.cfg
           IFORTCFG: /ssoft/spack/external/intel/config/2017/compilers_and_libraries_2017.2.174/icl_rhel7.cfg
         prepend_path:
+          MANPATH: /ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/man/common
           PATH: '/ssoft/spack/external/intel/2017/vtune_amplifier_xe_2017/bin64:/ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/bin/intel64'
           LD_LIBRARY_PATH: '/ssoft/spack/cornalin/rc1/opt/spack/linux-rhel6-x86_E5v1_IntelIB/gcc-4.4.7/gcc-5.4.0-m2dusvculeorwfjrpouxaiha4v2nkusq/lib64:/ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/compiler/lib/intel64:/ssoft/spack/external/intel/2017/vtune_amplifier_xe_2017/lib64:/ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/lib/intel64'
 
