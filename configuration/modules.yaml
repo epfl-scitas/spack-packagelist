@@ -79,7 +79,8 @@ modules:
       'automake%gcc@4.8.5',
       'libtool%gcc@4.8.5',
       'cmake%gcc@4.8.5',
-      'tar%gcc@4.8.5'
+      'tar%gcc@4.8.5',
+      'smr'
     ]
 
     blacklist: [
