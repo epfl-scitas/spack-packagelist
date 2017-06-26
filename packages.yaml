@@ -95,6 +95,7 @@ packages:
       - comsol@5.2a
       - gaussian@g09-D.01
       - scala@2.12.1
+      - smr@2017.06
       - spark@2.1.0+hadoop
       - tar@1.29
 

@@ -72,6 +72,11 @@ packages:
     paths:
       mathematica@9.0.1: /ssoft/spack/external/Mathematica/9.0.1
 
+  smr:
+    buildable: False
+    paths:
+      smr@2017.06: /ssoft/spack/external/SMR/2017.06
+
   totalview:
     buildable: False
     paths:

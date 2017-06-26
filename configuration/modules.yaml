@@ -96,6 +96,7 @@ modules:
       'spark',
       'hadoop',
       'jdk',
+      'smr',
       'tar%gcc@4.8.5',
       'tar%gcc@4.4.7'
     ]
