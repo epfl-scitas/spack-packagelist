@@ -1,10 +1,10 @@
 modules:
 
-  enable:
+  'enable:':
     - tcl
     - lmod
 
-  prefix_inspections:
+  'prefix_inspections:':
     bin:
       - PATH
     bin64:
@@ -55,13 +55,8 @@ modules:
       'gcc',
       'llvm',
       'intel',
-      'cmake',
-      'autoconf',
-      'automake',
       'caffe',
-      'libtool',
       'openblas',
-      'm4',
       'matlab',
       'cuda',
       'cudnn',
@@ -79,8 +74,12 @@ modules:
       'spark',
       'hadoop',
       'jdk',
-      'tar%gcc@4.8.5',
-      'tar%gcc@4.4.7'
+      'm4%gcc@4.8.5',
+      'autoconf%gcc@4.8.5',
+      'automake%gcc@4.8.5',
+      'libtool%gcc@4.8.5',
+      'cmake%gcc@4.8.5',
+      'tar%gcc@4.8.5'
     ]
 
     blacklist: [
