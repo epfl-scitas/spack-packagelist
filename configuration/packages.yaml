@@ -75,7 +75,8 @@ packages:
   smr:
     buildable: False
     paths:
-      smr@2017.06: /ssoft/spack/external/SMR/2017.06
+      smr@2017.06%gcc@4.4.7: /ssoft/spack/external/SMR/2017.06
+      smr@2017.06%gcc@4.8.5: /ssoft/spack/external/SMR/2017.06
 
   totalview:
     buildable: False
