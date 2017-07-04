@@ -297,6 +297,7 @@ packages:
       - espresso@6.1.0+mpi+scalapack+hdf5 ^fftw@3.3.6-pl2+mpi~openmp ^hdf5@1.10.1+szip+mpi~cxx
       - espresso@6.1.0+mpi+scalapack ^fftw@3.3.6-pl2+mpi~openmp
       - namd fftw=mkl interface=python @2.12 ^ charm backend=mpi @6.7.1 ^ python@2.7.13 ^ tcl@8.6.6
+      - amber@16+mpi ^netcdf-fortran@4.4.4 ^netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx ^py-scipy@0.19.0 ^py-matplotlib@2.0.0 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13
       # TODO: - petsc@3.7.6+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre ^hdf5@1.10.1+szip+mpi~cxx  ^mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^boost@1.63.0+icu+mpi+python ^python@2.7.13
       # TODO: - nwchem@6.6 ^python@2.7.13
       # TODO: - caffe@1.0+python+opencv  ^hdf5@1.10.1+szip+mpi~cxx ^opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6 ^py-numpy+blas+lapack@1.12.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
@@ -370,7 +371,7 @@ packages:
       - espresso@6.1.0+mpi+scalapack+hdf5 ^fftw@3.3.6-pl2+mpi~openmp ^netlib-scalapack@2.0.2 ^hdf5@1.10.1+szip+mpi~cxx
       # TODO: - petsc@3.7.6+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre ^hdf5@1.10.1+szip+mpi~cxx  ^mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^netlib-scalapack@2.0.2 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
       # TODO: - caffe@1.0+python+opencv  ^hdf5@1.10.1+szip+mpi~cxx ^opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6 ^py-numpy+blas+lapack@1.12.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
-      # TODO: - amber@16+mpi ^py-scipy@0.19.0 ^py-matplotlib@2.0.0 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13
+      - amber@16+mpi ^netcdf-fortran@4.4.4 ^netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx ^py-scipy@0.19.0 ^py-matplotlib@2.0.0 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13
       # TODO: - gmsh@3.0.1+mpi+hdf5+fltk+compression ^hdf5@1.10.1+szip+mpi~cxx
       # TODO: - paraview@5.3.0+mpi+osmesa+qt+python ^py-matplotlib@2.0.0 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13 ^qt@4.8.6
       # TODO: - fenics@2017.1.0+petsc+hdf5~trilinos+suite-sparse+mpi ^petsc@3.7.6+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre ^hdf5@1.10.1+szip+mpi~cxx  ^mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^netlib-scalapack@2.0.2 ^boost@1.61.0+icu_support+mpi+python ^python@2.7.13 ^eigen@3.3.1~debug+fftw+metis+mpfr+scotch+suitesparse ^fftw@3.3.6-pl2+mpi~openmp
