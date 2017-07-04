@@ -111,7 +111,7 @@ class ConfigurationFileParser(object):
 
     def items(self):
         for name, value in self.packages.iteritems():
-            if self.only and name not in self.only:
+            if self.only and name != self.only:
                 continue
             for item in self._process(name, value):
                 yield item
