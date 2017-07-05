@@ -165,7 +165,7 @@ packages:
       - netcdf@4.4.1.1~mpi ^hdf5@1.10.1+szip~mpi
       - netcdf-fortran@4.4.4 ^netcdf@4.4.1.1~mpi ^hdf5@1.10.1+szip~mpi
       - gts@121130
-      - voropp+pic@0.4.6
+      - voropp@0.4.6
       - tcl@8.6.6
       - tk@8.6.6 ^tcl@8.6.6
 
