@@ -123,7 +123,7 @@ packages:
       - gnu-bleeding-edge
       - intel
     target_filter:
-      lapack: ['openblas@0.2.19+openmp', 'intel-mkl@2017.2.174']
+      lapack: ['openblas@0.2.19~openmp', 'intel-mkl@2017.2.174']
     requires:
       - architecture
       - compiler
