@@ -8,17 +8,15 @@ axis:
 combinations:
   core:
     architecture:
-    - 'x86_E5v1_IntelIB:x86_E5v2:x86_E5v2_IntelIB:x86_E5v2_Mellanox_GPU:x86_E5v3_IntelIB'
+    - 'x86_E5v2:x86_E5v2_IntelIB:x86_E5v2_Mellanox_GPU:x86_E5v3_IntelIB'
     - 'x86_E5v4_Mellanox'
-    compiler:
-    - 'gcc@4.4.7'
-    - 'gcc@4.8.5'
+    compiler: 'gcc@4.8.5'
     mpi: None
     lapack: None
     python: None
   gnu:
     architecture:
-      - 'x86_E5v1_IntelIB:x86_E5v2_IntelIB:x86_E5v3_IntelIB'
+      - 'x86_E5v2_IntelIB:x86_E5v3_IntelIB'
       - 'x86_E5v2_Mellanox_GPU'
       - 'x86_E5v4_Mellanox'
       - 'x86_E5v2'
@@ -31,7 +29,7 @@ combinations:
     lapack: 'openblas@0.2.18~openmp:openblas@0.2.18+openmp'
     python: 'python@3.5.1:python@2.7.11'
   intel:
-    architecture: 'x86_E5v1_IntelIB:x86_E5v2:x86_E5v2_IntelIB:x86_E5v2_Mellanox_GPU:x86_E5v3_IntelIB:x86_E5v4_Mellanox'
+    architecture: 'x86_E5v2:x86_E5v2_IntelIB:x86_E5v2_Mellanox_GPU:x86_E5v3_IntelIB:x86_E5v4_Mellanox'
     compiler: 'intel@16.0.3'
     mpi: 'intelmpi@5.1.3'
     lapack: 'mkl'
@@ -342,7 +340,7 @@ packages:
       - gnu
       - intel
     target_filter:
-      architecture: ['x86_E5v1_IntelIB',
+      architecture: [
       'x86_E5v2_IntelIB',
       'x86_E5v3_IntelIB',
       'x86_E5v4_Mellanox',
@@ -360,7 +358,6 @@ packages:
       - gnu
     target_filter:
       architecture:
-        - 'x86_E5v1_IntelIB'
         - 'x86_E5v2'
         - 'x86_E5v2_IntelIB'
         - 'x86_E5v3_IntelIB'

@@ -21,21 +21,6 @@ modules:
       - CMAKE_PREFIX_PATH
   tcl:
   # Intel tcl module is needed to add compiler in spack.<release>.compilers
-    'intel%gcc@4.4.7':
-      environment:
-        set:
-          CC: icc
-          CXX: icpc
-          FC: ifort
-          F90: ifort
-          F77: ifort
-          ICCCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl.cfg
-          ICPCCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl.cfg
-          IFORTCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl.cfg
-        prepend_path:
-          PATH: '/ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186/bin64:/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/bin/intel64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.26-cwd2djeg3mu6sngjnb5uulbhfszvr6su/bin'
-          LD_LIBRARY_PATH: '/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/compiler/lib/intel64:/ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186/lib64:/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/lib/intel64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.26-cwd2djeg3mu6sngjnb5uulbhfszvr6su/lib'
-          MANPATH: /ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/man/common
     'intel%gcc@4.8.5':
       environment:
         set:
@@ -48,7 +33,7 @@ modules:
           ICPCCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl_rhel7.cfg
           IFORTCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl_rhel7.cfg
         prepend_path:
-          PATH: '/ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186/bin64:/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/bin/intel64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.26-cwd2djeg3mu6sngjnb5uulbhfszvr6su/bin'
+          PATH: '/ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186/bin64:/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/bin/intel64'
           LD_LIBRARY_PATH: '/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/compiler/lib/intel64:/ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186/lib64:/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/lib/intel64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.26-cwd2djeg3mu6sngjnb5uulbhfszvr6su/lib'
           MANPATH: /ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/man/common
 
@@ -84,7 +69,6 @@ modules:
       'jdk'
       ]
     blacklist: [
-      '%gcc@4.4.7',
       '%gcc@4.8.5',
       '%gcc@4.9.3',
       'autoconf',
@@ -120,7 +104,7 @@ modules:
       'py-sympy',
       'py-vitualenv',
       'py-theano']
-    core_compilers: ['gcc@4.4.7', 'gcc@4.8.5']
+    core_compilers: ['gcc@4.8.5']
     hierarchical_scheme: ['lapack']
     all:
       suffixes:
@@ -158,6 +142,7 @@ modules:
         set:
           SLURM_MPI_TYPE: pmi2
           OMPI_MCA_btl_openib_warn_default_gid_prefix: '0'
+
     intel:
       environment:
         set:
@@ -167,22 +152,14 @@ modules:
           F90: ifort
           F77: ifort
           AMPLXE_ROOT: /ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186
+          ICCCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl_rhel7.cfg
+          ICPCCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl_rhel7.cfg
+          IFORTCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl_rhel7.cfg
         prepend_path:
           PATH: '/ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186/bin64:/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/bin/intel64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.26-cwd2djeg3mu6sngjnb5uulbhfszvr6su/bin'
           LD_LIBRARY_PATH: '/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/compiler/lib/intel64:/ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186/lib64:/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/lib/intel64:/ssoft/spack/lafnetscha/opt/spack/x86_E5v1_IntelIB/gcc-4.4.7/binutils-2.26-cwd2djeg3mu6sngjnb5uulbhfszvr6su/lib'
           MANPATH: /ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/man/common
-    'intel%gcc@4.4.7':
-      environment:
-        set:
-          ICCCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl.cfg
-          ICPCCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl.cfg
-          IFORTCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl.cfg
-    'intel%gcc@4.8.5':
-      environment:
-        set:
-          ICCCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl_rhel7.cfg
-          ICPCCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl_rhel7.cfg
-          IFORTCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl_rhel7.cfg
+
     intelmpi: # Default for Intel MPI
       environment:
         set:
@@ -195,6 +172,7 @@ modules:
           MPIF90: mpiifort
           MPIF77: mpiifort
           MPIFC: mpiifort
+
     'intelmpi arch=x86_E5v2_Mellanox_GPU:': # Weird syntax, but double colon means override
       environment:
         set:
@@ -207,6 +185,7 @@ modules:
           MPIF90: mpiifort
           MPIF77: mpiifort
           MPIFC: mpiifort
+
     'intelmpi arch=x86_E5v4_Mellanox:': # Weird syntax, but double colon means override
       environment:
         set:
@@ -219,6 +198,7 @@ modules:
           MPIF90: mpiifort
           MPIF77: mpiifort
           MPIFC: mpiifort
+
     'intelmpi arch=x86_E5v2:':
       environment:
         set:
@@ -236,25 +216,30 @@ modules:
         set:
           MKLROOT: /ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/mkl
           CMAKE_LIBRARY_PATH: /ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/mkl/lib/intel64
+
     'mvapich2 arch=x86_E5v2_Mellanox_GPU':
       environment:
         set:
           MV2_RNDV_PROTOCOL: R3
+
     'mvapich2 arch=x86_E5v4_Mellanox':
       environment:
         set:
           MV2_RNDV_PROTOCOL: R3
+
     'hdf5~mpi+cxx':
       environment:
         set:
           HDF5_CC: h5cc
           HDF5_CXX: 'h5c++'
           HDF5_FC: h5fc
+
     'hdf5+mpi~cxx':
       environment:
         set:
           HDF5_CC: h5pcc
           HDF5_FC: h5pfc
+
     plumed:
       environment:
         set:
@@ -283,6 +268,7 @@ modules:
       environment:
         prepend_path:
           PYTHONPATH: '{prefix}/lib/python2.7/site-packages'
+
     'cp2k %gcc':
       environment:
         set:
