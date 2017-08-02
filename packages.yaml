@@ -246,7 +246,7 @@ packages:
       - gnu
     target_filter:
       lapack: ['openblas@0.2.18~openmp']
-      mpi: ['mvapich2@2.2b+psm+slurm', 'mvapich2@2.2b+nemesisib+slurm', 'mvapich2@2.2b+sock+slurm']
+      mpi: ['mvapich2@2.2b+psm+slurm', 'mvapich2@2.2b+nemesisib+slurm', 'mvapich2@2.2b+sock+slurm', 'mvapich2@2.2b+mrail+slurm']
     requires:
       - architecture
       - compiler
