@@ -99,7 +99,8 @@ modules:
       'gnuplot',
       'smr',
       'tar%gcc@4.8.5',
-      'tar%gcc@4.4.7'
+      'tar%gcc@4.4.7',
+      'cfdplusplus'
     ]
 
     blacklist: [
