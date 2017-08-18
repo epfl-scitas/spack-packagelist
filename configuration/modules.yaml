@@ -190,6 +190,8 @@ modules:
           I_MPI_FABRICS: 'shm:tmi'
           IPATH_NO_CPUAFFINITY: '1'
           I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
+          I_MPI_EXTRA_FILESYSTEM: on
+          I_MPI_EXTRA_FILESYSTEM_LIST: gpfs
           MPICC: mpiicc
           MPICXX: mpiicpc
           MPIF90: mpiifort
@@ -202,6 +204,8 @@ modules:
           I_MPI_FABRICS: 'shm:ofa'
           IPATH_NO_CPUAFFINITY: '1'
           I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
+          I_MPI_EXTRA_FILESYSTEM: on
+          I_MPI_EXTRA_FILESYSTEM_LIST: gpfs
           MPICC: mpiicc
           MPICXX: mpiicpc
           MPIF90: mpiifort
@@ -214,6 +218,8 @@ modules:
           I_MPI_FABRICS: 'shm:ofa'
           IPATH_NO_CPUAFFINITY: '1'
           I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
+          I_MPI_EXTRA_FILESYSTEM: on
+          I_MPI_EXTRA_FILESYSTEM_LIST: gpfs
           MPICC: mpiicc
           MPICXX: mpiicpc
           MPIF90: mpiifort
@@ -226,6 +232,8 @@ modules:
           I_MPI_FABRICS: 'shm:tcp'
           IPATH_NO_CPUAFFINITY: '1'
           I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
+          I_MPI_EXTRA_FILESYSTEM: on
+          I_MPI_EXTRA_FILESYSTEM_LIST: gpfs
           MPICC: mpiicc
           MPICXX: mpiicpc
           MPIF90: mpiifort
