@@ -20,8 +20,7 @@ modules:
     '':
       - CMAKE_PREFIX_PATH
   tcl:
-  # Intel tcl module is needed to add compiler in spack.<release>.compilers
-    'intel%gcc@4.8.5':
+    intel:
       environment:
         set:
           CC: icc
@@ -29,6 +28,25 @@ modules:
           FC: ifort
           F90: ifort
           F77: ifort
+          AMPLXE_ROOT: /ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186
+          ICCCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl_rhel7.cfg
+          ICPCCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl_rhel7.cfg
+          IFORTCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl_rhel7.cfg
+        prepend_path:
+          LD_PRELOAD: '/ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/compiler/lib/intel64/libintlc.so.5'
+          PATH: '/ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186/bin64:/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/bin/intel64'
+          LD_LIBRARY_PATH: '/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/compiler/lib/intel64:/ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186/lib64:/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/lib/intel64'
+          MANPATH: /ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/man/common
+
+    'intel arch=x86_E5v4_Mellanox:':
+      environment:
+        set:
+          CC: icc
+          CXX: icpc
+          FC: ifort
+          F90: ifort
+          F77: ifort
+          AMPLXE_ROOT: /ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186
           ICCCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl_rhel7.cfg
           ICPCCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl_rhel7.cfg
           IFORTCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl_rhel7.cfg
@@ -144,6 +162,24 @@ modules:
           OMPI_MCA_btl_openib_warn_default_gid_prefix: '0'
 
     intel:
+      environment:
+        set:
+          CC: icc
+          CXX: icpc
+          FC: ifort
+          F90: ifort
+          F77: ifort
+          AMPLXE_ROOT: /ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186
+          ICCCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl_rhel7.cfg
+          ICPCCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl_rhel7.cfg
+          IFORTCFG: /ssoft/spack/external/intel/config/2016/compilers_and_libraries_2016.3.210/icl_rhel7.cfg
+        prepend_path:
+          LD_PRELOAD: '/ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/compiler/lib/intel64/libintlc.so.5'
+          PATH: '/ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186/bin64:/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/bin/intel64'
+          LD_LIBRARY_PATH: '/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/compiler/lib/intel64:/ssoft/spack/external/intel/2016/vtune_amplifier_xe_2016.3.0.463186/lib64:/ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/lib/intel64'
+          MANPATH: /ssoft/spack/external/intel/2016/compilers_and_libraries_2016.3.210/linux/man/common
+
+    'intel arch=x86_E5v4_Mellanox:':
       environment:
         set:
           CC: icc
