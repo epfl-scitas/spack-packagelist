@@ -89,6 +89,18 @@ modules:
       'autoconf',
       'automake',
       'boost~mpi',
+      'cmake',
+      'flex',
+      'freetype',
+      'gettext',
+      'help2man',
+      'inputproto',
+      'kbproto',
+      'libpthread-stubs',
+      'libx11',
+      'libxau',
+      'libxcb',
+      'libxdmcp',
       'libtool',
       'm4',
       'tcl',
@@ -130,7 +142,11 @@ modules:
       'py-theano',
       'suite-sparse ^metis~real64',
       'metis~real64',
-      'tar'
+      'tar',
+      'xcb-proto',
+      'xextproto',
+      'xproto',
+      'xtrans'
     ]
 
     all:
