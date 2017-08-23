@@ -413,7 +413,7 @@ packages:
     specs:
       - relion@2.0.3+cuda+double+double-gpu+gui ^fftw@3.3.6-pl2+mpi~openmp ^cuda@8.0.61
 
-  gnu-gpu-mpi-applications:
+  gnu-gpu-mpi-lapack-applications:
     target_matrix:
       - gnu-gpu
     requires:
