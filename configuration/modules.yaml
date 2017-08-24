@@ -81,7 +81,8 @@ modules:
       'libtool%gcc@4.8.5',
       'cmake%gcc@4.8.5',
       'tar%gcc@4.8.5',
-      'smr'
+      'smr',
+      'cfdplusplus'
     ]
 
     blacklist: [
