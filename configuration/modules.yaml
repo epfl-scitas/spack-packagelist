@@ -125,6 +125,7 @@ modules:
       'py-matplotlib',
       'py-mock',
       'py-mpmath',
+      'py-mpi4py',
       'py-nose',
       'py-numpy',
       'py-packaging',
