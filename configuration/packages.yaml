@@ -43,13 +43,11 @@ packages:
   ansys:
     buildable: False
     paths:
-      ansys@17.1%gcc@4.4.7: /ssoft/spack/external/ansys/17.1/v171
       ansys@17.1%gcc@4.8.5: /ssoft/spack/external/ansys/17.1/v171
 
   cfdplusplus:
     buildable: False
     paths:
-      cfdplusplus@16.1%gcc@4.4.7: /ssoft/spack/external/CFD++/2016.05
       cfdplusplus@16.1%gcc@4.8.5: /ssoft/spack/external/CFD++/2016.05
 
   comsol:
@@ -81,8 +79,7 @@ packages:
   smr:
     buildable: False
     paths:
-      smr@2017.06%gcc@4.4.7: /ssoft/spack/external/SMR/2017.06
-      smr@2017.06%gcc@4.8.5: /ssoft/spack/external/SMR/2017.06
+      smr@2017.06: /ssoft/spack/external/SMR/2017.06
 
   totalview:
     buildable: False
