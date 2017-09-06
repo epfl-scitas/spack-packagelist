@@ -59,7 +59,7 @@ combinations:
   # Intel is the stack used to build software that runs on CPUs with
   # a proprietary stack
   intel:
-    architecture: 'x86_E5v1_IntelIB:x86_E5v2:x86_E5v2_IntelIB:x86_E5v3_IntelIB:x86_E5v4_Mellanox'
+    architecture: 'x86_E5v2:x86_E5v2_IntelIB:x86_E5v3_IntelIB:x86_E5v4_Mellanox'
     compiler: 'intel@17.0.2'
     mpi: 'intel-mpi@2017.2.174'
     lapack: 'intel-mkl@2017.2.174'
