@@ -109,25 +109,34 @@ modules:
       'pkg-config',
       'py-appdirs',
       'py-ase',
+      'py-certifi',
       'py-cycler',
       'py-cython',
       'py-dateutil',
+      'py-docopt',
+      'py-docutils',
       'py-enum34',
       'py-funcsigs',
       'py-functools32',
+      'py-h5py',
+      'py-hgapi',
       'py-hypothesis',
       'py-matplotlib',
       'py-matplotlib',
       'py-mock',
       'py-mpmath',
+      'py-mpi4py',
       'py-nose',
       'py-numpy',
       'py-packaging',
+      'py-pathlib',
       'py-pbr',
       'py-pillow',
       'py-pip',
+      'py-pkgconfig',
       'py-ply',
       'py-py',
+      'py-pygments',
       'py-pytest',
       'py-psycopg2',
       'py-pyparsing',
@@ -199,7 +208,7 @@ modules:
         prepend_path:
           MANPATH: /ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/man/common
           PATH: '/ssoft/spack/external/intel/2017/vtune_amplifier_xe_2017/bin64:/ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/bin/intel64'
-          LD_LIBRARY_PATH: '/ssoft/spack/cornalin/rc1/opt/spack/linux-rhel6-x86_E5v1_IntelIB/gcc-4.4.7/gcc-5.4.0-m2dusvculeorwfjrpouxaiha4v2nkusq/lib64:/ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/compiler/lib/intel64:/ssoft/spack/external/intel/2017/vtune_amplifier_xe_2017/lib64:/ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/lib/intel64'
+          LD_LIBRARY_PATH: '/ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/compiler/lib/intel64:/ssoft/spack/external/intel/2017/vtune_amplifier_xe_2017/lib64:/ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/lib/intel64'
 
     ####
     # MPI

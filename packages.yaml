@@ -59,7 +59,7 @@ combinations:
   # Intel is the stack used to build software that runs on CPUs with
   # a proprietary stack
   intel:
-    architecture: 'x86_E5v1_IntelIB:x86_E5v2:x86_E5v2_IntelIB:x86_E5v3_IntelIB:x86_E5v4_Mellanox'
+    architecture: 'x86_E5v2:x86_E5v2_IntelIB:x86_E5v3_IntelIB:x86_E5v4_Mellanox'
     compiler: 'intel@17.0.2'
     mpi: 'intel-mpi@2017.2.174'
     lapack: 'intel-mkl@2017.2.174'
@@ -139,22 +139,6 @@ packages:
       # - py-ase+matplotlib+scipy@3.11.0^py-matplotlib@1.4.3^py-numpy+blas+lapack@1.11.0
       - py-scikit-learn@0.18.1 ^py-scipy@0.19.0 ^py-numpy+blas+lapack@1.12.1
       - py-theano@0.8.2~gpu ^py-scipy@0.19.0 ^py-numpy+blas+lapack@1.12.1
-
-  python2_lapack:
-    target_matrix:
-      - gnu-stable
-      - gnu-bleeding-edge
-      - intel
-    target_filter:
-      lapack: ['openblas@0.2.19~openmp', 'intel-mkl@2017.2.174']
-      python: ['python@2.7.13']
-    requires:
-      - architecture
-      - compiler
-      - python
-      - lapack
-    specs:
-      - py-deadalus@devel ^py-matplotlib@2.0.0 ^py-scipy@0.19.0 ^py-numpy+blas+lapack@1.12.1 ^py-cython@0.25.2 ^fftw@3.3.6-pl2~mpi
 
   # Code compiled with all the stacks that does not require
   # MPI or LAPACK
