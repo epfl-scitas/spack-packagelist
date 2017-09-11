@@ -277,7 +277,7 @@ packages:
     specs:
       - gromacs@2016.3+mpi ^fftw@3.3.6-pl2+mpi~openmp
       - foam-extend+metis+scotch+parmetis+ptscotch~paraview ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^python@2.7.13
-      - openfoam-com%gcc@5.4.0~paraview+metis+scotch+source ^scotch@6.0.4+esmumps+mpi~metis ^boost@1.63.0+icu+mpi+python ^python@2.7.13
+      - openfoam-com~paraview+metis+scotch~int64+source ^scotch@6.0.4+esmumps+mpi~metis ^cgal@4.9.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
 
   # MPI applications built with the Intel stack that use LAPACK
   intel-mpi-lapack-applications:
@@ -346,7 +346,7 @@ packages:
       - namd fftw=3 interface=python @2.12 ^ charm backend=mpi @6.7.1 ^ fftw@3.3.6-pl2 ^ python@2.7.13 ^ tcl@8.6.6
       - foam-extend+metis+scotch+parmetis+ptscotch~paraview ^parmetis@4.0.3
         ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^python@2.7.13
-      - openfoam-com%gcc@5.4.0~paraview+metis+scotch+source ^scotch@6.0.4+esmumps+mpi~metis ^boost@1.63.0+icu+mpi+python ^python@2.7.13
+      - openfoam-com~paraview~int64+metis+scotch+source ^scotch@6.0.4+esmumps+mpi~metis ^cgal@4.9.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
 
   # MPI applications built with the GNU stable stack that use LAPACK
   gnu-mpi-lapack-applications:
