@@ -103,6 +103,7 @@ packages:
     target_matrix:
       - gnu-stable
       - gnu-bleeding-edge
+      - gnu-gpu
       - intel
     requires:
       - architecture
