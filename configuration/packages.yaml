@@ -89,3 +89,9 @@ packages:
     buildable: False
     paths:
       totalview@8.15.10-2: /ssoft/spack/external/toolworks/totalview.8.15.10-2
+
+  tensorflow:
+    buildable: False
+    version: ['@1.3.0']
+    paths:
+      tensorflow@1.3.0+cuda%gcc@5.4.0^cuda@8.0.61^cudnn@6.0.cuda8^mvapich2@2.2: /ssoft/spack/external/tensorflow/0.10.0rc0/tensorflow_venv_gpu 
