@@ -63,6 +63,7 @@ modules:
       'git',
       'tmux',
       'matlab',
+      'maple',
       'mathematica',
       'ansys',
       'totalview',

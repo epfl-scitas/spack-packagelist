@@ -85,6 +85,7 @@ packages:
       - gnuplot@5.0.5~wx
       - git@2.12.2
       - tmux@2.4
+      - maple@2017
       - matlab@R2016a
       - mathematica@9.0.1
       - ansys@17.1
