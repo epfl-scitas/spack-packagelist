@@ -71,6 +71,11 @@ packages:
     paths:
       matlab@R2016a: /ssoft/spack/external/MATLAB/R2016a
 
+  maple:
+    buildable: False
+    paths:
+      maple@2017: /ssoft/spack/external/Maple/2017
+
   mathematica:
     buildable: False
     paths:
