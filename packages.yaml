@@ -97,7 +97,6 @@ packages:
       - spark@2.1.0+hadoop
       - tar@1.29
       - cfdplusplus@16.1
-      - mercurial@4.1.2
 
   # List of python packages that do not require
   # BLAS / LAPACK
@@ -172,6 +171,7 @@ packages:
       - voropp@0.4.6
       - tcl@8.6.6
       - tk@8.6.6 ^tcl@8.6.6
+      - mercurial@4.1.2 ^python@2.7.13
 
   # Serial code that uses LAPACK
   lapack:
