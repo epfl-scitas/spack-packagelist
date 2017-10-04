@@ -398,6 +398,8 @@ packages:
       - architecture
       - compiler
     specs:
+      - fftw@3.3.6-pl2~mpi
+      - fftw@3.3.6-pl2~mpi+openmp
       - cuda@8.0.61
       - cudnn@6.0 ^cuda@8.0.61
       # FIXME: tensorflow+cuda is missing
