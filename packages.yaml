@@ -293,7 +293,7 @@ packages:
       - lapack
     specs:
       - plumed@2.3.0+mpi+gsl ^gsl@2.3
-      - gromacs@2016.3+mpi+plumed ^fftw@3.3.6-pl2+mpi~openmp ^plumed@2.3.0+mpi+gsl ^gsl@2.3
+      - gromacs@2016.1+mpi+plumed ^fftw@3.3.6-pl2+mpi~openmp ^plumed@2.3.0+mpi+gsl ^gsl@2.3
       - cp2k@4.1+mpi~plumed ^parmetis@4.0.3 ^metis@5.1.0+real64
       - cp2k@4.1+mpi+plumed ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.3.0+mpi+gsl ^gsl@2.3
       - espresso@6.1.0+mpi+scalapack+hdf5 ^fftw@3.3.6-pl2+mpi~openmp ^hdf5@1.10.1+szip+mpi~cxx
@@ -369,7 +369,7 @@ packages:
       - lapack
     specs:
       - plumed@2.3.0+mpi+gsl ^gsl@2.3
-      - gromacs@2016.3+mpi+plumed ^fftw@3.3.6-pl2+mpi~openmp ^plumed@2.3.0+mpi+gsl ^gsl@2.3
+      - gromacs@2016.1+mpi+plumed ^fftw@3.3.6-pl2+mpi~openmp ^plumed@2.3.0+mpi+gsl ^gsl@2.3
       - cp2k@4.1+mpi~plumed ^netlib-scalapack@2.0.2 ^parmetis@4.0.3 ^metis@5.1.0+real64
       - cp2k@4.1+mpi+plumed ^netlib-scalapack@2.0.2 ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.3.0+mpi+gsl ^gsl@2.3
       - nwchem@6.6 ^netlib-scalapack@2.0.2 ^python@2.7.13
