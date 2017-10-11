@@ -89,4 +89,4 @@ packages:
   totalview:
     buildable: False
     paths:
-      totalview@8.15.10-2: /ssoft/spack/external/toolworks/totalview.8.15.10-2
+      totalview@2017.2.11: /ssoft/spack/external/toolworks/totalview.2017.2.11
