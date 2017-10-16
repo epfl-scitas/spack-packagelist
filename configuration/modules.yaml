@@ -368,3 +368,6 @@ modules:
 
     spark:
       autoload: 'direct'
+
+    gaussian:
+      template: 'modules/group_restricted.lua'
