@@ -172,7 +172,7 @@ packages:
       - tcl@8.6.6
       - tk@8.6.6 ^tcl@8.6.6
       - mercurial@4.1.2 ^python@2.7.13
-      - hisat2
+      - hisat2@2.1.0
 
   # Serial code that uses LAPACK
   lapack:
