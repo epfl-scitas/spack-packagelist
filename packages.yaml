@@ -172,7 +172,7 @@ packages:
       - tcl@8.6.6
       - tk@8.6.6 ^tcl@8.6.6
       - mercurial@4.1.2 ^python@2.7.13
-      - bowtie
+      - bowtie@1.2
 
   # Serial code that uses LAPACK
   lapack:
