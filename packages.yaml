@@ -118,6 +118,7 @@ packages:
       - py-ply@3.8
       - py-virtualenv@15.1.0
       - py-pytest@3.0.7
+      - py-macs2@2.1.1.20160309
 
   # Python packages that requires LAPACK
   python_lapack_openmp:
@@ -172,7 +173,6 @@ packages:
       - tcl@8.6.6
       - tk@8.6.6 ^tcl@8.6.6
       - mercurial@4.1.2 ^python@2.7.13
-      - py-macs2
 
   # Serial code that uses LAPACK
   lapack:
