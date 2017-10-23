@@ -89,3 +89,9 @@ packages:
     buildable: False
     paths:
       totalview@8.15.10-2: /ssoft/spack/external/toolworks/totalview.8.15.10-2
+  py-pytorch:
+    buildable: False
+    version: ['@0.2']
+    paths:
+    py-pytorch@0.2+cuda%gcc@5.4.0: /ssoft/spack/external/pytorch/0.2/conda/bin
+  
