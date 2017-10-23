@@ -269,6 +269,7 @@ packages:
     specs:
       - qt@4.8.6
       - opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6
+      - samtools@1.4
       # FIXME: abaqus
 
   # MPI applications built with the Intel stack
@@ -333,6 +334,7 @@ packages:
     specs:
       - qt@4.8.6
       - opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6
+      - samtools@1.4
 
   # MPI applications built with the GNU stable stack
   gnu-mpi-applications:
