@@ -210,6 +210,7 @@ packages:
       - netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx
       - netcdf-fortran@4.4.4 ^netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx
       - cgal@4.9.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
+      - gerris@snapshot ^gsl@2.3 ^gts@121130
 
   # Libraries that needs both MPI and LAPACK
   mpi-lapack-libraries:
