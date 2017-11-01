@@ -172,7 +172,6 @@ packages:
       - tcl@8.6.6
       - tk@8.6.6 ^tcl@8.6.6
       - mercurial@4.1.2 ^python@2.7.13
-      - hisat2@2.1.0
 
   # Serial code that uses LAPACK
   lapack:
@@ -268,6 +267,7 @@ packages:
     specs:
       - qt@4.8.6
       - opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6
+      - hisat2@2.1.0
       # FIXME: abaqus
 
   # MPI applications built with the Intel stack
@@ -332,6 +332,7 @@ packages:
     specs:
       - qt@4.8.6
       - opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6
+      - hisat2@2.1.0
 
   # MPI applications built with the GNU stable stack
   gnu-mpi-applications:
