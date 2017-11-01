@@ -368,6 +368,9 @@ modules:
 
     spark:
       autoload: 'direct'
+      environment:
+        prepend_path:
+          PATH: '/ssoft/spack/scripts/all/spark'
 
     gaussian:
       template: 'modules/group_restricted.lua'
