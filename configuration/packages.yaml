@@ -57,9 +57,9 @@ packages:
 
   likwid:
     buildable: False
-    version: ['@4.1.1']
+    version: ['@4.3.0']
     paths:
-      likwid@4.1.1: /ssoft/spack/external/LIKWID/4.1.1
+      likwid@4.3.0: /ssoft/spack/external/LIKWID/4.3.0
 
   gaussian:
     buildable: False
