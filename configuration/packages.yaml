@@ -55,6 +55,12 @@ packages:
     paths:
       comsol@5.2a: /ssoft/spack/external/comsol/5.2a
 
+  fdtd:
+    buildable: False
+    paths:
+      fdtd@8.18.1365-1: /ssoft/spack/external/fdtd/8.18.1365-1
+      fdtd@8.12.527: /ssoft/spack/external/fdtd/8.12.527
+
   likwid:
     buildable: False
     version: ['@4.3.0']
