@@ -83,7 +83,8 @@ modules:
       'cmake%gcc@4.8.5',
       'tar%gcc@4.8.5',
       'smr',
-      'cfdplusplus'
+      'cfdplusplus',
+      'fdtd'
     ]
 
     blacklist: [

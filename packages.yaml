@@ -98,7 +98,7 @@ packages:
       - spark@2.1.0+hadoop
       - tar@1.29
       - cfdplusplus@16.1
-      - fdtd@8.18.1365-1
+      - fdtd@8.19.1416-1
 
   # List of python packages that do not require
   # BLAS / LAPACK
