@@ -211,6 +211,7 @@ packages:
       - netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx
       - netcdf-fortran@4.4.4 ^netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx
       - cgal@4.9.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
+      - gerris@snapshot ^gsl@2.3 ^gts@121130
 
   # Libraries that needs both MPI and LAPACK
   mpi-lapack-libraries:
@@ -270,6 +271,7 @@ packages:
     specs:
       - qt@4.8.6
       - opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6
+      - hisat2@2.1.0
       - samtools@1.4
       - subread@1.5.2
       # FIXME: abaqus
@@ -313,7 +315,7 @@ packages:
       # TODO: - gmsh@3.0.1+mpi+hdf5+fltk+compression ^hdf5@1.10.1+szip+mpi~cxx
       - fenics@2017.1.0+petsc+hdf5~trilinos+suite-sparse+mpi ^petsc@3.7.6+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre ^hdf5@1.10.1+szip+mpi~cxx  ^mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^boost@1.61.0+icu_support+mpi+python ^python@2.7.13 ^eigen@3.3.1~debug+fftw+metis+mpfr+scotch+suitesparse ^fftw@3.3.6-pl2+mpi~openmp
       # FIXME: - simpson@master ^gsl@2.1 ^nfft@3.3.2 ^fftw@3.3.4 ^tk@8.6.3 ^tcl@8.6.5
-      - lammps@2017.08.11+lib+rigid+user-nc-dump+meam+voronoi+user-atc+manybody ^netcdf@4.4.1.1~mpi ^hdf5@1.10.1+szip~mpi ^voropp@0.4.6+pic
+      - lammps@20170901+lib+rigid+user-nc-dump+meam+voronoi+user-atc+manybody ^netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx ^voropp@0.4.6+pic
 
   # Serial applications built with the Intel stack that use LAPACK
   intel-lapack-applications:
@@ -336,6 +338,7 @@ packages:
     specs:
       - qt@4.8.6
       - opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6
+      - hisat2@2.1.0
       - samtools@1.4
       - subread@1.5.2
 
@@ -392,7 +395,7 @@ packages:
       # TODO: - paraview@5.3.0+mpi+osmesa+qt+python ^py-matplotlib@2.0.0 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13 ^qt@4.8.6
       # TODO: - fenics@2017.1.0+petsc+hdf5~trilinos+suite-sparse+mpi ^petsc@3.7.6+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre ^hdf5@1.10.1+szip+mpi~cxx  ^mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^netlib-scalapack@2.0.2 ^boost@1.61.0+icu_support+mpi+python ^python@2.7.13 ^eigen@3.3.1~debug+fftw+metis+mpfr+scotch+suitesparse ^fftw@3.3.6-pl2+mpi~openmp
       # FIXME: - simpson@master ^gsl@2.1 ^nfft@3.3.2 ^fftw@3.3.4 ^tk@8.6.3 ^tcl@8.6.5
-      # FIXME: - lammps@2017.03.31+lib+rigid+user-nc-dump+meam+voronoi+user-atc+manybody ^netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx ^voropp@0.4.6+pic
+      - lammps@20170901+lib+rigid+user-nc-dump+meam+voronoi+user-atc+manybody ^netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx ^voropp@0.4.6+pic
 
   ##########
   # GPU Nodes
