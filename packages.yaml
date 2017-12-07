@@ -120,6 +120,7 @@ packages:
       - py-ply@3.8
       - py-virtualenv@15.1.0
       - py-pytest@3.0.7
+      - py-macs2@2.1.1.20160309
 
   # Python packages that requires LAPACK
   python_lapack_openmp:
