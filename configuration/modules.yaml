@@ -375,3 +375,11 @@ modules:
 
     gaussian:
       template: 'modules/group_restricted.lua'
+
+    fdtd:
+      environment:
+        prepend_path:
+          PATH: '${PREFIX}/mpich2/nemesis/bin'
+          LD_LIBRARY_PATH: '${PREFIX}/mpich2/nemesis/lib'
+        set:
+          SLURM_MPI_TYPE: pmi2
