@@ -59,8 +59,10 @@ packages:
     buildable: False
     paths:
       fdtd@8.19.1416-1: /ssoft/spack/external/fdtd/8.19.1416-1
-      fdtd@8.18.1365-1: /ssoft/spack/external/fdtd/8.18.1365-1
+      # fdtd@8.18.1365-1: /ssoft/spack/external/fdtd/8.18.1365-1
+      # installed due to segfault with other versions INC0204566
       fdtd@8.12.527: /ssoft/spack/external/fdtd/8.12.527
+      # fdtd@8.11.387: /ssoft/spack/external/fdtd/8.11.387
 
   likwid:
     buildable: False
