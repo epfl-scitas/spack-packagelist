@@ -89,10 +89,6 @@ packages:
     buildable: False
     paths:
       mathematica@9.0.1: /ssoft/spack/external/Mathematica/9.0.1
-
-  mathematica:
-    buildable: False
-    paths:
       mathematica@11.1.1: /ssoft/spack/external/Mathematica/11.1
 
   smr:
