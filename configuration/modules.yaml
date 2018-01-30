@@ -75,6 +75,7 @@ modules:
       'spark',
       'hadoop',
       'jdk',
+      'picard',
       'gnuplot',
       'm4%gcc@4.8.5',
       'autoconf%gcc@4.8.5',
