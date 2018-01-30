@@ -362,6 +362,7 @@ packages:
       - subread@1.5.2
       - bowtie@1.2+tbb ^tbb@2017.5
       - bowtie2@2.3.1 ^tbb@2017.5
+      - tophat@2.1.1 ^bowtie2@2.3.1 ^tbb@2017.5
 
   # MPI applications built with the GNU stable stack
   gnu-mpi-applications:
