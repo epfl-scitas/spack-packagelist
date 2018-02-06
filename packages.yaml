@@ -322,6 +322,8 @@ packages:
       - gromacs@2016.1+mpi+plumed ^fftw@3.3.6-pl2+mpi~openmp ^plumed@2.3.0+mpi+gsl ^gsl@2.3
       - cp2k@4.1+mpi~plumed ^parmetis@4.0.3 ^metis@5.1.0+real64
       - cp2k@4.1+mpi+plumed ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.3.0+mpi+gsl ^gsl@2.3
+      - cp2k@5.1+mpi~plumed ^parmetis@4.0.3 ^metis@5.1.0+real64
+      - cp2k@5.1+mpi+plumed ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.3.0+mpi+gsl ^gsl@2.3
       - espresso@6.1.0+mpi+scalapack+hdf5 ^fftw@3.3.6-pl2+mpi~openmp ^hdf5@1.10.1+szip+mpi~cxx
       - espresso@6.1.0+mpi+scalapack ^fftw@3.3.6-pl2+mpi~openmp
       - namd fftw=mkl interface=python @2.12 ^ charm backend=mpi @6.7.1 ^ python@2.7.13 ^ tcl@8.6.6
