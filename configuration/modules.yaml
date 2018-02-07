@@ -53,6 +53,7 @@ modules:
 
     whitelist: [
       'gcc',
+      'adf',
       'llvm',
       'intel',
       'caffe',
