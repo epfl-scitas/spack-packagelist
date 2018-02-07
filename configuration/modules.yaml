@@ -377,6 +377,9 @@ modules:
     gaussian:
       template: 'modules/group_restricted.lua'
 
+    adf:
+      template: 'modules/group_restricted.lua'
+
     fdtd:
       environment:
         prepend_path:
