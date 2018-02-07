@@ -377,6 +377,12 @@ modules:
     gaussian:
       template: 'modules/group_restricted.lua'
 
+    adf:
+      template: 'modules/group_restricted.lua'
+      load:
+      - 'intel'
+      - 'intel-mpi'
+
     fdtd:
       environment:
         prepend_path:
