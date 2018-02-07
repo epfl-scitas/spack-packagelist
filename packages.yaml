@@ -76,6 +76,7 @@ packages:
       - architecture
       - compiler
     specs:
+      - adf@2017.111
       - cmake@3.8.0
       - m4@1.4.18
       - autoconf@2.69
