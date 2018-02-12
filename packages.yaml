@@ -123,6 +123,24 @@ packages:
       - py-virtualenv@15.1.0
       - py-pytest@3.0.7
 
+  # List of python 2 only packages that do not require
+  # BLAS / LAPACK
+  serial_python_2:
+    target_matrix:
+      - gnu-stable
+      - gnu-bleeding-edge
+      - gnu-gpu
+      - intel
+    target_filter:
+      python: ['python@2.7.13']
+    requires:
+      - architecture
+      - compiler
+      - python
+    specs:
+      - py-macs@1.4.2-1
+      - py-macs2@2.1.1.20160309
+
   # Python packages that requires LAPACK
   python_lapack_openmp:
     target_matrix:
@@ -363,6 +381,7 @@ packages:
       - hisat2@2.1.0
       - samtools@1.4
       - subread@1.5.2
+      - sra-tools@2.8.2-5
       - bowtie@1.2+tbb ^tbb@2017.5
       - bowtie2@2.3.1 ^tbb@2017.5
       - tophat@2.1.1 ^bowtie2@2.3.1 ^tbb@2017.5
