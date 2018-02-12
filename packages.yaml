@@ -97,6 +97,7 @@ packages:
       - scala@2.12.1
       - smr@2017.06
       - spark@2.1.0+hadoop
+      - sra-tools@2.8.2-5
       - picard@2.9.2
       - tar@1.29
       - cfdplusplus@16.1

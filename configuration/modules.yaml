@@ -156,6 +156,7 @@ modules:
       'py-virtualenv',
       'py-theano',
       'readline',
+      'sra-tools',
       'suite-sparse ^metis~real64',
       'metis~real64',
       'tar',
