@@ -147,6 +147,21 @@ packages:
       - py-scikit-learn@0.18.1 ^py-scipy@0.19.0 ^py-numpy+blas+lapack@1.12.1
       - py-theano@0.8.2~gpu ^py-scipy@0.19.0 ^py-numpy+blas+lapack@1.12.1
 
+  # Python 2 only packages
+  python_2_only:
+    target_matrix:
+      - gnu-stable
+      - gnu-bleeding-edge
+      - intel
+    target_filter:
+      python: ['python@2.7.13']
+    requires:
+      - architecture
+      - compiler
+      - python
+    specs:
+      - py-macs@1.4.2-1
+
   # Python 2 only packages that require LAPACK
   python_2_lapack:
     target_matrix:

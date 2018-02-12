@@ -126,6 +126,7 @@ modules:
       'py-h5py',
       'py-hgapi',
       'py-hypothesis',
+      'py-macs',
       'py-matplotlib',
       'py-matplotlib',
       'py-mock',
