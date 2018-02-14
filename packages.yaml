@@ -10,7 +10,7 @@ combinations:
   # Core is the matrix that is used to build software with system compilers
   core:
     architecture:
-    - 'x86_E5v2:x86_E5v2_IntelIB:x86_E5v2_Mellanox_GPU:x86_E5v3_IntelIB:x86_E5v4_Mellanox'
+    - 'x86_E5v2:x86_E5v2_IntelIB:x86_E5v2_Mellanox_GPU:x86_E5v3_IntelIB:x86_E5v4_Mellanox:x86_S6g1_Mellanox'
     compiler: 'gcc@4.8.5'
     mpi: None
     lapack: None
@@ -21,7 +21,7 @@ combinations:
   gnu-stable:
     architecture:
       - 'x86_E5v2_IntelIB:x86_E5v3_IntelIB'
-      - 'x86_E5v4_Mellanox'
+      - 'x86_E5v4_Mellanox:x86_S6g1_Mellanox'
       - 'x86_E5v2'
     compiler: 'gcc@5.4.0'
     mpi:
@@ -36,7 +36,7 @@ combinations:
   gnu-bleeding-edge:
     architecture:
       - 'x86_E5v2_IntelIB:x86_E5v3_IntelIB'
-      - 'x86_E5v4_Mellanox'
+      - 'x86_E5v4_Mellanox:x86_S6g1_Mellanox'
       - 'x86_E5v2'
     compiler: 'gcc@7.1.0'
     mpi:
@@ -59,7 +59,7 @@ combinations:
   # Intel is the stack used to build software that runs on CPUs with
   # a proprietary stack
   intel:
-    architecture: 'x86_E5v2:x86_E5v2_IntelIB:x86_E5v3_IntelIB:x86_E5v4_Mellanox'
+    architecture: 'x86_E5v2:x86_E5v2_IntelIB:x86_E5v3_IntelIB:x86_E5v4_Mellanox:x86_S6g1_Mellanox'
     compiler: 'intel@17.0.2'
     mpi: 'intel-mpi@2017.2.174'
     lapack: 'intel-mkl@2017.2.174'
