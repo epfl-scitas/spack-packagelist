@@ -211,6 +211,7 @@ packages:
       - mercurial@4.1.2 ^python@2.7.13
       - bedtools2@2.26.0
       - tbb@2017.5
+      - r-biobase@2.38.0
 
   # Serial code that uses LAPACK
   lapack:
