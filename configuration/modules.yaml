@@ -54,6 +54,7 @@ modules:
     whitelist: [
       'gcc',
       'adf',
+      'beast',
       'llvm',
       'intel',
       'caffe',
