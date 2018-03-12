@@ -102,6 +102,7 @@ packages:
       - tar@1.29
       - cfdplusplus@16.1
       - fdtd@8.19.1416-1
+      - beast@2.4.8
 
   # List of python packages that do not require
   # BLAS / LAPACK
