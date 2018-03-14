@@ -313,6 +313,11 @@ modules:
         set:
           MV2_RNDV_PROTOCOL: R3
 
+    'mvapich2 target=x86_S6g1_Mellanox':
+      environment:
+        set:
+          MV2_RNDV_PROTOCOL: R3
+
     ####
     # LAPACK
     ####
