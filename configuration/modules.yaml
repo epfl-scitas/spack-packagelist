@@ -273,6 +273,21 @@ modules:
           MPIF77: mpiifort
           MPIFC: mpiifort
 
+    'intel-mpi target=x86_S6g1_Mellanox :': # Weird syntax, but double colon means override
+      environment:
+        set:
+          I_MPI_ROOT: /ssoft/spack/external/intel/2017/impi/2017.2.174
+          I_MPI_FABRICS: 'shm:ofa'
+          IPATH_NO_CPUAFFINITY: '1'
+          I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
+          I_MPI_EXTRA_FILESYSTEM: '1'
+          I_MPI_EXTRA_FILESYSTEM_LIST: gpfs
+          MPICC: mpiicc
+          MPICXX: mpiicpc
+          MPIF90: mpiifort
+          MPIF77: mpiifort
+          MPIFC: mpiifort
+
     'intel-mpi target=x86_E5v2 :':
       environment:
         set:
