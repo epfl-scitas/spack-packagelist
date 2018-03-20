@@ -67,6 +67,7 @@ modules:
       'matlab',
       'maple',
       'mathematica',
+      'molden',
       'ansys',
       'totalview',
       'likwid',
