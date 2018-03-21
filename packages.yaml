@@ -480,6 +480,16 @@ packages:
     specs:
       - boost@1.63.0+icu+mpi+python ^python@2.7.13
 
+  gnu-gpu-lapack-libraries:
+    target_matrix:
+      - gnu-gpu
+    requires:
+      - architecture
+      - compiler
+      - lapack
+    specs:
+      - magma+fortran
+
   gnu-gpu-mpi-applications:
     target_matrix:
       - gnu-gpu
