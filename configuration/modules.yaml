@@ -308,19 +308,19 @@ modules:
       environment:
         set:
           MV2_RNDV_PROTOCOL: R3
-          MV2_ON_DEMAND_THRESHOLD: 1
 
     'mvapich2 target=x86_E5v4_Mellanox':
       environment:
         set:
           MV2_RNDV_PROTOCOL: R3
           MV2_ON_DEMAND_THRESHOLD: 1
-          MV2_IBA_HCA: mlx5_0
 
     'mvapich2 target=x86_S6g1_Mellanox':
       environment:
         set:
           MV2_RNDV_PROTOCOL: R3
+          MV2_ON_DEMAND_THRESHOLD: 1
+          MV2_IBA_HCA: mlx5_0
 
     ####
     # LAPACK
