@@ -148,6 +148,7 @@ packages:
       # - py-ase+matplotlib+scipy@3.11.0^py-matplotlib@1.4.3^py-numpy+blas+lapack@1.11.0
       - py-scikit-learn@0.18.1 ^py-scipy@0.19.0 ^py-numpy+blas+lapack@1.12.1
       - py-theano@0.8.2~gpu ^py-scipy@0.19.0 ^py-numpy+blas+lapack@1.12.1
+      - py-htseq@0.9.1 ^py-numpy+blas+lapack@1.12.1
 
   # Python 2 only packages
   python_2_only:
