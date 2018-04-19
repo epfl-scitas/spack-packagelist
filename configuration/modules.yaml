@@ -384,6 +384,7 @@ modules:
         unset:
           - PLUMED_ROOT
     molpro:
+      template: 'modules/group_restricted.lua'
       environment:
         prepend_path:
           'PATH': '${PREFIX}/molprop_2015_1_linux_x86_64_i8/bin'
@@ -403,9 +404,6 @@ modules:
           PATH: '/ssoft/spack/scripts/all/spark'
 
     gaussian:
-      template: 'modules/group_restricted.lua'
-
-    molpro:
       template: 'modules/group_restricted.lua'
 
     adf:
