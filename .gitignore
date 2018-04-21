@@ -3,6 +3,7 @@
 
 # IntelliJ project files
 .idea
+*.egg-info
 *.iml
 out
 gen

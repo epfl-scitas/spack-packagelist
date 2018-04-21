@@ -1,42 +1,37 @@
-#!/usr/bin/env python
-
-import argparse
 import collections
+import copy
 import itertools
+
+import click
 import yaml
 
 
-class ConfigurationFileParser(object):
-    """
-    Parses a YAML configuration file and outputs a text file containing a list of triplets :
-
-    <system-type> <compiler> <spec>
-
-    each of which represents a package to be installed in a given configuration
-    """
+class ProductionEnvironment(object):
     def __init__(self, configuration, only=None):
         self.configuration = configuration
         self.axis = configuration['axis']
+
         # Check for compiler and architecture to be there
         if 'compiler' not in self.axis:
             raise RuntimeError('\'compiler\' must be set in the axis')
         if 'architecture' not in self.axis:
             raise RuntimeError('\'architecture\' must be set in the axis')
+
         # Create the right combinations of services
         self.combinations = collections.defaultdict(list)
-        for name, specifications in configuration['combinations'].iteritems():
+        for name, specifications in configuration['combinations'].items():
             # Check that all the axis are specified
             if not all(x in specifications for x in self.axis):
                 raise RuntimeError('combination \'{0}\' doesn\'t specify all axis'.format(name))
             self.combinations[name] = self._build_combination(name, specifications)
+
         self.packages = configuration['packages']
         self.only = only
 
     def _build_combination(self, name, specifications):
         # Each entry can be either a string or a list
         # All the lists MUST have the same length
-        # FIXME : python@2.6
-        keys_that_are_list = dict([(key, len(x)) for key, x in specifications.items() if isinstance(x, list)])
+        keys_that_are_list = {key: len(x) for key, x in specifications.items() if isinstance(x, list)}
         if len(keys_that_are_list) and len(set(keys_that_are_list.values())) != 1:
             raise RuntimeError('lists in combination \'{0}\' MUST have the same length'.format(name))
         # Explode all the lists in specifications if they are present
@@ -64,8 +59,8 @@ class ConfigurationFileParser(object):
 
     def _explode_list_in_specification(self, keys_that_are_list, specifications):
         exploded = []
-        others = dict([(key, value) for key, value in specifications.iteritems() if key not in keys_that_are_list])
-        list_length = keys_that_are_list.values()[0]
+        others = {key: value for key, value in specifications.items() if key not in keys_that_are_list}
+        list_length = list(keys_that_are_list.values())[0]
         for idx in range(list_length):
             item = {}
             item.update(others)
@@ -75,14 +70,6 @@ class ConfigurationFileParser(object):
         return exploded
 
     def _process(self, name, value):
-        # Enter configuration for name
-        header = '#\n' + '# ' + name + '\n#'
-        yield header
-
-        ##
-        # Construct the targets
-        ##
-
         # Merge
         targets = []
         for target_name in value['target_matrix']:
@@ -98,6 +85,8 @@ class ConfigurationFileParser(object):
         # Make a dict hashable on the fly
         targets = [dict(y) for y in set([tuple(x.items()) for x in targets])]
 
+        Item = collections.namedtuple('Item', ['spec', 'architecture', 'compiler'])
+
         # Construct the right values
         specs = value.get('specs', tuple())
         for item in targets:
@@ -106,49 +95,103 @@ class ConfigurationFileParser(object):
             for base_spec in specs:
                 parts = [base_spec]
                 parts.extend([v for v in item.values()])
-                spec = '^'.join(parts)
-                yield ' '.join((architecture, compiler, spec))
+                spec = ' ^'.join(parts)
+                yield Item(spec, architecture, compiler)
 
     def items(self):
-        for name, value in self.packages.iteritems():
+        for name, value in self.packages.items():
             if self.only and name != self.only:
                 continue
             for item in self._process(name, value):
                 yield item
 
 
-# Set up cli arguments
-parser = argparse.ArgumentParser(
-    description='Parses a yaml configuration file and creates a list of packages that needs to be installed'
+@click.group()
+@click.option(
+    '--input', default='paien.yaml', type=click.File('r'),
+    help='YAML file containing the specification for a production environment'
 )
+@click.pass_context
+def senv(ctx, input):
+    """This command helps with common tasks needed in the SCITAS-EPFL
+    continuous integration pipeline"""
+    ctx.input = input
+    ctx.configuration = yaml.load(input)
 
-# TODO : consider writing a schema for configuration files if they grow big enough to need it
-parser.add_argument(
-    '--input',
-    help='input file (yaml configuration)',
-    type=argparse.FileType(),
-    required=True
+
+@senv.command()
+@click.argument('target')
+@click.option(
+    '--output', default='-', type=click.File('w'),
+    help='Where to dump the list. Default is stdout. '
 )
+@click.pass_context
+def compilers(ctx, target, output):
+    """Dumps the list of compilers needed by a specific target"""
+    penv = ProductionEnvironment(ctx.parent.configuration)
+    combinations = copy.copy(penv.combinations)
+    core = combinations.pop('core')
 
-parser.add_argument(
-    '--output',
-    help='output file',
-    type=argparse.FileType('w'),
-    required=True
+    # Get the core compiler for the given target
+    core_compiler = next(filter(lambda x: x['architecture'] == target, core))['compiler']
+
+    # Get the compilers for the target specified as input
+    valid_compilers = set()
+    for items in combinations.values():
+        for combination in filter(lambda x: x['architecture'] == target, items):
+            compiler = combination['compiler'] + '%' + core_compiler
+            valid_compilers.add(compiler + ' target=' + target)
+
+    for item in sorted(valid_compilers):
+        output.write(item + '\n')
+
+
+@senv.command()
+@click.argument('target')
+@click.option(
+    '--output', default='-', type=click.File('w'),
+    help='Where to dump the list. Default is stdout. '
 )
+@click.pass_context
+def stack(ctx, target, output):
+    """List all the providers for a given target.
 
-parser.add_argument(
-    '--only',
-    help='generate only a part of the specs',
-    default=None
+    The output is made of valid Spack specs that need to be concretized.
+    """
+    penv = ProductionEnvironment(ctx.parent.configuration)
+    combinations = copy.copy(penv.combinations)
+    combinations.pop('core')
+
+    # Get the compilers for the target specified as input
+    valid_providers = set()
+    for items in combinations.values():
+        for combination in filter(lambda x: x['architecture'] == target, items):
+            combination.pop('architecture')
+            compiler = combination.pop('compiler')
+            for service, provider in combination.items():
+                valid_providers.add(provider + ' %' + compiler + ' target=' + target)
+
+    for item in sorted(valid_providers):
+        output.write(item + '\n')
+
+
+@senv.command()
+@click.argument('target')
+@click.option(
+    '--output', default='-', type=click.File('w'),
+    help='Where to dump the list. Default is stdout. '
 )
+@click.option(
+    '--only', default=None,
+    help='Restrict only to a named subset of the packages'
+)
+@click.pass_context
+def packages(ctx, target, output, only):
+    """List all the packages that are part of an environment.
 
-args = parser.parse_args()
-configuration = yaml.load(args.input)
+    The packages are valid Spack specs that need to be concretized.
+    """
+    penv = ProductionEnvironment(ctx.parent.configuration, only=only)
 
-lines = []
-for item in ConfigurationFileParser(configuration, args.only).items():
-    lines.append(item)
-    print(item)
-
-args.output.write('\n'.join(lines))
+    for item in filter(lambda x: x.architecture == target, penv.items()):
+        output.write(item.spec + ' %' + item.compiler + ' target=' + item.architecture + '\n')
