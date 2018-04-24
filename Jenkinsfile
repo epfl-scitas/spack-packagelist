@@ -7,34 +7,34 @@ pipeline {
     }
 
     stages {
-        stage('Update production environment') {
+        stage('Update production configuration') {
             // Prepare a release branch of Spack for deployment by:
             //
             // 1. Updating the tracked branch
             // 2. Copying the latest configuration files in place
             //
 
-            // TODO: the agent below must have access to the network
-            agent any
+            agent {
+                label 'fidis-login'
+            }
+
             when {
                 branch 'releases/*'
             }
+
             environment {
-                // TODO: move to the right /ssoft space
-                SPACK_CHECKOUT_DIR = '/tmp/spack'
+                SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
+                SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
             }
+
             steps {
+                // Checkout Spack
                 dir("${SPACK_CHECKOUT_DIR}") {
                     git url: "https://github.com/epfl-scitas/spack.git", branch: "${env.GIT_BRANCH}"
                 }
 
-                // Copy configuration files into the correct place
-                // TODO: use declarative syntax? fileOperations?
-                sh '''
-                   cp -v configuration/* ${SPACK_CHECKOUT_DIR}/etc/spack/
-                   # TODO: remove this comment in case
-                   # cp -v -r external/* /ssoft/spack/external/
-                   '''
+                // Update the command line tool we use in production
+                sh  'scripts/update_production_configuration.sh'
             }
         }
 
@@ -55,7 +55,7 @@ pipeline {
             }
             environment {
                 // TODO: temporary space, but must be on a shared folder (will be reused later)
-                SPACK_CHECKOUT_DIR = '/tmp/spack'
+                SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
             }
             steps {
                 dir("${SPACK_CHECKOUT_DIR}") {
@@ -86,28 +86,50 @@ pipeline {
             // 2. Check if they are installed, and if not install them
             //
 
-            agent any
             when {
                 branch 'releases/*'
             }
+
             environment {
-                // TODO: move to the right /ssoft space
-                SPACK_CHECKOUT_DIR = '/tmp/spack'
+                SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
+                SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
             }
-            // TODO: here we need parallel stages on different agents
-            // TODO: each of which is spawned on a node
-            steps {
-                dir("${SPACK_CHECKOUT_DIR}") {
-                    sh '''#!/bin/bash
-                       ls
-                       # . share/spack/setup-env.sh
-                       # spack --version
-                       '''
-                    echo "Computing which compilers are needed on this node"
-                    echo '''If they are note there yet:
-                         1. Build and install them
-                         2. Register them as compilers
-                         '''
+
+            parallel {
+                stage('x86_E5v4_Mellanox') {
+                    agent {
+                        label 'x86_E5v4_Mellanox'
+                    }
+                    steps {
+                        // Install the compilers if they are needed
+                        sh  '''#!/bin/bash -l
+                            # Produce a valid list of compilers
+                            . ${SENV_VIRTUALENV_PATH}/bin/activate
+                            senv compilers ${SPACK_TARGET_TYPE} --output compilers.${SPACK_TARGET_TYPE}.txt
+                            cat compilers.${SPACK_TARGET_TYPE}.txt
+                            deactivate
+
+                            # Source Spack and add the system compiler
+                            . ${SPACK_CHECKOUT_DIR}/share/spack/setup-env.sh
+                            spack --version
+                            spack compiler add --scope=site
+
+                            # Register Spack bootstrapped compilers
+                            spack spec -Il $(cat compilers.${SPACK_TARGET_TYPE}.txt)
+                            spack install --log-format=junit --log-file=compilers.${SPACK_TARGET_TYPE}.xml $(cat compilers.${SPACK_TARGET_TYPE}.txt)
+                            while read -r line
+                            do
+                                spack compiler add --scope=site --spec ${line}
+                            done < compilers.${SPACK_TARGET_TYPE}.txt
+                            '''
+                    }
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt'
+                            archiveArtifacts artifacts:'*.xml'
+                            junit testResults:'*.xml'
+                        }
+                    }
                 }
             }
         }
@@ -125,7 +147,7 @@ pipeline {
             }
             environment {
                 // TODO: move to the right /ssoft space
-                SPACK_CHECKOUT_DIR = '/tmp/spack'
+                SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
             }
             steps {
                 echo 'Computing what needs to be installed, producing one file per target.'
@@ -147,7 +169,7 @@ pipeline {
             }
             environment {
                 // TODO: move to the right /ssoft space
-                SPACK_CHECKOUT_DIR = '/tmp/spack'
+                SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
             }
 
             // TODO: here we need parallel stages on different agents
@@ -168,7 +190,7 @@ pipeline {
             }
             environment {
                 // TODO: move to the right /ssoft space
-                SPACK_CHECKOUT_DIR = '/tmp/spack'
+                SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
             }
             // TODO: here we need parallel stages on different agents
             // TODO: each of which is spawned on a node

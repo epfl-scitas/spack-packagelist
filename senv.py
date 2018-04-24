@@ -133,7 +133,9 @@ def compilers(ctx, target, output):
     core = combinations.pop('core')
 
     # Get the core compiler for the given target
-    core_compiler = next(filter(lambda x: x['architecture'] == target, core))['compiler']
+    core_compiler = next(iter(
+        filter(lambda x: x['architecture'] == target, core)
+    ))['compiler']
 
     # Get the compilers for the target specified as input
     valid_compilers = set()
