@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -l
+#!/bin/bash -l
 
 # This script assumes that the following variables are set in the environment:
 #
