@@ -102,26 +102,23 @@ pipeline {
                     }
                     steps {
                         // Install the compilers if they are needed
-                        sh  '''#!/bin/bash -l
-                            # Produce a valid list of compilers
-                            . ${SENV_VIRTUALENV_PATH}/bin/activate
-                            senv compilers ${SPACK_TARGET_TYPE} --output compilers.${SPACK_TARGET_TYPE}.txt
-                            cat compilers.${SPACK_TARGET_TYPE}.txt
-                            deactivate
-
-                            # Source Spack and add the system compiler
-                            . ${SPACK_CHECKOUT_DIR}/share/spack/setup-env.sh
-                            spack --version
-                            spack compiler add --scope=site
-
-                            # Register Spack bootstrapped compilers
-                            spack spec -Il $(cat compilers.${SPACK_TARGET_TYPE}.txt)
-                            spack install --log-format=junit --log-file=compilers.${SPACK_TARGET_TYPE}.xml $(cat compilers.${SPACK_TARGET_TYPE}.txt)
-                            while read -r line
-                            do
-                                spack compiler add --scope=site --spec ${line}
-                            done < compilers.${SPACK_TARGET_TYPE}.txt
-                            '''
+                        sh  'scripts/install_production_compilers.sh'
+                    }
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt'
+                            archiveArtifacts artifacts:'*.xml'
+                            junit testResults:'*.xml'
+                        }
+                    }
+                }
+                stage('x86_S6g1_Mellanox') {
+                    agent {
+                        label 'x86_S6g1_Mellanox'
+                    }
+                    steps {
+                        // Install the compilers if they are needed
+                        sh  'scripts/install_production_compilers.sh'
                     }
                     post {
                         always {
