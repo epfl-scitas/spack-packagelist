@@ -77,7 +77,7 @@ pipeline {
             }
         }
 
-        stage('Prepare production compilers') {
+        stage('Prepare production stack') {
             // Ensure that all the compilers that are needed in
             // production are in place.
             //
@@ -101,8 +101,8 @@ pipeline {
                         label 'x86_E5v4_Mellanox'
                     }
                     steps {
-                        // Install the compilers if they are needed
                         sh  'scripts/install_production_compilers.sh'
+                        sh  'scripts/install_production_stack.sh'
                     }
                     post {
                         always {
@@ -117,8 +117,8 @@ pipeline {
                         label 'x86_S6g1_Mellanox'
                     }
                     steps {
-                        // Install the compilers if they are needed
                         sh  'scripts/install_production_compilers.sh'
+                        sh  'scripts/install_production_stack.sh'
                     }
                     post {
                         always {
