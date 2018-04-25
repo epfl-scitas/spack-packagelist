@@ -26,7 +26,7 @@ combinations:
     mpi:
       - 'openmpi@3.0.1+pmi fabrics=psm schedulers=slurm +thread_multiple+sqlite3 ^hwloc+cairo:mvapich2@2.3rc1 fabrics=psm process_managers=slurm'
       - 'openmpi@3.0.1+pmi fabrics=verbs schedulers=slurm +thread_multiple+sqlite3 ^hwloc+cairo:mvapich2@2.3rc1 fabrics=mrail process_managers=slurm'
-    lapack: 'openblas@0.2.20~openmp:openblas@0.2.20+openmp'
+    lapack: 'openblas@0.2.20:openblas@0.2.20 threads=openmp'
     python: 'python@3.6.5+optimizations+tk:python@2.7.14+tk'
 
   # GNU is the matrix used to build software that runs on CPUs
@@ -39,7 +39,7 @@ combinations:
     mpi:
       - 'openmpi@3.0.1+pmi fabrics=psm schedulers=slurm +thread_multiple+sqlite3 ^hwloc+cairo:mvapich2@2.3rc1 fabrics=psm process_managers=slurm'
       - 'openmpi@3.0.1+pmi fabrics=verbs schedulers=slurm +thread_multiple+sqlite3 ^hwloc+cairo:mvapich2@2.3rc1 fabrics=mrail process_managers=slurm'
-    lapack: 'openblas@0.2.20~openmp:openblas@0.2.20+openmp'
+    lapack: 'openblas@0.2.20:openblas@0.2.20 threads=openmp'
     python: 'python@3.6.5+optimizations+tk:python@2.7.14+tk'
 
   # GNU-GPU is the matrix used to build software that runs on GPUs
