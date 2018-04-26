@@ -96,6 +96,54 @@ pipeline {
             }
 
             parallel {
+                stage('x86_E5v2_IntelIB') {
+                    agent {
+                        label 'x86_E5v2_IntelIB'
+                    }
+                    steps {
+                        sh  'scripts/install_production_compilers.sh'
+                        sh  'scripts/install_production_stack.sh'
+                    }
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt, *.xml'
+                            junit testResults:'*.xml'
+                        }
+                    }
+                }
+
+                stage('x86_E5v2_Mellanox_GPU') {
+                    agent {
+                        label 'x86_E5v2_Mellanox_GPU'
+                    }
+                    steps {
+                        sh  'scripts/install_production_compilers.sh'
+                        sh  'scripts/install_production_stack.sh'
+                    }
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt, *.xml'
+                            junit testResults:'*.xml'
+                        }
+                    }
+                }
+
+                stage('x86_E5v3_IntelIB') {
+                    agent {
+                        label 'x86_E5v3_IntelIB'
+                    }
+                    steps {
+                        sh  'scripts/install_production_compilers.sh'
+                        sh  'scripts/install_production_stack.sh'
+                    }
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt, *.xml'
+                            junit testResults:'*.xml'
+                        }
+                    }
+                }
+
                 stage('x86_E5v4_Mellanox') {
                     agent {
                         label 'x86_E5v4_Mellanox'
@@ -106,8 +154,7 @@ pipeline {
                     }
                     post {
                         always {
-                            archiveArtifacts artifacts:'*.txt'
-                            archiveArtifacts artifacts:'*.xml'
+                            archiveArtifacts artifacts:'*.txt, *.xml'
                             junit testResults:'*.xml'
                         }
                     }

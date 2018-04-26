@@ -12,18 +12,20 @@ SPACK_MIRROR_DIR=/ssoft/spack/mirror
 . ${SPACK_CHECKOUT_DIR}/share/spack/setup-env.sh
 spack --version
 
+. ${SENV_VIRTUALENV_PATH}/bin/activate
+
 # Generate the list of software that need to be installed, then fetch every tarball
-for target in x86_E5v4_Mellanox x86_S6g1_Mellanox #$(senv targets)
+for target in $(senv targets)
 do
-    echo "[${target}] Updating mirror"
-
-    . ${SENV_VIRTUALENV_PATH}/bin/activate
+    echo "[${target}] Computing list of packages"
     senv packages ${target} --output="all_specs.${target}.txt"
-    deactivate
 
+    echo "[${target}] Selecting the ones still to be installed"
     # TODO: if concretization is slow this command could output also the yaml file
     spack filter --not-installed $(cat all_specs.${target}.txt) > to_be_installed.${target}.txt
+    echo "[${target}] Writing concretized yaml file"
     spack spec -y $(cat to_be_installed.${target}.txt) > specs.${target}.yaml
     # TODO: read directly from a yaml file to avoid concretization slowdowns
+    echo "[${target}] Populating central mirror"
     spack mirror create -D -d ${SPACK_MIRROR_DIR} -f to_be_installed.${target}.txt
 done
