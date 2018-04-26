@@ -169,8 +169,7 @@ pipeline {
                     }
                     post {
                         always {
-                            archiveArtifacts artifacts:'*.txt'
-                            archiveArtifacts artifacts:'*.xml'
+                            archiveArtifacts artifacts:'*.txt, *.xml'
                             junit testResults:'*.xml'
                         }
                     }
@@ -200,7 +199,7 @@ pipeline {
 
             steps {
                 sh 'scripts/populate_mirror.sh'
-                echo 'Stashing files'
+                stash name:'x86_S6g1_Mellanox', includes: 'specs.x86_S6g1_Mellanox.yaml'
             }
             post {
                 always {
@@ -239,19 +238,32 @@ pipeline {
             // Deploy the software that is planned to be in the environment,
             // but not yet installed. Notify failures.
 
-            agent any
+            agent {
+                label 'x86_S6g1_Mellanox'
+            }
+
             when {
                 branch 'releases/*'
             }
+
             environment {
-                // TODO: move to the right /ssoft space
                 SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
+                SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
             }
+
             // TODO: here we need parallel stages on different agents
             // TODO: each of which is spawned on a node
             steps {
-                echo 'Install software that is planned, but not yet in production. Output junit.xml'
+                unstash name: 'x86_S6g1_Mellanox'
+                sh 'deploy_in_production.sh'
                 echo 'Notify failures somewhere'
+            }
+
+            post {
+                always {
+                    archiveArtifacts artifacts:'*.txt, *.xml'
+                    junit testResults:'*.xml'
+                }
             }
         }
 
