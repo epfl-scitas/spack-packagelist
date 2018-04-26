@@ -27,5 +27,9 @@ do
     spack spec -y $(cat to_be_installed.${target}.txt) > specs.${target}.yaml
     # TODO: read directly from a yaml file to avoid concretization slowdowns
     echo "[${target}] Populating central mirror"
-    spack mirror create -D -d ${SPACK_MIRROR_DIR} $(cat to_be_installed.${target}.txt)
+    while read -r line
+    do
+        echo "spack mirror create -D -d ${SPACK_MIRROR_DIR} ${line}"
+        spack mirror create -D -d ${SPACK_MIRROR_DIR} ${line}
+    done < to_be_installed.${target}.txt
 done
