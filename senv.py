@@ -120,6 +120,23 @@ def senv(ctx, input):
 
 
 @senv.command()
+@click.option(
+    '--output', default='-', type=click.File('w'),
+    help='Where to dump the list of targets'
+)
+@click.pass_context
+def targets(ctx, output):
+    """Dumps the list of targets that are available"""
+    penv = ProductionEnvironment(ctx.parent.configuration)
+    combinations = copy.copy(penv.combinations)
+    core = combinations.pop('core')
+    core_targets = sorted(set(x['architecture'] for x in core))
+
+    for target in core_targets:
+        output.write(target + '\n')
+
+
+@senv.command()
 @click.argument('target')
 @click.option(
     '--output', default='-', type=click.File('w'),

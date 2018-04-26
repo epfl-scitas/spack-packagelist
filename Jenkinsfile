@@ -138,18 +138,29 @@ pipeline {
             // to build it in a mirror.
 
             // TODO: the agent below must have access to the network
-            agent any
+            agent {
+                label 'fidis-login'
+            }
+
             when {
                 branch 'releases/*'
             }
+
             environment {
-                // TODO: move to the right /ssoft space
                 SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
+                SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
             }
+
             steps {
-                echo 'Computing what needs to be installed, producing one file per target.'
-                echo 'Populating mirrors'
+                sh 'scripts/populate_mirror.sh'
+                echo 'Stashing files'
             }
+            post {
+                always {
+                    archiveArtifacts artifacts:'*.txt, *.yaml'
+                }
+            }
+
         }
 
         stage('Test PR build') {
