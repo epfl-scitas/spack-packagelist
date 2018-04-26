@@ -49,7 +49,7 @@ combinations:
     compiler: 'gcc@6.4.0'
     mpi:
       - 'openmpi@3.0.1+cuda fabrics=verbs schedulers=slurm +thread_multiple+sqlite3:mvapich2@2.3rc1+cuda fabrics=mrail process_managers=slurm'
-    lapack: 'openblas@0.2.20~openmp'
+    lapack: 'openblas@0.2.20 threads=openmp'
     python: 'python@3.6.5+optimizations+tk:python@2.7.14+tk'
 
   # Intel is the stack used to build software that runs on CPUs with
