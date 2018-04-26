@@ -199,6 +199,10 @@ pipeline {
 
             steps {
                 sh 'scripts/populate_mirror.sh'
+                stash name:'x86_E5v2_IntelIB', includes: 'to_be_installed.x86_E5v2_IntelIB.txt'
+                stash name:'x86_E5v2_Mellanox_GPU', includes: 'to_be_installed.x86_E5v2_Mellanox_GPU.txt'
+                stash name:'x86_E5v3_IntelIB', includes: 'to_be_installed.x86_E5v3_IntelIB.txt'
+                stash name:'x86_E5v4_Mellanox', includes: 'to_be_installed.x86_E5v4_Mellanox.txt'
                 stash name:'x86_S6g1_Mellanox', includes: 'to_be_installed.x86_S6g1_Mellanox.txt'
             }
             post {
@@ -238,34 +242,144 @@ pipeline {
             // Deploy the software that is planned to be in the environment,
             // but not yet installed. Notify failures.
 
-            agent {
-                label 'x86_S6g1_Mellanox'
-            }
+            parallel {
+                stage('x86_E5v2_IntelIB') {
+                    agent {
+                        label 'x86_E5v2_IntelIB'
+                    }
 
-            when {
-                branch 'releases/*'
-            }
+                    when {
+                        branch 'releases/*'
+                    }
 
-            environment {
-                SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
-                SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
-            }
+                    environment {
+                        SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
+                        SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
+                    }
 
-            // TODO: here we need parallel stages on different agents
-            // TODO: each of which is spawned on a node
-            steps {
-                unstash name: 'x86_S6g1_Mellanox'
-                sh 'scripts/deploy_in_production.sh'
-                echo 'Notify failures somewhere'
-            }
+                    steps {
+                        unstash name: 'x86_E5v2_IntelIB'
+                        sh 'scripts/deploy_in_production.sh'
+                        echo 'Notify failures somewhere'
+                    }
 
-            post {
-                always {
-                    archiveArtifacts artifacts:'*.txt, *.xml'
-                    junit testResults:'*.xml'
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt, *.xml'
+                            junit testResults:'*.xml'
+                        }
+                    }
+                }
+                stage('x86_E5v2_Mellanox_GPU') {
+                    agent {
+                        label 'x86_E5v2_Mellanox_GPU'
+                    }
+
+                    when {
+                        branch 'releases/*'
+                    }
+
+                    environment {
+                        SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
+                        SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
+                    }
+
+                    steps {
+                        unstash name: 'x86_E5v2_Mellanox_GPU'
+                        sh 'scripts/deploy_in_production.sh'
+                        echo 'Notify failures somewhere'
+                    }
+
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt, *.xml'
+                            junit testResults:'*.xml'
+                        }
+                    }
+                }
+                stage('x86_E5v3_IntelIB') {
+                    agent {
+                        label 'x86_E5v3_IntelIB'
+                    }
+
+                    when {
+                        branch 'releases/*'
+                    }
+
+                    environment {
+                        SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
+                        SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
+                    }
+
+                    steps {
+                        unstash name: 'x86_E5v3_IntelIB'
+                        sh 'scripts/deploy_in_production.sh'
+                        echo 'Notify failures somewhere'
+                    }
+
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt, *.xml'
+                            junit testResults:'*.xml'
+                        }
+                    }
+                }
+                stage('x86_E5v4_Mellanox') {
+                    agent {
+                        label 'x86_E5v4_Mellanox'
+                    }
+
+                    when {
+                        branch 'releases/*'
+                    }
+
+                    environment {
+                        SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
+                        SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
+                    }
+
+                    steps {
+                        unstash name: 'x86_E5v4_Mellanox'
+                        sh 'scripts/deploy_in_production.sh'
+                        echo 'Notify failures somewhere'
+                    }
+
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt, *.xml'
+                            junit testResults:'*.xml'
+                        }
+                    }
+                }
+
+                stage('x86_S6g1_Mellanox') {
+                    agent {
+                        label 'x86_S6g1_Mellanox'
+                    }
+
+                    when {
+                        branch 'releases/*'
+                    }
+
+                    environment {
+                        SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
+                        SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
+                    }
+
+                    steps {
+                        unstash name: 'x86_S6g1_Mellanox'
+                        sh 'scripts/deploy_in_production.sh'
+                        echo 'Notify failures somewhere'
+                    }
+
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt, *.xml'
+                            junit testResults:'*.xml'
+                        }
+                    }
                 }
             }
         }
-
     }
 }
