@@ -17,5 +17,10 @@ deactivate
 spack --version
 
 # Register Spack bootstrapped compilers
-spack spec -Il $(cat stack.${SPACK_TARGET_TYPE}.txt)
-spack install --log-format=junit --log-file=stack.${SPACK_TARGET_TYPE}.xml $(cat stack.${SPACK_TARGET_TYPE}.txt)
+TO_BE_INSTALLED=$(spack filter --not-installed $(cat stack.${SPACK_TARGET_TYPE}.txt))
+
+if [[ -n "$TO_BE_INSTALLED" ]]
+then
+    spack spec -Il ${TO_BE_INSTALLED}
+    spack install --log-format=junit --log-file=stack.${SPACK_TARGET_TYPE}.xml ${TO_BE_INSTALLED}
+fi
