@@ -65,6 +65,7 @@ combinations:
 packages:
 
   # List of packages that are built with core compilers
+  # and are maintained upstream
   core:
     target_matrix:
       - core
@@ -72,34 +73,45 @@ packages:
       - architecture
       - compiler
     specs:
-      - adf@2017.111
-      - cmake@3.8.0
+      - cmake@3.11.1
       - m4@1.4.18
       - autoconf@2.69
-      - automake@1.15
+      - automake@1.16.1
       - libtool@2.4.6
-      - lmod@7.4.8
-      - likwid@4.3.0
-      - gnuplot@5.0.5~wx
-      - git@2.12.2
-      - tmux@2.4
-      - maple@2017
-      - matlab@R2016a
-      - mathematica@9.0.1
-      - ansys@17.1
-      - totalview@2017.2.11
-      - comsol@5.2a
-      - gaussian@g09-D.01
-      - scala@2.12.1
-      - smr@2017.06
-      - spark@2.1.0+hadoop
-      - sra-tools@2.8.2-5
-      - picard@2.9.2
-      - tar@1.29
-      - cfdplusplus@16.1
-      - fdtd@8.19.1416-1
-      - beast@2.4.8
-      - molden
+      - lmod@7.7.29
+      - gnuplot@5.2.2 +X+pbm+wx ^pango+X
+      - git@2.17.0
+      - tmux@2.7
+      - scala@2.12.5
+      - spark@2.3.0+hadoop
+      - picard@2.18.3
+      - tar@1.30
+
+  # List of third-party tools or of packages that are maintained
+  # in our own repository
+  # externals:
+  #     target_matrix:
+  #       - core
+  #     requires:
+  #       - architecture
+  #       - compiler
+  #     specs:
+  #       - adf@2017.111
+  #       - likwid@4.3.0
+  #       - maple@2017
+  #       - matlab@R2016a
+  #       - mathematica@9.0.1
+  #       - ansys@17.1
+  #       - totalview@2017.2.11
+  #       - comsol@5.2a
+  #       - gaussian@g09-D.01
+  #       - smr@2017.06
+  #       - sra-tools@2.8.2-5
+  #       - picard@2.9.2
+  #       - cfdplusplus@16.1
+  #       - fdtd@8.19.1416-1
+  #       - beast@2.4.8
+  #       - molden
 
   # List of python packages that do not require
   # BLAS / LAPACK
