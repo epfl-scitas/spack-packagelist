@@ -23,8 +23,9 @@ do
     echo "[${target}] Selecting the ones still to be installed"
     # TODO: if concretization is slow this command could output also the yaml file
     spack filter --not-installed $(cat all_specs.${target}.txt) > to_be_installed.${target}.txt
-    echo "[${target}] Writing concretized yaml file"
-    spack spec -y $(cat to_be_installed.${target}.txt) > specs.${target}.yaml
+    # TODO: stash concretized file to reduce deployment time later
+    #echo "[${target}] Writing concretized yaml file"
+    #spack spec -y $(cat to_be_installed.${target}.txt) > specs.${target}.yaml
     # TODO: read directly from a yaml file to avoid concretization slowdowns
     echo "[${target}] Populating central mirror"
     while read -r line

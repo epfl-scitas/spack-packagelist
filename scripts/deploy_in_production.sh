@@ -11,4 +11,4 @@
 spack --version
 
 # Install the software that is missing
-spack install -f specs.${SPACK_TARGET_TYPE}.yaml --log-file=spec.${SPACK_TARGET_TYPE}.xml --log-format=junit
+spack install --log-file=spec.${SPACK_TARGET_TYPE}.xml --log-format=junit $(cat to_be_installed.${SPACK_TARGET_TYPE}.txt)

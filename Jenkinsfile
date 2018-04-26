@@ -199,7 +199,7 @@ pipeline {
 
             steps {
                 sh 'scripts/populate_mirror.sh'
-                stash name:'x86_S6g1_Mellanox', includes: 'specs.x86_S6g1_Mellanox.yaml'
+                stash name:'x86_S6g1_Mellanox', includes: 'to_be_installed.x86_S6g1_Mellanox.txt'
             }
             post {
                 always {
