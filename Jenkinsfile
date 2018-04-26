@@ -255,7 +255,7 @@ pipeline {
             // TODO: each of which is spawned on a node
             steps {
                 unstash name: 'x86_S6g1_Mellanox'
-                sh 'deploy_in_production.sh'
+                sh 'scripts/deploy_in_production.sh'
                 echo 'Notify failures somewhere'
             }
 
