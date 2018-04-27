@@ -16,5 +16,4 @@ senv --help
 
 # Copy configuration files into the correct place
 cp -v configuration/* ${SPACK_CHECKOUT_DIR}/etc/spack/
-# FIXME: remove this comment when adding Intel back
-# cp -v -r external/* /ssoft/spack/external/
+cp -v -r external/* /ssoft/spack/external/
