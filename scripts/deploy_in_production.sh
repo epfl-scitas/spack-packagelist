@@ -6,6 +6,9 @@
 # SPACK_CHECKOUT_DIR: path where Spack was cloned
 #
 
+# Clean the workspace
+rm -f spec.${SPACK_TARGET_TYPE}.xml
+
 # Activate 'senv' and source Spack setup file
 . ${SPACK_CHECKOUT_DIR}/share/spack/setup-env.sh
 spack --version

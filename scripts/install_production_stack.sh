@@ -6,6 +6,9 @@
 # SPACK_CHECKOUT_DIR: path where Spack was cloned
 #
 
+# Clean the workspace
+rm -f stack.${SPACK_TARGET_TYPE}.xml
+
 # Produce a valid list of compilers
 . ${SENV_VIRTUALENV_PATH}/bin/activate
 senv stack ${SPACK_TARGET_TYPE} --output stack.${SPACK_TARGET_TYPE}.txt
