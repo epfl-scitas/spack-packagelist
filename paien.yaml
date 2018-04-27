@@ -54,12 +54,12 @@ combinations:
 
   # Intel is the stack used to build software that runs on CPUs with
   # a proprietary stack
-#  intel:
-#    architecture: 'x86_E5v2_IntelIB:x86_E5v3_IntelIB:x86_E5v4_Mellanox:x86_S6g1_Mellanox'
-#    compiler: 'intel@17.0.2'
-#    mpi: 'intel-mpi@2017.2.174'
-#    lapack: 'intel-mkl@2017.2.174'
-#    python: 'python@3.6.5+optimizations+tk:python@2.7.14+tk'
+  intel:
+    architecture: 'x86_E5v2_IntelIB:x86_E5v3_IntelIB:x86_E5v4_Mellanox:x86_S6g1_Mellanox'
+    compiler: 'intel@18.0.2'
+    mpi: 'intel-mpi@2018.2.199'
+    lapack: 'intel-mkl@2018.2.199'
+    python: 'python@3.6.5+optimizations+tk:python@2.7.14+tk'
 
 
 packages:
