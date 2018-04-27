@@ -40,11 +40,6 @@ modules:
           - LIBRARY_PATH
       environment:
         set:
-          CC: icc
-          CXX: icpc
-          FC: ifort
-          F90: ifort
-          F77: ifort
           ICCCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
           ICPCCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
           IFORTCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
