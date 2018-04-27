@@ -267,7 +267,7 @@ modules:
         set:
           I_MPI_FABRICS:: 'shm:ofa'
 
-    'intel-mpi target=x86_S6g1_Mellanox'
+    'intel-mpi target=x86_S6g1_Mellanox':
       environment:
         set:
           I_MPI_FABRICS:: 'shm:ofa'
