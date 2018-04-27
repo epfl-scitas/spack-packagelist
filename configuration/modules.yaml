@@ -25,7 +25,19 @@ modules:
       - CMAKE_PREFIX_PATH
 
   tcl:
+    hash_length: 0
+    whitelist:
+      - intel
+    blacklist:
+      - '%gcc'
+      - '%intel'
+    naming_scheme: '${PACKAGE}/${VERSION}'
     intel:
+      filter:
+        environment_blacklist:
+          - LD_LIBRARY_PATH
+          - CPATH
+          - LIBRARY_PATH
       environment:
         set:
           CC: icc
@@ -33,13 +45,11 @@ modules:
           FC: ifort
           F90: ifort
           F77: ifort
-          ICCCFG: /ssoft/spack/external/intel/config/2017/compilers_and_libraries_2017.2.174/icl_rhel7.cfg
-          ICPCCFG: /ssoft/spack/external/intel/config/2017/compilers_and_libraries_2017.2.174/icl_rhel7.cfg
-          IFORTCFG: /ssoft/spack/external/intel/config/2017/compilers_and_libraries_2017.2.174/icl_rhel7.cfg
+          ICCCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
+          ICPCCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
+          IFORTCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
         prepend_path:
-          PATH: '/ssoft/spack/external/intel/2017/vtune_amplifier_xe_2017/bin64:/ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/bin/intel64'
-          LD_LIBRARY_PATH: '/ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/compiler/lib/intel64:/ssoft/spack/external/intel/2017/vtune_amplifier_xe_2017/lib64:/ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/lib/intel64'
-          MANPATH: /ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/man/common
+          PATH: '/ssoft/spack/external/intel/2018.2/vtune_amplifier_2018.2.0.551022/bin64'
 
   lmod:
     hash_length: 0
@@ -202,6 +212,11 @@ modules:
           CXX: clang++
 
     intel:
+      filter:
+        environment_blacklist:
+          - LD_LIBRARY_PATH
+          - CPATH
+          - LIBRARY_PATH
       environment:
         set:
           CC: icc
@@ -209,14 +224,12 @@ modules:
           FC: ifort
           F90: ifort
           F77: ifort
-          AMPLXE_ROOT: /ssoft/spack/external/intel/2017/vtune_amplifier_xe_2017
-          ICCCFG: /ssoft/spack/external/intel/config/2017/compilers_and_libraries_2017.2.174/icl_rhel7.cfg
-          ICPCCFG: /ssoft/spack/external/intel/config/2017/compilers_and_libraries_2017.2.174/icl_rhel7.cfg
-          IFORTCFG: /ssoft/spack/external/intel/config/2017/compilers_and_libraries_2017.2.174/icl_rhel7.cfg
+          AMPLXE_ROOT: /ssoft/spack/external/intel/2018.2/vtune_amplifier_2018.2.0.551022/bin64
+          ICCCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
+          ICPCCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
+          IFORTCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
         prepend_path:
-          MANPATH: /ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/man/common
-          PATH: '/ssoft/spack/external/intel/2017/vtune_amplifier_xe_2017/bin64:/ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/bin/intel64'
-          LD_LIBRARY_PATH: '/ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/compiler/lib/intel64:/ssoft/spack/external/intel/2017/vtune_amplifier_xe_2017/lib64:/ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/lib/intel64'
+          PATH: '/ssoft/spack/external/intel/2018.2/vtune_amplifier_2018.2.0.551022/bin64'
 
     ####
     # MPI
@@ -232,7 +245,7 @@ modules:
     intel-mpi: # Default for Intel MPI
       environment:
         set:
-          I_MPI_ROOT: /ssoft/spack/external/intel/2017/impi/2017.2.174
+          I_MPI_ROOT: '${PREFIX}'
           I_MPI_FABRICS: 'shm:tmi'
           IPATH_NO_CPUAFFINITY: '1'
           I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
@@ -244,50 +257,20 @@ modules:
           MPIF77: mpiifort
           MPIFC: mpiifort
 
-    'intel-mpi target=x86_E5v2_Mellanox_GPU :': # Weird syntax, but double colon means override
+    'intel-mpi target=x86_E5v2_Mellanox_GPU':
       environment:
         set:
-          I_MPI_ROOT: /ssoft/spack/external/intel/2017/impi/2017.2.174
           I_MPI_FABRICS: 'shm:ofa'
-          IPATH_NO_CPUAFFINITY: '1'
-          I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
-          I_MPI_EXTRA_FILESYSTEM: '1'
-          I_MPI_EXTRA_FILESYSTEM_LIST: gpfs
-          MPICC: mpiicc
-          MPICXX: mpiicpc
-          MPIF90: mpiifort
-          MPIF77: mpiifort
-          MPIFC: mpiifort
 
-    'intel-mpi target=x86_E5v4_Mellanox :': # Weird syntax, but double colon means override
+    'intel-mpi target=x86_E5v4_Mellanox':
       environment:
         set:
-          I_MPI_ROOT: /ssoft/spack/external/intel/2017/impi/2017.2.174
-          I_MPI_FABRICS: 'shm:ofa'
-          IPATH_NO_CPUAFFINITY: '1'
-          I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
-          I_MPI_EXTRA_FILESYSTEM: '1'
-          I_MPI_EXTRA_FILESYSTEM_LIST: gpfs
-          MPICC: mpiicc
-          MPICXX: mpiicpc
-          MPIF90: mpiifort
-          MPIF77: mpiifort
-          MPIFC: mpiifort
+          I_MPI_FABRICS:: 'shm:ofa'
 
-    'intel-mpi target=x86_S6g1_Mellanox :': # Weird syntax, but double colon means override
+    'intel-mpi target=x86_S6g1_Mellanox'
       environment:
         set:
-          I_MPI_ROOT: /ssoft/spack/external/intel/2017/impi/2017.2.174
-          I_MPI_FABRICS: 'shm:ofa'
-          IPATH_NO_CPUAFFINITY: '1'
-          I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
-          I_MPI_EXTRA_FILESYSTEM: '1'
-          I_MPI_EXTRA_FILESYSTEM_LIST: gpfs
-          MPICC: mpiicc
-          MPICXX: mpiicpc
-          MPIF90: mpiifort
-          MPIF77: mpiifort
-          MPIFC: mpiifort
+          I_MPI_FABRICS:: 'shm:ofa'
 
     'mvapich2 target=x86_E5v2_Mellanox_GPU':
       environment:

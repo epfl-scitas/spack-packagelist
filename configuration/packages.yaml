@@ -16,18 +16,18 @@ packages:
   intel:
     buildable: False
     paths:
-      intel@17.0.2%gcc@4.8.5: /ssoft/spack/external/intel/2017/compilers_and_libraries_2017/linux
+      intel@18.0.2%gcc@4.8.5: /ssoft/spack/external/intel/2018.2/compilers_and_libraries_2018.2.199/linux
 
   intel-mpi:
     buildable: False
     paths:
-      intel-mpi@2017.2.174%intel@17.0.2: /ssoft/spack/external/intel/2017/impi/2017.2.174
+      intel-mpi@2018.2.199 %intel@18.0.2: /ssoft/spack/external/intel/2018.2/impi/2018.2.199
 
   intel-mkl:
     buildable: False
     paths:
-      intel-mkl~openmp@2017.2.174%intel@17.0.2: /ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/mkl
-      intel-mkl+openmp@2017.2.174%intel@17.0.2: /ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/mkl
+      intel-mkl @2018.2.199 %intel@18.0.2: /ssoft/spack/external/intel/2018.2/compilers_and_libraries_2018.2.199/linux/mkl
+      intel-mkl threads=openmp @2018.2.199 %intel@18.0.2: /ssoft/spack/external/intel/2018.2/compilers_and_libraries_2018.2.199/linux/mkl
 
   ####
   # Third party software
