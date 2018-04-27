@@ -107,7 +107,7 @@ pipeline {
                     post {
                         always {
                             archiveArtifacts artifacts:'*.txt, *.xml'
-                            junit testResults:'*.xml'
+                            junit testResults:'*.xml', allowEmptyResults:true
                         }
                     }
                 }
@@ -123,7 +123,7 @@ pipeline {
                     post {
                         always {
                             archiveArtifacts artifacts:'*.txt, *.xml'
-                            junit testResults:'*.xml'
+                            junit testResults:'*.xml', allowEmptyResults:true
                         }
                     }
                 }
@@ -139,7 +139,7 @@ pipeline {
                     post {
                         always {
                             archiveArtifacts artifacts:'*.txt, *.xml'
-                            junit testResults:'*.xml'
+                            junit testResults:'*.xml', allowEmptyResults:true
                         }
                     }
                 }
@@ -155,7 +155,7 @@ pipeline {
                     post {
                         always {
                             archiveArtifacts artifacts:'*.txt, *.xml'
-                            junit testResults:'*.xml'
+                            junit testResults:'*.xml', allowEmptyResults:true
                         }
                     }
                 }
@@ -170,7 +170,7 @@ pipeline {
                     post {
                         always {
                             archiveArtifacts artifacts:'*.txt, *.xml'
-                            junit testResults:'*.xml', allowEmptyResults: true
+                            junit testResults:'*.xml', allowEmptyResults:true
                         }
                     }
                 }
@@ -266,7 +266,7 @@ pipeline {
                     post {
                         always {
                             archiveArtifacts artifacts:'*.txt, *.xml'
-                            junit testResults:'*.xml'
+                            junit testResults:'*.xml', allowEmptyResults:true
                         }
                     }
                 }
@@ -293,7 +293,7 @@ pipeline {
                     post {
                         always {
                             archiveArtifacts artifacts:'*.txt, *.xml'
-                            junit testResults:'*.xml'
+                            junit testResults:'*.xml', allowEmptyResults:true
                         }
                     }
                 }
@@ -320,7 +320,7 @@ pipeline {
                     post {
                         always {
                             archiveArtifacts artifacts:'*.txt, *.xml'
-                            junit testResults:'*.xml'
+                            junit testResults:'*.xml', allowEmptyResults:true
                         }
                     }
                 }
@@ -347,7 +347,7 @@ pipeline {
                     post {
                         always {
                             archiveArtifacts artifacts:'*.txt, *.xml'
-                            junit testResults:'*.xml'
+                            junit testResults:'*.xml', allowEmptyResults:true
                         }
                     }
                 }
