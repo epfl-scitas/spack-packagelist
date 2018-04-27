@@ -18,9 +18,16 @@ spack --version
 spack compiler add --scope=site
 
 # Register Spack bootstrapped compilers
-spack spec -Il $(cat compilers.${SPACK_TARGET_TYPE}.txt)
-spack install --log-format=junit --log-file=compilers.${SPACK_TARGET_TYPE}.xml $(cat compilers.${SPACK_TARGET_TYPE}.txt)
-while read -r line
-do
-    spack compiler add --scope=site --spec ${line}
-done < compilers.${SPACK_TARGET_TYPE}.txt
+to_be_installed=$(spack filter --not-installed $(cat compilers.${SPACK_TARGET_TYPE}.txt))
+
+if [[ -z "${to_be_installed}" ]]
+then
+    echo "[${SPACK_TARGET_TYPE}] All compilers already installed]"
+else
+    spack spec -Il $(cat compilers.${SPACK_TARGET_TYPE}.txt)
+    spack install --log-format=junit --log-file=compilers.${SPACK_TARGET_TYPE}.xml $(cat compilers.${SPACK_TARGET_TYPE}.txt)
+    while read -r line
+    do
+        spack compiler add --scope=site --spec ${line}
+    done < compilers.${SPACK_TARGET_TYPE}.txt
+fi
