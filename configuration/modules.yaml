@@ -25,7 +25,19 @@ modules:
       - CMAKE_PREFIX_PATH
 
   tcl:
+    hash_length: 0
+    whitelist:
+      - intel
+    blacklist:
+      - '%gcc'
+      - '%intel'
+    naming_scheme: '${PACKAGE}/${VERSION}'
     intel:
+      filter:
+        environment_blacklist:
+          - LD_LIBRARY_PATH
+          - CPATH
+          - LIBRARY_PATH
       environment:
         set:
           CC: icc
@@ -33,13 +45,11 @@ modules:
           FC: ifort
           F90: ifort
           F77: ifort
-          ICCCFG: /ssoft/spack/external/intel/config/2017/compilers_and_libraries_2017.2.174/icl_rhel7.cfg
-          ICPCCFG: /ssoft/spack/external/intel/config/2017/compilers_and_libraries_2017.2.174/icl_rhel7.cfg
-          IFORTCFG: /ssoft/spack/external/intel/config/2017/compilers_and_libraries_2017.2.174/icl_rhel7.cfg
+          ICCCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
+          ICPCCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
+          IFORTCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
         prepend_path:
-          PATH: '/ssoft/spack/external/intel/2017/vtune_amplifier_xe_2017/bin64:/ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/bin/intel64'
-          LD_LIBRARY_PATH: '/ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/compiler/lib/intel64:/ssoft/spack/external/intel/2017/vtune_amplifier_xe_2017/lib64:/ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/lib/intel64'
-          MANPATH: /ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/man/common
+          PATH: '/ssoft/spack/external/intel/2018.2/vtune_amplifier_2018.2.0.551022/bin64'
 
   lmod:
     hash_length: 0
