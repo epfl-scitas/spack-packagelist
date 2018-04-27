@@ -28,5 +28,5 @@ then
     spack install --log-format=junit --log-file=stack.${SPACK_TARGET_TYPE}.xml ${TO_BE_INSTALLED}
 else
     echo $"[${SPACK_TARGET_TYPE} Stack already installed]"
-    touch stack.${SPACK_TARGET_TYPE}.xml
+    cp resources/success.xml stack.${SPACK_TARGET_TYPE}.xml
 fi

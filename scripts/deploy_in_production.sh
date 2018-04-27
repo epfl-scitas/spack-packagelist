@@ -20,7 +20,7 @@ specs_to_be_installed=$(cat to_be_installed.${SPACK_TARGET_TYPE}.txt)
 if [[ -z "${specs_to_be_installed}" ]]
 then
     echo "[${SPACK_TARGET_TYPE}] Nothing to install"
-    touch spec.${SPACK_TARGET_TYPE}.xml
+    cp resources/success.xml spec.${SPACK_TARGET_TYPE}.xml
 else
     spack install --log-file=spec.${SPACK_TARGET_TYPE}.xml --log-format=junit ${specs_to_be_installed}
 fi

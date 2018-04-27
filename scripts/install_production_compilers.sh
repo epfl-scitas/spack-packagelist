@@ -26,7 +26,7 @@ to_be_installed=$(spack filter --not-installed $(cat compilers.${SPACK_TARGET_TY
 if [[ -z "${to_be_installed}" ]]
 then
     echo "[${SPACK_TARGET_TYPE}] All compilers already installed"
-    touch compilers.${SPACK_TARGET_TYPE}.xml
+    cp resources/success.xml compilers.${SPACK_TARGET_TYPE}.xml
 else
     spack spec -Il $(cat compilers.${SPACK_TARGET_TYPE}.txt)
     spack install --log-format=junit --log-file=compilers.${SPACK_TARGET_TYPE}.xml $(cat compilers.${SPACK_TARGET_TYPE}.txt)
