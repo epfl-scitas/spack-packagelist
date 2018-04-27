@@ -6,6 +6,9 @@
 # SPACK_CHECKOUT_DIR: path where Spack was cloned
 #
 
+# Clean the workspace
+rm -f compilers.${SPACK_TARGET_TYPE}.xml
+
 # Produce a valid list of compilers
 . ${SENV_VIRTUALENV_PATH}/bin/activate
 senv compilers ${SPACK_TARGET_TYPE} --output compilers.${SPACK_TARGET_TYPE}.txt
@@ -22,7 +25,8 @@ to_be_installed=$(spack filter --not-installed $(cat compilers.${SPACK_TARGET_TY
 
 if [[ -z "${to_be_installed}" ]]
 then
-    echo "[${SPACK_TARGET_TYPE}] All compilers already installed]"
+    echo "[${SPACK_TARGET_TYPE}] All compilers already installed"
+    cp resources/success.xml compilers.${SPACK_TARGET_TYPE}.xml
 else
     spack spec -Il $(cat compilers.${SPACK_TARGET_TYPE}.txt)
     spack install --log-format=junit --log-file=compilers.${SPACK_TARGET_TYPE}.xml $(cat compilers.${SPACK_TARGET_TYPE}.txt)

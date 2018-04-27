@@ -6,6 +6,9 @@
 # SPACK_CHECKOUT_DIR: path where Spack was cloned
 #
 
+# Clean the workspace
+rm -f spec.${SPACK_TARGET_TYPE}.xml
+
 # Activate 'senv' and source Spack setup file
 . ${SPACK_CHECKOUT_DIR}/share/spack/setup-env.sh
 spack --version
@@ -17,6 +20,7 @@ specs_to_be_installed=$(cat to_be_installed.${SPACK_TARGET_TYPE}.txt)
 if [[ -z "${specs_to_be_installed}" ]]
 then
     echo "[${SPACK_TARGET_TYPE}] Nothing to install"
+    cp resources/success.xml spec.${SPACK_TARGET_TYPE}.xml
 else
     spack install --log-file=spec.${SPACK_TARGET_TYPE}.xml --log-format=junit ${specs_to_be_installed}
 fi

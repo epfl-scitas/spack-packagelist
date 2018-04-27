@@ -6,6 +6,9 @@
 # SPACK_CHECKOUT_DIR: path where Spack was cloned
 #
 
+# Clean the workspace
+rm -f stack.${SPACK_TARGET_TYPE}.xml
+
 # Produce a valid list of compilers
 . ${SENV_VIRTUALENV_PATH}/bin/activate
 senv stack ${SPACK_TARGET_TYPE} --output stack.${SPACK_TARGET_TYPE}.txt
@@ -23,4 +26,7 @@ if [[ -n "$TO_BE_INSTALLED" ]]
 then
     spack spec -Il ${TO_BE_INSTALLED}
     spack install --log-format=junit --log-file=stack.${SPACK_TARGET_TYPE}.xml ${TO_BE_INSTALLED}
+else
+    echo $"[${SPACK_TARGET_TYPE} Stack already installed]"
+    cp resources/success.xml stack.${SPACK_TARGET_TYPE}.xml
 fi
