@@ -53,7 +53,9 @@ pipeline {
             }
 
             when {
-                changeRequest target: 'releases/paien'
+                branch: '*/paien/*'
+                changeRequest
+                beforeAgent true
             }
 
             environment {
