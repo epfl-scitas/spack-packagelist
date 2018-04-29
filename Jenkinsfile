@@ -53,7 +53,8 @@ pipeline {
             }
 
             when {
-                branch: '*/paien/*'
+                branch '*/paien/*'
+                changeRequest
                 beforeAgent true
             }
 
