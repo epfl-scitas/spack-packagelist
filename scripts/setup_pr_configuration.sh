@@ -25,6 +25,9 @@ SPACK_MIRROR_DIR=$(mktemp -d /home/scitasbuild/paien/pr/spack-mirror.XXXXX)
 echo "[SPACK WORKSPACE] ${SPACK_CHECKOUT_DIR}"
 git clone -b "${SPACK_BRANCH_NAME}" https://github.com/epfl-scitas/spack.git "${SPACK_CHECKOUT_DIR}"
 
+# Output the workspace dir to a file that will be stashed
+echo "${SPACK_CHECKOUT_DIR}" > spack_dir.txt
+
 # Copy the configuration files in, link the compilers
 cp -v configuration/* ${SPACK_CHECKOUT_DIR}/etc/spack/
 cd ${SPACK_CHECKOUT_DIR}/etc/spack/

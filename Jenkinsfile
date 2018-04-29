@@ -67,6 +67,7 @@ pipeline {
             post {
                 always {
                     archiveArtifacts artifacts:'*.txt'
+                    stash name:'spack_dir', includes: 'spack_dir.txt'
                     stash name:'x86_E5v2_IntelIB', includes: 'to_be_installed.x86_E5v2_IntelIB.txt'
                     stash name:'x86_E5v2_Mellanox_GPU', includes: 'to_be_installed.x86_E5v2_Mellanox_GPU.txt'
                     stash name:'x86_E5v3_IntelIB', includes: 'to_be_installed.x86_E5v3_IntelIB.txt'
@@ -217,20 +218,35 @@ pipeline {
             // that is in the current planned environment, but not on the
             // base release branch). Try to build it, and notify status on
             // github.
+            parallel {
+                stage('x86_S6g1_Mellanox') {
+                    agent {
+                        label 'x86_S6g1_Mellanox'
+                    }
 
-            agent any
-            when {
-                changeRequest target: 'releases/paien'
-            }
-            environment {
-                SPACK_PRODUCTION_DIR = "/ssoft/spack/paien/spack.v1"
-            }
+                    when {
+                        branch '*/paien/*'
+                    }
 
-            // TODO: here we need parallel stages on different agents
-            // TODO: each of which is spawned on a node
-            steps {
-                echo 'Install software modified in this PR, output junit.xml, archive it'
-                echo 'Notify results on github'
+                    environment {
+                        SPACK_PRODUCTION_DIR = "/ssoft/spack/paien/spack.v1"
+                    }
+
+                    // TODO: here we need parallel stages on different agents
+                    // TODO: each of which is spawned on a node
+                    steps {
+                        unstash name: 'spack_dir'
+                        unstash name: 'x86_S6g1_Mellanox'
+                        sh 'scripts/test_pr_build.sh'
+                    }
+
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt, *.xml'
+                            junit testResults:'*.xml', allowEmptyResults:true
+                        }
+                    }
+                }
             }
         }
 
