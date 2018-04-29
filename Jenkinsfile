@@ -54,8 +54,6 @@ pipeline {
 
             when {
                 branch '*/paien/*'
-                changeRequest
-                beforeAgent true
             }
 
             environment {
