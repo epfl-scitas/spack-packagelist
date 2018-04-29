@@ -218,22 +218,92 @@ pipeline {
             // that is in the current planned environment, but not on the
             // base release branch). Try to build it, and notify status on
             // github.
+            when {
+                branch '*/paien/*'
+            }
+
+            environment {
+                SPACK_PRODUCTION_DIR = "/ssoft/spack/paien/spack.v1"
+            }
+
             parallel {
+                stage('x86_E5v2_Mellanox_GPU') {
+                    agent {
+                        label 'x86_E5v2_Mellanox_GPU'
+                    }
+
+                    steps {
+                        unstash name: 'spack_dir'
+                        unstash name: 'x86_E5v2_Mellanox_GPU'
+                        sh 'scripts/test_pr_build.sh'
+                    }
+
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt, *.xml'
+                            junit testResults:'*.xml', allowEmptyResults:true
+                        }
+                    }
+                }
+                stage('x86_E5v2_IntelIB') {
+                    agent {
+                        label 'x86_E5v2_IntelIB'
+                    }
+
+                    steps {
+                        unstash name: 'spack_dir'
+                        unstash name: 'x86_E5v2_IntelIB'
+                        sh 'scripts/test_pr_build.sh'
+                    }
+
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt, *.xml'
+                            junit testResults:'*.xml', allowEmptyResults:true
+                        }
+                    }
+                }
+                stage('x86_E5v3_IntelIB') {
+                    agent {
+                        label 'x86_E5v3_IntelIB'
+                    }
+
+                    steps {
+                        unstash name: 'spack_dir'
+                        unstash name: 'x86_E5v3_IntelIB'
+                        sh 'scripts/test_pr_build.sh'
+                    }
+
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt, *.xml'
+                            junit testResults:'*.xml', allowEmptyResults:true
+                        }
+                    }
+                }
+                stage('x86_E5v4_Mellanox') {
+                    agent {
+                        label 'x86_E5v4_Mellanox'
+                    }
+
+                    steps {
+                        unstash name: 'spack_dir'
+                        unstash name: 'x86_E5v4_Mellanox'
+                        sh 'scripts/test_pr_build.sh'
+                    }
+
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt, *.xml'
+                            junit testResults:'*.xml', allowEmptyResults:true
+                        }
+                    }
+                }
                 stage('x86_S6g1_Mellanox') {
                     agent {
                         label 'x86_S6g1_Mellanox'
                     }
 
-                    when {
-                        branch '*/paien/*'
-                    }
-
-                    environment {
-                        SPACK_PRODUCTION_DIR = "/ssoft/spack/paien/spack.v1"
-                    }
-
-                    // TODO: here we need parallel stages on different agents
-                    // TODO: each of which is spawned on a node
                     steps {
                         unstash name: 'spack_dir'
                         unstash name: 'x86_S6g1_Mellanox'
@@ -254,19 +324,19 @@ pipeline {
             // Deploy the software that is planned to be in the environment,
             // but not yet installed. Notify failures.
 
+            when {
+                branch 'releases/*'
+            }
+
+            environment {
+                SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
+                SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
+            }
+
             parallel {
                 stage('x86_E5v2_IntelIB') {
                     agent {
                         label 'x86_E5v2_IntelIB'
-                    }
-
-                    when {
-                        branch 'releases/*'
-                    }
-
-                    environment {
-                        SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
-                        SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
                     }
 
                     steps {
@@ -287,15 +357,6 @@ pipeline {
                         label 'x86_E5v2_Mellanox_GPU'
                     }
 
-                    when {
-                        branch 'releases/*'
-                    }
-
-                    environment {
-                        SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
-                        SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
-                    }
-
                     steps {
                         unstash name: 'x86_E5v2_Mellanox_GPU'
                         sh 'scripts/deploy_in_production.sh'
@@ -312,15 +373,6 @@ pipeline {
                 stage('x86_E5v3_IntelIB') {
                     agent {
                         label 'x86_E5v3_IntelIB'
-                    }
-
-                    when {
-                        branch 'releases/*'
-                    }
-
-                    environment {
-                        SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
-                        SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
                     }
 
                     steps {
@@ -341,15 +393,6 @@ pipeline {
                         label 'x86_E5v4_Mellanox'
                     }
 
-                    when {
-                        branch 'releases/*'
-                    }
-
-                    environment {
-                        SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
-                        SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
-                    }
-
                     steps {
                         unstash name: 'x86_E5v4_Mellanox'
                         sh 'scripts/deploy_in_production.sh'
@@ -367,15 +410,6 @@ pipeline {
                 stage('x86_S6g1_Mellanox') {
                     agent {
                         label 'x86_S6g1_Mellanox'
-                    }
-
-                    when {
-                        branch 'releases/*'
-                    }
-
-                    environment {
-                        SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
-                        SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
                     }
 
                     steps {
