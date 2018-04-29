@@ -49,7 +49,7 @@ pipeline {
             //
 
             agent {
-                labels 'fidis-login'
+                label 'fidis-login'
             }
 
             when {
