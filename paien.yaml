@@ -189,21 +189,21 @@ packages:
 #     specs:
 #       - py-macs2@2.1.1.20160309 ^py-numpy+blas+lapack@1.12.1
 #
-#   # Code compiled with all the stacks that does not require
-#   # MPI or LAPACK
-#   serial:
-#     target_matrix:
-#       - gnu-stable
-#       - gnu-bleeding-edge
-#       - intel
-#     requires:
-#       - architecture
-#       - compiler
-#     specs:
+  # Code compiled with all the stacks that does not require
+  # MPI or LAPACK
+  serial:
+    target_matrix:
+      - gnu-stable
+      - gnu-bleeding-edge
+      - intel
+    requires:
+      - architecture
+      - compiler
+    specs:
 #       - valgrind@3.12.0~boost~mpi
 #       - gdb@7.12.1
-#       - fftw@3.3.6-pl2~mpi
-#       - fftw@3.3.6-pl2~mpi+openmp
+      - 'fftw@3.3.7~mpi~openmp+fma simd=sse2,avx,avx2,avx512'
+      - 'fftw@3.3.7~mpi+openmp+fma simd=sse2,avx,avx2,avx512'
 #       - nfft@3.3.2 ^fftw@3.3.6-pl2~mpi
 #       - glpk@4.61+gmp
 #       - gsl@2.3

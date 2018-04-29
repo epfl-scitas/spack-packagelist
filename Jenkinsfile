@@ -48,32 +48,32 @@ pipeline {
             //    they need to be tested
             //
 
-            // TODO: the agent below must have access to the network
-            agent any
+            agent {
+                label 'fidis-login'
+            }
+
             when {
-                changeRequest target: 'releases/paien'
+                branch '*/paien/*'
             }
+
             environment {
-                // TODO: temporary space, but must be on a shared folder (will be reused later)
-                SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
+                SPACK_PRODUCTION_DIR = "/ssoft/spack/paien/spack.v1"
             }
+
             steps {
-                dir("${SPACK_CHECKOUT_DIR}") {
-                    git url: "https://github.com/epfl-scitas/spack.git", branch: "${env.GIT_BRANCH}"
+                sh 'scripts/setup_pr_configuration.sh'
+            }
+
+            post {
+                always {
+                    archiveArtifacts artifacts:'*.txt'
+                    stash name:'spack_dir', includes: 'spack_dir.txt'
+                    stash name:'x86_E5v2_IntelIB', includes: 'to_be_installed.x86_E5v2_IntelIB.txt'
+                    stash name:'x86_E5v2_Mellanox_GPU', includes: 'to_be_installed.x86_E5v2_Mellanox_GPU.txt'
+                    stash name:'x86_E5v3_IntelIB', includes: 'to_be_installed.x86_E5v3_IntelIB.txt'
+                    stash name:'x86_E5v4_Mellanox', includes: 'to_be_installed.x86_E5v4_Mellanox.txt'
+                    stash name:'x86_S6g1_Mellanox', includes: 'to_be_installed.x86_S6g1_Mellanox.txt'
                 }
-
-                // Copy configuration files into the correct place
-                // TODO: use declarative syntax? fileOperations?
-                sh '''#!/bin/bash
-                   cp -v configuration/* ${SPACK_CHECKOUT_DIR}/etc/spack/
-                   # TODO: remove this comment in case
-                   # cp -v -r external/* /ssoft/spack/external/
-                   '''
-
-                echo "Linking production compilers"
-                echo '''Computing specs that needs to be tested (How?).
-                     Leave a file per architecture, archive it.
-                     '''
             }
         }
 
@@ -218,23 +218,105 @@ pipeline {
             // that is in the current planned environment, but not on the
             // base release branch). Try to build it, and notify status on
             // github.
-
-            // FIXME: do we need to populate a mirror also for this case?
-            // FIXME: How are we going to fetch the artifacts?
-            agent any
             when {
-                changeRequest target: 'releases/paien'
-            }
-            environment {
-                // TODO: move to the right /ssoft space
-                SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
+                branch '*/paien/*'
             }
 
-            // TODO: here we need parallel stages on different agents
-            // TODO: each of which is spawned on a node
-            steps {
-                echo 'Install software modified in this PR, output junit.xml, archive it'
-                echo 'Notify results on github'
+            environment {
+                SPACK_PRODUCTION_DIR = "/ssoft/spack/paien/spack.v1"
+            }
+
+            parallel {
+                stage('x86_E5v2_Mellanox_GPU') {
+                    agent {
+                        label 'x86_E5v2_Mellanox_GPU'
+                    }
+
+                    steps {
+                        unstash name: 'spack_dir'
+                        unstash name: 'x86_E5v2_Mellanox_GPU'
+                        sh 'scripts/test_pr_build.sh'
+                    }
+
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt, *.xml'
+                            junit testResults:'*.xml', allowEmptyResults:true
+                        }
+                    }
+                }
+                stage('x86_E5v2_IntelIB') {
+                    agent {
+                        label 'x86_E5v2_IntelIB'
+                    }
+
+                    steps {
+                        unstash name: 'spack_dir'
+                        unstash name: 'x86_E5v2_IntelIB'
+                        sh 'scripts/test_pr_build.sh'
+                    }
+
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt, *.xml'
+                            junit testResults:'*.xml', allowEmptyResults:true
+                        }
+                    }
+                }
+                stage('x86_E5v3_IntelIB') {
+                    agent {
+                        label 'x86_E5v3_IntelIB'
+                    }
+
+                    steps {
+                        unstash name: 'spack_dir'
+                        unstash name: 'x86_E5v3_IntelIB'
+                        sh 'scripts/test_pr_build.sh'
+                    }
+
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt, *.xml'
+                            junit testResults:'*.xml', allowEmptyResults:true
+                        }
+                    }
+                }
+                stage('x86_E5v4_Mellanox') {
+                    agent {
+                        label 'x86_E5v4_Mellanox'
+                    }
+
+                    steps {
+                        unstash name: 'spack_dir'
+                        unstash name: 'x86_E5v4_Mellanox'
+                        sh 'scripts/test_pr_build.sh'
+                    }
+
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt, *.xml'
+                            junit testResults:'*.xml', allowEmptyResults:true
+                        }
+                    }
+                }
+                stage('x86_S6g1_Mellanox') {
+                    agent {
+                        label 'x86_S6g1_Mellanox'
+                    }
+
+                    steps {
+                        unstash name: 'spack_dir'
+                        unstash name: 'x86_S6g1_Mellanox'
+                        sh 'scripts/test_pr_build.sh'
+                    }
+
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt, *.xml'
+                            junit testResults:'*.xml', allowEmptyResults:true
+                        }
+                    }
+                }
             }
         }
 
@@ -242,19 +324,19 @@ pipeline {
             // Deploy the software that is planned to be in the environment,
             // but not yet installed. Notify failures.
 
+            when {
+                branch 'releases/*'
+            }
+
+            environment {
+                SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
+                SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
+            }
+
             parallel {
                 stage('x86_E5v2_IntelIB') {
                     agent {
                         label 'x86_E5v2_IntelIB'
-                    }
-
-                    when {
-                        branch 'releases/*'
-                    }
-
-                    environment {
-                        SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
-                        SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
                     }
 
                     steps {
@@ -275,15 +357,6 @@ pipeline {
                         label 'x86_E5v2_Mellanox_GPU'
                     }
 
-                    when {
-                        branch 'releases/*'
-                    }
-
-                    environment {
-                        SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
-                        SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
-                    }
-
                     steps {
                         unstash name: 'x86_E5v2_Mellanox_GPU'
                         sh 'scripts/deploy_in_production.sh'
@@ -300,15 +373,6 @@ pipeline {
                 stage('x86_E5v3_IntelIB') {
                     agent {
                         label 'x86_E5v3_IntelIB'
-                    }
-
-                    when {
-                        branch 'releases/*'
-                    }
-
-                    environment {
-                        SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
-                        SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
                     }
 
                     steps {
@@ -329,15 +393,6 @@ pipeline {
                         label 'x86_E5v4_Mellanox'
                     }
 
-                    when {
-                        branch 'releases/*'
-                    }
-
-                    environment {
-                        SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
-                        SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
-                    }
-
                     steps {
                         unstash name: 'x86_E5v4_Mellanox'
                         sh 'scripts/deploy_in_production.sh'
@@ -355,15 +410,6 @@ pipeline {
                 stage('x86_S6g1_Mellanox') {
                     agent {
                         label 'x86_S6g1_Mellanox'
-                    }
-
-                    when {
-                        branch 'releases/*'
-                    }
-
-                    environment {
-                        SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
-                        SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
                     }
 
                     steps {
