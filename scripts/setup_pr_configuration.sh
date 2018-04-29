@@ -34,9 +34,7 @@ cd -
 # Create a virtual env for the command just checked out
 SENV_VIRTUALENV_PATH=$(mktemp -d /home/scitasbuild/paien/pr/senv.XXXXX)
 virtualenv -p $(which python) ${SENV_VIRTUALENV_PATH} --clear
-. ${SENV_VIRTUALENV_PATH}/bin/activate
 pip install --force-reinstall -U .
-senv --help
 
 # Activate the helper command and production Spack. Then
 # compute what still needs to be installed.
@@ -46,7 +44,9 @@ senv --help
 
 . ${SPACK_PRODUCTION_DIR}/share/spack/setup-env.sh
 which spack
+
 . ${SENV_VIRTUALENV_PATH}/bin/activate
+senv --help
 
 # Generate the list of software that need to be installed, then fetch every tarball
 for target in $(senv targets)
