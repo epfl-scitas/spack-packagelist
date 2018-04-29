@@ -32,6 +32,8 @@ echo "${SPACK_CHECKOUT_DIR}" > spack_dir.txt
 cp -v configuration/* ${SPACK_CHECKOUT_DIR}/etc/spack/
 cd ${SPACK_CHECKOUT_DIR}/etc/spack/
 ln -s /ssoft/spack/paien/spack.v1/etc/spack/compilers.yaml compilers.yaml
+# Remove config.yaml, as it point to install things directly in production
+rm config.yaml
 cd -
 
 # Create a virtual env for the command just checked out
