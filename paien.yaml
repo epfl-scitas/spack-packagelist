@@ -248,8 +248,8 @@ packages:
       - mpi
     specs:
 #       - boost@1.63.0+icu+mpi+python ^python@2.7.13
-      - 'fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512 '
-      - 'fftw@3.3.7+mpi+openmp+fma simd=sse2,avx,avx2,avx512 '
+      - fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+      - fftw@3.3.7+mpi+openmp+fma simd=sse2,avx,avx2,avx512
 #       - hdf5@1.10.1+szip+mpi~cxx
 #       - scotch@6.0.4+esmumps+mpi~metis
 #       - scorep@3.0

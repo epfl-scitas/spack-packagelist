@@ -67,7 +67,7 @@ do
     echo "[${target}] Populating temporary mirror"
     while read -r line
     do
-        echo "spack mirror create -D -d ${SPACK_MIRROR_DIR} \"${line}\""
+        echo "spack mirror create -D -d ${SPACK_MIRROR_DIR} ${line}"
         spack mirror create -D -d ${SPACK_MIRROR_DIR} ${line}
     done < to_be_installed.${target}.txt
 done
