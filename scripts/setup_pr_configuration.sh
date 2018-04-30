@@ -69,6 +69,10 @@ do
     do
         echo "spack mirror create -D -d ${SPACK_MIRROR_DIR} ${line}"
         spack mirror create -D -d ${SPACK_MIRROR_DIR} ${line}
+
+        # Exit with an error if mirror failed
+        if [[ "$?" != 0 ]] ; then exit 1 ; fi
+
     done < to_be_installed.${target}.txt
 done
 
