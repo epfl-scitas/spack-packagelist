@@ -236,20 +236,20 @@ packages:
 #       - arpack-ng@3.4.0~mpi
 #       - suite-sparse@4.5.5 ^metis@5.1.0+real64
 #
-#   # MPI code that doesn't use LAPACK
-#   mpi:
-#     target_matrix:
-#       - gnu-stable
-#       - gnu-bleeding-edge
-#       - intel
-#     requires:
-#       - architecture
-#       - compiler
-#       - mpi
-#     specs:
+  # MPI code that doesn't use LAPACK
+  mpi:
+    target_matrix:
+      - gnu-stable
+      - gnu-bleeding-edge
+      - intel
+    requires:
+      - architecture
+      - compiler
+      - mpi
+    specs:
 #       - boost@1.63.0+icu+mpi+python ^python@2.7.13
-#       - fftw@3.3.6-pl2+mpi~openmp
-#       - fftw@3.3.6-pl2+mpi+openmp
+      - fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+      - fftw@3.3.7+mpi+openmp+fma simd=sse2,avx,avx2,avx512
 #       - hdf5@1.10.1+szip+mpi~cxx
 #       - scotch@6.0.4+esmumps+mpi~metis
 #       - scorep@3.0
