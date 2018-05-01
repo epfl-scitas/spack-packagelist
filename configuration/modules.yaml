@@ -180,6 +180,7 @@ modules:
       suffixes:
         +mpi: mpi
         +openmp: openmp
+        'threads=openmp': openmp
         '^fftw+openmp': openmp
         +plumed: plumed
         '^cuda': cuda
@@ -295,7 +296,7 @@ modules:
           MKLROOT: /ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/mkl
           CMAKE_LIBRARY_PATH: /ssoft/spack/external/intel/2017/compilers_and_libraries_2017.2.174/linux/mkl/lib/intel64
 
-    openblas~openmp:
+    'openblas threads=none':
       environment:
         set:
           'OPENBLAS_NUM_THREADS': '1'
