@@ -273,21 +273,14 @@ modules:
         set:
           I_MPI_FABRICS:: 'shm:ofa'
 
-    'mvapich2 target=x86_E5v2_Mellanox_GPU':
-      environment:
-        set:
-          MV2_RNDV_PROTOCOL: R3
-
     'mvapich2 target=x86_E5v4_Mellanox':
       environment:
         set:
-          MV2_RNDV_PROTOCOL: R3
           MV2_ON_DEMAND_THRESHOLD: '1'
 
     'mvapich2 target=x86_S6g1_Mellanox':
       environment:
         set:
-          MV2_RNDV_PROTOCOL: R3
           MV2_ON_DEMAND_THRESHOLD: '1'
           MV2_IBA_HCA: mlx5_0
 

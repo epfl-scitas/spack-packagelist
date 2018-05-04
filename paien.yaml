@@ -24,7 +24,7 @@ combinations:
       - 'x86_E5v4_Mellanox:x86_S6g1_Mellanox'
     compiler: 'gcc@6.4.0'
     mpi:
-      - 'openmpi@3.0.1+pmi fabrics=psm schedulers=slurm +thread_multiple+sqlite3 ^hwloc+cairo:mvapich2@2.3rc2 fabrics=psm process_managers=slurm'
+      - 'openmpi@3.0.1+pmi fabrics=psm   schedulers=slurm +thread_multiple+sqlite3 ^hwloc+cairo:mvapich2@2.3rc2 fabrics=psm   process_managers=slurm'
       - 'openmpi@3.0.1+pmi fabrics=verbs schedulers=slurm +thread_multiple+sqlite3 ^hwloc+cairo:mvapich2@2.3rc2 fabrics=mrail process_managers=slurm'
     lapack: 'openblas@0.2.20:openblas@0.2.20 threads=openmp'
     python: 'python@3.6.5+optimizations+tk:python@2.7.14+tk'
@@ -37,7 +37,7 @@ combinations:
       - 'x86_E5v4_Mellanox:x86_S6g1_Mellanox'
     compiler: 'gcc@7.3.0'
     mpi:
-      - 'openmpi@3.0.1+pmi fabrics=psm schedulers=slurm +thread_multiple+sqlite3 ^hwloc+cairo:mvapich2@2.3rc2 fabrics=psm process_managers=slurm'
+      - 'openmpi@3.0.1+pmi fabrics=psm   schedulers=slurm +thread_multiple+sqlite3 ^hwloc+cairo:mvapich2@2.3rc2 fabrics=psm   process_managers=slurm'
       - 'openmpi@3.0.1+pmi fabrics=verbs schedulers=slurm +thread_multiple+sqlite3 ^hwloc+cairo:mvapich2@2.3rc2 fabrics=mrail process_managers=slurm'
     lapack: 'openblas@0.2.20:openblas@0.2.20 threads=openmp'
     python: 'python@3.6.5+optimizations+tk:python@2.7.14+tk'
