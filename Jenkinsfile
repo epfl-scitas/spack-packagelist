@@ -11,7 +11,8 @@ pipeline {
             // Prepare a release branch of Spack for deployment by:
             //
             // 1. Updating the tracked branch
-            // 2. Copying the latest configuration files in place
+            // 2. Updating our internal Spack repository
+            // 3. Copying the latest configuration files in place
             //
 
             agent {
@@ -24,6 +25,7 @@ pipeline {
 
             environment {
                 SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
+                SPACK_SCITAS_REPOSITORY = "/ssoft/spack/paien/scitas-repository"
                 SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
             }
 
@@ -31,6 +33,11 @@ pipeline {
                 // Checkout Spack
                 dir("${SPACK_CHECKOUT_DIR}") {
                     git url: "https://github.com/epfl-scitas/spack.git", branch: "${env.GIT_BRANCH}"
+                }
+
+                // Checkout our internal repository
+                dir("${SPACK_SCITAS_REPOSITORY}") {
+                    git url: "https://github.com/epfl-scitas/spack-repo-externals.git", branch: "master"
                 }
 
                 // Update the command line tool we use in production
