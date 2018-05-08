@@ -44,7 +44,7 @@ packages:
   adf:
     buildable: False
     paths:
-      adf@2017.111: /ssoft/spack/external/adf/adf2017.111
+      adf@2017.111 %gcc@4.8.5: /ssoft/spack/external/adf/adf2017.111
 
   ansys:
     buildable: False
@@ -59,20 +59,20 @@ packages:
   comsol:
     buildable: False
     paths:
-      comsol@5.2a: /ssoft/spack/external/comsol/5.2a
+      comsol@5.2a %gcc@4.8.5: /ssoft/spack/external/comsol/5.2a
 
   fdtd:
     buildable: False
     paths:
-      fdtd@8.19.1416-1: /ssoft/spack/external/fdtd/8.19.1416-1
+      fdtd@8.19.1416-1 %gcc@4.8.5: /ssoft/spack/external/fdtd/8.19.1416-1
       # installed due to segfault with other versions INC0204566
-      fdtd@8.12.527: /ssoft/spack/external/fdtd/8.12.527
+      fdtd@8.12.527 %gcc@4.8.5: /ssoft/spack/external/fdtd/8.12.527
 
   likwid:
     buildable: False
     version: ['@4.3.0']
     paths:
-      likwid@4.3.0: /ssoft/spack/external/LIKWID/4.3.0
+      likwid@4.3.0 %gcc@4.8.5: /ssoft/spack/external/LIKWID/4.3.0
 
   # TODO: We need to install Gaussian 16 with both AVX
   # gaussian:
@@ -83,25 +83,25 @@ packages:
   matlab:
     buildable: False
     paths:
-      matlab@R2018a: /ssoft/spack/external/MATLAB/R2018a
+      matlab@R2018a %gcc@4.8.5: /ssoft/spack/external/MATLAB/R2018a
 
   maple:
     buildable: False
     paths:
-      maple@2017: /ssoft/spack/external/Maple/2017
+      maple@2017 %gcc@4.8.5: /ssoft/spack/external/Maple/2017
 
   mathematica:
     buildable: False
     paths:
-      mathematica@9.0.1: /ssoft/spack/external/Mathematica/9.0.1
-      mathematica@11.1.1: /ssoft/spack/external/Mathematica/11.1.1
+      mathematica@9.0.1 %gcc@4.8.5: /ssoft/spack/external/Mathematica/9.0.1
+      mathematica@11.1.1 %gcc@4.8.5: /ssoft/spack/external/Mathematica/11.1.1
 
   smr:
     buildable: False
     paths:
-      smr@2017.06: /ssoft/spack/external/SMR/2017.06
+      smr@2017.06 %gcc@4.8.5: /ssoft/spack/external/SMR/2017.06
 
   totalview:
     buildable: False
     paths:
-      totalview@2017.2.11: /ssoft/spack/external/toolworks/totalview.2017.2.11
+      totalview@2017.2.11 %gcc@4.8.5: /ssoft/spack/external/toolworks/totalview.2017.2.11
