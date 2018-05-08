@@ -33,7 +33,8 @@ packages:
   # Third party software
   ####
 
-  # TODO: Abaqus needs to be reinstalled with the new intel compiler
+  # TODO: Abaqus needs to be reinstalled with the intel@2018
+  # TODO: first available window is beginning of July
   # abaqus:
   #   buildable: False
   #   version: ['@6.14-1']
@@ -64,10 +65,8 @@ packages:
     buildable: False
     paths:
       fdtd@8.19.1416-1: /ssoft/spack/external/fdtd/8.19.1416-1
-      # fdtd@8.18.1365-1: /ssoft/spack/external/fdtd/8.18.1365-1
       # installed due to segfault with other versions INC0204566
       fdtd@8.12.527: /ssoft/spack/external/fdtd/8.12.527
-      # fdtd@8.11.387: /ssoft/spack/external/fdtd/8.11.387
 
   likwid:
     buildable: False
@@ -75,15 +74,16 @@ packages:
     paths:
       likwid@4.3.0: /ssoft/spack/external/LIKWID/4.3.0
 
-  gaussian:
-    buildable: False
-    paths:
-      gaussian@g09-D.01: /ssoft/spack/external/gaussian/g09-D.01/intel-sse4.2
+  # TODO: We need to install Gaussian 16 with both AVX
+  # gaussian:
+  #   buildable: False
+  #   paths:
+  #     gaussian@g09-D.01: /ssoft/spack/external/gaussian/g09-D.01/intel-sse4.2
 
   matlab:
     buildable: False
     paths:
-      matlab@R2016a: /ssoft/spack/external/MATLAB/R2016a
+      matlab@R2018a: /ssoft/spack/external/MATLAB/R2018a
 
   maple:
     buildable: False
