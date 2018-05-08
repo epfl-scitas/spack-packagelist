@@ -153,6 +153,7 @@ packages:
       - py-numpy+blas+lapack@1.14.3
       - py-scipy@1.1.0 ^py-numpy+blas+lapack@1.14.3
       - py-matplotlib@2.0.0 ^py-numpy+blas+lapack@1.14.3
+      - py-pytorch ~cuda ^py-numpy +blas +lapack@1.14.3
       # FIXME: These are missing in develop. Check if they are still needed.
       # - py-qutip+f90mc@3.1.0^py-scipy@0.17.0^py-numpy+blas+lapack@1.11.0^py-cython@0.23.5
       # - py-ase+matplotlib+scipy@3.11.0^py-matplotlib@1.4.3^py-numpy+blas+lapack@1.11.0
