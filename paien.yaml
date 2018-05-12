@@ -209,7 +209,7 @@ packages:
       - 'fftw@3.3.7~mpi~openmp+fma simd=sse2,avx,avx2,avx512'
       - 'fftw@3.3.7~mpi+openmp+fma simd=sse2,avx,avx2,avx512'
       - nfft@3.4.1 ^fftw@3.3.7~mpi~openmp+fma simd=sse2,avx,avx2,avx512
-      - glpk@4.65+gmp
+      # FIXME: intel gives an internal compiler error - glpk@4.65+gmp
       - gsl@2.4
       - hdf5@1.10.1+szip~mpi+hl+fortran+cxx
       - metis@5.1.0+real64
@@ -220,7 +220,7 @@ packages:
       - tcl@8.6.8
       - tk@8.6.8 ^tcl@8.6.8
       - bedtools2@2.27.1
-      - tbb@2018.2
+      - intel-tbb@2018.2
 
 #   # Serial code that uses LAPACK
 #   lapack:
