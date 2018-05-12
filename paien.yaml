@@ -87,6 +87,8 @@ packages:
       # - picard@2.18.3
       - tar@1.30
       - sbt@1.1.4
+#       - mercurial@4.1.2 FIXME: Move it to Core, even if it needs python at link time?
+
 
   # List of third-party tools or of packages that are maintained
   # in our own repository
@@ -202,28 +204,24 @@ packages:
       - architecture
       - compiler
     specs:
-#       - valgrind@3.12.0~boost~mpi
-#       - gdb@7.12.1
+      - valgrind@3.13.0~boost~mpi
+      - gdb@8.1~python
       - 'fftw@3.3.7~mpi~openmp+fma simd=sse2,avx,avx2,avx512'
       - 'fftw@3.3.7~mpi+openmp+fma simd=sse2,avx,avx2,avx512'
-#       - nfft@3.3.2 ^fftw@3.3.6-pl2~mpi
-#       - glpk@4.61+gmp
-#       - gsl@2.3
+      - nfft@3.4.1 ^fftw@3.3.7~mpi~openmp+fma simd=sse2,avx,avx2,avx512
+      # FIXME: intel gives an internal compiler error - glpk@4.65+gmp
+      - gsl@2.4
       - hdf5@1.10.1+szip~mpi+hl+fortran+cxx
-#       - metis@5.1.0+real64
-#       - scotch@6.0.4+esmumps~metis~mpi
-#       - python@3.6.1
-#       - python@2.7.13
-#       - netcdf@4.4.1.1~mpi ^hdf5@1.10.1+szip~mpi
-#       - netcdf-fortran@4.4.4 ^netcdf@4.4.1.1~mpi ^hdf5@1.10.1+szip~mpi
-#       - gts@121130
-#       - voropp@0.4.6
-#       - tcl@8.6.6
-#       - tk@8.6.6 ^tcl@8.6.6
-#       - mercurial@4.1.2 ^python@2.7.13
-#       - bedtools2@2.26.0
-#       - tbb@2017.5
-#
+      - metis@5.1.0+real64
+      - scotch@6.0.4+esmumps~metis~mpi
+      - netcdf@4.6.1~mpi ^hdf5@1.10.1+szip~mpi+hl+fortran+cxx
+      - netcdf-fortran@4.4.4 ^netcdf@4.6.1~mpi ^hdf5@1.10.1+szip~mpi+hl+fortran+cxx
+      - voropp@0.4.6
+      - tcl@8.6.8
+      - tk@8.6.8 ^tcl@8.6.8
+      - bedtools2@2.27.1
+      - intel-tbb@2018.2
+
 #   # Serial code that uses LAPACK
 #   lapack:
 #     target_matrix:
