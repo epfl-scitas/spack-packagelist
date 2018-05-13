@@ -222,20 +222,20 @@ packages:
       - bedtools2@2.27.1
       - intel-tbb@2018.2
 
-#   # Serial code that uses LAPACK
-#   lapack:
-#     target_matrix:
-#       - gnu-stable
-#       - gnu-bleeding-edge
-#       - intel
-#     requires:
-#       - architecture
-#       - compiler
-#       - lapack
-#     specs:
-#       - arpack-ng@3.4.0~mpi
-#       - suite-sparse@4.5.5 ^metis@5.1.0+real64
-#
+  # Serial code that uses LAPACK
+  lapack:
+    target_matrix:
+      - gnu-stable
+      - gnu-bleeding-edge
+      - intel
+    requires:
+      - architecture
+      - compiler
+      - lapack
+    specs:
+      - arpack-ng@3.5.0~mpi
+      - suite-sparse@5.2.0 ^metis@5.1.0+real64
+
   # MPI code that doesn't use LAPACK
   mpi:
     target_matrix:
@@ -248,32 +248,32 @@ packages:
       - mpi
     specs:
       - osu-micro-benchmarks@5.4~cuda
-#       - boost@1.63.0+icu+mpi+python ^python@2.7.13
+      - boost@1.67.0+icu+mpi+python ^python@2.7.14+tk
       - fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
       - fftw@3.3.7+mpi+openmp+fma simd=sse2,avx,avx2,avx512
       - hdf5@1.10.1+szip+mpi+hl+fortran+cxx
-#       - scotch@6.0.4+esmumps+mpi~metis
+      - scotch@6.0.4+esmumps+mpi~metis
 #       - scorep@3.0
 #       - parmetis@4.0.3 ^metis@5.1.0+real64
-#       - netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx
-#       - netcdf-fortran@4.4.4 ^netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx
+      - netcdf@4.6.1+mpi ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
+      - netcdf-fortran@4.4.4 ^netcdf@4.6.1+mpi ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
 #       - cgal@4.9.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
 #       - gerris@snapshot ^gsl@2.3 ^gts@121130
-#
-#   # Libraries that needs both MPI and LAPACK
-#   mpi-lapack-libraries:
-#     target_matrix:
-#       - gnu-stable
-#       - gnu-bleeding-edge
-#       - intel
-#     requires:
-#       - architecture
-#       - compiler
-#       - mpi
-#       - lapack
-#     specs:
-#       - arpack-ng@3.4.0+mpi
-#
+
+  # Libraries that needs both MPI and LAPACK
+  mpi-lapack-libraries:
+    target_matrix:
+      - gnu-stable
+      - gnu-bleeding-edge
+      - intel
+    requires:
+      - architecture
+      - compiler
+      - mpi
+      - lapack
+    specs:
+      - arpack-ng@3.5.0+mpi
+
   # Libraries that needs both MPI and LAPACK - GNU specific
   mpi-lapack-libraries-gnu:
     target_matrix:
