@@ -401,7 +401,8 @@ packages:
       - subread@1.6.2
       - bowtie@1.2+tbb ^intel-tbb@2018.2
       - bowtie2@2.3.4.1 ^intel-tbb@2018.2
-      - tophat@2.1.1 ^bowtie2@2.3.4.1 ^intel-tbb@2018.2
+      # FIXME: see https://github.com/spack/spack/issues/8025
+      # - tophat@2.1.1 ^bowtie2@2.3.4.1 ^intel-tbb@2018.2
 
 #   # MPI applications built with the GNU stable stack
 #   gnu-mpi-applications:
