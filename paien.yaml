@@ -405,27 +405,25 @@ packages:
       # FIXME: see https://github.com/spack/spack/issues/8025
       # - tophat@2.1.1 ^bowtie2@2.3.4.1 ^intel-tbb@2018.2
 
-#   # MPI applications built with the GNU stable stack
-#   gnu-mpi-applications:
-#     target_matrix:
-#       - gnu-stable
-#     target_filter:
-#       mpi:
-#         - 'mvapich2@2.3.1 fabrics=psm process_managers=slurm'
-#         - 'mvapich2@2.3.1 fabrics=mrail process_managers=slurm'
-#         - 'mvapich2@2.3.1 fabrics=sock process_managers=slurm'
-#     requires:
-#       - architecture
-#       - compiler
-#       - mpi
-#     specs:
-#       - gromacs@2016.3+mpi ^fftw@3.3.6-pl2+mpi~openmp
-#       - namd fftw=3 interface=python @2.12 ^ charm backend=mpi @6.7.1 ^ fftw@3.3.6-pl2 ^ python@2.7.13 ^ tcl@8.6.6
-#       - foam-extend+metis+scotch+parmetis+ptscotch~paraview ^parmetis@4.0.3
-#         ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^python@2.7.13
-#       - openfoam-com~paraview~int64+metis+scotch+source ^scotch@6.0.4+esmumps+mpi~metis ^cgal@4.9.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
-#       - neuron@7.5+mpi+python+shared ^python@2.7.13
-#
+  # MPI applications built with the GNU stable stack
+  gnu-mpi-applications:
+    target_matrix:
+      - gnu-stable
+    target_filter:
+      mpi:
+        - 'mvapich2@2.3rc2 fabrics=psm   process_managers=slurm'
+        - 'mvapich2@2.3rc2 fabrics=mrail process_managers=slurm'
+    requires:
+      - architecture
+      - compiler
+      - mpi
+    specs:
+      - gromacs@2018.1+mpi ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+      - namd fftw=3 interface=python @2.12 ^charm backend=mpi ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^python@2.7.14+tk
+      - foam-extend+metis+scotch+parmetis+ptscotch~paraview ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^python@2.7.14+tk
+      - openfoam-com~paraview~int64+metis+scotch+source ^scotch@6.0.4+esmumps+mpi~metis ^cgal@4.12 ^boost@1.67.0+icu+mpi+python ^fftw@3.3.7~mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^python@2.7.14+tk
+      - neuron@7.5+mpi+python+shared ^python@2.7.14+tk
+
 #   # MPI applications built with the GNU stable stack that use LAPACK
 #   gnu-mpi-lapack-applications:
 #     target_matrix:
@@ -433,9 +431,8 @@ packages:
 #     target_filter:
 #       lapack: ['openblas@0.2.20~openmp']
 #       mpi:
-#         - 'mvapich2@2.3.1 fabrics=psm process_managers=slurm'
-#         - 'mvapich2@2.3.1 fabrics=mrail process_managers=slurm'
-#         - 'mvapich2@2.3.1 fabrics=sock process_managers=slurm'
+#        - 'mvapich2@2.3rc2 fabrics=psm   process_managers=slurm'
+#        - 'mvapich2@2.3rc2 fabrics=mrail process_managers=slurm'
 #     requires:
 #       - architecture
 #       - compiler
