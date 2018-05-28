@@ -453,11 +453,10 @@ packages:
 #       - espresso@6.1.0+mpi+scalapack+hdf5 ^fftw@3.3.6-pl2+mpi~openmp ^netlib-scalapack@2.0.2 ^hdf5@1.10.1+szip+mpi~cxx
 # TODO: port the package from cornalin
 #       - cpmd@v4.1~openmp ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
-# TODO: issues on detecting the correct Petsc iun CI
-#      - petsc@3.9.2~int64+boost+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse
-#        ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
-#        ^mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^netlib-scalapack@2.0.2
-#        ^boost@1.67.0+icu+mpi+python ^python@2.7.14+tk
+      - petsc@3.9.2~int64+boost+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse
+        ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
+        ^mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^netlib-scalapack@2.0.2
+        ^boost@1.67.0+icu+mpi+python ^python@2.7.14+tk
 #       # TODO: - caffe@1.0+python+opencv  ^hdf5@1.10.1+szip+mpi~cxx ^opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6 ^py-numpy+blas+lapack@1.12.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
 # TODO: port amber from cornalin
 #       - amber@16+mpi ^netcdf-fortran@4.4.4 ^netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx ^py-scipy@0.19.0 ^py-matplotlib@2.0.0 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13
