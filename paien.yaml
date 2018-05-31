@@ -315,65 +315,84 @@ packages:
 #   ##########
 #
 #   # Serial applications built with the Intel stack
-#   intel-serial-applications:
-#     target_matrix:
-#       - intel
-#     requires:
-#       - architecture
-#       - compiler
-#     specs:
-#       - qt@4.8.6
-#       - opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6
-#       - hisat2@2.1.0
-#       - samtools@1.4
-#       - subread@1.5.2
-#       # FIXME: abaqus
-#
-#   # MPI applications built with the Intel stack
-#   intel-mpi-applications:
-#     target_matrix:
-#       - intel
-#     requires:
-#       - architecture
-#       - compiler
-#       - mpi
-#     specs:
-#       - gromacs@2016.3+mpi ^fftw@3.3.6-pl2+mpi~openmp
-#       - foam-extend+metis+scotch+parmetis+ptscotch~paraview ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^python@2.7.13
-#       - openfoam-com~paraview+metis+scotch~int64+source ^scotch@6.0.4+esmumps+mpi~metis ^cgal@4.9.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
-#       - neuron@7.5+mpi+python+shared ^python@2.7.13
-#
-#   # MPI applications built with the Intel stack that use LAPACK
-#   intel-mpi-lapack-applications:
-#     target_matrix:
-#       - intel
-#     requires:
-#       - architecture
-#       - compiler
-#       - mpi
-#       - lapack
-#     specs:
-#       - plumed@2.3.0+mpi+gsl ^gsl@2.3
-#       - gromacs@2016.1+mpi+plumed ^fftw@3.3.6-pl2+mpi~openmp ^plumed@2.3.0+mpi+gsl ^gsl@2.3
-#       - cp2k@4.1+mpi~plumed ^parmetis@4.0.3 ^metis@5.1.0+real64
-#       - cp2k@4.1+mpi+plumed ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.3.0+mpi+gsl ^gsl@2.3
-#       - cp2k@5.1+mpi~plumed ^parmetis@4.0.3 ^metis@5.1.0+real64
-#       - cp2k@5.1+mpi+plumed ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.3.0+mpi+gsl ^gsl@2.3
+  intel-serial-applications:
+    target_matrix:
+      - intel
+    requires:
+      - architecture
+      - compiler
+    specs:
+      # FIXME: Qt doesn't install with Intel
+      # - qt@4.8.6 +gtk+opengl+webkit ^mesa
+      # FIXME: Concretization errors on gl vdep
+      # - opencv@3.4.1 +qt+zlib+tiff+vtk+png+jpeg+imgproc+highgui build_type=Release ^qt@4.8.6 +gtk+opengl+webkit ^mesa
+      - hisat2@2.1.0
+      # FIXME: issues with libz2
+      # - samtools@1.8
+      - subread@1.6.2
+      # FIXME: install abaqus
+      # - abaqus
+
+  # MPI applications built with the Intel stack
+  intel-mpi-applications:
+    target_matrix:
+      - intel
+    requires:
+      - architecture
+      - compiler
+      - mpi
+    specs:
+      - gromacs@2018.1+mpi ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+      - foam-extend+metis+scotch+parmetis+ptscotch~paraview ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^python@2.7.14+tk
+      - openfoam-com~paraview~int64+metis+scotch+source ^scotch@6.0.4+esmumps+mpi~metis ^cgal@4.12 ^boost@1.67.0+icu+mpi+python ^fftw@3.3.7~mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^python@2.7.14+tk
+      - neuron@7.5+mpi+python+shared ^python@2.7.14+tk
+
+  # MPI applications built with the Intel stack that use LAPACK
+  intel-mpi-lapack-applications:
+    target_matrix:
+      - intel
+    requires:
+      - architecture
+      - compiler
+      - mpi
+      - lapack
+    specs:
+      - plumed@2.4.1+mpi+gsl ^gsl@2.4
+      - gromacs@2016.4+mpi+plumed
+        ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+        ^plumed@2.4.1+mpi+gsl ^gsl@2.4
+      - cp2k@5.1+mpi~plumed smm=none ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^parmetis@4.0.3 ^metis@5.1.0+real64
+      - cp2k@5.1+mpi+plumed smm=none ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.4.1+mpi+gsl ^gsl@2.4
 #       - espresso@6.1.0+mpi+scalapack+hdf5 ^fftw@3.3.6-pl2+mpi~openmp ^hdf5@1.10.1+szip+mpi~cxx
 #       - espresso@6.1.0+mpi+scalapack ^fftw@3.3.6-pl2+mpi~openmp
 #       - namd fftw=mkl interface=python @2.12 ^ charm backend=mpi @6.7.1 ^ python@2.7.13 ^ tcl@8.6.6
 #       - amber@16+mpi ^netcdf-fortran@4.4.4 ^netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx ^py-scipy@0.19.0 ^py-matplotlib@2.0.0 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13
-#       - yambo@4.1.3 ^netcdf-fortran@4.4.4 ^netcdf@4.4.1.1~mpi ^hdf5@1.10.1+szip~mpi
+      - yambo@4.2.1+mpi io=iotk,etsf-io
+        ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+        ^netcdf-fortran@4.4.4 ^netcdf@4.6.1+mpi ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
 #       - cpmd@v4.1~openmp ^fftw@3.3.6-pl2+mpi~openmp
-#       - petsc@3.7.6+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre ^hdf5@1.10.1+szip+mpi~cxx  ^mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^boost@1.63.0+icu+mpi+python ^python@2.7.13
-#       # TODO: - nwchem@6.6 ^python@2.7.13
+# FIXME: issues installing petsc
+#       - petsc@3.9.2~int64+boost+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse
+#         ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
+#         ^mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis
+#         ^boost@1.67.0+icu+mpi+python ^python@2.7.14+tk
+#       - nwchem@6.8 ^netlib-scalapack@2.0.2 ^python@2.7.14+tk
 #       # TODO: - caffe@1.0+python+opencv  ^hdf5@1.10.1+szip+mpi~cxx ^opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6 ^py-numpy+blas+lapack@1.12.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
 #       # TODO: - gmsh@3.0.1+mpi+hdf5+fltk+compression ^hdf5@1.10.1+szip+mpi~cxx
 #       - fenics@2017.1.0+petsc+hdf5~trilinos+suite-sparse+mpi ^petsc@3.7.6+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre ^hdf5@1.10.1+szip+mpi~cxx  ^mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^boost@1.61.0+icu_support+mpi+python ^python@2.7.13 ^eigen@3.3.1~debug+fftw+metis+mpfr+scotch+suitesparse ^fftw@3.3.6-pl2+mpi~openmp
 #       # FIXME: - simpson@master ^gsl@2.1 ^nfft@3.3.2 ^fftw@3.3.4 ^tk@8.6.3 ^tcl@8.6.5
-#       - lammps@20170901+lib+rigid+user-nc-dump+meam+voronoi+user-atc+manybody ^netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx ^voropp@0.4.6+pic
-#
-#   # Serial applications built with the Intel stack that use LAPACK
+      - lammps@20180316 build_type=Release
+        +asphere +body +class2 +colloid +compress +coreshell
+        +dipole +granular +kspace +latte +lib +manybody +mc
+        +meam +misc +molecule +mpi +mpiio +peri ~poems +python
+        +qeq +reax +replica +rigid +shock +snap +srd +user-atc
+        +user-h5md +user-lb +user-misc +user-netcdf ~voronoi
+        ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+        ^netcdf@4.6.1+mpi ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
+
+  # Serial applications built with the Intel stack that use LAPACK
+# FIXME: See https://software.intel.com/en-us/forums/intel-c-compiler/topic/758013
+# FIXME: for pixman and related libraries
 #   intel-lapack-applications:
 #     target_matrix:
 #       - intel
@@ -382,8 +401,8 @@ packages:
 #       - compiler
 #       - lapack
 #     specs:
-#       - r@3.3.2+external-lapack
-#
+#       - r@3.5.0+external-lapack
+
   # Serial applications built with the GNU stable stack
   gnu-serial-applications:
     target_matrix:
@@ -475,7 +494,7 @@ packages:
         +user-h5md +user-lb +user-misc +user-netcdf ~voronoi
         ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
         ^netcdf@4.6.1+mpi ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
-#
+
 #   ##########
 #   # GPU Nodes
 #   ##########
