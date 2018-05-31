@@ -119,6 +119,7 @@ modules:
       'libxdmcp',
       'libtool',
       'm4',
+      'i7z',
       'tcl',
       'tk',
       'python~tk',

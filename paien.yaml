@@ -88,6 +88,7 @@ packages:
       - tar@1.30
       - sbt@1.1.4
       - mercurial@4.4.1
+      - i7z@epfl-scitas
 
   # List of third-party tools or of packages that are maintained
   # in our own repository
