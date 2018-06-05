@@ -119,25 +119,23 @@ packages:
 
   # List of python packages that do not require
   # BLAS / LAPACK
-#   serial_python:
-#     target_matrix:
-#       - gnu-stable
-#       - gnu-bleeding-edge
-#       - gnu-gpu
-#       - intel
-#     requires:
-#       - architecture
-#       - compiler
-#       - python
-#     specs:
-#       - py-cython@0.25.2
-#       - py-pip@9.0.1
-#       # - py-psycopg2@2.6.2 ^py-pip@9.0.1  # FIXME: missing in develop
-#       - py-sympy@1.0
-#       - py-ply@3.8
-#       - py-virtualenv@15.1.0
-#       - py-pytest@3.0.7
-#
+  serial_python:
+    target_matrix:
+      - gnu-stable
+      - gnu-bleeding-edge
+      - gnu-gpu
+      - intel
+    requires:
+      - architecture
+      - compiler
+      - python
+    specs:
+      - py-cython
+      - py-pip
+      - py-sympy
+      - py-ply
+      - py-virtualenv
+
 #   # Python packages that requires LAPACK
 #   python_lapack_openmp:
 #     target_matrix:

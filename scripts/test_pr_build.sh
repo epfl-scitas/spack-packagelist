@@ -27,3 +27,21 @@ then
 else
     spack install --log-file=spec.${SPACK_TARGET_TYPE}.xml --log-format=junit ${specs_to_be_installed}
 fi
+
+# Activate python extensions
+
+# Set the line separator to be only the newline character
+#
+# https://askubuntu.com/questions/344407/how-to-read-complete-line-in-for-loop-with-spaces
+# https://unix.stackexchange.com/questions/16192/what-is-the-ifs
+#
+IFS=$'\n'
+for spec in $(cat to_be_installed.${SPACK_TARGET_TYPE}.txt)
+do
+    # Activate python extensions
+    if [[ "${spec}" =~ "py-" ]]
+    then
+        echo "[ACTIVATION] ${spec}"
+        spack activate ${spec}
+    fi
+done
