@@ -221,6 +221,7 @@ packages:
       - bedtools2@2.27.1
       - intel-tbb@2018.2
       - eigen@3.3.4~fftw~suitesparse~metis~scotch~mpfr
+      - gdl~wx~x11~hdf4+hdf5+python+proj+graphicsmagick+openmp ^eigen@3.3.4~fftw~suitesparse~metis~scotch~mpfr ^'fftw@3.3.7~mpi~openmp+fma simd=sse2,avx,avx2,avx512' ^netcdf@4.6.1~mpi ^hdf5@1.10.1+szip~mpi+hl+fortran+cxx
 
   # Serial code that uses LAPACK
   lapack:
