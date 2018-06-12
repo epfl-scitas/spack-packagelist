@@ -304,7 +304,7 @@ modules:
     # Other software
     ####
 
-    espresso:
+    quantum-espresso:
       suffixes:
         +hdf5: hdf5
 
