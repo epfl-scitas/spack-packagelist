@@ -73,6 +73,11 @@ do
     # FIXME: querying if we don't want false positives with mixed targets in
     # FIXME: concretized the spec
     SPACK_TARGET_TYPE="${target}" spack filter --not-installed $(cat all_specs.${target}.txt) > to_be_installed.${target}.txt
+    if ! $?
+    then
+        echo "[${target}] ERROR while computing list of packages!"
+        exit 1
+    fi
     echo "[${target}] $(cat to_be_installed.${target}.txt)"
 
 done
