@@ -363,8 +363,11 @@ packages:
         ^plumed@2.4.1+mpi+gsl ^gsl@2.4
       - cp2k@5.1+mpi~plumed smm=none ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^parmetis@4.0.3 ^metis@5.1.0+real64
       - cp2k@5.1+mpi+plumed smm=none ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.4.1+mpi+gsl ^gsl@2.4
-#       - espresso@6.1.0+mpi+scalapack+hdf5 ^fftw@3.3.6-pl2+mpi~openmp ^hdf5@1.10.1+szip+mpi~cxx
-#       - espresso@6.1.0+mpi+scalapack ^fftw@3.3.6-pl2+mpi~openmp
+      - quantum-espresso@6.2.0+mpi+scalapack+hdf5
+        ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+        ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
+      - quantum-espresso@6.2.0+mpi+scalapack
+        ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
 #       - namd fftw=mkl interface=python @2.12 ^charm backend=mpi ^python@2.7.14+tk
 #       - amber@16+mpi ^netcdf-fortran@4.4.4 ^netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx ^py-scipy@0.19.0 ^py-matplotlib@2.0.0 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13
       - yambo@4.2.1+mpi io=iotk,etsf-io
@@ -467,10 +470,13 @@ packages:
       - cp2k@5.1+mpi+plumed smm=none ^netlib-scalapack@2.0.2 ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.4.1+mpi+gsl ^gsl@2.4
       - nwchem@6.8 ^netlib-scalapack@2.0.2 ^python@2.7.14+tk
       - abinit@8.8.2~hdf5~openmp+mpi+scalapack ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^netlib-scalapack@2.0.2
-# TODO: this should be renamed to Quantum espresso
-#       - espresso@6.1.0+mpi+scalapack ^fftw@3.3.6-pl2+mpi~openmp ^netlib-scalapack@2.0.2
-#       - espresso@6.1.0+mpi+scalapack+hdf5 ^fftw@3.3.6-pl2+mpi~openmp ^netlib-scalapack@2.0.2 ^hdf5@1.10.1+szip+mpi~cxx
-# TODO: port the package from cornalin
+      - quantum-espresso@6.2.0+mpi+scalapack
+        ^netlib-scalapack@2.0.2
+        ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+      - quantum-espresso@6.2.0+mpi+scalapack+hdf5
+        ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+        ^netlib-scalapack@2.0.2
+        ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
       - cpmd@v4.1~openmp ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
       - petsc@3.9.2~int64+boost+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse
         ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
