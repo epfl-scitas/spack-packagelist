@@ -82,7 +82,7 @@ packages:
       # - gnuplot@5.2.2 +X+pbm+wx ^pango+X
       - git@2.17.0
       - tmux@2.7
-      - scala@2.12.5
+      - scala@2.11.11
       - spark@2.3.0+hadoop
       # - picard@2.18.3
       - tar@1.30
