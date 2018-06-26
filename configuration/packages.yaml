@@ -9,6 +9,11 @@ packages:
     paths:
       openssl@system: /usr/lib64
 
+  jdk:
+    buildable: False
+    paths:
+      jdk@8u141-b16: /usr/lib/jvm/jre
+
   ####
   # Intel compilers and libraries
   ####
