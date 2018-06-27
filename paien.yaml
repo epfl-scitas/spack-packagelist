@@ -82,7 +82,7 @@ packages:
       # - gnuplot@5.2.2 +X+pbm+wx ^pango+X
       - git@2.17.0
       - tmux@2.7
-      - scala@2.12.5
+      - scala@2.11.11
       - spark@2.3.0+hadoop
       # - picard@2.18.3
       - tar@1.30
@@ -501,23 +501,23 @@ packages:
         ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
         ^netcdf@4.6.1+mpi ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
 
-#   ##########
-#   # GPU Nodes
-#   ##########
-#
-#   gnu-gpu-serial:
-#     target_matrix:
-#       - gnu-gpu
-#     requires:
-#       - architecture
-#       - compiler
-#     specs:
-#       - fftw@3.3.6-pl2~mpi
-#       - fftw@3.3.6-pl2~mpi+openmp
-#       - cuda@8.0.61
-#       - cudnn@6.0 ^cuda@8.0.61
-#       # FIXME: tensorflow+cuda is missing
-#
+  ##########
+  # GPU Nodes
+  ##########
+
+  gnu-gpu-serial:
+    target_matrix:
+      - gnu-gpu
+    requires:
+      - architecture
+      - compiler
+    specs:
+      - fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+      - fftw@3.3.7+mpi+openmp+fma simd=sse2,avx,avx2,avx512
+      - cuda@9.1.85
+      - cudnn@6.0 ^cuda@9.1.85
+      # FIXME: tensorflow+cuda is missing
+
 #   gnu-gpu-python-lapack:
 #     target_matrix:
 #       - gnu-gpu
@@ -538,18 +538,18 @@ packages:
       - mpi
     specs:
       - osu-micro-benchmarks@5.4+cuda
-#       - boost@1.63.0+icu+mpi+python ^python@2.7.13
-#
-#   gnu-gpu-lapack-libraries:
-#     target_matrix:
-#       - gnu-gpu
-#     requires:
-#       - architecture
-#       - compiler
-#       - lapack
-#     specs:
-#       - magma+fortran
-#
+      - boost@1.67.0+icu+mpi+python ^python@2.7.14+tk
+
+  gnu-gpu-lapack-libraries:
+    target_matrix:
+      - gnu-gpu
+    requires:
+      - architecture
+      - compiler
+      - lapack
+    specs:
+      - magma+fortran ^cuda@9.1.85
+
 #   gnu-gpu-mpi-applications:
 #     target_matrix:
 #       - gnu-gpu
