@@ -38,6 +38,7 @@ modules:
           - LD_LIBRARY_PATH
           - CPATH
           - LIBRARY_PATH
+          - CLASSPATH
       environment:
         set:
           ICCCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
@@ -219,6 +220,7 @@ modules:
           - LD_LIBRARY_PATH
           - CPATH
           - LIBRARY_PATH
+          - CLASSPATH
       environment:
         set:
           CC: icc
