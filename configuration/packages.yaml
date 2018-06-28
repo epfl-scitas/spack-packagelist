@@ -64,7 +64,7 @@ packages:
   comsol:
     buildable: False
     paths:
-      comsol@5.2a %gcc@4.8.5: /ssoft/spack/external/comsol/5.2a
+      comsol@5.3 %gcc@4.8.5: /ssoft/spack/external/comsol/5.3
 
   fdtd:
     buildable: False
