@@ -310,11 +310,11 @@ packages:
 #       - elpa@2017.11.001
       - mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis
 
-#   ##########
-#   # Applications / Frameworks
-#   ##########
-#
-#   # Serial applications built with the Intel stack
+  ##########
+  # Applications / Frameworks
+  ##########
+
+  # Serial applications built with the Intel stack
   intel-serial-applications:
     target_matrix:
       - intel
@@ -393,17 +393,15 @@ packages:
         ^netcdf@4.6.1+mpi ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
 
   # Serial applications built with the Intel stack that use LAPACK
-# FIXME: See https://software.intel.com/en-us/forums/intel-c-compiler/topic/758013
-# FIXME: for pixman and related libraries
-#   intel-lapack-applications:
-#     target_matrix:
-#       - intel
-#     requires:
-#       - architecture
-#       - compiler
-#       - lapack
-#     specs:
-#       - r@3.5.0+external-lapack
+  intel-lapack-applications:
+    target_matrix:
+      - intel
+    requires:
+      - architecture
+      - compiler
+      - lapack
+    specs:
+      - r@3.5.0+external-lapack
 
   # Serial applications built with the GNU stable stack
   gnu-serial-applications:
