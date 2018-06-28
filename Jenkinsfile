@@ -24,7 +24,7 @@ pipeline {
             }
 
             environment {
-                SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
+                SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v2"
                 SPACK_SCITAS_REPOSITORY = "/ssoft/spack/paien/scitas-repository"
                 SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
             }
@@ -64,7 +64,7 @@ pipeline {
             }
 
             environment {
-                SPACK_PRODUCTION_DIR = "/ssoft/spack/paien/spack.v1"
+                SPACK_PRODUCTION_DIR = "/ssoft/spack/paien/spack.v2"
             }
 
             steps {
@@ -98,14 +98,14 @@ pipeline {
             }
 
             environment {
-                SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
+                SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v2"
                 SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
             }
 
             parallel {
                 stage('x86_E5v2_IntelIB') {
                     agent {
-                        label 'x86_E5v2_IntelIB'
+                        label 'x86_E5v2_IntelIB.rh74.slurm1711'
                     }
                     steps {
                         sh  'scripts/install_production_compilers.sh'
@@ -121,7 +121,7 @@ pipeline {
 
                 stage('x86_E5v2_Mellanox_GPU') {
                     agent {
-                        label 'x86_E5v2_Mellanox_GPU'
+                        label 'x86_E5v2_Mellanox_GPU.rh74.slurm1711'
                     }
                     steps {
                         sh  'scripts/install_production_compilers.sh'
@@ -137,7 +137,7 @@ pipeline {
 
                 stage('x86_E5v3_IntelIB') {
                     agent {
-                        label 'x86_E5v3_IntelIB'
+                        label 'x86_E5v3_IntelIB.rh74.slurm1711'
                     }
                     steps {
                         sh  'scripts/install_production_compilers.sh'
@@ -153,7 +153,7 @@ pipeline {
 
                 stage('x86_E5v4_Mellanox') {
                     agent {
-                        label 'x86_E5v4_Mellanox'
+                        label 'x86_E5v4_Mellanox.rh74.slurm1711'
                     }
                     steps {
                         sh  'scripts/install_production_compilers.sh'
@@ -168,7 +168,7 @@ pipeline {
                 }
                 stage('x86_S6g1_Mellanox') {
                     agent {
-                        label 'x86_S6g1_Mellanox'
+                        label 'x86_S6g1_Mellanox.rh74.slurm1711'
                     }
                     steps {
                         sh  'scripts/install_production_compilers.sh'
@@ -200,7 +200,7 @@ pipeline {
             }
 
             environment {
-                SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
+                SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v2"
                 SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
             }
 
@@ -230,13 +230,13 @@ pipeline {
             }
 
             environment {
-                SPACK_PRODUCTION_DIR = "/ssoft/spack/paien/spack.v1"
+                SPACK_PRODUCTION_DIR = "/ssoft/spack/paien/spack.v2"
             }
 
             parallel {
                 stage('x86_E5v2_Mellanox_GPU') {
                     agent {
-                        label 'x86_E5v2_Mellanox_GPU'
+                        label 'x86_E5v2_Mellanox_GPU.rh74.slurm1711'
                     }
 
                     steps {
@@ -254,7 +254,7 @@ pipeline {
                 }
                 stage('x86_E5v2_IntelIB') {
                     agent {
-                        label 'x86_E5v2_IntelIB'
+                        label 'x86_E5v2_IntelIB.rh74.slurm1711'
                     }
 
                     steps {
@@ -272,7 +272,7 @@ pipeline {
                 }
                 stage('x86_E5v3_IntelIB') {
                     agent {
-                        label 'x86_E5v3_IntelIB'
+                        label 'x86_E5v3_IntelIB.rh74.slurm1711'
                     }
 
                     steps {
@@ -290,7 +290,7 @@ pipeline {
                 }
                 stage('x86_E5v4_Mellanox') {
                     agent {
-                        label 'x86_E5v4_Mellanox'
+                        label 'x86_E5v4_Mellanox.rh74.slurm1711'
                     }
 
                     steps {
@@ -308,7 +308,7 @@ pipeline {
                 }
                 stage('x86_S6g1_Mellanox') {
                     agent {
-                        label 'x86_S6g1_Mellanox'
+                        label 'x86_S6g1_Mellanox.rh74.slurm1711'
                     }
 
                     steps {
@@ -336,14 +336,14 @@ pipeline {
             }
 
             environment {
-                SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v1"
+                SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v2"
                 SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
             }
 
             parallel {
                 stage('x86_E5v2_IntelIB') {
                     agent {
-                        label 'x86_E5v2_IntelIB'
+                        label 'x86_E5v2_IntelIB.rh74.slurm1711'
                     }
 
                     steps {
@@ -361,7 +361,7 @@ pipeline {
                 }
                 stage('x86_E5v2_Mellanox_GPU') {
                     agent {
-                        label 'x86_E5v2_Mellanox_GPU'
+                        label 'x86_E5v2_Mellanox_GPU.rh74.slurm1711'
                     }
 
                     steps {
@@ -379,7 +379,7 @@ pipeline {
                 }
                 stage('x86_E5v3_IntelIB') {
                     agent {
-                        label 'x86_E5v3_IntelIB'
+                        label 'x86_E5v3_IntelIB.rh74.slurm1711'
                     }
 
                     steps {
@@ -397,7 +397,7 @@ pipeline {
                 }
                 stage('x86_E5v4_Mellanox') {
                     agent {
-                        label 'x86_E5v4_Mellanox'
+                        label 'x86_E5v4_Mellanox.rh74.slurm1711'
                     }
 
                     steps {
@@ -416,7 +416,7 @@ pipeline {
 
                 stage('x86_S6g1_Mellanox') {
                     agent {
-                        label 'x86_S6g1_Mellanox'
+                        label 'x86_S6g1_Mellanox.rh74.slurm1711'
                     }
 
                     steps {
