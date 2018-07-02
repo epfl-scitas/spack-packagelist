@@ -109,7 +109,7 @@ packages:
         - comsol@5.3
         # - gaussian@g16-A.03
         - smr@2017.06
-        - cfdplusplus@16.1
+        - cfdplusplus@17.1
         - fdtd@8.19.1416-1
   # TODO: check where to put these applications
   #       - sra-tools@2.8.2-5
