@@ -39,6 +39,7 @@ modules:
           - CPATH
           - LIBRARY_PATH
           - CLASSPATH
+          - PS1
       environment:
         set:
           ICCCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
@@ -221,6 +222,7 @@ modules:
           - CPATH
           - LIBRARY_PATH
           - CLASSPATH
+          - PS1
       environment:
         set:
           CC: icc
