@@ -7,3 +7,6 @@ config:
     tcl: /ssoft/spack/paien/v2/share/spack/modules
     lmod: /ssoft/spack/paien/v2/share/spack/lmod
     dotkit: /ssoft/spack/paien/v2/share/spack/dotkit
+
+  build_stage:
+    - /tmp/paien.v2
