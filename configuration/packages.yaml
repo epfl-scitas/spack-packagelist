@@ -82,7 +82,7 @@ packages:
   gaussian:
     buildable: False
     paths:
-      gaussian@g16-A.03: /ssoft/spack/external/gaussian/g16-A.03
+      gaussian@g16-A.03 %gcc@4.8.5: /ssoft/spack/external/gaussian/g16-A.03
 
   matlab:
     buildable: False
