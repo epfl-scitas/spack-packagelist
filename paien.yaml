@@ -107,7 +107,7 @@ packages:
         - ansys@17.1
         - totalview@2017.2.11
         - comsol@5.3
-        # - gaussian@g16-A.03
+        - gaussian@g16-A.03
         - smr@2017.06
         - cfdplusplus@16.1
         - fdtd@8.19.1416-1
