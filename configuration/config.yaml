@@ -1,9 +1,12 @@
 config:
   # Root of the installation tree
-  install_tree: /ssoft/spack/paien/v1/opt/spack/
+  install_tree: /ssoft/spack/paien/v2/opt/spack/
 
   # Root of the module files
   module_roots:
-    tcl: /ssoft/spack/paien/v1/share/spack/modules
-    lmod: /ssoft/spack/paien/v1/share/spack/lmod
-    dotkit: /ssoft/spack/paien/v1/share/spack/dotkit
+    tcl: /ssoft/spack/paien/v2/share/spack/modules
+    lmod: /ssoft/spack/paien/v2/share/spack/lmod
+    dotkit: /ssoft/spack/paien/v2/share/spack/dotkit
+
+  build_stage:
+    - /tmp/paien.v2
