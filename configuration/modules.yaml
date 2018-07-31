@@ -107,6 +107,7 @@ modules:
       'boost~mpi',
       'cairo',
       'cmake',
+      'curl',
       'flex',
       'freetype',
       'gettext',
