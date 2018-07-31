@@ -236,7 +236,7 @@ modules:
           IFORTCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
         prepend_path:
           PATH: '/ssoft/spack/external/intel/2018.2/vtune_amplifier_2018.2.0.551022/bin64'
-
+          INTEL_LICENSE_FILE: /ssoft/spack/external/intel/License
     ####
     # MPI
     ####
