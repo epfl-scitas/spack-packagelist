@@ -73,22 +73,23 @@ packages:
       - architecture
       - compiler
     specs:
-      - cmake@3.11.1
-      - m4@1.4.18
       - autoconf@2.69
       - automake@1.16.1
+      - cmake@3.11.1
+      - curl@7.59.0
+      - git@2.17.0
+      # - gnuplot@5.2.2 +X+pbm+wx ^pango+X
+      - i7z@epfl-scitas
       - libtool@2.4.6
       - lmod@7.7.29
-      # - gnuplot@5.2.2 +X+pbm+wx ^pango+X
-      - git@2.17.0
-      - tmux@2.7
+      - m4@1.4.18
+      - mercurial@4.4.1
+      # - picard@2.18.3
+      - sbt@1.1.4
       - scala@2.11.11
       - spark@2.3.0+hadoop
-      # - picard@2.18.3
       - tar@1.30
-      - sbt@1.1.4
-      - mercurial@4.4.1
-      - i7z@epfl-scitas
+      - tmux@2.7
 
   # List of third-party tools or of packages that are maintained
   # in our own repository
