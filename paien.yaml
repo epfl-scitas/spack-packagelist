@@ -561,8 +561,7 @@ packages:
       - lapack
     specs:
       - magma+fortran ^cuda@9.1.85
-#      This is still unstable
-#      - py-pytorch +cuda +cudnn +nccl +magma ^py-numpy +blas +lapack ^magma +fortran +shared ^cuda@9.1.85
+      - py-pytorch +cuda +cudnn ~nccl +magma ^py-numpy +blas +lapack ^magma +fortran +shared ^cuda@9.1.85
 
 #   gnu-gpu-mpi-applications:
 #     target_matrix:
