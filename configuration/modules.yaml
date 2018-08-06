@@ -306,15 +306,6 @@ modules:
           'OPENBLAS_NUM_THREADS': '1'
 
     ####
-    # PYTHON
-    ####
-
-    'python%intel':
-      environment:
-        prepend_path:
-          LD_PRELOAD: /ssoft/spack/external/intel/2018.2/compilers_and_libraries_2018.2.199/linux/compiler/lib/intel64/libifcore.so.5
-
-    ####
     # Other software
     ####
 
