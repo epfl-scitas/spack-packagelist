@@ -34,11 +34,11 @@ packages:
   ####
 
   # TODO: Abaqus needs to be reinstalled with the new intel compiler
-  # abaqus:
-  #   buildable: False
-  #   version: ['@6.14-1']
-  #   paths:
-  #     abaqus@6.14-1%intel@17.0.2: /ssoft/spack/external/abaqus/6.14-1
+  abaqus:
+     buildable: False
+     version: ['@6.14-1']
+     paths:
+       abaqus@6.14-1%intel@17.0.2: /ssoft/spack/external/abaqus/6.14-1
 
   adf:
     buildable: False
