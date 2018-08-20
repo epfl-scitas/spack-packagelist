@@ -407,6 +407,7 @@ packages:
         +user-h5md +user-lb +user-misc +user-netcdf ~voronoi
         ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
         ^netcdf@4.6.1+mpi ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
+      - molpro+mpi
 
   # Serial applications built with the Intel stack that use LAPACK
   intel-lapack-applications:
