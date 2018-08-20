@@ -384,7 +384,12 @@ packages:
       - quantum-espresso@6.2.0+mpi+scalapack
         ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
 #       - namd fftw=mkl interface=python @2.12 ^charm backend=mpi ^python@2.7.14+tk
-#       - amber@16+mpi ^netcdf-fortran@4.4.4 ^netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx ^py-scipy@0.19.0 ^py-matplotlib@2.0.0 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13
+      - amber@16+mpi
+        ^netcdf-fortran@4.4.4 ^netcdf@4.6.1+mpi ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
+        ^py-scipy@1.1.0
+        ^py-numpy+blas+lapack@1.14.3
+        ^py-matplotlib@2.0.0
+        ^python@2.7.14+tk
       - yambo@4.2.1+mpi io=iotk,etsf-io
         ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
         ^netcdf-fortran@4.4.4 ^netcdf@4.6.1+mpi ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
@@ -496,8 +501,12 @@ packages:
         ^mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^netlib-scalapack@2.0.2
         ^boost@1.67.0+icu+mpi+python ^python@2.7.14+tk
 #       # TODO: - caffe@1.0+python+opencv  ^hdf5@1.10.1+szip+mpi~cxx ^opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6 ^py-numpy+blas+lapack@1.12.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
-# TODO: port amber from cornalin
-#       - amber@16+mpi ^netcdf-fortran@4.4.4 ^netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx ^py-scipy@0.19.0 ^py-matplotlib@2.0.0 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13
+      - amber@16+mpi
+        ^netcdf-fortran@4.4.4 ^netcdf@4.6.1+mpi ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
+        ^py-scipy@1.1.0
+        ^py-numpy+blas+lapack@1.14.3
+        ^py-matplotlib@2.0.0
+        ^python@2.7.14+tk
       - yambo@4.2.1+mpi io=iotk,etsf-io
         ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
         ^netcdf-fortran@4.4.4 ^netcdf@4.6.1+mpi ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
@@ -574,14 +583,22 @@ packages:
 #     specs:
 #       - relion@2.0.3+cuda+double+double-gpu+gui ^fftw@3.3.6-pl2+mpi~openmp ^cuda@8.0.61
 #
-#   gnu-gpu-mpi-lapack-applications:
-#     target_matrix:
-#       - gnu-gpu
-#     requires:
-#       - architecture
-#       - compiler
-#       - lapack
-#       - mpi
-#     specs:
-#       - amber@16+mpi+cuda ^py-scipy@0.19.0 ^py-matplotlib@2.0.0 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13 ^cuda@8.0.61
-#       # TODO: - caffe@1.0+python+opencv+cuda  ^hdf5@1.10.1+szip+mpi~cxx ^opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6 ^py-numpy+blas+lapack@1.12.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13 ^cuda@8.0.61
+  gnu-gpu-mpi-lapack-applications:
+    target_matrix:
+      - gnu-gpu
+    requires:
+      - architecture
+      - compiler
+      - lapack
+      - mpi
+    target_filter:
+      mpi:
+      - 'mvapich2@2.3rc2+cuda fabrics=mrail process_managers=slurm'
+    specs:
+      - amber@16+mpi+cuda
+        ^netcdf-fortran@4.4.4 ^netcdf@4.6.1+mpi ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
+        ^py-scipy@1.1.0
+        ^py-numpy+blas+lapack@1.14.3
+        ^py-matplotlib@2.0.0
+        ^python@2.7.14+tk
+      # TODO: - caffe@1.0+python+opencv+cuda  ^hdf5@1.10.1+szip+mpi~cxx ^opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6 ^py-numpy+blas+lapack@1.12.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13 ^cuda@8.0.61
