@@ -84,6 +84,7 @@ packages:
       - lmod@7.7.29
       - m4@1.4.18
       - mercurial@4.4.1
+      - molden+gmolden+ambfor+surf
       # - picard@2.18.3
       - sbt@1.1.4
       - scala@2.11.11
