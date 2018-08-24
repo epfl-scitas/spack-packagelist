@@ -19,7 +19,9 @@ RUN yum install -y autoconf automake cmake gcc gcc-c++ gcc-gfortran git make \
 RUN mkdir $SPACK_ROOT && \
     curl -s -L \
     https://api.github.com/repos/epfl-scitas/spack/tarball/releases/paien \
-    | tar xzC $SPACK_ROOT --strip 1
+    | tar xzC $SPACK_ROOT
+
+RUN ln -sfn $SPACK_ROOT/*/* $SPACK_ROOT/
 
 # Login script which enables spack (in a way that it runs after the lmod one)
 COPY spack.sh /etc/profile.d/z10_spack.sh
