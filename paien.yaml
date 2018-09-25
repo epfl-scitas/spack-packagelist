@@ -112,7 +112,7 @@ packages:
         - gaussian@g16-A.03
         - smr@2017.06
         - cfdplusplus@16.1
-        - fdtd@8.19.1416-1
+        - fdtd@8.20.1703
   # TODO: check where to put these applications
   #       - sra-tools@2.8.2-5
   #       - picard@2.9.2
