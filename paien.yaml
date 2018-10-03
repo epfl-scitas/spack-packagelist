@@ -502,7 +502,7 @@ packages:
         ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
         ^netcdf-fortran@4.4.4 ^netcdf@4.6.1+mpi ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
 #       # TODO: - gmsh@3.0.1+mpi+hdf5+fltk+compression ^hdf5@1.10.1+szip+mpi~cxx
-      - paraview@5.3.0+mpi+osmesa~qt+python ^py-matplotlib@2.0.0 ^py-numpy+blas+lapack@1.14.3 ^python@3.6.5+optimizations+tk ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
+      - paraview@5.5.2+mpi+osmesa~qt+python ^py-matplotlib@2.0.0 ^py-numpy+blas+lapack@1.14.3 ^python@3.6.5+optimizations+tk ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
 #       # TODO: - fenics@2017.1.0+petsc+hdf5~trilinos+suite-sparse+mpi ^petsc@3.7.6+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre ^hdf5@1.10.1+szip+mpi~cxx  ^mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^netlib-scalapack@2.0.2 ^boost@1.61.0+icu_support+mpi+python ^python@2.7.13 ^eigen@3.3.1~debug+fftw+metis+mpfr+scotch+suitesparse ^fftw@3.3.6-pl2+mpi~openmp
 #       # FIXME: - simpson@master ^gsl@2.1 ^nfft@3.3.2 ^fftw@3.3.4 ^tk@8.6.3 ^tcl@8.6.5
       - lammps@20180316 build_type=Release
