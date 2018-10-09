@@ -173,37 +173,35 @@ packages:
     specs:
       - py-pytorch ~cuda ^py-numpy +blas +lapack@1.14.3
 
-    # Python 2 only packages
-    python_2_only:
-      target_matrix:
-        - gnu-stable
-        - gnu-bleeding-edge
-        - intel
-      target_filter:
-        python: ['python@2.7.14+tk']
-      requires:
-        - architecture
-        - compiler
-        - python
-      specs:
-        - py-macs@1.4.2-1
- 
-    # Python 2 only packages that require LAPACK
-    python_2_lapack:
-      target_matrix:
-        - gnu-stable
-        - gnu-bleeding-edge
-        - intel
-      target_filter:
-        lapack: ['openblas@0.2.20 threads=openmp', 'intel-mkl@2018.2.199']
-        python: ['python@2.7.14+tk']
-      requires:
-        - architecture
-        - compiler
-        - python
-        - lapack
-      specs:
-        - py-macs2@2.1.1.20160309 ^py-numpy +blas +lapack@1.14.3
+  # Python 2 only packages
+  python_2_only:
+    target_matrix:
+      - gnu-stable
+      - intel
+    target_filter:
+      python: ['python@2.7.14+tk']
+    requires:
+      - architecture
+      - compiler
+      - python
+    specs:
+      - py-macs@1.4.2-1
+
+  # Python 2 only packages that require LAPACK
+  python_2_lapack:
+    target_matrix:
+      - gnu-stable
+      - intel
+    target_filter:
+      lapack: ['openblas@0.2.20 threads=openmp', 'intel-mkl@2018.2.199']
+      python: ['python@2.7.14+tk']
+    requires:
+      - architecture
+      - compiler
+      - python
+      - lapack
+    specs:
+      - py-macs@2.1.1.20160309 ^py-numpy +blas +lapack@1.14.3
 
   # Code compiled with all the stacks that does not require
   # MPI or LAPACK
