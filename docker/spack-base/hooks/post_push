@@ -14,8 +14,8 @@ FEATURE_FILE='feature_tags'
 
 function add_tag() {
     echo "[INFO] Adding tag ${1}"
-    # docker tag $IMAGE_NAME $DOCKER_REPO:$1
-    # docker push $DOCKER_REPO:$1
+    docker tag $IMAGE_NAME $DOCKER_REPO:$1
+    docker push $DOCKER_REPO:$1
 }
 
 function get_extra_tags() {
