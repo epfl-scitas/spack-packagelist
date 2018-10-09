@@ -8,7 +8,7 @@ ENV SPACK_ROOT=/opt/spack \
 RUN yum upgrade -y && \
     yum clean all && rm -rf /var/cache/yum
 
-# Install the EPEL repository to have LMOD, and install other tools spack needs
+# Install the EPEL repository to have Lmod, and install other tools spack needs
 RUN yum install -y epel-release && \
     yum clean all && rm -rf /var/cache/yum
 RUN yum install -y autoconf automake cmake gcc gcc-c++ gcc-gfortran git make \
