@@ -50,4 +50,8 @@ elif [[ $SOURCE_BRANCH =~ feature/[a-z]* ]]; then
     add_tag ${featureName}-$(date '+%Y.%m.%d')
 fi
 
+if [ ${#CACHE_TAG} -gt 0 ]; then
+    add_tag ${CACHE_TAG}
+fi
+
 exit 0
