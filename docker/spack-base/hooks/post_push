@@ -45,7 +45,7 @@ if [[ $SOURCE_BRANCH =~ releases/[a-z]* ]]; then
         add_tag ${tag}
     done
 elif [[ $SOURCE_BRANCH =~ feature/[a-z]* ]]; then
-    featureName=$(echo $SOURCE_BRANCH | cut -d '/' -f 2)
+    featureName=$(echo $SOURCE_BRANCH | cut -d '/' -f 2- | tr '/' '_')
     echo "[INFO] this is a feature branch: ${featureName}"
     featureTags=$(get_extra_tags ${featureName} ${FEATURE_FILE})
     for tag in ${featureTags}; do

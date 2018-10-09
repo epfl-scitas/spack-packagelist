@@ -1,2 +1,4 @@
 # This file contains a list of feature branches followed by
 # an optional (space separated) list of tags to also set.
+# Note: feature branches include everything after 'feature/',
+#       for example: 'feature/paien/docker' -> 'paien_docker'
