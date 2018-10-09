@@ -21,7 +21,7 @@ RUN mkdir $SPACK_ROOT && \
     https://api.github.com/repos/epfl-scitas/spack/tarball/releases/paien \
     | tar xzC $SPACK_ROOT
 
-RUN ln -sfn $SPACK_ROOT/*/* $SPACK_ROOT/
+RUN ln -sfnv $SPACK_ROOT/*/* $SPACK_ROOT/
 
 # Login script which enables spack (in a way that it runs after the lmod one)
 COPY spack.sh /etc/profile.d/z10_spack.sh
