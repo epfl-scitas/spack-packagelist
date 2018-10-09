@@ -21,6 +21,7 @@ RUN mkdir $SPACK_ROOT && \
     https://api.github.com/repos/epfl-scitas/spack/tarball/releases/paien \
     | tar xzC $SPACK_ROOT
 
+# Link from the subdirectory that contains the hash in the name
 RUN ln -sfnv $SPACK_ROOT/*/* $SPACK_ROOT/
 
 # Login script which enables spack (in a way that it runs after the lmod one)
