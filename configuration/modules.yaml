@@ -86,6 +86,7 @@ modules:
       'maple',
       'mathematica',
       'matlab',
+      'mercurial',
       'molden',
       'openblas',
       'picard',
