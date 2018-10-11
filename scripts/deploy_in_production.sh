@@ -36,7 +36,7 @@ IFS=$'\n'
 for spec in $(cat to_be_installed.${SPACK_TARGET_TYPE}.txt)
 do
     # Activate python extensions
-    if [[ "${spec}" =~ "py-" ]]
+    if [[ "${spec}" =~ "^py-" ]]
     then
         echo "[ACTIVATION] ${spec}"
         spack activate ${spec}
