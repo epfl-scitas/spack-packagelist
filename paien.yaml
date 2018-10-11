@@ -174,6 +174,25 @@ packages:
     specs:
       - py-pytorch ~cuda ^py-numpy +blas +lapack@1.14.3
 
+  gnu_python_2_only_lapack_openmp:
+    target_matrix:
+      - gnu-stable
+    target_filter:
+      python: ['python@2.7.14+tk']
+      lapack: ['openblas@0.2.20 threads=openmp']
+    requires:
+      - architecture
+      - compiler
+      - python
+      - lapack
+    specs:
+      - gdl~wx~x11~hdf4+hdf5+embed-python+python+proj+graphicsmagick+openmp
+        ^eigen@3.3.4~fftw~suitesparse~metis~scotch~mpfr
+        ^fftw@3.3.7~mpi~openmp+fma simd=sse2,avx,avx2,avx512
+        ^netcdf@4.6.1~mpi
+        ^hdf5@1.10.1+szip~mpi+hl+fortran+cxx
+        ^py-numpy+blas+lapack@1.14.3
+
 # FIXME: port these 2 packages either to develop or to the external repository
 #   # Python 2 only packages
 #   python_2_only:
@@ -431,14 +450,6 @@ packages:
       - qt@4.8.6 +gtk+opengl+webkit ^mesa
       # FIXME: Concretization errors on gl vdep
       # - opencv@3.4.1 +qt+zlib+tiff+vtk+png+jpeg+imgproc+highgui build_type=Release ^qt@4.8.6 +gtk+opengl+webkit ^mesa
-      - gdl~wx~x11~hdf4+hdf5+embed-python+python+proj+graphicsmagick+openmp
-        ^eigen@3.3.4~fftw~suitesparse~metis~scotch~mpfr
-        ^fftw@3.3.7~mpi~openmp+fma simd=sse2,avx,avx2,avx512
-        ^netcdf@4.6.1~mpi
-        ^hdf5@1.10.1+szip~mpi+hl+fortran+cxx
-        ^python@2.7.14+tk
-        ^py-numpy+blas+lapack@1.14.3
-        ^openblas@0.2.20 threads=openmp
       - hisat2@2.1.0
       - samtools@1.8
       - subread@1.6.2
