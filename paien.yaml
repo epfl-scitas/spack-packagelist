@@ -310,7 +310,6 @@ packages:
       - elpa@2017.11.001 ^netlib-scalapack@2.0.2
       - mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^netlib-scalapack@2.0.2
 
-
   mpi-lapack-libraries-intel:
     target_matrix:
       - intel
@@ -513,6 +512,14 @@ packages:
         +user-h5md +user-lb +user-misc +user-netcdf ~voronoi
         ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
         ^netcdf@4.6.1+mpi ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
+      - mfem@develop +superlu-dist +suite-sparse +mpfr +lapack +mpi +netcdf +openmp +threadsafe +shared +petsc
+        ^netcdf@4.6.1+mpi
+        ^petsc@3.9.2~int64+boost+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse
+        ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
+        ^mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^netlib-scalapack@2.0.2
+        ^boost@1.67.0+icu+mpi+python ^python@2.7.14+tk
+        ^suite-sparse@5.2.0
+        ^hypre~internal-superlu
 
   ##########
   # GPU Nodes
