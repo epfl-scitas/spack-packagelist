@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# Available variables:
+# SOURCE_BRANCH: the name of the branch or the tag that is currently
+#                being tested.
+# SOURCE_COMMIT: the SHA1 hash of the commit being tested.
+# COMMIT_MSG: the message from the commit being tested and built.
+# DOCKER_REPO: the name of the Docker repository being built.
+# DOCKERFILE_PATH: the dockerfile currently being built.
+# CACHE_TAG: the Docker repository tag being built.
+# IMAGE_NAME: the name and tag of the Docker repository being built.
+#             (This variable is a combination of DOCKER_REPO:CACHE_TAG.)
+
+RELEASE_FILE='release_tags'
+FEATURE_FILE='feature_tags'
+
+# Creates and publishes a tag for the just built image
+function add_tag() {
+    echo "[INFO] Adding tag ${1}"
+    docker tag $IMAGE_NAME $DOCKER_REPO:$1
+    docker push $DOCKER_REPO:$1
+}
+
+# Retrieve a list of extra tags for a specific key from a file
+function get_extra_tags() {
+    # $1 key
+    # $2 filename
+    if [ -e ${2} -a ${#1} -gt 0 ]; then
+        if grep -q -s -P "^${1}" ${2}; then
+            # key was found in file
+            line=$(grep -P "^${1}" ${2})
+            echo ${line#${1}}
+        fi
+    fi
+}
+
+set -e
+
+# Starts here
+if [[ $SOURCE_BRANCH =~ releases/[a-z]* ]]; then
+    releaseName=$(echo $SOURCE_BRANCH | cut -d '/' -f 2)
+    echo "[INFO] this is a release branch: ${releaseName}"
+    releaseTags=$(get_extra_tags ${releaseName} ${RELEASE_FILE})
+    for tag in ${releaseTags}; do
+        add_tag ${tag}
+    done
+elif [[ $SOURCE_BRANCH =~ feature/[a-z]* ]]; then
+    featureName=$(echo $SOURCE_BRANCH | cut -d '/' -f 2- | tr '/' '_')
+    echo "[INFO] this is a feature branch: ${featureName}"
+    featureTags=$(get_extra_tags ${featureName} ${FEATURE_FILE})
+    for tag in ${featureTags}; do
+        add_tag ${tag}
+    done
+    add_tag ${featureName}-$(date '+%Y.%m.%d')
+fi
+
+exit 0
