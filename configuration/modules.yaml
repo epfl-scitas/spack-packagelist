@@ -94,7 +94,7 @@ modules:
       'scala',
       'smr',
       'spark',
-      'sra-tools',
+      'sra-toolkit',
       'tar%gcc@4.8.5',
       'tensorflow',
       'tmux',

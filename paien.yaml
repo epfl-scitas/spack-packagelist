@@ -89,6 +89,7 @@ packages:
       - sbt@1.1.4
       - scala@2.11.11
       - spark@2.3.0+hadoop
+      - sra-toolkit@2.9.2
       - tar@1.30
       - tmux@2.7
 
@@ -114,7 +115,6 @@ packages:
         - cfdplusplus@16.1
         - fdtd@8.20.1703
   # TODO: check where to put these applications
-  #       - sra-tools@2.8.2-5
   #       - beast@2.4.8
   #       - molden
 
