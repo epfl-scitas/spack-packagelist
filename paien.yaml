@@ -89,6 +89,7 @@ packages:
       - sbt@1.1.4
       - scala@2.11.11
       - spark@2.3.0+hadoop
+      - sra-toolkit@2.9.2
       - tar@1.30
       - tmux@2.7
 
@@ -114,7 +115,6 @@ packages:
         - cfdplusplus@16.1
         - fdtd@8.20.1703
   # TODO: check where to put these applications
-  #       - sra-tools@2.8.2-5
   #       - beast@2.4.8
   #       - molden
 
@@ -193,38 +193,35 @@ packages:
         ^hdf5@1.10.1+szip~mpi+hl+fortran+cxx
         ^py-numpy+blas+lapack@1.14.3
 
-# FIXME: port these 2 packages either to develop or to the external repository
-#   # Python 2 only packages
-#   python_2_only:
-#     target_matrix:
-#       - gnu-stable
-#       - gnu-bleeding-edge
-#       - intel
-#     target_filter:
-#       python: ['python@2.7.13']
-#     requires:
-#       - architecture
-#       - compiler
-#       - python
-#     specs:
-#       - py-macs@1.4.2-1
-#
-#   # Python 2 only packages that require LAPACK
-#   python_2_lapack:
-#     target_matrix:
-#       - gnu-stable
-#       - gnu-bleeding-edge
-#       - intel
-#     target_filter:
-#       lapack: ['openblas@0.2.20~openmp', 'intel-mkl@2017.2.174']
-#       python: ['python@2.7.13']
-#     requires:
-#       - architecture
-#       - compiler
-#       - python
-#       - lapack
-#     specs:
-#       - py-macs2@2.1.1.20160309 ^py-numpy+blas+lapack@1.12.1
+  # Python 2 only packages
+  python_2_only:
+    target_matrix:
+      - gnu-stable
+      - intel
+    target_filter:
+      python: ['python@2.7.14+tk']
+    requires:
+      - architecture
+      - compiler
+      - python
+    specs:
+      - py-macs@1.4.2-1
+
+  # Python 2 only packages that require LAPACK
+  python_2_lapack:
+    target_matrix:
+      - gnu-stable
+      - intel
+    target_filter:
+      lapack: ['openblas@0.2.20 threads=openmp', 'intel-mkl@2018.2.199']
+      python: ['python@2.7.14+tk']
+    requires:
+      - architecture
+      - compiler
+      - python
+      - lapack
+    specs:
+      - py-macs2@2.1.1.20160309 ^py-numpy +blas +lapack@1.14.3
 
   # Code compiled with all the stacks that does not require
   # MPI or LAPACK
@@ -455,6 +452,7 @@ packages:
       - subread@1.6.2
       - bowtie@1.2+tbb ^intel-tbb@2018.2
       - bowtie2@2.3.4.1 ^intel-tbb@2018.2
+      - bcl2fastq2@2.20.0.422 ^boost+icu+python ^python@2.7.14+tk
       # FIXME: see https://github.com/spack/spack/issues/8025
       # - tophat@2.1.1 ^bowtie2@2.3.4.1 ^intel-tbb@2018.2
 
