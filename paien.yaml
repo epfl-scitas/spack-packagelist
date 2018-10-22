@@ -286,7 +286,7 @@ packages:
       - fftw@3.3.7+mpi+openmp+fma simd=sse2,avx,avx2,avx512
       - hdf5@1.10.1+szip+mpi+hl+fortran+cxx
       - scotch@6.0.4+esmumps+mpi~metis
-      - hpccg
+      - hpccg+mpi
 # TODO: update scorep as described in issue SL-557
 #       - scorep@3.0
       - parmetis@4.0.3 ^metis@5.1.0+real64
