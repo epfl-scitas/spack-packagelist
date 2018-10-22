@@ -122,6 +122,7 @@ modules:
       'gtkplus',
       'harfbuzz',
       'help2man',
+      'hpccg',
       'i7z',
       'inputproto',
       'jasper',
