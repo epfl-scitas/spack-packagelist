@@ -102,8 +102,15 @@ do
 
     done < to_be_installed.${target}.txt
 done
+
+# Spack at the moment requires the directory `build_cache` to be present
+# in every mirror (otherwise this will result in a failure).
+mkdir -p ${SPACK_MIRROR_DIR}/build_cache
 spack mirror add --scope=site temp_mirror ${SPACK_MIRROR_DIR}
 
 # Add the central repository. This is needed for licensed software that has
 # to be built from sources and must be downloaded manually.
 spack mirror add --scope=site central_mirror /ssoft/spack/mirror
+
+# Add the binary mirror to speed-up PRs
+spack mirror add --scope=site binary_mirror  /ssoft/spack/paien/binary-mirror.v2/

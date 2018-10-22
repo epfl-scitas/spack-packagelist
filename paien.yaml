@@ -136,6 +136,7 @@ packages:
       - py-sympy
       - py-ply
       - py-virtualenv
+      - py-click
 
   # Python packages that requires LAPACK
   python_lapack_openmp:
