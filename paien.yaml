@@ -512,7 +512,7 @@ packages:
         +user-h5md +user-lb +user-misc +user-netcdf ~voronoi
         ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
         ^netcdf@4.6.1+mpi ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
-      - mfem@develop +superlu-dist +suite-sparse +mpfr +lapack +mpi +netcdf +openmp +threadsafe +shared +petsc
+      - mfem@3.4.0 +superlu-dist +suite-sparse +mpfr +lapack +mpi +netcdf +openmp +threadsafe +shared +petsc
         ^netcdf@4.6.1+mpi
         ^petsc@3.9.2~int64+boost+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse
         ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
