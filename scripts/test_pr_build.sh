@@ -5,6 +5,20 @@
 # SPACK_PRODUCTION_DIR: path where the production instance of Spack resides
 #
 
+# Configure ccache properly. Caches are kept separated among different targets.
+mkdir -p ~/.ccache/${SPACK_TARGET_TYPE}
+mkdir -p /scratch/scitasbuild/ccache/${SPACK_TARGET_TYPE}
+
+export CCACHE_CONFIGPATH=~/.ccache/${SPACK_TARGET_TYPE}/ccache.conf
+
+cat > ${CCACHE_CONFIGPATH} <<EOF
+max_size = 100.0G
+cache_dir = /scratch/scitasbuild/ccache/${SPACK_TARGET_TYPE}
+EOF
+
+# Zero-out statistics
+ccache -z
+
 # Retrieve which Spack instance we need to use for the build
 SPACK_CHECKOUT_DIR=$(cat spack_dir.txt)
 
@@ -27,6 +41,9 @@ then
 else
     spack install --log-file=spec.${SPACK_TARGET_TYPE}.xml --log-format=junit ${specs_to_be_installed}
 fi
+
+# Show ccache statistics
+ccache -s
 
 # Activate python extensions
 

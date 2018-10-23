@@ -72,6 +72,7 @@ modules:
       'cudnn',
       'curl%gcc@4.8.5',
       'fdtd',
+      'fio',
       'gaussian',
       'gcc',
       'git',
