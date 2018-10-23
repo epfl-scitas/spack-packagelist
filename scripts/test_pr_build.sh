@@ -6,14 +6,17 @@
 #
 
 # Configure ccache properly. Caches are kept separated among different targets.
-mkdir -p ~/.ccache/${SPACK_TARGET_TYPE}
-mkdir -p /scratch/scitasbuild/ccache/${SPACK_TARGET_TYPE}
+ccache_config_dir="~/.ccache/${SPACK_TARGET_TYPE}"
+ccache_cache_dir="/scratch/scitasbuild/ccache/${SPACK_TARGET_TYPE}"
 
-export CCACHE_CONFIGPATH=~/.ccache/${SPACK_TARGET_TYPE}/ccache.conf
+mkdir -p ${ccache_config_dir}
+mkdir -p ${ccache_cache_dir}
+
+export CCACHE_CONFIGPATH=${ccache_config_dir}/ccache.conf
 
 cat > ${CCACHE_CONFIGPATH} <<EOF
 max_size = 100.0G
-cache_dir = /scratch/scitasbuild/ccache/${SPACK_TARGET_TYPE}
+cache_dir = ${ccache_cache_dir}
 EOF
 
 # Zero-out statistics
