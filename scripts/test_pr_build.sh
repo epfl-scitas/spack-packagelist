@@ -19,6 +19,9 @@ max_size = 100.0G
 cache_dir = ${ccache_cache_dir}
 EOF
 
+# Print configuration
+ccache -p
+
 # Zero-out statistics
 ccache -z
 
