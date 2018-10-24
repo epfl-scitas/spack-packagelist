@@ -34,6 +34,12 @@ cd ${SPACK_CHECKOUT_DIR}/etc/spack/
 ln -s /ssoft/spack/paien/spack.v2/etc/spack/compilers.yaml compilers.yaml
 # Remove config.yaml, as it point to install things directly in production
 rm config.yaml
+# Activate ccache for the PR
+cat > ${SPACK_CHECKOUT_DIR}/etc/spack/config.yaml <<EOF
+config:
+  ccache: true
+EOF
+
 cd -
 
 # Create a virtual env for the command just checked out
