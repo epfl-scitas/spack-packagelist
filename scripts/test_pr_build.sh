@@ -17,6 +17,7 @@ export CCACHE_CONFIGPATH=${ccache_config_dir}/ccache.conf
 cat > ${CCACHE_CONFIGPATH} <<EOF
 max_size = 100.0G
 cache_dir = ${ccache_cache_dir}
+temporary_dir = /tmp/ccache/${SPACK_TARGET_TYPE}
 EOF
 
 # Print configuration
@@ -35,8 +36,11 @@ SPACK_CHECKOUT_DIR=$(cat spack_dir.txt)
 # in the temporary workspace
 spack install intel@18.0.2 %gcc@4.8.5
 . ${SPACK_CHECKOUT_DIR}/share/spack/setup-env.sh
+
+# Print out information that could be useful for logging and debugging
 which spack
 spack mirror list
+spack config get config
 
 specs_to_be_installed=$(cat to_be_installed.${SPACK_TARGET_TYPE}.txt)
 
