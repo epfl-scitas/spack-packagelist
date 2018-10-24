@@ -6,7 +6,7 @@
 #
 
 # Configure ccache properly. Caches are kept separated among different targets.
-ccache_config_dir="~/.ccache/${SPACK_TARGET_TYPE}"
+ccache_config_dir="${HOME}/.ccache/${SPACK_TARGET_TYPE}"
 ccache_cache_dir="/scratch/scitasbuild/ccache/${SPACK_TARGET_TYPE}"
 
 mkdir -p ${ccache_config_dir}
