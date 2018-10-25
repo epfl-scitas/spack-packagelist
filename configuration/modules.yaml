@@ -93,6 +93,7 @@ modules:
       'picard',
       'sbt',
       'scala',
+      'sicer',
       'smr',
       'spark',
       'sra-toolkit',
