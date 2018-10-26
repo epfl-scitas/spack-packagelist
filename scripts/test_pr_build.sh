@@ -18,6 +18,7 @@ cat > ${CCACHE_CONFIGPATH} <<EOF
 max_size = 100.0G
 cache_dir = ${ccache_cache_dir}
 temporary_dir = /tmp/ccache/${SPACK_TARGET_TYPE}
+base_dir = ${SPACK_CHECKOUT_DIR}
 EOF
 
 # Print configuration
