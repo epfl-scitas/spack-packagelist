@@ -195,6 +195,7 @@ modules:
       'py-scikit-learn',
       'py-scipy',
       'py-setuptools',
+      'py-xarray',
       'py-six',
       'py-subprocess32',
       'py-sympy',
