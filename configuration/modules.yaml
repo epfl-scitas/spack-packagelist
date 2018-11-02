@@ -219,6 +219,7 @@ modules:
       'py-theano',
       'py-typing',
       'py-virtualenv',
+      'py-xarray',
       'python~tk',
       'readline',
       'shared-mime-info',
