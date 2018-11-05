@@ -119,6 +119,8 @@ modules:
       'ghostscript',
       'ghostscript-fonts',
       'glib',
+      'go',
+      'go-bootstrap',
       'gobject-introspection',
       'graphviz',
       'gtkplus',
