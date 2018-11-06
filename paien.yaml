@@ -93,6 +93,7 @@ packages:
       - sra-toolkit@2.9.2
       - tar@1.30
       - tmux@2.7
+      - trimmomatic@0.38
 
   # List of third-party tools or of packages that are maintained
   # in our own repository
