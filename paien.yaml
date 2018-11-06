@@ -257,6 +257,7 @@ packages:
       - bedtools2@2.27.1
       - intel-tbb@2018.2
       - eigen@3.3.4~fftw~suitesparse~metis~scotch~mpfr
+      - qt@5.10.0 +opengl+webkit ^python@3.6.5+optimizations+tk
       # FIXME: gdl (intel internal compiler error on plplot) SL-577, see gnu-serial
 
   # Serial code that uses LAPACK
