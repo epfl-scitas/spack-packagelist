@@ -101,6 +101,7 @@ modules:
       'tensorflow',
       'tmux',
       'totalview',
+      'trimmomatic',
     ]
 
     blacklist: [
