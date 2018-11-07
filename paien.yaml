@@ -221,6 +221,7 @@ packages:
       - bedtools2@2.27.1
       - intel-tbb@2018.2
       - eigen@3.3.4~fftw~suitesparse~metis~scotch~mpfr
+      - star@2.6.1c
 
   # Serial code that uses LAPACK
   lapack:
