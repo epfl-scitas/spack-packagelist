@@ -119,37 +119,37 @@ pipeline {
                     }
                 }
 
-                // stage('x86_E5v2_Mellanox_GPU') {
-                //     agent {
-                //         label 'x86_E5v2_Mellanox_GPU.rh74.slurm1711'
-                //     }
-                //     steps {
-                //         sh  'scripts/install_production_compilers.sh'
-                //         sh  'scripts/install_production_stack.sh'
-                //     }
-                //     post {
-                //         always {
-                //             archiveArtifacts artifacts:'*.txt, *.xml'
-                //             junit testResults:'*.xml', allowEmptyResults:true
-                //         }
-                //     }
-                // }
-                //
-                // stage('x86_E5v3_IntelIB') {
-                //     agent {
-                //         label 'x86_E5v3_IntelIB.rh74.slurm1711'
-                //     }
-                //     steps {
-                //         sh  'scripts/install_production_compilers.sh'
-                //         sh  'scripts/install_production_stack.sh'
-                //     }
-                //     post {
-                //         always {
-                //             archiveArtifacts artifacts:'*.txt, *.xml'
-                //             junit testResults:'*.xml', allowEmptyResults:true
-                //         }
-                //     }
-                // }
+                stage('x86_E5v2_Mellanox_GPU') {
+                    agent {
+                        label 'x86_E5v2_Mellanox_GPU.rh74.slurm1711'
+                    }
+                    steps {
+                        sh  'scripts/install_production_compilers.sh'
+                        sh  'scripts/install_production_stack.sh'
+                    }
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt, *.xml'
+                            junit testResults:'*.xml', allowEmptyResults:true
+                        }
+                    }
+                }
+
+                stage('x86_E5v3_IntelIB') {
+                    agent {
+                        label 'x86_E5v3_IntelIB.rh74.slurm1711'
+                    }
+                    steps {
+                        sh  'scripts/install_production_compilers.sh'
+                        sh  'scripts/install_production_stack.sh'
+                    }
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt, *.xml'
+                            junit testResults:'*.xml', allowEmptyResults:true
+                        }
+                    }
+                }
 
                 stage('x86_E5v4_Mellanox') {
                     agent {
@@ -234,24 +234,24 @@ pipeline {
             }
 
             parallel {
-                // stage('x86_E5v2_Mellanox_GPU') {
-                //     agent {
-                //         label 'x86_E5v2_Mellanox_GPU.rh74.slurm1711'
-                //     }
-                //
-                //     steps {
-                //         unstash name: 'spack_dir'
-                //         unstash name: 'x86_E5v2_Mellanox_GPU'
-                //         sh 'scripts/test_pr_build.sh'
-                //     }
-                //
-                //     post {
-                //         always {
-                //             archiveArtifacts artifacts:'*.txt, *.xml'
-                //             junit testResults:'*.xml', allowEmptyResults:true
-                //         }
-                //     }
-                // }
+                stage('x86_E5v2_Mellanox_GPU') {
+                    agent {
+                        label 'x86_E5v2_Mellanox_GPU.rh74.slurm1711'
+                    }
+
+                    steps {
+                        unstash name: 'spack_dir'
+                        unstash name: 'x86_E5v2_Mellanox_GPU'
+                        sh 'scripts/test_pr_build.sh'
+                    }
+
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt, *.xml'
+                            junit testResults:'*.xml', allowEmptyResults:true
+                        }
+                    }
+                }
                 stage('x86_E5v2_IntelIB') {
                     agent {
                         label 'x86_E5v2_IntelIB.rh74.slurm1711'
@@ -270,24 +270,24 @@ pipeline {
                         }
                     }
                 }
-                // stage('x86_E5v3_IntelIB') {
-                //     agent {
-                //         label 'x86_E5v3_IntelIB.rh74.slurm1711'
-                //     }
-                //
-                //     steps {
-                //         unstash name: 'spack_dir'
-                //         unstash name: 'x86_E5v3_IntelIB'
-                //         sh 'scripts/test_pr_build.sh'
-                //     }
-                //
-                //     post {
-                //         always {
-                //             archiveArtifacts artifacts:'*.txt, *.xml'
-                //             junit testResults:'*.xml', allowEmptyResults:true
-                //         }
-                //     }
-                // }
+                stage('x86_E5v3_IntelIB') {
+                    agent {
+                        label 'x86_E5v3_IntelIB.rh74.slurm1711'
+                    }
+
+                    steps {
+                        unstash name: 'spack_dir'
+                        unstash name: 'x86_E5v3_IntelIB'
+                        sh 'scripts/test_pr_build.sh'
+                    }
+
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt, *.xml'
+                            junit testResults:'*.xml', allowEmptyResults:true
+                        }
+                    }
+                }
                 stage('x86_E5v4_Mellanox') {
                     agent {
                         label 'x86_E5v4_Mellanox.rh74.slurm1711'
@@ -359,42 +359,42 @@ pipeline {
                         }
                     }
                 }
-                // stage('x86_E5v2_Mellanox_GPU') {
-                //     agent {
-                //         label 'x86_E5v2_Mellanox_GPU.rh74.slurm1711'
-                //     }
-                //
-                //     steps {
-                //         unstash name: 'x86_E5v2_Mellanox_GPU'
-                //         sh 'scripts/deploy_in_production.sh'
-                //         echo 'Notify failures somewhere'
-                //     }
-                //
-                //     post {
-                //         always {
-                //             archiveArtifacts artifacts:'*.txt, *.xml'
-                //             junit testResults:'*.xml', allowEmptyResults:true
-                //         }
-                //     }
-                // }
-                // stage('x86_E5v3_IntelIB') {
-                //     agent {
-                //         label 'x86_E5v3_IntelIB.rh74.slurm1711'
-                //     }
-                //
-                //     steps {
-                //         unstash name: 'x86_E5v3_IntelIB'
-                //         sh 'scripts/deploy_in_production.sh'
-                //         echo 'Notify failures somewhere'
-                //     }
-                //
-                //     post {
-                //         always {
-                //             archiveArtifacts artifacts:'*.txt, *.xml'
-                //             junit testResults:'*.xml', allowEmptyResults:true
-                //         }
-                //     }
-                // }
+                stage('x86_E5v2_Mellanox_GPU') {
+                    agent {
+                        label 'x86_E5v2_Mellanox_GPU.rh74.slurm1711'
+                    }
+
+                    steps {
+                        unstash name: 'x86_E5v2_Mellanox_GPU'
+                        sh 'scripts/deploy_in_production.sh'
+                        echo 'Notify failures somewhere'
+                    }
+
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt, *.xml'
+                            junit testResults:'*.xml', allowEmptyResults:true
+                        }
+                    }
+                }
+                stage('x86_E5v3_IntelIB') {
+                    agent {
+                        label 'x86_E5v3_IntelIB.rh74.slurm1711'
+                    }
+
+                    steps {
+                        unstash name: 'x86_E5v3_IntelIB'
+                        sh 'scripts/deploy_in_production.sh'
+                        echo 'Notify failures somewhere'
+                    }
+
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt, *.xml'
+                            junit testResults:'*.xml', allowEmptyResults:true
+                        }
+                    }
+                }
                 stage('x86_E5v4_Mellanox') {
                     agent {
                         label 'x86_E5v4_Mellanox.rh74.slurm1711'

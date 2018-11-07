@@ -34,6 +34,12 @@ cd ${SPACK_CHECKOUT_DIR}/etc/spack/
 ln -s /ssoft/spack/paien/spack.v2/etc/spack/compilers.yaml compilers.yaml
 # Remove config.yaml, as it point to install things directly in production
 rm config.yaml
+# Activate ccache for the PR
+cat > ${SPACK_CHECKOUT_DIR}/etc/spack/config.yaml <<EOF
+config:
+  ccache: true
+EOF
+
 cd -
 
 # Create a virtual env for the command just checked out
@@ -72,7 +78,12 @@ do
     # FIXME: so we need to force SPACK_TARGET_TYPE to be the target we are
     # FIXME: querying if we don't want false positives with mixed targets in
     # FIXME: concretized the spec
-    SPACK_TARGET_TYPE="${target}" spack filter --not-installed $(cat all_specs.${target}.txt) > to_be_installed.${target}.txt
+    SPACK_TARGET_TYPE="${target}" spack filter --not-installed --output to_be_installed.${target}.txt $(cat all_specs.${target}.txt)
+    if [ $? -ne 0 ]
+    then
+        echo "[${target}] ERROR while computing list of packages!"
+        exit 1
+    fi
     echo "[${target}] $(cat to_be_installed.${target}.txt)"
 
 done

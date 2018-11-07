@@ -69,6 +69,7 @@ packages:
   fdtd:
     buildable: False
     paths:
+      fdtd@8.20.1703 %gcc@4.8.5: /ssoft/spack/external/fdtd/8.20.1703
       fdtd@8.19.1416-1 %gcc@4.8.5: /ssoft/spack/external/fdtd/8.19.1416-1
       # installed due to segfault with other versions INC0204566
       fdtd@8.12.527 %gcc@4.8.5: /ssoft/spack/external/fdtd/8.12.527
@@ -79,11 +80,10 @@ packages:
     paths:
       likwid@4.3.0 %gcc@4.8.5: /ssoft/spack/external/LIKWID/4.3.0
 
-  # TODO: We need to install Gaussian 16 with both AVX
-  # gaussian:
-  #   buildable: False
-  #   paths:
-  #     gaussian@g09-D.01: /ssoft/spack/external/gaussian/g09-D.01/intel-sse4.2
+  gaussian:
+    buildable: False
+    paths:
+      gaussian@g16-A.03 %gcc@4.8.5: /ssoft/spack/external/gaussian/g16-A.03
 
   matlab:
     buildable: False
