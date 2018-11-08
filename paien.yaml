@@ -293,7 +293,7 @@ packages:
       - hdf5@1.10.1+szip+mpi+hl+fortran+cxx
       - scotch@6.0.4+esmumps+mpi~metis
 # TODO: update scorep as described in issue SL-557
-#       - scorep@3.0
+      - scorep@4.1 ^cube@4.3.5+gui
       - parmetis@4.0.3 ^metis@5.1.0+real64
       - netcdf@4.6.1+mpi ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
       - netcdf-fortran@4.4.4 ^netcdf@4.6.1+mpi ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
