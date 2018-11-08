@@ -132,7 +132,6 @@ modules:
       'i7z',
       'inputproto',
       'jasper',
-      'jellyfish',
       'kbproto',
       'lcms',
       'libbsd',
