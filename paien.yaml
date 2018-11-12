@@ -177,6 +177,7 @@ packages:
       - lapack
     specs:
       - py-pytorch ~cuda ^py-numpy +blas +lapack@1.14.3
+      - py-htseq@0.10.0 ^py-matplotlib@2.0.0 ^py-numpy+blas+lapack@1.14.3
 
   gnu_python_2_only_lapack_openmp:
     target_matrix:
@@ -227,7 +228,7 @@ packages:
     specs:
       - py-macs2@2.1.1.20160309 ^py-numpy +blas +lapack@1.14.3
       - py-bioepic@0.2.12 ^py-scipy@1.1.0 ^py-numpy+blas+lapack@1.14.3
-      - sicer@1.1 ^py-numpy+blas+lapack@1.14.3 
+      - sicer@1.1 ^py-numpy+blas+lapack@1.14.3
 
   # Code compiled with all the stacks that does not require
   # MPI or LAPACK
