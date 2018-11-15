@@ -465,6 +465,19 @@ packages:
       # FIXME: see https://github.com/spack/spack/issues/8025
       # - tophat@2.1.1 ^bowtie2@2.3.4.1 ^intel-tbb@2018.2
 
+  # Serial applications built with the GNU stable stack and LAPACK
+  gnu-lapack-applications:
+    target_matrix:
+      - gnu-stable
+    target_filter:
+      lapack: ['openblas@0.2.20 threads=openmp']
+    requires:
+      - architecture
+      - compiler
+      - lapack
+    specs:
+      - r@3.5.0+external-lapack
+
   # MPI applications built with the GNU stable stack
   gnu-mpi-applications:
     target_matrix:
