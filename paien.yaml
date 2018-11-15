@@ -79,7 +79,7 @@ packages:
       - curl@7.59.0
       - fio@2.19
       - git@2.17.0
-      - git-lfs^git@2.17.0
+      - git-lfs@2.3.0^git@2.17.0
       # - gnuplot@5.2.2 +X+pbm+wx ^pango+X
       - i7z@epfl-scitas
       - libtool@2.4.6
