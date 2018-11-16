@@ -94,6 +94,7 @@ packages:
       - sra-toolkit@2.9.2
       - tar@1.30
       - tmux@2.7
+      - trimmomatic@0.38
 
   # List of third-party tools or of packages that are maintained
   # in our own repository
@@ -177,6 +178,7 @@ packages:
       - lapack
     specs:
       - py-pytorch ~cuda ^py-numpy +blas +lapack@1.14.3
+      - py-htseq@0.10.0 ^py-matplotlib@2.0.0 ^py-numpy+blas+lapack@1.14.3
 
   gnu_python_2_only_lapack_openmp:
     target_matrix:
@@ -227,7 +229,7 @@ packages:
     specs:
       - py-macs2@2.1.1.20160309 ^py-numpy +blas +lapack@1.14.3
       - py-bioepic@0.2.12 ^py-scipy@1.1.0 ^py-numpy+blas+lapack@1.14.3
-      - sicer@1.1 ^py-numpy+blas+lapack@1.14.3 
+      - sicer@1.1 ^py-numpy+blas+lapack@1.14.3
 
   # Code compiled with all the stacks that does not require
   # MPI or LAPACK
@@ -258,6 +260,8 @@ packages:
       - bedtools2@2.27.1
       - intel-tbb@2018.2
       - eigen@3.3.4~fftw~suitesparse~metis~scotch~mpfr
+      - qt@5.10.0 +opengl+webkit ^python@3.6.5+optimizations+tk
+      - star@2.6.1c
       # FIXME: gdl (intel internal compiler error on plplot) SL-577, see gnu-serial
 
   # Serial code that uses LAPACK
