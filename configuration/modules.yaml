@@ -71,6 +71,7 @@ modules:
       'cuda',
       'cudnn',
       'curl%gcc@4.8.5',
+      'fastqc%gcc@4.8.5',
       'fdtd',
       'fio',
       'gaussian',
