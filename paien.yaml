@@ -165,6 +165,7 @@ packages:
       - py-theano@1.0.2~gpu ^py-scipy@1.1.0 ^py-numpy+blas+lapack@1.14.3
       - py-pandas@0.23.4 ^py-numpy+blas+lapack@1.14.3
       - py-xarray@0.9.1 ^py-pandas@0.23.4 ^py-numpy+blas+lapack@1.14.3
+      - py-deeptools@3.1.3 ^py-matplotlib@2.0.0 ^py-scipy@1.1.0 ^py-numpy+blas+lapack@1.14.3
 
   gnu-python_lapack_openmp:
     target_matrix:
