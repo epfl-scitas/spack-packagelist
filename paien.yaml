@@ -180,7 +180,7 @@ packages:
       - python
       - lapack
     specs:
-      - py-pytorch~cuda@0.3.1 ^py-numpy+blas+lapack@1.14.3
+      - py-pytorch@0.3.1~cuda ^py-numpy+blas+lapack@1.14.3
       - py-htseq@0.10.0 ^py-matplotlib@2.0.0 ^py-numpy+blas+lapack@1.14.3
 
   gnu_python_2_only_lapack_openmp:
