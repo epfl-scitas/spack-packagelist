@@ -212,7 +212,7 @@ modules:
       'py-pyfaidx',
       'py-pygments',
       'py-pyparsing',
-      'py-py-sam',
+      'py-pysam',
       'py-pytest',
       'py-pytz',
       'py-qutip',
