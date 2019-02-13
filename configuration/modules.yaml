@@ -188,6 +188,7 @@ modules:
       'py-htseq',
       'py-hypothesis',
       'py-joblib',
+      'py-macs',
       'py-mako',
       'py-markupsafe',
       'py-matplotlib',
