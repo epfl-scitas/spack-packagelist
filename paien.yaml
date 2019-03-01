@@ -371,6 +371,7 @@ packages:
       # - qt@4.8.6 +gtk+opengl+webkit ^mesa
       # FIXME: Concretization errors on gl vdep
       # - opencv@3.4.1 +qt+zlib+tiff+vtk+png+jpeg+imgproc+highgui build_type=Release ^qt@4.8.6 +gtk+opengl+webkit ^mesa
+      - chip-seq@1.5.5
       - hisat2@2.1.0
       - samtools@1.8
       - subread@1.6.2
@@ -455,6 +456,7 @@ packages:
       - architecture
       - compiler
     specs:
+      - chip-seq@1.5.5
       # FIXME: Needs either OpenGL or Mesa
       # - qt@5.10.0 +gtk+opengl+webkit ^mesa
       - qt@4.8.6 +gtk+opengl+webkit ^mesa
