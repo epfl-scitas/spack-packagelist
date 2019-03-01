@@ -12,7 +12,7 @@ RUN yum upgrade -y && \
 RUN yum install -y epel-release && \
     yum clean all && rm -rf /var/cache/yum
 RUN yum install -y autoconf automake cmake gcc gcc-c++ gcc-gfortran git make \
-                   subversion Lmod patch lbzip2 && \
+                   subversion Lmod patch lbzip2 which file && \
     yum clean all && rm -rf /var/cache/yum
 
 # Get the current SCITAS release of spack
