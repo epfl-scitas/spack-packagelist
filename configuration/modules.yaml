@@ -91,6 +91,7 @@ modules:
       'mercurial',
       'molden',
       'openblas',
+      'parallel%gcc@4.8.5',
       'picard',
       'sbt',
       'scala',
