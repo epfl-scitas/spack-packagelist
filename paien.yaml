@@ -77,8 +77,10 @@ packages:
       - automake@1.16.1
       - cmake@3.11.1
       - curl@7.59.0
+      - fastqc@0.11.8
       - fio@2.19
       - git@2.17.0
+      - git-lfs@2.3.0^git@2.17.0
       # - gnuplot@5.2.2 +X+pbm+wx ^pango+X
       - i7z@epfl-scitas
       - libtool@2.4.6
@@ -86,6 +88,7 @@ packages:
       - m4@1.4.18
       - mercurial@4.4.1
       - molden+gmolden+ambfor+surf
+      - parallel@20190222
       - picard@2.18.14
       - sbt@1.1.4
       - scala@2.11.11
@@ -112,6 +115,7 @@ packages:
         - ansys@17.1
         - totalview@2017.2.11
         - comsol@5.3
+        - comsol@5.4
         - gaussian@g16-A.03
         - smr@2017.06
         - cfdplusplus@16.1
@@ -163,6 +167,7 @@ packages:
       - py-theano@1.0.2~gpu ^py-scipy@1.1.0 ^py-numpy+blas+lapack@1.14.3
       - py-pandas@0.23.4 ^py-numpy+blas+lapack@1.14.3
       - py-xarray@0.9.1 ^py-pandas@0.23.4 ^py-numpy+blas+lapack@1.14.3
+      - py-deeptools@3.1.3 ^py-matplotlib@2.0.0 ^py-scipy@1.1.0 ^py-numpy+blas+lapack@1.14.3
 
   gnu-python_lapack_openmp:
     target_matrix:
@@ -176,7 +181,8 @@ packages:
       - python
       - lapack
     specs:
-      - py-pytorch ~cuda ^py-numpy +blas +lapack@1.14.3
+      - py-pytorch@0.3.1~cuda ^py-numpy+blas+lapack@1.14.3
+      - py-htseq@0.10.0 ^py-matplotlib@2.0.0 ^py-numpy+blas+lapack@1.14.3
 
   gnu_python_2_only_lapack_openmp:
     target_matrix:
@@ -210,6 +216,7 @@ packages:
       - python
     specs:
       - py-macs@1.4.2-1
+      - jellyfish@2.2.10 
 
   # Python 2 only packages that require LAPACK
   python_2_lapack:
@@ -226,7 +233,7 @@ packages:
       - lapack
     specs:
       - py-macs2@2.1.1.20160309 ^py-numpy +blas +lapack@1.14.3
-      - py-bioepic@0.2.12 ^py-scipy@1.1.0 ^py-numpy+blas+lapack@1.14.3
+      - py-bioepic@0.2.12 ^jellyfish@2.2.10 ^py-scipy@1.1.0 ^py-numpy+blas+lapack@1.14.3
       - sicer@1.1 ^py-numpy+blas+lapack@1.14.3 
 
   # Code compiled with all the stacks that does not require
@@ -293,8 +300,7 @@ packages:
       - fftw@3.3.7+mpi+openmp+fma simd=sse2,avx,avx2,avx512
       - hdf5@1.10.1+szip+mpi+hl+fortran+cxx
       - scotch@6.0.4+esmumps+mpi~metis
-# TODO: update scorep as described in issue SL-557
-#       - scorep@3.0
+      - scorep@4.1~shmem~pdt ^cube@4.3.5+gui
       - parmetis@4.0.3 ^metis@5.1.0+real64
       - netcdf@4.6.1+mpi ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
       - netcdf-fortran@4.4.4 ^netcdf@4.6.1+mpi ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
@@ -366,6 +372,7 @@ packages:
       # - qt@4.8.6 +gtk+opengl+webkit ^mesa
       # FIXME: Concretization errors on gl vdep
       # - opencv@3.4.1 +qt+zlib+tiff+vtk+png+jpeg+imgproc+highgui build_type=Release ^qt@4.8.6 +gtk+opengl+webkit ^mesa
+      - chip-seq@1.5.5
       - hisat2@2.1.0
       - samtools@1.8
       - subread@1.6.2
@@ -400,8 +407,8 @@ packages:
       - gromacs@2016.4+mpi+plumed
         ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
         ^plumed@2.4.1+mpi+gsl ^gsl@2.4
-      - cp2k@5.1+mpi~plumed smm=none ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^parmetis@4.0.3 ^metis@5.1.0+real64
-      - cp2k@5.1+mpi+plumed smm=none ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.4.1+mpi+gsl ^gsl@2.4
+      - cp2k@5.1+mpi~plumed smm=none ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^parmetis@4.0.3 ^metis@5.1.0+real64 ^libxc@3.0.0
+      - cp2k@5.1+mpi+plumed smm=none ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.4.1+mpi+gsl ^gsl@2.4 ^libxc@3.0.0
       - quantum-espresso@6.2.0+mpi+scalapack+hdf5
         ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
         ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
@@ -450,6 +457,7 @@ packages:
       - architecture
       - compiler
     specs:
+      - chip-seq@1.5.5
       # FIXME: Needs either OpenGL or Mesa
       # - qt@5.10.0 +gtk+opengl+webkit ^mesa
       - qt@4.8.6 +gtk+opengl+webkit ^mesa
@@ -461,8 +469,22 @@ packages:
       - bowtie@1.2+tbb ^intel-tbb@2018.2
       - bowtie2@2.3.4.1 ^intel-tbb@2018.2
       - bcl2fastq2@2.20.0.422 ^boost+icu+python ^python@2.7.14+tk
+      - ncview ^netcdf@4.6.1~mpi ^hdf5@1.10.1+szip~mpi+hl+fortran+cxx
       # FIXME: see https://github.com/spack/spack/issues/8025
       # - tophat@2.1.1 ^bowtie2@2.3.4.1 ^intel-tbb@2018.2
+
+  # Serial applications built with the GNU stable stack and LAPACK
+  gnu-lapack-applications:
+    target_matrix:
+      - gnu-stable
+    target_filter:
+      lapack: ['openblas@0.2.20 threads=openmp']
+    requires:
+      - architecture
+      - compiler
+      - lapack
+    specs:
+      - r@3.5.0+external-lapack
 
   # MPI applications built with the GNU stable stack
   gnu-mpi-applications:
@@ -503,8 +525,8 @@ packages:
       - gromacs@2016.4+mpi+plumed
         ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
         ^plumed@2.4.1+mpi+gsl ^gsl@2.4
-      - cp2k@5.1+mpi~plumed smm=none ^netlib-scalapack@2.0.2 ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^parmetis@4.0.3 ^metis@5.1.0+real64
-      - cp2k@5.1+mpi+plumed smm=none ^netlib-scalapack@2.0.2 ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.4.1+mpi+gsl ^gsl@2.4
+      - cp2k@5.1+mpi~plumed smm=none ^netlib-scalapack@2.0.2 ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^parmetis@4.0.3 ^metis@5.1.0+real64 ^libxc@3.0.0
+      - cp2k@5.1+mpi+plumed smm=none ^netlib-scalapack@2.0.2 ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.4.1+mpi+gsl ^gsl@2.4 ^libxc@3.0.0
       - nwchem@6.8 ^netlib-scalapack@2.0.2 ^python@2.7.14+tk
       - abinit@8.8.2~hdf5~openmp+mpi+scalapack ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^netlib-scalapack@2.0.2
       - quantum-espresso@6.2.0+mpi+scalapack
@@ -587,8 +609,11 @@ packages:
       - compiler
       - lapack
     specs:
-      - magma+fortran ^cuda@9.1.85
-      - py-pytorch +cuda +cudnn ~nccl +magma ^py-numpy +blas +lapack ^magma +fortran +shared ^cuda@9.1.85
+      - magma@2.3.0+fortran+shared ^cuda@9.1.85
+      - py-pytorch@0.3.1+cuda+cudnn~nccl+magma
+        ^py-numpy+blas+lapack@1.14.3
+        ^magma@2.3.0+fortran+shared
+        ^cuda@9.1.85
       - py-numpy+blas+lapack@1.14.3
 
 #   gnu-gpu-mpi-applications:
