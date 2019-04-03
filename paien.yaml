@@ -575,7 +575,6 @@ packages:
       - fftw@3.3.7+mpi+openmp+fma simd=sse2,avx,avx2,avx512
       - cuda@9.1.85
       - cudnn@6.0 ^cuda@9.1.85
-      - py-numpy+blas+lapack@1.14.3
       # FIXME: tensorflow+cuda is missing
 
 #   gnu-gpu-python-lapack:
@@ -599,7 +598,6 @@ packages:
     specs:
       - osu-micro-benchmarks@5.4+cuda
       - boost@1.67.0+icu+mpi+python ^python@2.7.14+tk
-      - py-numpy+blas+lapack@1.14.3
 
   gnu-gpu-lapack-libraries:
     target_matrix:
@@ -614,6 +612,17 @@ packages:
         ^py-numpy+blas+lapack@1.14.3
         ^magma@2.3.0+fortran+shared
         ^cuda@9.1.85
+        ^python@2.7.14+tk
+
+  gnu-gpu-lapack-python-libraries:
+    target_matrix:
+      - gnu-gpu
+    requires:
+      - architecture
+      - compiler
+      - python
+      - lapack
+    specs:
       - py-numpy+blas+lapack@1.14.3
 
 #   gnu-gpu-mpi-applications:
