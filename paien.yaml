@@ -608,6 +608,11 @@ packages:
       - lapack
     specs:
       - magma@2.3.0+fortran+shared ^cuda@9.1.85
+      - py-pytorch@0.3.1+cuda+cudnn~nccl+magma
+        ^py-numpy+blas+lapack@1.14.3
+        ^magma@2.3.0+fortran+shared
+        ^cuda@9.1.85
+        ^python@2.7.14+tk
 
   gnu-gpu-lapack-python-libraries:
     target_matrix:
@@ -619,10 +624,6 @@ packages:
       - lapack
     specs:
       - py-numpy+blas+lapack@1.14.3
-      - py-pytorch@0.3.1+cuda+cudnn~nccl+magma
-        ^py-numpy+blas+lapack@1.14.3
-        ^magma@2.3.0+fortran+shared
-        ^cuda@9.1.85
 
 #   gnu-gpu-mpi-applications:
 #     target_matrix:
