@@ -612,6 +612,18 @@ packages:
         ^py-numpy+blas+lapack@1.14.3
         ^magma@2.3.0+fortran+shared
         ^cuda@9.1.85
+        ^python@2.7.14+tk
+
+  gnu-gpu-lapack-python-libraries:
+    target_matrix:
+      - gnu-gpu
+    requires:
+      - architecture
+      - compiler
+      - python
+      - lapack
+    specs:
+      - py-numpy+blas+lapack@1.14.3
 
 #   gnu-gpu-mpi-applications:
 #     target_matrix:
