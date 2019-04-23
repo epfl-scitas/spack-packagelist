@@ -1,0 +1,100 @@
+pipeline {
+    agent none
+
+    // Adds timestamps to console logs
+    options {
+        timestamps()
+    }
+
+    stages {
+
+        stage('Set-up test environment for a PR') {
+            // Prepare a temporary work space for a PR branch:
+            //
+            // 1. Checkout the branch somewhere
+            // 2. Copying the latest configuration files in place
+            // 3. Link references to production compilers
+            // 4. Compute which specs need to be tested and where
+            //    they need to be tested
+            //
+
+            agent {
+                label 'fidis-login'
+            }
+
+            when {
+                branch '*/humagne/*'
+            }
+
+            environment {
+                SPACK_PRODUCTION_DIR = "/ssoft/spack/humagne/spack.v1"
+            }
+
+            steps {
+                sh 'scripts/setup_pr_configuration.sh'
+            }
+
+            post {
+                always {
+                    archiveArtifacts artifacts:'*.txt'
+                    stash name:'spack_dir', includes: 'spack_dir.txt'
+                    stash name:'x86_E5v4_Mellanox', includes: 'to_be_installed.x86_E5v4_Mellanox.txt'
+                    stash name:'x86_S6g1_Mellanox', includes: 'to_be_installed.x86_S6g1_Mellanox.txt'
+                }
+            }
+        }
+
+        stage('Test PR build') {
+            // Compute what needs to be checked for this PR (software
+            // that is in the current planned environment, but not on the
+            // base release branch). Try to build it, and notify status on
+            // github.
+            when {
+                branch '*/humagne/*'
+            }
+
+            environment {
+                SPACK_PRODUCTION_DIR = "/ssoft/spack/humagne/spack.v1"
+            }
+
+            parallel {
+                stage('x86_E5v4_Mellanox') {
+                    agent {
+                        label 'x86_E5v4_Mellanox.rh74.slurm1711'
+                    }
+
+                    steps {
+                        unstash name: 'spack_dir'
+                        unstash name: 'x86_E5v4_Mellanox'
+                        sh 'scripts/test_pr_build.sh'
+                    }
+
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt, *.xml'
+                            junit testResults:'*.xml', allowEmptyResults:true
+                        }
+                    }
+                }
+                stage('x86_S6g1_Mellanox') {
+                    agent {
+                        label 'x86_S6g1_Mellanox.rh74.slurm1711'
+                    }
+
+                    steps {
+                        unstash name: 'spack_dir'
+                        unstash name: 'x86_S6g1_Mellanox'
+                        sh 'scripts/test_pr_build.sh'
+                    }
+
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt, *.xml'
+                            junit testResults:'*.xml', allowEmptyResults:true
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
