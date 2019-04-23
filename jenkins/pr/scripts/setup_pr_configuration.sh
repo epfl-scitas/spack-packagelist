@@ -13,15 +13,15 @@
 SPACK_BRANCH_NAME=$(git ls-remote --heads https://github.com/epfl-scitas/spack.git ${GIT_BRANCH})
 if [[ -z ${SPACK_BRANCH_NAME} ]]
 then
-    SPACK_BRANCH_NAME="releases/paien"
+    SPACK_BRANCH_NAME="releases/humagne"
 else
     SPACK_BRANCH_NAME="${GIT_BRANCH}"
 fi
 echo "[SPACK_BRANCH_NAME] ${SPACK_BRANCH_NAME}"
 
 # Create a temporary directory to work in and clone Spack
-SPACK_CHECKOUT_DIR=$(mktemp -d /home/scitasbuild/paien/pr/spack.XXXXX)
-SPACK_MIRROR_DIR=$(mktemp -d /home/scitasbuild/paien/pr/spack-mirror.XXXXX)
+SPACK_CHECKOUT_DIR=$(mktemp -d /home/scitasbuild/humagne/pr/spack.XXXXX)
+SPACK_MIRROR_DIR=$(mktemp -d /home/scitasbuild/humagne/pr/spack-mirror.XXXXX)
 echo "[SPACK WORKSPACE] ${SPACK_CHECKOUT_DIR}"
 git clone -b "${SPACK_BRANCH_NAME}" https://github.com/epfl-scitas/spack.git "${SPACK_CHECKOUT_DIR}"
 
@@ -31,7 +31,7 @@ echo "${SPACK_CHECKOUT_DIR}" > spack_dir.txt
 # Copy the configuration files in, link the compilers
 cp -v configuration/* ${SPACK_CHECKOUT_DIR}/etc/spack/
 cd ${SPACK_CHECKOUT_DIR}/etc/spack/
-ln -s /ssoft/spack/paien/spack.v2/etc/spack/compilers.yaml compilers.yaml
+ln -s /ssoft/spack/humagne/spack.v1/etc/spack/compilers.yaml compilers.yaml
 # Remove config.yaml, as it point to install things directly in production
 rm config.yaml
 # Activate ccache for the PR
@@ -43,7 +43,7 @@ EOF
 cd -
 
 # Create a virtual env for the command just checked out
-SENV_VIRTUALENV_PATH=$(mktemp -d /home/scitasbuild/paien/pr/senv.XXXXX)
+SENV_VIRTUALENV_PATH=$(mktemp -d /home/scitasbuild/humagne/pr/senv.XXXXX)
 virtualenv -p $(which python) ${SENV_VIRTUALENV_PATH} --clear
 . ${SENV_VIRTUALENV_PATH}/bin/activate
 pip install --force-reinstall -U .
