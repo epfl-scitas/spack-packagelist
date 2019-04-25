@@ -7,12 +7,17 @@ packages:
   openssl:
     buildable: False
     paths:
-      openssl@system: /usr/lib64
+      openssl@system: /usr
 
   jdk:
     buildable: False
     paths:
       jdk@8u141-b16: /usr/lib/jvm/jre
+
+  slurm:
+    buildable: False
+    paths:
+      slurm@17.11.8: /usr
 
   ####
   # Intel compilers and libraries
