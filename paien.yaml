@@ -96,8 +96,8 @@ packages:
       - sra-toolkit@2.9.2
       - tar@1.30
       - tmux@2.7
-      - trimmomatic@0.38
       - tophat@2.1.2 ^bowtie2@2.3.4.1 ^intel-tbb@2018.2
+      - trimmomatic@0.38
 
   # List of third-party tools or of packages that are maintained
   # in our own repository
