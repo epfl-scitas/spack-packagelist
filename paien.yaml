@@ -268,6 +268,7 @@ packages:
       - eigen@3.3.4~fftw~suitesparse~metis~scotch~mpfr
       - qt@5.10.0 +opengl+webkit ^python@3.6.5+optimizations+tk
       - star@2.6.1c
+      - nco@4.6.7
       # FIXME: gdl (intel internal compiler error on plplot) SL-577, see gnu-serial
 
   # Serial code that uses LAPACK
