@@ -96,6 +96,7 @@ packages:
       - sra-toolkit@2.9.2
       - tar@1.30
       - tmux@2.7
+      - tophat@2.1.2 ^bowtie2@2.3.4.1 ^intel-tbb@2018.2
       - trimmomatic@0.38
 
   # List of third-party tools or of packages that are maintained
@@ -471,8 +472,6 @@ packages:
       - bowtie2@2.3.4.1 ^intel-tbb@2018.2
       - bcl2fastq2@2.20.0.422 ^boost+icu+python ^python@2.7.14+tk
       - ncview ^netcdf@4.6.1~mpi ^hdf5@1.10.1+szip~mpi+hl+fortran+cxx
-      # FIXME: see https://github.com/spack/spack/issues/8025
-      # - tophat@2.1.1 ^bowtie2@2.3.4.1 ^intel-tbb@2018.2
 
   # Serial applications built with the GNU stable stack and LAPACK
   gnu-lapack-applications:
