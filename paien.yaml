@@ -114,6 +114,7 @@ packages:
         - matlab@R2018a
         - mathematica@11.1.1
         - ansys@17.1
+        - ansys@19.2
         - totalview@2017.2.11
         - comsol@5.3
         - comsol@5.4
