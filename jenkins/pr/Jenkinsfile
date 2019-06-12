@@ -31,7 +31,7 @@ pipeline {
             }
 
             steps {
-                sh 'scripts/setup_pr_configuration.sh'
+                sh 'jenkins/pr/scripts/setup_pr_configuration.sh'
             }
 
             post {
@@ -66,7 +66,7 @@ pipeline {
                     steps {
                         unstash name: 'spack_dir'
                         unstash name: 'x86_E5v4_Mellanox'
-                        sh 'scripts/test_pr_build.sh'
+                        sh 'jenkins/pr/scripts/test_pr_build.sh'
                     }
 
                     post {
@@ -84,7 +84,7 @@ pipeline {
                     steps {
                         unstash name: 'spack_dir'
                         unstash name: 'x86_S6g1_Mellanox'
-                        sh 'scripts/test_pr_build.sh'
+                        sh 'jenkins/pr/scripts/test_pr_build.sh'
                     }
 
                     post {

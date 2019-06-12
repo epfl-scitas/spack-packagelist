@@ -38,7 +38,7 @@ pipeline {
 
                 // Update the command line tool we use in production
                 // and configuration files
-                sh  'scripts/update_production_configuration.sh'
+                sh  'jenkins/deploy/scripts/update_production_configuration.sh'
             }
         }
 
@@ -62,8 +62,8 @@ pipeline {
         //                 label 'x86_E5v4_Mellanox.rh74.slurm1711'
         //             }
         //             steps {
-        //                 sh  'scripts/install_production_compilers.sh'
-        //                 sh  'scripts/install_production_stack.sh'
+        //                 sh  'jenkins/deploy/scripts/install_production_compilers.sh'
+        //                 sh  'jenkins/deploy/scripts/install_production_stack.sh'
         //             }
         //             post {
         //                 always {
@@ -77,8 +77,8 @@ pipeline {
         //                 label 'x86_S6g1_Mellanox.rh74.slurm1711'
         //             }
         //             steps {
-        //                 sh  'scripts/install_production_compilers.sh'
-        //                 sh  'scripts/install_production_stack.sh'
+        //                 sh  'jenkins/deploy/scripts/install_production_compilers.sh'
+        //                 sh  'jenkins/deploy/scripts/install_production_stack.sh'
         //             }
         //             post {
         //                 always {
@@ -107,7 +107,7 @@ pipeline {
         //     }
 
         //     steps {
-        //         sh 'scripts/populate_mirror.sh'
+        //         sh 'jenkins/deploy/scripts/populate_mirror.sh'
         //         stash name:'x86_E5v4_Mellanox', includes: 'to_be_installed.x86_E5v4_Mellanox.txt'
         //         stash name:'x86_S6g1_Mellanox', includes: 'to_be_installed.x86_S6g1_Mellanox.txt'
         //     }
@@ -136,7 +136,7 @@ pipeline {
 
         //             steps {
         //                 unstash name: 'x86_E5v4_Mellanox'
-        //                 sh 'scripts/deploy_in_production.sh'
+        //                 sh 'jenkins/deploy/scripts/deploy_in_production.sh'
         //                 echo 'Notify failures somewhere'
         //             }
 
@@ -155,7 +155,7 @@ pipeline {
 
         //             steps {
         //                 unstash name: 'x86_S6g1_Mellanox'
-        //                 sh 'scripts/deploy_in_production.sh'
+        //                 sh 'jenkins/deploy/scripts/deploy_in_production.sh'
         //                 echo 'Notify failures somewhere'
         //             }
 
