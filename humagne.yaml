@@ -1,0 +1,631 @@
+axis:
+  - architecture
+  - compiler
+  - mpi
+  - lapack
+  - python
+
+combinations:
+
+  # Core is the matrix that is used to build software with system compilers
+  core:
+    architecture: 'x86_E5v4_Mellanox:x86_S6g1_Mellanox'
+    compiler: 'gcc@4.8.5'
+    mpi: None
+    lapack: None
+    python: None
+
+  # GNU is the matrix used to build software that runs on CPUs
+  # with a FOSS stack - stable version
+  gnu-stable:
+    architecture: 'x86_E5v4_Mellanox:x86_S6g1_Mellanox'
+    compiler: 'gcc@7.4.0'
+    mpi: 'openmpi@3.1.4+pmi fabrics=verbs schedulers=slurm +thread_multiple+sqlite3 ^hwloc+cairo:mvapich2@2.3.1 fabrics=mrail process_managers=slurm'
+    lapack: 'openblas@0.3.6:openblas@0.3.6 threads=openmp'
+    python: 'python@3.7.3+optimizations+tk:python@2.7.16+tk'
+
+  # GNU is the matrix used to build software that runs on CPUs
+  # with a FOSS stack - bleeding edge version
+  gnu-bleeding-edge:
+    architecture: 'x86_E5v4_Mellanox:x86_S6g1_Mellanox'
+    compiler: 'gcc@8.3.0'
+    mpi: 'openmpi@3.1.4+pmi fabrics=verbs schedulers=slurm +thread_multiple+sqlite3 ^hwloc+cairo:mvapich2@2.3.1 fabrics=mrail process_managers=slurm'
+    lapack: 'openblas@0.3.6:openblas@0.3.6 threads=openmp'
+    python: 'python@3.7.3+optimizations+tk:python@2.7.16+tk'
+
+  # Intel is the stack used to build software that runs on CPUs with
+  # a proprietary stack
+  # intel:
+  #   architecture: 'x86_E5v4_Mellanox:x86_S6g1_Mellanox'
+  #   compiler: 'intel@18.0.5'
+  #   mpi: 'intel-mpi@2018.2.199'
+  #   lapack: 'intel-mkl@2018.2.199'
+  #   python: 'python@3.7.3+optimizations+tk:python@2.7.16+tk'
+
+
+packages:
+
+  # List of packages that are built with core compilers
+  # and are maintained upstream
+  core:
+    target_matrix:
+      - core
+    requires:
+      - architecture
+      - compiler
+    specs:
+      - autoconf@2.69
+      - automake@1.16.1
+      - cmake@3.11.1
+      - curl@7.59.0
+      - fastqc@0.11.8
+      - fio@2.19
+      - git@2.17.0
+      - git-lfs@2.3.0^git@2.17.0
+      - gcc@6.5.0
+      # - gnuplot@5.2.2 +X+pbm+wx ^pango+X
+      - i7z@epfl-scitas
+      - libtool@2.4.6
+      - lmod@7.7.29
+      - m4@1.4.18
+      - mercurial@4.4.1
+      - molden+gmolden+ambfor+surf
+      - parallel@20190222
+      - picard@2.18.14
+      - sbt@1.1.4
+      - scala@2.11.11
+      - spark@2.3.0+hadoop
+      - sra-toolkit@2.9.2
+      - tar@1.30
+      - tmux@2.7
+      - trimmomatic@0.38
+
+#   # List of third-party tools or of packages that are maintained
+#   # in our own repository
+#   externals:
+#       target_matrix:
+#         - core
+#       requires:
+#         - architecture
+#         - compiler
+#       specs:
+#         - adf@2017.111
+#         - likwid@4.3.0
+#         - maple@2017
+#         - matlab@R2018a
+#         - mathematica@11.1.1
+#         - ansys@17.1
+#         - totalview@2017.2.11
+#         - comsol@5.3
+#         - comsol@5.4
+#         - gaussian@g16-A.03
+#         - smr@2017.06
+#         - cfdplusplus@16.1
+#         - fdtd@8.20.1703
+#   # TODO: check where to put these applications
+#   #       - beast@2.4.8
+#   #       - molden
+#
+#   # List of python packages that do not require
+#   # BLAS / LAPACK
+#   serial_python:
+#     target_matrix:
+#       - gnu-stable
+#       - gnu-bleeding-edge
+#       - gnu-gpu
+#       - intel
+#     requires:
+#       - architecture
+#       - compiler
+#       - python
+#     specs:
+#       - py-cython
+#       - py-pip
+#       - py-sympy
+#       - py-ply
+#       - py-virtualenv
+#
+#   # Python packages that requires LAPACK
+#   python_lapack_openmp:
+#     target_matrix:
+#       - gnu-stable
+#       - gnu-bleeding-edge
+#       - intel
+#     target_filter:
+#       lapack: ['openblas@0.3.6 threads=openmp', 'intel-mkl@2018.2.199']
+#     requires:
+#       - architecture
+#       - compiler
+#       - python
+#       - lapack
+#     specs:
+#       - py-numpy+blas+lapack@1.14.3
+#       - py-scipy@1.1.0 ^py-numpy+blas+lapack@1.14.3
+#       - py-matplotlib@2.0.0 ^py-numpy+blas+lapack@1.14.3
+#       # FIXME: These are missing in develop. Check if they are still needed.
+#       # - py-qutip+f90mc@3.1.0^py-scipy@0.17.0^py-numpy+blas+lapack@1.11.0^py-cython@0.23.5
+#       # - py-ase+matplotlib+scipy@3.11.0^py-matplotlib@1.4.3^py-numpy+blas+lapack@1.11.0
+#       - py-scikit-learn@0.19.1 ^py-scipy@1.1.0 ^py-numpy+blas+lapack@1.14.3
+#       - py-theano@1.0.2~gpu ^py-scipy@1.1.0 ^py-numpy+blas+lapack@1.14.3
+#       - py-pandas@0.23.4 ^py-numpy+blas+lapack@1.14.3
+#       - py-xarray@0.9.1 ^py-pandas@0.23.4 ^py-numpy+blas+lapack@1.14.3
+#       - py-deeptools@3.1.3 ^py-matplotlib@2.0.0 ^py-scipy@1.1.0 ^py-numpy+blas+lapack@1.14.3
+#
+#   gnu-python_lapack_openmp:
+#     target_matrix:
+#       - gnu-stable
+#       - gnu-bleeding-edge
+#     target_filter:
+#       lapack: ['openblas@0.3.6 threads=openmp']
+#     requires:
+#       - architecture
+#       - compiler
+#       - python
+#       - lapack
+#     specs:
+#       - py-pytorch@0.3.1~cuda ^py-numpy+blas+lapack@1.14.3
+#       - py-htseq@0.10.0 ^py-matplotlib@2.0.0 ^py-numpy+blas+lapack@1.14.3
+#
+#   gnu_python_2_only_lapack_openmp:
+#     target_matrix:
+#       - gnu-stable
+#     target_filter:
+#       python: ['python@2.7.16+tk']
+#       lapack: ['openblas@0.3.6 threads=openmp']
+#     requires:
+#       - architecture
+#       - compiler
+#       - python
+#       - lapack
+#     specs:
+#       - gdl~wx~x11~hdf4+hdf5+embed-python+python+proj+graphicsmagick+openmp
+#         ^eigen@3.3.4~fftw~suitesparse~metis~scotch~mpfr
+#         ^fftw@3.3.7~mpi~openmp+fma simd=sse2,avx,avx2,avx512
+#         ^netcdf@4.6.1~mpi
+#         ^hdf5@1.10.1+szip~mpi+hl+fortran+cxx
+#         ^py-numpy+blas+lapack@1.14.3
+#
+#   # Python 2 only packages
+#   python_2_only:
+#     target_matrix:
+#       - gnu-stable
+#       - intel
+#     target_filter:
+#       python: ['python@2.7.16+tk']
+#     requires:
+#       - architecture
+#       - compiler
+#       - python
+#     specs:
+#       - py-macs@1.4.2-1
+#       - jellyfish@2.2.10
+#
+#   # Python 2 only packages that require LAPACK
+#   python_2_lapack:
+#     target_matrix:
+#       - gnu-stable
+#       - intel
+#     target_filter:
+#       lapack: ['openblas@0.3.6 threads=openmp', 'intel-mkl@2018.2.199']
+#       python: ['python@2.7.16+tk']
+#     requires:
+#       - architecture
+#       - compiler
+#       - python
+#       - lapack
+#     specs:
+#       - py-macs2@2.1.1.20160309 ^py-numpy +blas +lapack@1.14.3
+#       - py-bioepic@0.2.12 ^jellyfish@2.2.10 ^py-scipy@1.1.0 ^py-numpy+blas+lapack@1.14.3
+#       - sicer@1.1 ^py-numpy+blas+lapack@1.14.3
+#
+#   # Code compiled with all the stacks that does not require
+#   # MPI or LAPACK
+#   serial:
+#     target_matrix:
+#       - gnu-stable
+#       - gnu-bleeding-edge
+#       - intel
+#     requires:
+#       - architecture
+#       - compiler
+#     specs:
+#       - valgrind@3.13.0~boost~mpi
+#       - gdb@8.1~python
+#       - 'fftw@3.3.7~mpi~openmp+fma simd=sse2,avx,avx2,avx512'
+#       - 'fftw@3.3.7~mpi+openmp+fma simd=sse2,avx,avx2,avx512'
+#       - nfft@3.4.1 ^fftw@3.3.7~mpi~openmp+fma simd=sse2,avx,avx2,avx512
+#       # FIXME: intel gives an internal compiler error - glpk@4.65+gmp
+#       - gsl@2.4
+#       - hdf5@1.10.1+szip~mpi+hl+fortran+cxx
+#       - metis@5.1.0+real64
+#       - scotch@6.0.4+esmumps~metis~mpi
+#       - netcdf@4.6.1~mpi ^hdf5@1.10.1+szip~mpi+hl+fortran+cxx
+#       - netcdf-fortran@4.4.4 ^netcdf@4.6.1~mpi ^hdf5@1.10.1+szip~mpi+hl+fortran+cxx
+#       - voropp@0.4.6
+#       - tcl@8.6.8
+#       - tk@8.6.8 ^tcl@8.6.8
+#       - bedtools2@2.27.1
+#       - intel-tbb@2018.2
+#       - eigen@3.3.4~fftw~suitesparse~metis~scotch~mpfr
+#       - qt@5.10.0 +opengl+webkit ^python@3.7.3+optimizations+tk
+#       - star@2.6.1c
+#       # FIXME: gdl (intel internal compiler error on plplot) SL-577, see gnu-serial
+#
+#   # Serial code that uses LAPACK
+#   lapack:
+#     target_matrix:
+#       - gnu-stable
+#       - gnu-bleeding-edge
+#       - intel
+#     requires:
+#       - architecture
+#       - compiler
+#       - lapack
+#     specs:
+#       - arpack-ng@3.5.0~mpi
+#       - suite-sparse@5.2.0 ^metis@5.1.0+real64
+#
+#   # MPI code that doesn't use LAPACK
+#   mpi:
+#     target_matrix:
+#       - gnu-stable
+#       - gnu-bleeding-edge
+#       - intel
+#     requires:
+#       - architecture
+#       - compiler
+#       - mpi
+#     specs:
+#       - osu-micro-benchmarks@5.4~cuda
+#       - boost@1.67.0+icu+mpi+python ^python@2.7.16+tk
+#       - fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+#       - fftw@3.3.7+mpi+openmp+fma simd=sse2,avx,avx2,avx512
+#       - hdf5@1.10.1+szip+mpi+hl+fortran+cxx
+#       - scotch@6.0.4+esmumps+mpi~metis
+#       - scorep@4.1~shmem~pdt ^cube@4.3.5+gui
+#       - parmetis@4.0.3 ^metis@5.1.0+real64
+#       - netcdf@4.6.1+mpi ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
+#       - netcdf-fortran@4.4.4 ^netcdf@4.6.1+mpi ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
+# # TODO: update CGAL as described in issue SL-555
+# #       - cgal@4.12 ^boost@1.67.0+icu+mpi+python ^python@2.7.16+tk
+# # TODO: this package needs to be ported to the list of external repositories
+# #       - gerris@snapshot ^gsl@2.3 ^gts@121130
+#
+#   # Libraries that needs both MPI and LAPACK
+#   mpi-lapack-libraries:
+#     target_matrix:
+#       - gnu-stable
+#       - gnu-bleeding-edge
+#       - intel
+#     requires:
+#       - architecture
+#       - compiler
+#       - mpi
+#       - lapack
+#     specs:
+#       - arpack-ng@3.5.0+mpi
+#
+#   # Libraries that needs both MPI and LAPACK - GNU specific
+#   mpi-lapack-libraries-gnu:
+#     target_matrix:
+#       - gnu-stable
+#       - gnu-bleeding-edge
+#     requires:
+#       - architecture
+#       - compiler
+#       - mpi
+#       - lapack
+#     specs:
+#       - hpl@2.2~openmp
+#       - netlib-scalapack@2.0.2
+#       - elpa@2016.05.004 ^netlib-scalapack@2.0.2
+#       - elpa@2017.11.001 ^netlib-scalapack@2.0.2
+#       - mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^netlib-scalapack@2.0.2
+#
+#
+#   mpi-lapack-libraries-intel:
+#     target_matrix:
+#       - intel
+#     requires:
+#       - architecture
+#       - compiler
+#       - mpi
+#       - lapack
+#     specs:
+#       - hpl@2.2~openmp
+#       - elpa@2016.05.004
+# # FIXME: there are issues to build this version of elpa (SL-556)
+# #       - elpa@2017.11.001
+#       - mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis
+#
+#   ##########
+#   # Applications / Frameworks
+#   ##########
+#
+#   # Serial applications built with the Intel stack
+#   intel-serial-applications:
+#     target_matrix:
+#       - intel
+#     requires:
+#       - architecture
+#       - compiler
+#     specs:
+#       # FIXME: Qt doesn't install with Intel
+#       # - qt@4.8.6 +gtk+opengl+webkit ^mesa
+#       # FIXME: Concretization errors on gl vdep
+#       # - opencv@3.4.1 +qt+zlib+tiff+vtk+png+jpeg+imgproc+highgui build_type=Release ^qt@4.8.6 +gtk+opengl+webkit ^mesa
+#       - chip-seq@1.5.5
+#       - hisat2@2.1.0
+#       - samtools@1.8
+#       - subread@1.6.2
+#       # FIXME: install abaqus
+#       # - abaqus
+#
+#   # MPI applications built with the Intel stack
+#   intel-mpi-applications:
+#     target_matrix:
+#       - intel
+#     requires:
+#       - architecture
+#       - compiler
+#       - mpi
+#     specs:
+#       - gromacs@2018.1+mpi ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+#       - foam-extend+metis+scotch+parmetis+ptscotch~paraview ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^python@2.7.16+tk
+#       - openfoam-com~paraview~int64+metis+scotch+source ^scotch@6.0.4+esmumps+mpi~metis ^cgal@4.12 ^boost@1.67.0+icu+mpi+python ^fftw@3.3.7~mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^python@2.7.16+tk
+#       - neuron@7.5+mpi+python+shared ^python@2.7.16+tk
+#
+#   # MPI applications built with the Intel stack that use LAPACK
+#   intel-mpi-lapack-applications:
+#     target_matrix:
+#       - intel
+#     requires:
+#       - architecture
+#       - compiler
+#       - mpi
+#       - lapack
+#     specs:
+#       - plumed@2.4.1+mpi+gsl ^gsl@2.4
+#       - gromacs@2016.4+mpi+plumed
+#         ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+#         ^plumed@2.4.1+mpi+gsl ^gsl@2.4
+#       - cp2k@5.1+mpi~plumed smm=none ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^parmetis@4.0.3 ^metis@5.1.0+real64 ^libxc@3.0.0
+#       - cp2k@5.1+mpi+plumed smm=none ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.4.1+mpi+gsl ^gsl@2.4 ^libxc@3.0.0
+#       - quantum-espresso@6.2.0+mpi+scalapack+hdf5
+#         ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+#         ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
+#       - quantum-espresso@6.2.0+mpi+scalapack
+#         ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+# #       - namd fftw=mkl interface=python @2.12 ^charm backend=mpi ^python@2.7.16+tk
+# #       - amber@16+mpi ^netcdf-fortran@4.4.4 ^netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx ^py-scipy@0.19.0 ^py-matplotlib@2.0.0 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13
+#       - yambo@4.2.1+mpi io=iotk,etsf-io
+#         ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+#         ^netcdf-fortran@4.4.4 ^netcdf@4.6.1+mpi ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
+#       - cpmd@v4.1~openmp ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+#       - petsc@3.9.2~int64+boost+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse
+#         ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
+#         ^mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis
+#         ^boost@1.67.0+icu+mpi+python ^python@2.7.16+tk
+# #       - nwchem@6.8 ^netlib-scalapack@2.0.2 ^python@2.7.16+tk
+# #       # TODO: - caffe@1.0+python+opencv  ^hdf5@1.10.1+szip+mpi~cxx ^opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6 ^py-numpy+blas+lapack@1.12.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
+# #       # TODO: - gmsh@3.0.1+mpi+hdf5+fltk+compression ^hdf5@1.10.1+szip+mpi~cxx
+# #       - fenics@2017.1.0+petsc+hdf5~trilinos+suite-sparse+mpi ^petsc@3.7.6+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre ^hdf5@1.10.1+szip+mpi~cxx  ^mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^boost@1.61.0+icu_support+mpi+python ^python@2.7.13 ^eigen@3.3.1~debug+fftw+metis+mpfr+scotch+suitesparse ^fftw@3.3.6-pl2+mpi~openmp
+# #       # FIXME: - simpson@master ^gsl@2.1 ^nfft@3.3.2 ^fftw@3.3.4 ^tk@8.6.3 ^tcl@8.6.5
+#       - lammps@20180316 build_type=Release
+#         +asphere +body +class2 +colloid +compress +coreshell
+#         +dipole +granular +kspace +latte +lib +manybody +mc
+#         +meam +misc +molecule +mpi +mpiio +peri ~poems +python
+#         +qeq +reax +replica +rigid +shock +snap +srd +user-atc
+#         +user-h5md +user-lb +user-misc +user-netcdf ~voronoi
+#         ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+#         ^netcdf@4.6.1+mpi ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
+#
+#   # Serial applications built with the Intel stack that use LAPACK
+#   intel-lapack-applications:
+#     target_matrix:
+#       - intel
+#     requires:
+#       - architecture
+#       - compiler
+#       - lapack
+#     specs:
+#       - r@3.5.0+external-lapack
+#
+#   # Serial applications built with the GNU stable stack
+#   gnu-serial-applications:
+#     target_matrix:
+#       - gnu-stable
+#     requires:
+#       - architecture
+#       - compiler
+#     specs:
+#       - chip-seq@1.5.5
+#       # FIXME: Needs either OpenGL or Mesa
+#       # - qt@5.10.0 +gtk+opengl+webkit ^mesa
+#       - qt@4.8.6 +gtk+opengl+webkit ^mesa
+#       # FIXME: Concretization errors on gl vdep
+#       # - opencv@3.4.1 +qt+zlib+tiff+vtk+png+jpeg+imgproc+highgui build_type=Release ^qt@4.8.6 +gtk+opengl+webkit ^mesa
+#       - hisat2@2.1.0
+#       - samtools@1.8
+#       - subread@1.6.2
+#       - bowtie@1.2+tbb ^intel-tbb@2018.2
+#       - bowtie2@2.3.4.1 ^intel-tbb@2018.2
+#       - bcl2fastq2@2.20.0.422 ^boost+icu+python ^python@2.7.16+tk
+#       - ncview ^netcdf@4.6.1~mpi ^hdf5@1.10.1+szip~mpi+hl+fortran+cxx
+#       # FIXME: see https://github.com/spack/spack/issues/8025
+#       # - tophat@2.1.1 ^bowtie2@2.3.4.1 ^intel-tbb@2018.2
+#
+#   # Serial applications built with the GNU stable stack and LAPACK
+#   gnu-lapack-applications:
+#     target_matrix:
+#       - gnu-stable
+#     target_filter:
+#       lapack: ['openblas@0.3.6 threads=openmp']
+#     requires:
+#       - architecture
+#       - compiler
+#       - lapack
+#     specs:
+#       - r@3.5.0+external-lapack
+#
+#   # MPI applications built with the GNU stable stack
+#   gnu-mpi-applications:
+#     target_matrix:
+#       - gnu-stable
+#     target_filter:
+#       mpi:
+#         - 'mvapich2@2.3.1 fabrics=psm   process_managers=slurm'
+#         - 'mvapich2@2.3.1 fabrics=mrail process_managers=slurm'
+#     requires:
+#       - architecture
+#       - compiler
+#       - mpi
+#     specs:
+#       - gromacs@2018.1+mpi ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+#       - namd fftw=3 interface=python @2.12 ^charm backend=mpi ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^python@2.7.16+tk
+#       - foam-extend+metis+scotch+parmetis+ptscotch~paraview ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^python@2.7.16+tk
+#       - openfoam-com~paraview~int64+metis+scotch+source ^scotch@6.0.4+esmumps+mpi~metis ^cgal@4.12 ^boost@1.67.0+icu+mpi+python ^fftw@3.3.7~mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^python@2.7.16+tk
+#       - neuron@7.5+mpi+python+shared ^python@2.7.16+tk
+#
+#   # MPI applications built with the GNU stable stack that use LAPACK
+#   gnu-mpi-lapack-applications:
+#     target_matrix:
+#       - gnu-stable
+#     target_filter:
+#       lapack:
+#         - 'openblas@0.3.6'
+#       mpi:
+#         - 'mvapich2@2.3.1 fabrics=psm   process_managers=slurm'
+#         - 'mvapich2@2.3.1 fabrics=mrail process_managers=slurm'
+#     requires:
+#       - architecture
+#       - compiler
+#       - mpi
+#       - lapack
+#     specs:
+#       - plumed@2.4.1+mpi+gsl ^gsl@2.4
+#       - gromacs@2016.4+mpi+plumed
+#         ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+#         ^plumed@2.4.1+mpi+gsl ^gsl@2.4
+#       - cp2k@5.1+mpi~plumed smm=none ^netlib-scalapack@2.0.2 ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^parmetis@4.0.3 ^metis@5.1.0+real64 ^libxc@3.0.0
+#       - cp2k@5.1+mpi+plumed smm=none ^netlib-scalapack@2.0.2 ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.4.1+mpi+gsl ^gsl@2.4 ^libxc@3.0.0
+#       - nwchem@6.8 ^netlib-scalapack@2.0.2 ^python@2.7.16+tk
+#       - abinit@8.8.2~hdf5~openmp+mpi+scalapack ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^netlib-scalapack@2.0.2
+#       - quantum-espresso@6.2.0+mpi+scalapack
+#         ^netlib-scalapack@2.0.2
+#         ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+#       - quantum-espresso@6.2.0+mpi+scalapack+hdf5
+#         ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+#         ^netlib-scalapack@2.0.2
+#         ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
+#       - cpmd@v4.1~openmp ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+#       - petsc@3.9.2~int64+boost+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse
+#         ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
+#         ^mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^netlib-scalapack@2.0.2
+#         ^boost@1.67.0+icu+mpi+python ^python@2.7.16+tk
+# #       # TODO: - caffe@1.0+python+opencv  ^hdf5@1.10.1+szip+mpi~cxx ^opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6 ^py-numpy+blas+lapack@1.12.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
+# # TODO: port amber from cornalin
+# #       - amber@16+mpi ^netcdf-fortran@4.4.4 ^netcdf@4.4.1.1+mpi ^hdf5@1.10.1+szip+mpi~cxx ^py-scipy@0.19.0 ^py-matplotlib@2.0.0 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13
+#       - yambo@4.2.1+mpi io=iotk,etsf-io
+#         ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+#         ^netcdf-fortran@4.4.4 ^netcdf@4.6.1+mpi ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
+# #       # TODO: - gmsh@3.0.1+mpi+hdf5+fltk+compression ^hdf5@1.10.1+szip+mpi~cxx
+#       - paraview@5.5.2+mpi+osmesa~qt+python+hdf5 ^py-matplotlib@2.0.0 ^py-numpy+blas+lapack@1.14.3 ^python@3.7.3+optimizations+tk ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
+# #       # TODO: - fenics@2017.1.0+petsc+hdf5~trilinos+suite-sparse+mpi ^petsc@3.7.6+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre ^hdf5@1.10.1+szip+mpi~cxx  ^mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.4+esmumps+mpi~metis ^netlib-scalapack@2.0.2 ^boost@1.61.0+icu_support+mpi+python ^python@2.7.13 ^eigen@3.3.1~debug+fftw+metis+mpfr+scotch+suitesparse ^fftw@3.3.6-pl2+mpi~openmp
+# #       # FIXME: - simpson@master ^gsl@2.1 ^nfft@3.3.2 ^fftw@3.3.4 ^tk@8.6.3 ^tcl@8.6.5
+#       - lammps@20180316 build_type=Release
+#         +asphere +body +class2 +colloid +compress +coreshell
+#         +dipole +granular +kspace +latte +lib +manybody +mc
+#         +meam +misc +molecule +mpi +mpiio +peri ~poems +python
+#         +qeq +reax +replica +rigid +shock +snap +srd +user-atc
+#         +user-h5md +user-lb +user-misc +user-netcdf ~voronoi
+#         ^fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+#         ^netcdf@4.6.1+mpi ^hdf5@1.10.1+szip+mpi+hl+fortran+cxx
+#
+#   ##########
+#   # GPU Nodes
+#   ##########
+#
+#   gnu-gpu-serial:
+#     target_matrix:
+#       - gnu-gpu
+#     requires:
+#       - architecture
+#       - compiler
+#     specs:
+#       - fftw@3.3.7+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+#       - fftw@3.3.7+mpi+openmp+fma simd=sse2,avx,avx2,avx512
+#       - cuda@9.1.85
+#       - cudnn@6.0 ^cuda@9.1.85
+#       # FIXME: tensorflow+cuda is missing
+#
+# #   gnu-gpu-python-lapack:
+# #     target_matrix:
+# #       - gnu-gpu
+# #     requires:
+# #       - architecture
+# #       - compiler
+# #       - python
+# #       - lapack
+# #     specs:
+# #       - py-theano@0.8.2+gpu ^py-scipy@0.19.0 ^py-numpy+blas+lapack@1.12.1 ^cuda@8.0.61
+# #
+#   gnu-gpu-mpi-libraries:
+#     target_matrix:
+#       - gnu-gpu
+#     requires:
+#       - architecture
+#       - compiler
+#       - mpi
+#     specs:
+#       - osu-micro-benchmarks@5.4+cuda
+#       - boost@1.67.0+icu+mpi+python ^python@2.7.16+tk
+#
+#   gnu-gpu-lapack-libraries:
+#     target_matrix:
+#       - gnu-gpu
+#     requires:
+#       - architecture
+#       - compiler
+#       - lapack
+#     specs:
+#       - magma@2.3.0+fortran+shared ^cuda@9.1.85
+#       - py-pytorch@0.3.1+cuda+cudnn~nccl+magma
+#         ^py-numpy+blas+lapack@1.14.3
+#         ^magma@2.3.0+fortran+shared
+#         ^cuda@9.1.85
+#         ^python@2.7.16+tk
+#
+#   gnu-gpu-lapack-python-libraries:
+#     target_matrix:
+#       - gnu-gpu
+#     requires:
+#       - architecture
+#       - compiler
+#       - python
+#       - lapack
+#     specs:
+#       - py-numpy+blas+lapack@1.14.3
+#
+# #   gnu-gpu-mpi-applications:
+# #     target_matrix:
+# #       - gnu-gpu
+# #     requires:
+# #       - architecture
+# #       - compiler
+# #       - mpi
+# #     specs:
+# #       - relion@2.0.3+cuda+double+double-gpu+gui ^fftw@3.3.6-pl2+mpi~openmp ^cuda@8.0.61
+# #
+# #   gnu-gpu-mpi-lapack-applications:
+# #     target_matrix:
+# #       - gnu-gpu
+# #     requires:
+# #       - architecture
+# #       - compiler
+# #       - lapack
+# #       - mpi
+# #     specs:
+# #       - amber@16+mpi+cuda ^py-scipy@0.19.0 ^py-matplotlib@2.0.0 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13 ^cuda@8.0.61
+# #       # TODO: - caffe@1.0+python+opencv+cuda  ^hdf5@1.10.1+szip+mpi~cxx ^opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6 ^py-numpy+blas+lapack@1.12.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13 ^cuda@8.0.61
+#

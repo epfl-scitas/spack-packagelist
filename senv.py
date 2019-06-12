@@ -108,7 +108,7 @@ class ProductionEnvironment(object):
 
 @click.group()
 @click.option(
-    '--input', default='paien.yaml', type=click.File('r'),
+    '--input', default='humagne.yaml', type=click.File('r'),
     help='YAML file containing the specification for a production environment'
 )
 @click.pass_context
