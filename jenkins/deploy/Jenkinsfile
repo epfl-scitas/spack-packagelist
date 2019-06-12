@@ -19,10 +19,6 @@ pipeline {
                 label 'fidis-login'
             }
 
-            when {
-                branch 'releases/humagne'
-            }
-
             environment {
                 SPACK_CHECKOUT_DIR = "/ssoft/spack/humagne/spack.v1"
                 SPACK_SCITAS_REPOSITORY = "/ssoft/spack/humagne/scitas-repository"
@@ -54,10 +50,6 @@ pipeline {
         //     //    python command
         //     // 2. Check if they are installed, and if not install them
         //     //
-
-        //     when {
-        //         branch 'releases/humagne'
-        //     }
 
         //     environment {
         //         SPACK_CHECKOUT_DIR = "/ssoft/spack/humagne/spack.v1"
@@ -109,10 +101,6 @@ pipeline {
         //         label 'fidis-login'
         //     }
 
-        //     when {
-        //         branch 'releases/humagne'
-        //     }
-
         //     environment {
         //         SPACK_CHECKOUT_DIR = "/ssoft/spack/humagne/spack.v1"
         //         SENV_VIRTUALENV_PATH = "/home/scitasbuild/humagne/virtualenv/senv-py27"
@@ -134,10 +122,6 @@ pipeline {
         // stage('Deploy software') {
         //     // Deploy the software that is planned to be in the environment,
         //     // but not yet installed. Notify failures.
-
-        //     when {
-        //         branch 'releases/humagne'
-        //     }
 
         //     environment {
         //         SPACK_CHECKOUT_DIR = "/ssoft/spack/humagne/spack.v1"
