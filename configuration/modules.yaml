@@ -40,13 +40,14 @@ modules:
           - LIBRARY_PATH
           - CLASSPATH
           - PS1
+    'intel@18.0.5':
       environment:
         set:
-          ICCCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
-          ICPCCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
-          IFORTCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
+          ICCCFG:   /ssoft/spack/external/intel/config/2018.4/compilers_and_libraries_2018.5.274/icl.cfg
+          ICPCCFG:  /ssoft/spack/external/intel/config/2018.4/compilers_and_libraries_2018.5.274/icl.cfg
+          IFORTCFG: /ssoft/spack/external/intel/config/2018.4/compilers_and_libraries_2018.5.274/icl.cfg
         prepend_path:
-          PATH: '/ssoft/spack/external/intel/2018.2/vtune_amplifier_2018.2.0.551022/bin64'
+          PATH: '/ssoft/spack/external/intel/2018.4/vtune_amplifier_2018.4.0.573462/bin64/'
 
   lmod:
     hash_length: 0
@@ -292,13 +293,17 @@ modules:
           FC: ifort
           F90: ifort
           F77: ifort
-          AMPLXE_ROOT: /ssoft/spack/external/intel/2018.2/vtune_amplifier_2018.2.0.551022/bin64
-          ICCCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
-          ICPCCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
-          IFORTCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
+    'intel@18.0.5':
+      environment:
+        set:
+          AMPLXE_ROOT: /ssoft/spack/external/intel/2018.4/vtune_amplifier_2018.4.0.573462/bin64
+          ICCCFG:   /ssoft/spack/external/intel/config/2018.4/compilers_and_libraries_2018.5.274/icl.cfg
+          ICPCCFG:  /ssoft/spack/external/intel/config/2018.4/compilers_and_libraries_2018.5.274/icl.cfg
+          IFORTCFG: /ssoft/spack/external/intel/config/2018.4/compilers_and_libraries_2018.5.274/icl.cfg
         prepend_path:
-          PATH: '/ssoft/spack/external/intel/2018.2/vtune_amplifier_2018.2.0.551022/bin64'
+          PATH: '/ssoft/spack/external/intel/2018.4/vtune_amplifier_2018.4.0.573462/bin64'
           INTEL_LICENSE_FILE: /ssoft/spack/external/intel/License
+
     ####
     # MPI
     ####
@@ -314,7 +319,7 @@ modules:
       environment:
         set:
           I_MPI_ROOT: '${PREFIX}'
-          I_MPI_FABRICS: 'shm:tmi'
+          I_MPI_FABRICS: 'shm:ofa'
           IPATH_NO_CPUAFFINITY: '1'
           I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
           I_MPI_EXTRA_FILESYSTEM: '1'
@@ -324,21 +329,6 @@ modules:
           MPIF90: mpiifort
           MPIF77: mpiifort
           MPIFC: mpiifort
-
-    'intel-mpi target=x86_E5v2_Mellanox_GPU':
-      environment:
-        set:
-          I_MPI_FABRICS: 'shm:ofa'
-
-    'intel-mpi target=x86_E5v4_Mellanox':
-      environment:
-        set:
-          I_MPI_FABRICS:: 'shm:ofa'
-
-    'intel-mpi target=x86_S6g1_Mellanox':
-      environment:
-        set:
-          I_MPI_FABRICS:: 'shm:ofa'
 
     'mvapich2 target=x86_E5v4_Mellanox':
       environment:
@@ -358,8 +348,8 @@ modules:
     intel-mkl:
       environment:
         set:
-          MKLROOT: /ssoft/spack/external/intel/2018.2/compilers_and_libraries_2018.2.199/linux/mkl
-          CMAKE_LIBRARY_PATH: /ssoft/spack/external/intel/2018.2/compilers_and_libraries_2018.2.199/linux/mkl/lib/intel64
+          MKLROOT: /ssoft/spack/external/intel/2018.4/compilers_and_libraries_2018.5.274/linux/mkl
+          CMAKE_LIBRARY_PATH: /ssoft/spack/external/intel/2018.4/compilers_and_libraries_2018.5.274/linux/mkl/lib/intel64
 
     'openblas threads=none':
       environment:

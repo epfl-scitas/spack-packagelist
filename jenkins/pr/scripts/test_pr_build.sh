@@ -34,7 +34,7 @@ SPACK_CHECKOUT_DIR=$(cat spack_dir.txt)
 
 # We need to install Intel to have the intel module available
 # in the temporary workspace
-spack install intel@18.0.2 %gcc@4.8.5
+spack install intel@18.0.5 %gcc@4.8.5
 . ${SPACK_CHECKOUT_DIR}/share/spack/setup-env.sh
 
 # Print out information that could be useful for logging and debugging
