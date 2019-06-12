@@ -20,7 +20,7 @@ pipeline {
             }
 
             when {
-                branch 'releases/*'
+                branch 'releases/humagne'
             }
 
             environment {
@@ -41,6 +41,7 @@ pipeline {
                 }
 
                 // Update the command line tool we use in production
+                // and configuration files
                 sh  'scripts/update_production_configuration.sh'
             }
         }
@@ -55,7 +56,7 @@ pipeline {
             //
 
             when {
-                branch 'releases/*'
+                branch 'releases/humagne'
             }
 
             environment {
@@ -109,7 +110,7 @@ pipeline {
             }
 
             when {
-                branch 'releases/*'
+                branch 'releases/humagne'
             }
 
             environment {
@@ -135,7 +136,7 @@ pipeline {
             // but not yet installed. Notify failures.
 
             when {
-                branch 'releases/*'
+                branch 'releases/humagne'
             }
 
             environment {
