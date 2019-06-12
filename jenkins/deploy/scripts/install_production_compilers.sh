@@ -6,7 +6,7 @@
 # SPACK_CHECKOUT_DIR: path where Spack was cloned
 #
 
-# Clean the workspace
+# Clean old test results from the workspace
 rm -f compilers.${SPACK_TARGET_TYPE}.xml
 
 # Produce a valid list of compilers
