@@ -28,7 +28,7 @@ pipeline {
             steps {
                 // Checkout Spack
                 dir("${SPACK_CHECKOUT_DIR}") {
-                    git url: "https://github.com/epfl-scitas/spack.git", branch: "${env.GIT_BRANCH}"
+                    git url: "https://github.com/epfl-scitas/spack.git", branch: "releases/humagne"
                 }
 
                 // Checkout our internal repository
