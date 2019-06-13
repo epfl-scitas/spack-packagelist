@@ -119,54 +119,54 @@ pipeline {
 
         }
 
-        // stage('Deploy software') {
-        //     // Deploy the software that is planned to be in the environment,
-        //     // but not yet installed. Notify failures.
+        stage('Deploy software') {
+            // Deploy the software that is planned to be in the environment,
+            // but not yet installed. Notify failures.
 
-        //     environment {
-        //         SPACK_CHECKOUT_DIR = "/ssoft/spack/humagne/spack.v1"
-        //         SENV_VIRTUALENV_PATH = "/home/scitasbuild/humagne/virtualenv/senv-py27"
-        //     }
+            environment {
+                SPACK_CHECKOUT_DIR = "/ssoft/spack/humagne/spack.v1"
+                SENV_VIRTUALENV_PATH = "/home/scitasbuild/humagne/virtualenv/senv-py27"
+            }
 
-        //     parallel {
-        //         stage('x86_E5v4_Mellanox') {
-        //             agent {
-        //                 label 'x86_E5v4_Mellanox.rh74.slurm1711'
-        //             }
+            parallel {
+                stage('x86_E5v4_Mellanox') {
+                    agent {
+                        label 'x86_E5v4_Mellanox.rh74.slurm1711'
+                    }
 
-        //             steps {
-        //                 unstash name: 'x86_E5v4_Mellanox'
-        //                 sh 'jenkins/deploy/scripts/deploy_in_production.sh'
-        //                 echo 'Notify failures somewhere'
-        //             }
+                    steps {
+                        unstash name: 'x86_E5v4_Mellanox'
+                        sh 'jenkins/deploy/scripts/deploy_in_production.sh'
+                        echo 'Notify failures somewhere'
+                    }
 
-        //             post {
-        //                 always {
-        //                     archiveArtifacts artifacts:'*.txt, *.xml'
-        //                     junit testResults:'*.xml', allowEmptyResults:true
-        //                 }
-        //             }
-        //         }
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt, *.xml'
+                            junit testResults:'*.xml', allowEmptyResults:true
+                        }
+                    }
+                }
 
-        //         stage('x86_S6g1_Mellanox') {
-        //             agent {
-        //                 label 'x86_S6g1_Mellanox.rh74.slurm1711'
-        //             }
+                stage('x86_S6g1_Mellanox') {
+                    agent {
+                        label 'x86_S6g1_Mellanox.rh74.slurm1711'
+                    }
 
-        //             steps {
-        //                 unstash name: 'x86_S6g1_Mellanox'
-        //                 sh 'jenkins/deploy/scripts/deploy_in_production.sh'
-        //                 echo 'Notify failures somewhere'
-        //             }
+                    steps {
+                        unstash name: 'x86_S6g1_Mellanox'
+                        sh 'jenkins/deploy/scripts/deploy_in_production.sh'
+                        echo 'Notify failures somewhere'
+                    }
 
-        //             post {
-        //                 always {
-        //                     archiveArtifacts artifacts:'*.txt, *.xml'
-        //                     junit testResults:'*.xml', allowEmptyResults: true
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
+                    post {
+                        always {
+                            archiveArtifacts artifacts:'*.txt, *.xml'
+                            junit testResults:'*.xml', allowEmptyResults: true
+                        }
+                    }
+                }
+            }
+        }
     }
 }

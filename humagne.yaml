@@ -56,28 +56,28 @@ packages:
     specs:
       - autoconf@2.69
       - automake@1.16.1
-      - cmake@3.11.1
-      - curl@7.59.0
+      - cmake@3.14.4
+      - curl@7.63.0
       - fastqc@0.11.8
       - fio@2.19
-      - git@2.17.0
-      - git-lfs@2.3.0^git@2.17.0
       - gcc@6.5.0
+      - git@2.21.0
+      - git-lfs@2.7.2 ^git@2.21.0
       # - gnuplot@5.2.2 +X+pbm+wx ^pango+X
       - i7z@epfl-scitas
       - libtool@2.4.6
-      - lmod@7.7.29
+      - lmod@8.1.5
       - m4@1.4.18
       - mercurial@4.4.1
       - molden+gmolden+ambfor+surf
       - parallel@20190222
-      - picard@2.18.14
-      - sbt@1.1.4
-      - scala@2.11.11
-      - spark@2.3.0+hadoop
-      - sra-toolkit@2.9.2
-      - tar@1.30
-      - tmux@2.7
+      - picard@2.19.0
+      - sbt@1.1.6
+      # TODO: need update: - scala@2.12.5
+      # TODO: need update: - spark@2.3.0+hadoop
+      - sra-toolkit@2.9.6
+      - tar@1.31
+      - tmux@2.8
       - trimmomatic@0.38
 
 #   # List of third-party tools or of packages that are maintained
