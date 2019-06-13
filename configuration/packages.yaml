@@ -7,9 +7,7 @@ packages:
   openssl:
     buildable: False
     paths:
-      openssl@system%gcc@4.8.5: /usr
-      openssl@system%gcc@7.4.0: /usr
-      openssl@system%gcc@8.3.0: /usr
+      openssl@develop: /usr
 
   jdk:
     buildable: False
