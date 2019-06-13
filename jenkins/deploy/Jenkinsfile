@@ -90,34 +90,34 @@ pipeline {
             }
         }
 
-        // stage('Populate mirror') {
-        //     // Compute what needs to be installed in production (software that
-        //     // is part of the planned environment, but not installed yet). Then
-        //     // retrieve all the resources (tarballs, etc.) that are needed
-        //     // to build it in a mirror.
+        stage('Populate mirror') {
+            // Compute what needs to be installed in production (software that
+            // is part of the planned environment, but not installed yet). Then
+            // retrieve all the resources (tarballs, etc.) that are needed
+            // to build it in a mirror.
 
-        //     // TODO: the agent below must have access to the network
-        //     agent {
-        //         label 'fidis-login'
-        //     }
+            // TODO: the agent below must have access to the network
+            agent {
+                label 'fidis-login'
+            }
 
-        //     environment {
-        //         SPACK_CHECKOUT_DIR = "/ssoft/spack/humagne/spack.v1"
-        //         SENV_VIRTUALENV_PATH = "/home/scitasbuild/humagne/virtualenv/senv-py27"
-        //     }
+            environment {
+                SPACK_CHECKOUT_DIR = "/ssoft/spack/humagne/spack.v1"
+                SENV_VIRTUALENV_PATH = "/home/scitasbuild/humagne/virtualenv/senv-py27"
+            }
 
-        //     steps {
-        //         sh 'jenkins/deploy/scripts/populate_mirror.sh'
-        //         stash name:'x86_E5v4_Mellanox', includes: 'to_be_installed.x86_E5v4_Mellanox.txt'
-        //         stash name:'x86_S6g1_Mellanox', includes: 'to_be_installed.x86_S6g1_Mellanox.txt'
-        //     }
-        //     post {
-        //         always {
-        //             archiveArtifacts artifacts:'*.txt, *.yaml'
-        //         }
-        //     }
+            steps {
+                sh 'jenkins/deploy/scripts/populate_mirror.sh'
+                stash name:'x86_E5v4_Mellanox', includes: 'to_be_installed.x86_E5v4_Mellanox.txt'
+                stash name:'x86_S6g1_Mellanox', includes: 'to_be_installed.x86_S6g1_Mellanox.txt'
+            }
+            post {
+                always {
+                    archiveArtifacts artifacts:'*.txt, *.yaml'
+                }
+            }
 
-        // }
+        }
 
         // stage('Deploy software') {
         //     // Deploy the software that is planned to be in the environment,
