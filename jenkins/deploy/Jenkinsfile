@@ -63,7 +63,7 @@ pipeline {
                     }
                     steps {
                         sh  'jenkins/deploy/scripts/install_production_compilers.sh'
-                        // sh  'jenkins/deploy/scripts/install_production_stack.sh'
+                        sh  'jenkins/deploy/scripts/install_production_stack.sh'
                     }
                     post {
                         always {
@@ -78,7 +78,7 @@ pipeline {
                     }
                     steps {
                         sh  'jenkins/deploy/scripts/install_production_compilers.sh'
-                        // sh  'jenkins/deploy/scripts/install_production_stack.sh'
+                        sh  'jenkins/deploy/scripts/install_production_stack.sh'
                     }
                     post {
                         always {
