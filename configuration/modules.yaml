@@ -92,7 +92,9 @@ modules:
       'matlab',
       'mercurial',
       'molden',
+      'mvapich2',
       'openblas',
+      'openmpi',
       'parallel%gcc@4.8.5',
       'picard',
       'sbt',
@@ -312,7 +314,6 @@ modules:
     ####
 
     openmpi:
-      # TODO: does this need to be differentiated by architectures?
       environment:
         set:
           SLURM_MPI_TYPE: pmi2
