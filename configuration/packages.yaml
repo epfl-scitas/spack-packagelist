@@ -121,3 +121,9 @@ packages:
     buildable: False
     paths:
       totalview@2017.2.11 %gcc@4.8.5: /ssoft/spack/external/toolworks/totalview.2017.2.11
+  ####
+  # Concretization preferences
+  ####
+
+  guile:
+    variants: '~threads'
