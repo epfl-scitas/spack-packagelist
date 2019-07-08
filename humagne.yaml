@@ -80,32 +80,32 @@ packages:
       - tmux@2.8
       - trimmomatic@0.38
 
-#   # List of third-party tools or of packages that are maintained
-#   # in our own repository
-#   externals:
-#       target_matrix:
-#         - core
-#       requires:
-#         - architecture
-#         - compiler
-#       specs:
-#         - adf@2017.111
-#         - likwid@4.3.0
-#         - maple@2017
-#         - matlab@R2018a
-#         - mathematica@11.1.1
-#         - ansys@17.1
-#         - totalview@2017.2.11
-#         - comsol@5.3
-#         - comsol@5.4
-#         - gaussian@g16-A.03
-#         - smr@2017.06
-#         - cfdplusplus@16.1
-#         - fdtd@8.20.1703
-#   # TODO: check where to put these applications
-#   #       - beast@2.4.8
-#   #       - molden
-#
+  # List of third-party tools or of packages that are maintained
+  # in our own repository
+  externals:
+      target_matrix:
+        - core
+      requires:
+        - architecture
+        - compiler
+      specs:
+        - adf@2017.111
+        - likwid@4.3.0
+        - maple@2017
+        - matlab@R2018a
+        - mathematica@11.1.1
+        - ansys@17.1
+        - totalview@2017.2.11
+        - comsol@5.3
+        - comsol@5.4
+        - gaussian@g16-A.03
+        - smr@2017.06
+        - cfdplusplus@16.1
+        - fdtd@8.20.1703
+  # TODO: check where to put these applications
+  #       - beast@2.4.8
+  #       - molden
+
   # List of python packages that do not require
   # BLAS / LAPACK
   serial_python:
@@ -151,7 +151,6 @@ packages:
 #   gnu-python_lapack_openmp:
 #     target_matrix:
 #       - gnu-stable
-#       - gnu-bleeding-edge
 #     target_filter:
 #       lapack: ['openblas@0.3.6 threads=openmp']
 #     requires:
