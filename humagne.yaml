@@ -232,7 +232,7 @@ packages:
       # FIXME: intel gives an internal compiler error - glpk@4.65+gmp
       - gsl
       - hdf5+szip~mpi+hl+fortran+cxx
-      - metis@5.1.0+real64
+      - metis@5.1.0+real64 ^guile~threads
       - scotch@6.0.6+esmumps~metis~mpi
       - netcdf~mpi ^hdf5+szip~mpi+hl+fortran+cxx
       - netcdf-fortran ^netcdf~mpi ^hdf5+szip~mpi+hl+fortran+cxx
