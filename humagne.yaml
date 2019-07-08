@@ -240,7 +240,7 @@ packages:
       - tcl
       - tk ^tcl
       - bedtools2@2.27.1
-      - intel-tbb
+      - intel-tbb ^guile~threads
       - eigen~fftw~suitesparse~metis~scotch~mpfr
       - qt@5.11.3 +opengl+webkit ^python@3.7.3+optimizations+tkinter
       - star
