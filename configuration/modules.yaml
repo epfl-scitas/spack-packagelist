@@ -97,6 +97,7 @@ modules:
       'openmpi',
       'parallel%gcc@4.8.5',
       'picard',
+      'python',
       'sbt',
       'scala',
       'sicer',
