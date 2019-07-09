@@ -20,7 +20,14 @@ combinations:
   gnu-stable:
     architecture: 'x86_E5v4_Mellanox:x86_S6g1_Mellanox'
     compiler: 'gcc@7.4.0'
-    mpi: 'openmpi@3.1.4+pmi fabrics=verbs schedulers=slurm +thread_multiple+sqlite3 ^hwloc+cairo:mvapich2@2.3.1 fabrics=mrail process_managers=slurm'
+    mpi: 'mvapich2@2.3.1 fabrics=mrail process_managers=slurm'
+    lapack: 'openblas@0.3.6:openblas@0.3.6 threads=openmp'
+    python: 'python@3.7.3+optimizations+tkinter:python@2.7.16+tkinter'
+
+  gnu-openmpi:
+    architecture: 'x86_E5v4_Mellanox:x86_S6g1_Mellanox'
+    compiler: 'gcc@7.4.0'
+    mpi: 'openmpi@3.1.4+pmi fabrics=verbs schedulers=slurm +thread_multiple+sqlite3 ^hwloc+cairo'
     lapack: 'openblas@0.3.6:openblas@0.3.6 threads=openmp'
     python: 'python@3.7.3+optimizations+tkinter:python@2.7.16+tkinter'
 
