@@ -102,7 +102,7 @@ pipeline {
             parallel {
                 stage('x86_E5v4_Mellanox') {
                     agent {
-                        label 'x86_E5v4_Mellanox.rh74.slurm1711'
+                        label 'x86_E5v4_Mellanox.rh76.slurm1905.paien'
                     }
                     steps {
                         sh  'scripts/install_production_compilers.sh'
@@ -117,7 +117,7 @@ pipeline {
                 }
                 stage('x86_S6g1_Mellanox') {
                     agent {
-                        label 'x86_S6g1_Mellanox.rh74.slurm1711'
+                        label 'x86_S6g1_Mellanox.rh76.slurm1905.paien'
                     }
                     steps {
                         sh  'scripts/install_production_compilers.sh'
@@ -182,7 +182,7 @@ pipeline {
             parallel {
                 stage('x86_E5v4_Mellanox') {
                     agent {
-                        label 'x86_E5v4_Mellanox.rh74.slurm1711'
+                        label 'x86_E5v4_Mellanox.rh76.slurm1905.paien'
                     }
 
                     steps {
@@ -200,7 +200,7 @@ pipeline {
                 }
                 stage('x86_S6g1_Mellanox') {
                     agent {
-                        label 'x86_S6g1_Mellanox.rh74.slurm1711'
+                        label 'x86_S6g1_Mellanox.rh76.slurm1905.paien'
                     }
 
                     steps {
@@ -235,7 +235,7 @@ pipeline {
             parallel {
                 stage('x86_E5v4_Mellanox') {
                     agent {
-                        label 'x86_E5v4_Mellanox.rh74.slurm1711'
+                        label 'x86_E5v4_Mellanox.rh76.slurm1905.paien'
                     }
 
                     steps {
@@ -254,7 +254,7 @@ pipeline {
 
                 stage('x86_S6g1_Mellanox') {
                     agent {
-                        label 'x86_S6g1_Mellanox.rh74.slurm1711'
+                        label 'x86_S6g1_Mellanox.rh76.slurm1905.paien'
                     }
 
                     steps {
