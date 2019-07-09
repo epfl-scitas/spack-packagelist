@@ -242,7 +242,7 @@ packages:
       - bedtools2@2.27.1
       - intel-tbb ^guile~threads
       - eigen~fftw~suitesparse~metis~scotch~mpfr ^guile~threads
-      - qt@5.10.0 +opengl+webkit ^python@3.7.3+optimizations+tkinter ^guile~threads
+      - qt@5.11.3 +opengl+webkit ^python@3.7.3+optimizations+tkinter ^guile~threads
       - star
       # FIXME: gdl (intel internal compiler error on plplot) SL-577, see gnu-serial
 
