@@ -24,7 +24,7 @@ pipeline {
             }
 
             environment {
-                SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v2"
+                SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v3"
                 SPACK_SCITAS_REPOSITORY = "/ssoft/spack/paien/scitas-repository"
                 SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
             }
@@ -64,7 +64,7 @@ pipeline {
             }
 
             environment {
-                SPACK_PRODUCTION_DIR = "/ssoft/spack/paien/spack.v2"
+                SPACK_PRODUCTION_DIR = "/ssoft/spack/paien/spack.v3"
             }
 
             steps {
@@ -75,9 +75,6 @@ pipeline {
                 always {
                     archiveArtifacts artifacts:'*.txt'
                     stash name:'spack_dir', includes: 'spack_dir.txt'
-                    stash name:'x86_E5v2_IntelIB', includes: 'to_be_installed.x86_E5v2_IntelIB.txt'
-                    stash name:'x86_E5v2_Mellanox_GPU', includes: 'to_be_installed.x86_E5v2_Mellanox_GPU.txt'
-                    stash name:'x86_E5v3_IntelIB', includes: 'to_be_installed.x86_E5v3_IntelIB.txt'
                     stash name:'x86_E5v4_Mellanox', includes: 'to_be_installed.x86_E5v4_Mellanox.txt'
                     stash name:'x86_S6g1_Mellanox', includes: 'to_be_installed.x86_S6g1_Mellanox.txt'
                 }
@@ -98,59 +95,11 @@ pipeline {
             }
 
             environment {
-                SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v2"
+                SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v3"
                 SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
             }
 
             parallel {
-                stage('x86_E5v2_IntelIB') {
-                    agent {
-                        label 'x86_E5v2_IntelIB.rh74.slurm1711'
-                    }
-                    steps {
-                        sh  'scripts/install_production_compilers.sh'
-                        sh  'scripts/install_production_stack.sh'
-                    }
-                    post {
-                        always {
-                            archiveArtifacts artifacts:'*.txt, *.xml'
-                            junit testResults:'*.xml', allowEmptyResults:true
-                        }
-                    }
-                }
-
-                stage('x86_E5v2_Mellanox_GPU') {
-                    agent {
-                        label 'x86_E5v2_Mellanox_GPU.rh74.slurm1711'
-                    }
-                    steps {
-                        sh  'scripts/install_production_compilers.sh'
-                        sh  'scripts/install_production_stack.sh'
-                    }
-                    post {
-                        always {
-                            archiveArtifacts artifacts:'*.txt, *.xml'
-                            junit testResults:'*.xml', allowEmptyResults:true
-                        }
-                    }
-                }
-
-                stage('x86_E5v3_IntelIB') {
-                    agent {
-                        label 'x86_E5v3_IntelIB.rh74.slurm1711'
-                    }
-                    steps {
-                        sh  'scripts/install_production_compilers.sh'
-                        sh  'scripts/install_production_stack.sh'
-                    }
-                    post {
-                        always {
-                            archiveArtifacts artifacts:'*.txt, *.xml'
-                            junit testResults:'*.xml', allowEmptyResults:true
-                        }
-                    }
-                }
-
                 stage('x86_E5v4_Mellanox') {
                     agent {
                         label 'x86_E5v4_Mellanox.rh74.slurm1711'
@@ -200,15 +149,12 @@ pipeline {
             }
 
             environment {
-                SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v2"
+                SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v3"
                 SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
             }
 
             steps {
                 sh 'scripts/populate_mirror.sh'
-                stash name:'x86_E5v2_IntelIB', includes: 'to_be_installed.x86_E5v2_IntelIB.txt'
-                stash name:'x86_E5v2_Mellanox_GPU', includes: 'to_be_installed.x86_E5v2_Mellanox_GPU.txt'
-                stash name:'x86_E5v3_IntelIB', includes: 'to_be_installed.x86_E5v3_IntelIB.txt'
                 stash name:'x86_E5v4_Mellanox', includes: 'to_be_installed.x86_E5v4_Mellanox.txt'
                 stash name:'x86_S6g1_Mellanox', includes: 'to_be_installed.x86_S6g1_Mellanox.txt'
             }
@@ -230,64 +176,10 @@ pipeline {
             }
 
             environment {
-                SPACK_PRODUCTION_DIR = "/ssoft/spack/paien/spack.v2"
+                SPACK_PRODUCTION_DIR = "/ssoft/spack/paien/spack.v3"
             }
 
             parallel {
-                stage('x86_E5v2_Mellanox_GPU') {
-                    agent {
-                        label 'x86_E5v2_Mellanox_GPU.rh74.slurm1711'
-                    }
-
-                    steps {
-                        unstash name: 'spack_dir'
-                        unstash name: 'x86_E5v2_Mellanox_GPU'
-                        sh 'scripts/test_pr_build.sh'
-                    }
-
-                    post {
-                        always {
-                            archiveArtifacts artifacts:'*.txt, *.xml'
-                            junit testResults:'*.xml', allowEmptyResults:true
-                        }
-                    }
-                }
-                stage('x86_E5v2_IntelIB') {
-                    agent {
-                        label 'x86_E5v2_IntelIB.rh74.slurm1711'
-                    }
-                
-                    steps {
-                        unstash name: 'spack_dir'
-                        unstash name: 'x86_E5v2_IntelIB'
-                        sh 'scripts/test_pr_build.sh'
-                    }
-                
-                    post {
-                        always {
-                            archiveArtifacts artifacts:'*.txt, *.xml'
-                            junit testResults:'*.xml', allowEmptyResults:true
-                        }
-                    }
-                }
-                stage('x86_E5v3_IntelIB') {
-                    agent {
-                        label 'x86_E5v3_IntelIB.rh74.slurm1711'
-                    }
-
-                    steps {
-                        unstash name: 'spack_dir'
-                        unstash name: 'x86_E5v3_IntelIB'
-                        sh 'scripts/test_pr_build.sh'
-                    }
-
-                    post {
-                        always {
-                            archiveArtifacts artifacts:'*.txt, *.xml'
-                            junit testResults:'*.xml', allowEmptyResults:true
-                        }
-                    }
-                }
                 stage('x86_E5v4_Mellanox') {
                     agent {
                         label 'x86_E5v4_Mellanox.rh74.slurm1711'
@@ -336,65 +228,11 @@ pipeline {
             }
 
             environment {
-                SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v2"
+                SPACK_CHECKOUT_DIR = "/ssoft/spack/paien/spack.v3"
                 SENV_VIRTUALENV_PATH = "/home/scitasbuild/paien/virtualenv/senv-py27"
             }
 
             parallel {
-                stage('x86_E5v2_IntelIB') {
-                    agent {
-                        label 'x86_E5v2_IntelIB.rh74.slurm1711'
-                    }
-                
-                    steps {
-                        unstash name: 'x86_E5v2_IntelIB'
-                        sh 'scripts/deploy_in_production.sh'
-                        echo 'Notify failures somewhere'
-                    }
-                
-                    post {
-                        always {
-                            archiveArtifacts artifacts:'*.txt, *.xml'
-                            junit testResults:'*.xml', allowEmptyResults:true
-                        }
-                    }
-                }
-                stage('x86_E5v2_Mellanox_GPU') {
-                    agent {
-                        label 'x86_E5v2_Mellanox_GPU.rh74.slurm1711'
-                    }
-
-                    steps {
-                        unstash name: 'x86_E5v2_Mellanox_GPU'
-                        sh 'scripts/deploy_in_production.sh'
-                        echo 'Notify failures somewhere'
-                    }
-
-                    post {
-                        always {
-                            archiveArtifacts artifacts:'*.txt, *.xml'
-                            junit testResults:'*.xml', allowEmptyResults:true
-                        }
-                    }
-                }
-                stage('x86_E5v3_IntelIB') {
-                    agent {
-                        label 'x86_E5v3_IntelIB.rh74.slurm1711'
-                    }
-
-                    steps {
-                        unstash name: 'x86_E5v3_IntelIB'
-                        sh 'scripts/deploy_in_production.sh'
-                        echo 'Notify failures somewhere'
-                    }
-
-                    post {
-                        always {
-                            archiveArtifacts artifacts:'*.txt, *.xml'
-                            junit testResults:'*.xml', allowEmptyResults:true
-                        }
-                    }
-                }
                 stage('x86_E5v4_Mellanox') {
                     agent {
                         label 'x86_E5v4_Mellanox.rh74.slurm1711'
