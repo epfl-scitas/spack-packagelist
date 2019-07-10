@@ -22,7 +22,9 @@ do
 
     echo "[${target}] Selecting the ones still to be installed"
     # TODO: if concretization is slow this command could output also the yaml file
-    SPACK_TARGET_TYPE="${target}" spack filter --not-installed $(cat all_specs.${target}.txt) > to_be_installed.${target}.txt
+    # SPACK_TARGET_TYPE="${target}" spack filter --not-installed $(cat all_specs.${target}.txt) > to_be_installed.${target}.txt
+    # FIXME: uncomment the above and fix below
+    cp all_specs.${target}.txt to_be_installed.${target}.txt
     # TODO: stash concretized file to reduce deployment time later
     #echo "[${target}] Writing concretized yaml file"
     #spack spec -y $(cat to_be_installed.${target}.txt) > specs.${target}.yaml
