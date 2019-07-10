@@ -282,7 +282,8 @@ packages:
       - fftw+mpi+openmp+fma simd=sse2,avx,avx2,avx512
       - hdf5+szip+mpi+hl+fortran+cxx
       - scotch@6.0.6+esmumps+mpi~metis
-      - scorep~shmem~pdt
+      # FIXME: recipe is broken as it depends on cube unconditionally
+      # - scorep~shmem~pdt
       - parmetis ^metis@5.1.0+real64
       - netcdf+mpi ^hdf5+szip+mpi+hl+fortran+cxx
       - netcdf-fortran ^netcdf+mpi ^hdf5+szip+mpi+hl+fortran+cxx
