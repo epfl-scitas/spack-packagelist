@@ -294,9 +294,9 @@ modules:
           F90: ifort
           F77: ifort
           AMPLXE_ROOT: /ssoft/spack/external/intel/2018.2/vtune_amplifier_2018.2.0.551022/bin64
-          ICCCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
-          ICPCCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
-          IFORTCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
+          ICCCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.v3.cfg
+          ICPCCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.v3.cfg
+          IFORTCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.v3.cfg
         prepend_path:
           PATH: '/ssoft/spack/external/intel/2018.2/vtune_amplifier_2018.2.0.551022/bin64'
           INTEL_LICENSE_FILE: /ssoft/spack/external/intel/License
