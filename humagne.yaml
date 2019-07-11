@@ -469,10 +469,10 @@ packages:
       - mpi
     specs:
       - gromacs+mpi ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
-      - namd fftw=3 interface=python
-        ^charm backend=mpi
-        ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
-        ^python@2.7.16+tkinter
+      # - namd fftw=3 interface=python
+      #   ^charm backend=mpi
+      #   ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+      #   ^python@2.7.16+tkinter
       - foam-extend+metis+scotch+parmetis+ptscotch~paraview
         ^parmetis ^metis@5.1.0+real64
         ^scotch@6.0.6+esmumps+mpi~metis
