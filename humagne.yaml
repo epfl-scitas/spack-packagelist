@@ -344,31 +344,37 @@ packages:
   # Applications / Frameworks
   ##########
 
-#   # Serial applications built with the Intel stack
-#   intel-serial-applications:
-#     target_matrix:
-#       - intel
-#     requires:
-#       - architecture
-#       - compiler
-#     specs:
-#       # FIXME: install abaqus
-#       # - abaqus
+  # Serial applications built with the Intel stack
+  intel-serial-applications:
+    target_matrix:
+      - intel
+    requires:
+      - architecture
+      - compiler
+    specs:
+      - abaqus
 
-#   # MPI applications built with the Intel stack
-#   intel-mpi-applications:
-#     target_matrix:
-#       - intel
-#     requires:
-#       - architecture
-#       - compiler
-#       - mpi
-#     specs:
-#       - gromacs@2018.1+mpi ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512
-#       - foam-extend+metis+scotch+parmetis+ptscotch~paraview ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.6+esmumps+mpi~metis ^python@2.7.16+tkinter
-#       - openfoam-com~paraview~int64+metis+scotch+source ^scotch@6.0.6+esmumps+mpi~metis ^cgal@4.12 ^boost@1.67.0+icu+mpi+python ^fftw@3.3.8~mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^python@2.7.16+tkinter
-#       - neuron@7.5+mpi+python+shared ^python@2.7.16+tkinter
-#
+  # MPI applications built with the Intel stack
+  intel-mpi-applications:
+    target_matrix:
+      - intel
+    requires:
+      - architecture
+      - compiler
+      - mpi
+    specs:
+      - gromacs+mpi
+        ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+      - foam-extend+metis+scotch+parmetis+ptscotch~paraview
+        ^parmetis@4.0.3 ^metis@5.1.0+real64
+        ^scotch@6.0.6+esmumps+mpi~metis
+        ^python@2.7.16+tkinter
+      - openfoam-com~paraview~int64+metis+scotch+source
+        ^scotch@6.0.6+esmumps+mpi~metis
+        ^cgal ^boost@1.67.0+icu+mpi+python
+        ^fftw~mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^python@2.7.16+tkinter
+      - neuron+mpi+python+shared ^python@2.7.16+tkinter
+
 #   # MPI applications built with the Intel stack that use LAPACK
 #   intel-mpi-lapack-applications:
 #     target_matrix:
@@ -453,25 +459,31 @@ packages:
     specs:
       - r+external-lapack
 
-#   # MPI applications built with the GNU stable stack
-#   gnu-mpi-applications:
-#     target_matrix:
-#       - gnu-stable
-#     target_filter:
-#       mpi:
-#         - 'mvapich2@2.3.1 fabrics=psm   process_managers=slurm'
-#         - 'mvapich2@2.3.1 fabrics=mrail process_managers=slurm'
-#     requires:
-#       - architecture
-#       - compiler
-#       - mpi
-#     specs:
-#       - gromacs@2018.1+mpi ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512
-#       - namd fftw=3 interface=python @2.12 ^charm backend=mpi ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^python@2.7.16+tkinter
-#       - foam-extend+metis+scotch+parmetis+ptscotch~paraview ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.6+esmumps+mpi~metis ^python@2.7.16+tkinter
-#       - openfoam-com~paraview~int64+metis+scotch+source ^scotch@6.0.6+esmumps+mpi~metis ^cgal@4.12 ^boost@1.67.0+icu+mpi+python ^fftw@3.3.8~mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^python@2.7.16+tkinter
-#       - neuron@7.5+mpi+python+shared ^python@2.7.16+tkinter
-#
+  # MPI applications built with the GNU stable stack
+  gnu-mpi-applications:
+    target_matrix:
+      - gnu-stable
+    requires:
+      - architecture
+      - compiler
+      - mpi
+    specs:
+      - gromacs+mpi ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+      - namd fftw=3 interface=python
+        ^charm backend=mpi
+        ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+        ^python@2.7.16+tkinter
+      - foam-extend+metis+scotch+parmetis+ptscotch~paraview
+        ^parmetis ^metis@5.1.0+real64
+        ^scotch@6.0.6+esmumps+mpi~metis
+        ^python@2.7.16+tkinter
+      - openfoam-com~paraview~int64+metis+scotch+source
+        ^scotch@6.0.6+esmumps+mpi~metis
+        ^cgal ^boost@1.67.0+icu+mpi+python
+        ^fftw~mpi~openmp+fma simd=sse2,avx,avx2,avx512
+        ^python@2.7.16+tkinter
+      - neuron+mpi+python+shared ^python@2.7.16+tkinter
+
 #   # MPI applications built with the GNU stable stack that use LAPACK
 #   gnu-mpi-lapack-applications:
 #     target_matrix:
