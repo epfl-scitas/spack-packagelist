@@ -435,7 +435,7 @@ packages:
     specs:
       - bowtie+tbb ^intel-tbb
       - bowtie2 ^intel-tbb
-      - bcl2fastq2 ^boost@1.67.0+icu+mpi+python ^python@2.7.16+tkinter
+      - bcl2fastq2 ^boost+icu+mpi+python ^python@2.7.16+tkinter
       - ncview ^netcdf~mpi ^hdf5+szip~mpi+hl+fortran+cxx
       # FIXME: see https://github.com/spack/spack/issues/8025
       # - tophat ^bowtie2@2.3.4.1 ^intel-tbb@2018.2
