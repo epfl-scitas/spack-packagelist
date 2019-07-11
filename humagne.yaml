@@ -414,17 +414,17 @@ packages:
 #         ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512
 #         ^netcdf+mpi ^hdf5+szip+mpi+hl+fortran+cxx
 #
-#   # Serial applications built with the Intel stack that use LAPACK
-#   intel-lapack-applications:
-#     target_matrix:
-#       - intel
-#     requires:
-#       - architecture
-#       - compiler
-#       - lapack
-#     specs:
-#       - r@3.5.0+external-lapack
-#
+  # Serial applications built with the Intel stack that use LAPACK
+  intel-lapack-applications:
+    target_matrix:
+      - intel
+    requires:
+      - architecture
+      - compiler
+      - lapack
+    specs:
+      - r+external-lapack
+
   # Serial applications built with the GNU stable stack
   gnu-serial-applications:
     target_matrix:
@@ -435,24 +435,24 @@ packages:
     specs:
       - bowtie+tbb ^intel-tbb
       - bowtie2 ^intel-tbb
-      - bcl2fastq2 ^boost+icu+mpi+python ^python@2.7.16+tkinter
+      - bcl2fastq2 ^boost+icu~mpi+python ^python@2.7.16+tkinter
       - ncview ^netcdf~mpi ^hdf5+szip~mpi+hl+fortran+cxx
       # FIXME: see https://github.com/spack/spack/issues/8025
       # - tophat ^bowtie2@2.3.4.1 ^intel-tbb@2018.2
 
-#   # Serial applications built with the GNU stable stack and LAPACK
-#   gnu-lapack-applications:
-#     target_matrix:
-#       - gnu-stable
-#     target_filter:
-#       lapack: ['openblas@0.3.6 threads=openmp']
-#     requires:
-#       - architecture
-#       - compiler
-#       - lapack
-#     specs:
-#       - r@3.5.0+external-lapack
-#
+  # Serial applications built with the GNU stable stack and LAPACK
+  gnu-lapack-applications:
+    target_matrix:
+      - gnu-stable
+    target_filter:
+      lapack: ['openblas@0.3.6 threads=openmp']
+    requires:
+      - architecture
+      - compiler
+      - lapack
+    specs:
+      - r+external-lapack
+
 #   # MPI applications built with the GNU stable stack
 #   gnu-mpi-applications:
 #     target_matrix:
