@@ -90,25 +90,25 @@ packages:
   # List of third-party tools or of packages that are maintained
   # in our own repository
   externals:
-      target_matrix:
-        - core
-      requires:
-        - architecture
-        - compiler
-      specs:
-        - adf@2017.111
-        - likwid@4.3.0
-        - maple@2017
-        - matlab@R2018a
-        - mathematica@11.1.1
-        - ansys@17.1
-        - totalview@2017.2.11
-        - comsol@5.3
-        - comsol@5.4
-        - gaussian@g16-A.03
-        - smr@2017.06
-        - cfdplusplus@16.1
-        - fdtd@8.20.1703
+    target_matrix:
+      - core
+    requires:
+      - architecture
+      - compiler
+    specs:
+      - adf@2017.111
+      - likwid@4.3.0
+      - maple@2017
+      - matlab@R2018a
+      - mathematica@11.1.1
+      - ansys@17.1
+      - totalview@2017.2.11
+      - comsol@5.3
+      - comsol@5.4
+      - gaussian@g16-A.03
+      - smr@2017.06
+      - cfdplusplus@16.1
+      - fdtd@8.20.1703
   # TODO: check where to put these applications
   #       - beast@2.4.8
   #       - molden
@@ -155,72 +155,72 @@ packages:
       - py-xarray@0.11.0 ^py-pandas@0.24.1 ^py-numpy+blas+lapack@1.16.3
       - py-deeptools@3.2.1 ^py-matplotlib@2.2.3 ^py-scipy@1.2.1 ^py-numpy+blas+lapack@1.16.3
 
-#   gnu-python_lapack_openmp:
-#     target_matrix:
-#       - gnu-stable
-#     target_filter:
-#       lapack: ['openblas@0.3.6 threads=openmp']
-#     requires:
-#       - architecture
-#       - compiler
-#       - python
-#       - lapack
-#     specs:
-#       - py-pytorch@0.3.1~cuda ^py-numpy+blas+lapack@1.16.3
-#       - py-htseq@0.10.0 ^py-matplotlib@2.2.3 ^py-numpy+blas+lapack@1.16.3
-#
-#   gnu_python_2_only_lapack_openmp:
-#     target_matrix:
-#       - gnu-stable
-#     target_filter:
-#       python: ['python@2.7.16+tkinter']
-#       lapack: ['openblas@0.3.6 threads=openmp']
-#     requires:
-#       - architecture
-#       - compiler
-#       - python
-#       - lapack
-#     specs:
-#       - gdl~wx~x11~hdf4+hdf5+embed-python+python+proj+graphicsmagick+openmp
-#         ^eigen@3.3.4~fftw~suitesparse~metis~scotch~mpfr
-#         ^fftw@3.3.8~mpi~openmp+fma simd=sse2,avx,avx2,avx512
-#         ^netcdf~mpi
-#         ^hdf5+szip~mpi+hl+fortran+cxx
-#         ^py-numpy+blas+lapack@1.16.3
-#
-#   # Python 2 only packages
-#   python_2_only:
-#     target_matrix:
-#       - gnu-stable
-#       - intel
-#     target_filter:
-#       python: ['python@2.7.16+tkinter']
-#     requires:
-#       - architecture
-#       - compiler
-#       - python
-#     specs:
-#       - py-macs@1.4.2-1
-#       - jellyfish@2.2.10
-#
-#   # Python 2 only packages that require LAPACK
-#   python_2_lapack:
-#     target_matrix:
-#       - gnu-stable
-#       - intel
-#     target_filter:
-#       lapack: ['openblas@0.3.6 threads=openmp', 'intel-mkl@2018.2.199']
-#       python: ['python@2.7.16+tkinter']
-#     requires:
-#       - architecture
-#       - compiler
-#       - python
-#       - lapack
-#     specs:
-#       - py-macs2@2.1.1.20160309 ^py-numpy +blas +lapack@1.16.3
-#       - py-bioepic@0.2.12 ^jellyfish@2.2.10 ^py-scipy@1.2.1 ^py-numpy+blas+lapack@1.16.3
-#       - sicer@1.1 ^py-numpy+blas+lapack@1.16.3
-#
+  #   gnu-python_lapack_openmp:
+  #     target_matrix:
+  #       - gnu-stable
+  #     target_filter:
+  #       lapack: ['openblas@0.3.6 threads=openmp']
+  #     requires:
+  #       - architecture
+  #       - compiler
+  #       - python
+  #       - lapack
+  #     specs:
+  #       - py-pytorch@0.3.1~cuda ^py-numpy+blas+lapack@1.16.3
+  #       - py-htseq@0.10.0 ^py-matplotlib@2.2.3 ^py-numpy+blas+lapack@1.16.3
+  #
+  #   gnu_python_2_only_lapack_openmp:
+  #     target_matrix:
+  #       - gnu-stable
+  #     target_filter:
+  #       python: ['python@2.7.16+tkinter']
+  #       lapack: ['openblas@0.3.6 threads=openmp']
+  #     requires:
+  #       - architecture
+  #       - compiler
+  #       - python
+  #       - lapack
+  #     specs:
+  #       - gdl~wx~x11~hdf4+hdf5+embed-python+python+proj+graphicsmagick+openmp
+  #         ^eigen@3.3.4~fftw~suitesparse~metis~scotch~mpfr
+  #         ^fftw@3.3.8~mpi~openmp+fma simd=sse2,avx,avx2,avx512
+  #         ^netcdf~mpi
+  #         ^hdf5+szip~mpi+hl+fortran+cxx
+  #         ^py-numpy+blas+lapack@1.16.3
+  #
+  #   # Python 2 only packages
+  #   python_2_only:
+  #     target_matrix:
+  #       - gnu-stable
+  #       - intel
+  #     target_filter:
+  #       python: ['python@2.7.16+tkinter']
+  #     requires:
+  #       - architecture
+  #       - compiler
+  #       - python
+  #     specs:
+  #       - py-macs@1.4.2-1
+  #       - jellyfish@2.2.10
+  #
+  #   # Python 2 only packages that require LAPACK
+  #   python_2_lapack:
+  #     target_matrix:
+  #       - gnu-stable
+  #       - intel
+  #     target_filter:
+  #       lapack: ['openblas@0.3.6 threads=openmp', 'intel-mkl@2018.2.199']
+  #       python: ['python@2.7.16+tkinter']
+  #     requires:
+  #       - architecture
+  #       - compiler
+  #       - python
+  #       - lapack
+  #     specs:
+  #       - py-macs2@2.1.1.20160309 ^py-numpy +blas +lapack@1.16.3
+  #       - py-bioepic@0.2.12 ^jellyfish@2.2.10 ^py-scipy@1.2.1 ^py-numpy+blas+lapack@1.16.3
+  #       - sicer@1.1 ^py-numpy+blas+lapack@1.16.3
+  #
   # Code compiled with all the stacks that does not require
   # MPI or LAPACK
   serial:
@@ -232,7 +232,6 @@ packages:
       - compiler
     specs:
       - valgrind~boost~mpi
-      - gdb~python
       - 'fftw@3.3.8~mpi~openmp+fma simd=sse2,avx,avx2,avx512'
       - 'fftw@3.3.8~mpi+openmp+fma simd=sse2,avx,avx2,avx512'
       - nfft@3.4.1 ^fftw@3.3.8~mpi~openmp+fma simd=sse2,avx,avx2,avx512
@@ -293,10 +292,10 @@ packages:
       - parmetis ^metis@5.1.0+real64
       - netcdf+mpi ^hdf5+szip+mpi+hl+fortran+cxx
       - netcdf-fortran ^netcdf+mpi ^hdf5+szip+mpi+hl+fortran+cxx
-# TODO: update CGAL as described in issue SL-555
-#       - cgal@4.12 ^boost@1.67.0+icu+mpi+python ^python@2.7.16+tkinter
-# TODO: this package needs to be ported to the list of external repositories
-#       - gerris@snapshot ^gsl@2.3 ^gts@121130
+  # TODO: update CGAL as described in issue SL-555
+  #       - cgal@4.12 ^boost@1.67.0+icu+mpi+python ^python@2.7.16+tkinter
+  # TODO: this package needs to be ported to the list of external repositories
+  #       - gerris@snapshot ^gsl@2.3 ^gts@121130
 
   # Libraries that needs both MPI and LAPACK
   mpi-lapack-libraries:
@@ -369,57 +368,31 @@ packages:
         ^parmetis@4.0.3 ^metis@5.1.0+real64
         ^scotch@6.0.6+esmumps+mpi~metis
         ^python@2.7.16+tkinter
-      - openfoam-com~paraview~int64+metis+scotch+source
-        ^scotch@6.0.6+esmumps+mpi~metis
-        ^cgal ^boost@1.67.0+icu+mpi+python
-        ^fftw~mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^python@2.7.16+tkinter
+      # FIXME: broken build with intel 18.0.5
+      # - openfoam-com~paraview~int64+metis+scotch+source
+      #   ^scotch@6.0.6+esmumps+mpi~metis
+      #   ^cgal ^boost@1.67.0+icu+mpi+python
+      #   ^fftw~mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^python@2.7.16+tkinter
       - neuron+mpi+python+shared ^python@2.7.16+tkinter
 
-#   # MPI applications built with the Intel stack that use LAPACK
-#   intel-mpi-lapack-applications:
-#     target_matrix:
-#       - intel
-#     requires:
-#       - architecture
-#       - compiler
-#       - mpi
-#       - lapack
-#     specs:
-#       - plumed@2.4.1+mpi+gsl ^gsl@2.4
-#       - gromacs@2016.4+mpi+plumed
-#         ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512
-#         ^plumed@2.4.1+mpi+gsl ^gsl@2.4
-#       - cp2k@5.1+mpi~plumed smm=none ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^parmetis@4.0.3 ^metis@5.1.0+real64 ^libxc@3.0.0
-#       - cp2k@5.1+mpi+plumed smm=none ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.4.1+mpi+gsl ^gsl@2.4 ^libxc@3.0.0
-#       - quantum-espresso@6.2.0+mpi+scalapack+hdf5
-#         ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512
-#         ^hdf5+szip+mpi+hl+fortran+cxx
-#       - quantum-espresso@6.2.0+mpi+scalapack
-#         ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512
-# #       - namd fftw=mkl interface=python @2.12 ^charm backend=mpi ^python@2.7.16+tkinter
-# #       - amber@16+mpi ^netcdf-fortran ^netcdf@4.4.1.1+mpi ^hdf5+szip+mpi~cxx ^py-scipy@0.19.0 ^py-matplotlib@2.2.3 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13
-#       - yambo@4.2.1+mpi io=iotk,etsf-io
-#         ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512
-#         ^netcdf-fortran ^netcdf+mpi ^hdf5+szip+mpi+hl+fortran+cxx
-#       - cpmd@v4.1~openmp ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512
-#       - petsc@3.9.2~int64+boost+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse
-#         ^hdf5+szip+mpi+hl+fortran+cxx
-#         ^mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.6+esmumps+mpi~metis
-#         ^boost@1.67.0+icu+mpi+python ^python@2.7.16+tkinter
-# #       - nwchem@6.8 ^netlib-scalapack@2.0.2 ^python@2.7.16+tkinter
-# #       # TODO: - caffe@1.0+python+opencv  ^hdf5+szip+mpi~cxx ^opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6 ^py-numpy+blas+lapack@1.12.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
-# #       # TODO: - gmsh@3.0.1+mpi+hdf5+fltk+compression ^hdf5+szip+mpi~cxx
-# #       - fenics@2017.1.0+petsc+hdf5~trilinos+suite-sparse+mpi ^petsc@3.7.6+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre ^hdf5+szip+mpi~cxx  ^mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.6+esmumps+mpi~metis ^boost@1.61.0+icu_support+mpi+python ^python@2.7.13 ^eigen@3.3.1~debug+fftw+metis+mpfr+scotch+suitesparse ^fftw@3.3.6-pl2+mpi~openmp
-# #       # FIXME: - simpson@master ^gsl@2.1 ^nfft@3.3.2 ^fftw@3.3.4 ^tk@8.6.3 ^tcl@8.6.5
-#       - lammps@20180316 build_type=Release
-#         +asphere +body +class2 +colloid +compress +coreshell
-#         +dipole +granular +kspace +latte +lib +manybody +mc
-#         +meam +misc +molecule +mpi +mpiio +peri ~poems +python
-#         +qeq +reax +replica +rigid +shock +snap +srd +user-atc
-#         +user-h5md +user-lb +user-misc +user-netcdf ~voronoi
-#         ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512
-#         ^netcdf+mpi ^hdf5+szip+mpi+hl+fortran+cxx
-#
+      #  # MPI applications built with the Intel stack that use LAPACK
+      #  intel-mpi-lapack-applications:
+      #    target_matrix:
+      #      - intel
+      #    requires:
+      #      - architecture
+      #      - compiler
+      #      - mpi
+      #      - lapack
+      #    specs:
+      #       - namd fftw=mkl interface=python @2.12 ^charm backend=mpi ^python@2.7.16+tkinter
+      #       - amber@16+mpi ^netcdf-fortran ^netcdf@4.4.1.1+mpi ^hdf5+szip+mpi~cxx ^py-scipy@0.19.0 ^py-matplotlib@2.2.3 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13
+      #       - nwchem@6.8 ^netlib-scalapack@2.0.2 ^python@2.7.16+tkinter
+      #       # TODO: - caffe@1.0+python+opencv  ^hdf5+szip+mpi~cxx ^opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6 ^py-numpy+blas+lapack@1.12.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
+      #       # TODO: - gmsh@3.0.1+mpi+hdf5+fltk+compression ^hdf5+szip+mpi~cxx
+      #       - fenics@2017.1.0+petsc+hdf5~trilinos+suite-sparse+mpi ^petsc@3.7.6+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre ^hdf5+szip+mpi~cxx  ^mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.6+esmumps+mpi~metis ^boost@1.61.0+icu_support+mpi+python ^python@2.7.13 ^eigen@3.3.1~debug+fftw+metis+mpfr+scotch+suitesparse ^fftw@3.3.6-pl2+mpi~openmp
+      #       # FIXME: - simpson@master ^gsl@2.1 ^nfft@3.3.2 ^fftw@3.3.4 ^tk@8.6.3 ^tcl@8.6.5
+
   # Serial applications built with the Intel stack that use LAPACK
   intel-lapack-applications:
     target_matrix:
@@ -439,7 +412,9 @@ packages:
       - architecture
       - compiler
     specs:
-      - bowtie+tbb ^intel-tbb
+      # FIXME: installation failing with gcc@7.4.0
+      # - bowtie+tbb ^intel-tbb
+      - gdb~python
       - bowtie2 ^intel-tbb
       - bcl2fastq2 ^boost+icu~mpi+python ^python@2.7.16+tkinter
       - ncview ^netcdf~mpi ^hdf5+szip~mpi+hl+fortran+cxx
@@ -484,57 +459,79 @@ packages:
         ^python@2.7.16+tkinter
       - neuron+mpi+python+shared ^python@2.7.16+tkinter
 
-#   # MPI applications built with the GNU stable stack that use LAPACK
-#   gnu-mpi-lapack-applications:
-#     target_matrix:
-#       - gnu-stable
-#     target_filter:
-#       lapack:
-#         - 'openblas@0.3.6'
-#       mpi:
-#         - 'mvapich2@2.3.1 fabrics=psm   process_managers=slurm'
-#         - 'mvapich2@2.3.1 fabrics=mrail process_managers=slurm'
-#     requires:
-#       - architecture
-#       - compiler
-#       - mpi
-#       - lapack
-#     specs:
-#       - plumed@2.4.1+mpi+gsl ^gsl@2.4
-#       - gromacs@2016.4+mpi+plumed
-#         ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512
-#         ^plumed@2.4.1+mpi+gsl ^gsl@2.4
-#       - cp2k@5.1+mpi~plumed smm=none ^netlib-scalapack@2.0.2 ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^parmetis@4.0.3 ^metis@5.1.0+real64 ^libxc@3.0.0
-#       - cp2k@5.1+mpi+plumed smm=none ^netlib-scalapack@2.0.2 ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^parmetis@4.0.3 ^metis@5.1.0+real64 ^plumed@2.4.1+mpi+gsl ^gsl@2.4 ^libxc@3.0.0
-#       - nwchem@6.8 ^netlib-scalapack@2.0.2 ^python@2.7.16+tkinter
-#       - abinit@8.8.2~hdf5~openmp+mpi+scalapack ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^netlib-scalapack@2.0.2
-#       - quantum-espresso@6.2.0+mpi+scalapack
-#         ^netlib-scalapack@2.0.2
-#         ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512
-#       - quantum-espresso@6.2.0+mpi+scalapack+hdf5
-#         ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512
-#         ^netlib-scalapack@2.0.2
-#         ^hdf5+szip+mpi+hl+fortran+cxx
-#       - cpmd@v4.1~openmp ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512
-#       - petsc@3.9.2~int64+boost+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse
-#         ^hdf5+szip+mpi+hl+fortran+cxx
-#         ^mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.6+esmumps+mpi~metis ^netlib-scalapack@2.0.2
-#         ^boost@1.67.0+icu+mpi+python ^python@2.7.16+tkinter
-# #       # TODO: - caffe@1.0+python+opencv  ^hdf5+szip+mpi~cxx ^opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6 ^py-numpy+blas+lapack@1.12.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
-# # TODO: port amber from cornalin
-# #       - amber@16+mpi ^netcdf-fortran ^netcdf@4.4.1.1+mpi ^hdf5+szip+mpi~cxx ^py-scipy@0.19.0 ^py-matplotlib@2.2.3 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13
-#       - yambo@4.2.1+mpi io=iotk,etsf-io
-#         ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512
-#         ^netcdf-fortran ^netcdf+mpi ^hdf5+szip+mpi+hl+fortran+cxx
-# #       # TODO: - gmsh@3.0.1+mpi+hdf5+fltk+compression ^hdf5+szip+mpi~cxx
-#       - paraview@5.5.2+mpi+osmesa~qt+python+hdf5 ^py-matplotlib@2.2.3 ^py-numpy+blas+lapack@1.16.3 ^python@3.7.3+optimizations+tkinter ^hdf5+szip+mpi+hl+fortran+cxx
-# #       # TODO: - fenics@2017.1.0+petsc+hdf5~trilinos+suite-sparse+mpi ^petsc@3.7.6+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre ^hdf5+szip+mpi~cxx  ^mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.6+esmumps+mpi~metis ^netlib-scalapack@2.0.2 ^boost@1.61.0+icu_support+mpi+python ^python@2.7.13 ^eigen@3.3.1~debug+fftw+metis+mpfr+scotch+suitesparse ^fftw@3.3.6-pl2+mpi~openmp
-# #       # FIXME: - simpson@master ^gsl@2.1 ^nfft@3.3.2 ^fftw@3.3.4 ^tk@8.6.3 ^tcl@8.6.5
-#       - lammps@20180316 build_type=Release
-#         +asphere +body +class2 +colloid +compress +coreshell
-#         +dipole +granular +kspace +latte +lib +manybody +mc
-#         +meam +misc +molecule +mpi +mpiio +peri ~poems +python
-#         +qeq +reax +replica +rigid +shock +snap +srd +user-atc
-#         +user-h5md +user-lb +user-misc +user-netcdf ~voronoi
-#         ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512
-#         ^netcdf+mpi ^hdf5+szip+mpi+hl+fortran+cxx
+  # MPI applications built with the GNU stable stack that use LAPACK
+  gnu-mpi-lapack-applications:
+    target_matrix:
+      - gnu-stable
+    target_filter:
+      lapack:
+        - 'openblas@0.3.6'
+    requires:
+      - architecture
+      - compiler
+      - mpi
+      - lapack
+    specs:
+      - nwchem@6.8 ^netlib-scalapack@2.0.2 ^python@2.7.16+tkinter
+      - abinit@8.8.2~hdf5~openmp+mpi+scalapack ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^netlib-scalapack@2.0.2
+      # TODO: - caffe@1.0+python+opencv  ^hdf5+szip+mpi~cxx ^opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6 ^py-numpy+blas+lapack@1.12.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
+      # TODO: port amber from cornalin
+      #       - amber@16+mpi ^netcdf-fortran ^netcdf@4.4.1.1+mpi ^hdf5+szip+mpi~cxx ^py-scipy@0.19.0 ^py-matplotlib@2.2.3 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13
+      # TODO: - gmsh@3.0.1+mpi+hdf5+fltk+compression ^hdf5+szip+mpi~cxx
+      # - paraview@5.5.2+mpi+osmesa~qt+python+hdf5
+      #   ^py-matplotlib@2.2.3
+      #   ^py-numpy+blas+lapack@1.16.3
+      #   ^python@3.7.3+optimizations+tkinter
+      #   ^hdf5+szip+mpi+hl+fortran+cxx
+      # TODO: - fenics@2017.1.0+petsc+hdf5~trilinos+suite-sparse+mpi ^petsc@3.7.6+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre ^hdf5+szip+mpi~cxx  ^mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.6+esmumps+mpi~metis ^netlib-scalapack@2.0.2 ^boost@1.61.0+icu_support+mpi+python ^python@2.7.13 ^eigen@3.3.1~debug+fftw+metis+mpfr+scotch+suitesparse ^fftw@3.3.6-pl2+mpi~openmp
+      # FIXME: - simpson@master ^gsl@2.1 ^nfft@3.3.2 ^fftw@3.3.4 ^tk@8.6.3 ^tcl@8.6.5
+
+  mpi-lapack-applications:
+    target_matrix:
+      - gnu-stable
+      - intel-stable
+    target_filter:
+      lapack:
+        - 'openblas@0.3.6'
+        - 'intel-mkl@2018.5.274'
+    requires:
+      - architecture
+      - compiler
+      - mpi
+      - lapack
+    specs:
+      - plumed+mpi+gsl
+      - gromacs+mpi+plumed
+        ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+        ^plumed+mpi+gsl
+      # FIXME: issues with concretization
+      # - cp2k+mpi~plumed
+      #   ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+      #   ^parmetis ^metis@5.1.0+real64
+      # - cp2k+mpi+plumed
+      #   ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+      #   ^parmetis ^metis@5.1.0+real64
+      #   ^plumed+mpi+gsl
+      - quantum-espresso+mpi+scalapack hdf5=parallel
+        ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+        ^hdf5+szip+mpi+hl+fortran+cxx
+      - quantum-espresso+mpi+scalapack
+        ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+      - yambo+mpi io=iotk,etsf-io
+        ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+        ^netcdf-fortran ^netcdf+mpi ^hdf5+szip+mpi+hl+fortran+cxx
+      - cpmd~openmp
+        ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+      - petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse
+        ^hdf5+szip+mpi+hl+fortran+cxx
+        ^mumps+mpi+parmetis+metis+scotch+ptscotch
+        ^parmetis ^metis@5.1.0+real64 ^scotch@6.0.6+esmumps+mpi~metis
+        ^python@2.7.16+tkinter
+      - lammps build_type=Release
+        +asphere +body +class2 +colloid +compress +coreshell
+        +dipole +granular +kspace +latte +lib +manybody +mc
+        +meam +misc +molecule +mpi +mpiio +peri ~poems +python
+        +qeq +reax +replica +rigid +shock +snap +srd +user-atc
+        +user-h5md +user-lb +user-misc +user-netcdf ~voronoi
+        ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+        ^netcdf+mpi ^hdf5+szip+mpi+hl+fortran+cxx
