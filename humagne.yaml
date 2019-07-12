@@ -166,7 +166,8 @@ packages:
       - python
       - lapack
     specs:
-      - py-pytorch~cuda ^py-numpy+blas+lapack@1.16.3
+      # TODO: Pytorch apparently requires CMake
+      # - py-pytorch~cuda ^py-numpy+blas+lapack@1.16.3
       # TODO: The code has 8 contributors and 80 followers on github, is it needed?
       # - py-htseq@0.10.0 ^py-matplotlib@2.2.3 ^py-numpy+blas+lapack@1.16.3
 
