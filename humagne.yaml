@@ -170,24 +170,25 @@ packages:
       # TODO: The code has 8 contributors and 80 followers on github, is it needed?
       # - py-htseq@0.10.0 ^py-matplotlib@2.2.3 ^py-numpy+blas+lapack@1.16.3
 
-  gnu_python_2_only_lapack_openmp:
-    target_matrix:
-      - gnu-stable
-    target_filter:
-      python: ['python@2.7.16+tkinter']
-      lapack: ['openblas@0.3.6 threads=openmp']
-    requires:
-      - architecture
-      - compiler
-      - python
-      - lapack
-    specs:
-      - gdl~wx~x11~hdf4+hdf5+embed-python+python+proj+graphicsmagick+openmp
-        ^eigen~fftw~suitesparse~metis~scotch~mpfr
-        ^fftw~mpi~openmp+fma simd=sse2,avx,avx2,avx512
-        ^netcdf~mpi
-        ^hdf5+szip~mpi+hl+fortran+cxx
-        ^py-numpy+blas+lapack@1.16.3
+  # gnu_python_2_only_lapack_openmp:
+  #   target_matrix:
+  #     - gnu-stable
+  #   target_filter:
+  #     python: ['python@2.7.16+tkinter']
+  #     lapack: ['openblas@0.3.6 threads=openmp']
+  #   requires:
+  #     - architecture
+  #     - compiler
+  #     - python
+  #     - lapack
+  #   specs:
+  #  TODO: issues concretizing meson
+  #     - gdl~wx~x11~hdf4+hdf5+embed_python+python+proj+graphicsmagick+openmp
+  #       ^eigen~fftw~suitesparse~metis~scotch~mpfr
+  #       ^fftw~mpi~openmp+fma simd=sse2,avx,avx2,avx512
+  #       ^netcdf~mpi
+  #       ^hdf5+szip~mpi+hl+fortran+cxx
+  #       ^py-numpy+blas+lapack@1.16.3
 
   # Python 2 only packages
   python_2_only:
