@@ -286,7 +286,7 @@ modules:
 
     quantum-espresso:
       suffixes:
-        +hdf5: hdf5
+        'hdf5=parallel': hdf5
 
     'amber@16':
       environment:
