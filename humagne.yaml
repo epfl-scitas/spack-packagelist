@@ -155,21 +155,21 @@ packages:
       - py-xarray@0.11.0 ^py-pandas@0.24.1 ^py-numpy+blas+lapack@1.16.3
       - py-deeptools@3.2.1 ^py-matplotlib@2.2.3 ^py-scipy@1.2.1 ^py-numpy+blas+lapack@1.16.3
 
-  gnu-python_lapack_openmp:
-    target_matrix:
-      - gnu-stable
-    target_filter:
-      lapack: ['openblas@0.3.6 threads=openmp']
-    requires:
-      - architecture
-      - compiler
-      - python
-      - lapack
-    specs:
-      # TODO: Pytorch apparently requires CMake
-      # - py-pytorch~cuda ^py-numpy+blas+lapack@1.16.3
-      # TODO: The code has 8 contributors and 80 followers on github, is it needed?
-      # - py-htseq@0.10.0 ^py-matplotlib@2.2.3 ^py-numpy+blas+lapack@1.16.3
+  # gnu-python_lapack_openmp:
+  #   target_matrix:
+  #     - gnu-stable
+  #   target_filter:
+  #     lapack: ['openblas@0.3.6 threads=openmp']
+  #   requires:
+  #     - architecture
+  #     - compiler
+  #     - python
+  #     - lapack
+  #   specs:
+  #     # TODO: Pytorch apparently requires CMake
+  #     # - py-pytorch~cuda ^py-numpy+blas+lapack@1.16.3
+  #     # TODO: The code has 8 contributors and 80 followers on github, is it needed?
+  #     # - py-htseq@0.10.0 ^py-matplotlib@2.2.3 ^py-numpy+blas+lapack@1.16.3
 
   # gnu_python_2_only_lapack_openmp:
   #   target_matrix:
@@ -220,7 +220,8 @@ packages:
       - python
       - lapack
     specs:
-      - py-macs2 ^py-numpy +blas +lapack@1.16.3
+      # TODO: doesn't compile with Intel compilers
+      # - py-macs2 ^py-numpy +blas +lapack@1.16.3
       - py-bioepic ^jellyfish ^py-scipy@1.2.1 ^py-numpy+blas+lapack@1.16.3
       - sicer ^py-numpy+blas+lapack@1.16.3
 
