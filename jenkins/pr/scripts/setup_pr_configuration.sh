@@ -21,6 +21,7 @@ fi
 echo "[SPACK_BRANCH_NAME] ${SPACK_BRANCH_NAME}"
 
 # Create a temporary directory to work in and clone Spack
+mkdir -p /home/scitasbuild/humagne/pr/
 SPACK_CHECKOUT_DIR=$(mktemp -d /home/scitasbuild/humagne/pr/spack.XXXXX)
 SPACK_MIRROR_DIR=$(mktemp -d /home/scitasbuild/humagne/pr/spack-mirror.XXXXX)
 echo "[SPACK WORKSPACE] ${SPACK_CHECKOUT_DIR}"
