@@ -10,6 +10,7 @@
 # checked-out for spack-packagelist, use that one. Otherwise use the HEAD
 # of the release branch
 
+echo "[GIT BRANCH NAME (from Jenkins)] ${GIT_BRANCH}"
 SPACK_BRANCH_NAME=$(git ls-remote --heads https://github.com/epfl-scitas/spack.git ${GIT_BRANCH})
 if [[ -z ${SPACK_BRANCH_NAME} ]]
 then
