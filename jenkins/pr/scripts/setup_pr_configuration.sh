@@ -31,6 +31,8 @@ echo "${SPACK_CHECKOUT_DIR}" > spack_dir.txt
 
 # Copy the configuration files in, link the compilers
 cp -v configuration/* ${SPACK_CHECKOUT_DIR}/etc/spack/
+cp jenkins/pr/scripts/upstreams.yaml ${SPACK_CHECKOUT_DIR}/etc/spack/
+
 cd ${SPACK_CHECKOUT_DIR}/etc/spack/
 ln -s /ssoft/spack/humagne/spack.v1/etc/spack/compilers.yaml compilers.yaml
 # Remove config.yaml, as it point to install things directly in production

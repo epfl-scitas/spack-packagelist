@@ -1,0 +1,3 @@
+upstreams:
+  humagne:
+    install_tree: /ssoft/spack/humagne/v1/opt/spack
