@@ -239,7 +239,7 @@ packages:
       - 'fftw@3.3.8~mpi~openmp+fma simd=sse2,avx,avx2,avx512'
       - 'fftw@3.3.8~mpi+openmp+fma simd=sse2,avx,avx2,avx512'
       - nfft@3.4.1 ^fftw@3.3.8~mpi~openmp+fma simd=sse2,avx,avx2,avx512
-      # FIXME: intel gives an internal compiler error - glpk@4.65+gmp
+      - glpk+gmp
       - gsl
       - hdf5+szip~mpi+hl+fortran+cxx
       - metis@5.1.0+real64 ^guile~threads
