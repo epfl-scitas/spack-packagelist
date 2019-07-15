@@ -122,6 +122,7 @@ modules:
       'py-cycler',
       'py-cython',
       'py-dateutil',
+      'py-deeptools',
       'py-docopt',
       'py-docutils',
       'py-enum34',
