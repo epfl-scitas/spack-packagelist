@@ -44,57 +44,57 @@ pipeline {
             }
         }
 
-        stage('Test PR build') {
-            // Compute what needs to be checked for this PR (software
-            // that is in the current planned environment, but not on the
-            // base release branch). Try to build it, and notify status on
-            // github.
-            when {
-                branch '*/humagne/*'
-            }
+        // stage('Test PR build') {
+        //     // Compute what needs to be checked for this PR (software
+        //     // that is in the current planned environment, but not on the
+        //     // base release branch). Try to build it, and notify status on
+        //     // github.
+        //     when {
+        //         branch '*/humagne/*'
+        //     }
 
-            environment {
-                SPACK_PRODUCTION_DIR = "/ssoft/spack/humagne/spack.v1"
-            }
+        //     environment {
+        //         SPACK_PRODUCTION_DIR = "/ssoft/spack/humagne/spack.v1"
+        //     }
 
-            parallel {
-                stage('x86_E5v4_Mellanox') {
-                    agent {
-                        label 'x86_E5v4_Mellanox.rh76.slurm1905.humagne'
-                    }
+        //     parallel {
+        //         stage('x86_E5v4_Mellanox') {
+        //             agent {
+        //                 label 'x86_E5v4_Mellanox.rh76.slurm1905.humagne'
+        //             }
 
-                    steps {
-                        unstash name: 'spack_dir'
-                        unstash name: 'x86_E5v4_Mellanox'
-                        sh 'jenkins/pr/scripts/test_pr_build.sh'
-                    }
+        //             steps {
+        //                 unstash name: 'spack_dir'
+        //                 unstash name: 'x86_E5v4_Mellanox'
+        //                 sh 'jenkins/pr/scripts/test_pr_build.sh'
+        //             }
 
-                    post {
-                        always {
-                            archiveArtifacts artifacts:'*.txt, *.xml'
-                            junit testResults:'*.xml', allowEmptyResults:true
-                        }
-                    }
-                }
-                stage('x86_S6g1_Mellanox') {
-                    agent {
-                        label 'x86_S6g1_Mellanox.rh76.slurm1905.humagne'
-                    }
+        //             post {
+        //                 always {
+        //                     archiveArtifacts artifacts:'*.txt, *.xml'
+        //                     junit testResults:'*.xml', allowEmptyResults:true
+        //                 }
+        //             }
+        //         }
+        //         stage('x86_S6g1_Mellanox') {
+        //             agent {
+        //                 label 'x86_S6g1_Mellanox.rh76.slurm1905.humagne'
+        //             }
 
-                    steps {
-                        unstash name: 'spack_dir'
-                        unstash name: 'x86_S6g1_Mellanox'
-                        sh 'jenkins/pr/scripts/test_pr_build.sh'
-                    }
+        //             steps {
+        //                 unstash name: 'spack_dir'
+        //                 unstash name: 'x86_S6g1_Mellanox'
+        //                 sh 'jenkins/pr/scripts/test_pr_build.sh'
+        //             }
 
-                    post {
-                        always {
-                            archiveArtifacts artifacts:'*.txt, *.xml'
-                            junit testResults:'*.xml', allowEmptyResults:true
-                        }
-                    }
-                }
-            }
-        }
+        //             post {
+        //                 always {
+        //                     archiveArtifacts artifacts:'*.txt, *.xml'
+        //                     junit testResults:'*.xml', allowEmptyResults:true
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
     }
 }
