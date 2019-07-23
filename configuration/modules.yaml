@@ -228,7 +228,7 @@ modules:
           ICPCCFG:  /ssoft/spack/external/intel/config/2018.4/compilers_and_libraries_2018.5.274/icl.cfg
           IFORTCFG: /ssoft/spack/external/intel/config/2018.4/compilers_and_libraries_2018.5.274/icl.cfg
         prepend_path:
-          PATH: '/ssoft/spack/external/intel/2018.4/vtune_amplifier_2018.4.0.573462/bin64'
+          PATH: '/ssoft/spack/external/intel/2018.4/vtune_amplifier_2018.4.0.573462/bin64:/ssoft/spack/external/intel/2018.4/compilers_and_libraries_2018.5.274/linux/bin/intel64'
           INTEL_LICENSE_FILE: /ssoft/spack/external/intel/License
 
     ####
