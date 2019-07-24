@@ -262,6 +262,14 @@ packages:
       - hisat2
       - samtools
       - subread
+
+  serial_gnu:
+    target_matrix:
+      - gnu-stable
+    requires:
+      - architecture
+      - compiler
+    specs:
       - libgd
 
   # Serial code that uses LAPACK
