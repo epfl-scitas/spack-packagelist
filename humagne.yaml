@@ -262,6 +262,7 @@ packages:
       - hisat2
       - samtools
       - subread
+      - libgd
 
   # Serial code that uses LAPACK
   lapack:
