@@ -327,6 +327,8 @@ packages:
       - hpl~openmp
       - netlib-scalapack
       - elpa@2017.11.001 ^netlib-scalapack
+      - parmetis ^metis@5.1.0+real64
+      - scotch@6.0.6+esmumps+mpi~metis ^netlib-scalapack
       - mumps+mpi+parmetis+metis+scotch+ptscotch ^parmetis ^metis@5.1.0+real64 ^scotch@6.0.6+esmumps+mpi~metis ^netlib-scalapack
 
 
@@ -341,6 +343,8 @@ packages:
     specs:
       - hpl~openmp
       - elpa@2017.11.001
+      - parmetis ^metis@5.1.0+real64
+      - scotch@6.0.6+esmumps+mpi~metis
       - mumps+mpi+parmetis+metis+scotch+ptscotch ^parmetis ^metis@5.1.0+real64 ^scotch@6.0.6+esmumps+mpi~metis
 
   ##########
