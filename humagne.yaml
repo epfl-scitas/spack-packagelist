@@ -137,7 +137,7 @@ packages:
       - gnu-stable
       - intel-stable
     target_filter:
-      lapack: ['openblas@0.3.6 threads=openmp', 'intel-mkl@2018.2.199']
+      lapack: ['openblas@0.3.6 threads=openmp', 'intel-mkl@2018.5.274']
     requires:
       - architecture
       - compiler
@@ -213,7 +213,7 @@ packages:
       - gnu-stable
       - intel-stable
     target_filter:
-      lapack: ['openblas@0.3.6 threads=openmp', 'intel-mkl@2018.2.199']
+      lapack: ['openblas@0.3.6 threads=openmp', 'intel-mkl@2018.5.274']
       python: ['python@2.7.16+tkinter']
     requires:
       - architecture
