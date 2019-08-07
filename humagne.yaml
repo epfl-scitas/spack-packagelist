@@ -410,13 +410,13 @@ packages:
   # Serial applications built with the Intel stack that use LAPACK
   intel-lapack-applications:
     target_matrix:
-      - intel
+      - intel-stable
     requires:
       - architecture
       - compiler
       - lapack
     specs:
-      - r+external-lapack
+      # - r+external-lapack
       - molpro~mpi
 
   # Serial applications built with the GNU stable stack
