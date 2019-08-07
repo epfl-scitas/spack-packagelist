@@ -418,6 +418,17 @@ packages:
     specs:
       - r+external-lapack
 
+  intel-mpi-lapack-applications:
+    target_matrix:
+      - intel-stable
+    requires:
+      - architecture
+      - compiler
+      - mpi
+      - lapack
+    specs:
+      - molpro+mpi
+
   # Serial applications built with the GNU stable stack
   gnu-serial-applications:
     target_matrix:
