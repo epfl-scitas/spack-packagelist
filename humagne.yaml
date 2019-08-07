@@ -417,6 +417,7 @@ packages:
       - lapack
     specs:
       - r+external-lapack
+      - molpro~mpi
 
   # Serial applications built with the GNU stable stack
   gnu-serial-applications:
