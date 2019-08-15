@@ -130,6 +130,7 @@ packages:
       - py-sympy
       - py-ply
       - py-virtualenv
+      - scons@3.0.4
 
   # Python packages that requires LAPACK
   python_lapack_openmp:
