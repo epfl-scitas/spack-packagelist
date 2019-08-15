@@ -102,6 +102,7 @@ packages:
       - matlab@R2018a
       - mathematica@11.1.1
       - ansys@17.1
+      - ansys@19.2
       - totalview@2017.2.11
       - comsol@5.3
       - comsol@5.4
@@ -263,6 +264,15 @@ packages:
       - samtools
       - subread
 
+  serial_gnu:
+    target_matrix:
+      - gnu-stable
+    requires:
+      - architecture
+      - compiler
+    specs:
+      - libgd
+
   # Serial code that uses LAPACK
   lapack:
     target_matrix:
@@ -351,7 +361,7 @@ packages:
   # Serial applications built with the Intel stack
   intel-serial-applications:
     target_matrix:
-      - intel
+      - intel-stable
     requires:
       - architecture
       - compiler
@@ -361,7 +371,7 @@ packages:
   # MPI applications built with the Intel stack
   intel-mpi-applications:
     target_matrix:
-      - intel
+      - intel-stable
     requires:
       - architecture
       - compiler
@@ -401,13 +411,13 @@ packages:
   # Serial applications built with the Intel stack that use LAPACK
   intel-lapack-applications:
     target_matrix:
-      - intel
+      - intel-stable
     requires:
       - architecture
       - compiler
       - lapack
     specs:
-      - r+external-lapack
+      - r+external-lapack ^freetype@2.7.1 ^harfbuzz@2.2.0
 
   # Serial applications built with the GNU stable stack
   gnu-serial-applications:
