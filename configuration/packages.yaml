@@ -43,8 +43,6 @@ packages:
     paths:
       intel-mkl @2018.5.274 %intel@18.0.5: /ssoft/spack/external/intel/2018.4/compilers_and_libraries_2018.5.274/linux/mkl
       intel-mkl threads=openmp @2018.5.274 %intel@18.0.5: /ssoft/spack/external/intel/2018.4/compilers_and_libraries_2018.5.274/linux/mkl
-      intel-mkl @2018.5.274 %gcc@7.4.0: /ssoft/spack/external/intel/2018.4/compilers_and_libraries_2018.5.274/linux/mkl
-      intel-mkl threads=openmp @2018.5.274 %gcc@7.4.0: /ssoft/spack/external/intel/2018.4/compilers_and_libraries_2018.5.274/linux/mkl
       # intel-mkl @2019.3.199 %intel@19.0.3: /ssoft/spack/external/intel/2019.3/compilers_and_libraries_2019.3.199/linux/mkl
       # intel-mkl threads=openmp @2019.3.199 %intel@19.0.3: /ssoft/spack/external/intel/2019.3/compilers_and_libraries_2019.3.199/linux/mkl
 
