@@ -40,6 +40,15 @@ combinations:
     lapack: 'openblas@0.3.6:openblas@0.3.6 threads=openmp'
     python: 'python@3.7.3+optimizations+tkinter:python@2.7.16+tkinter'
 
+  # NOT SUPPORTED
+  # GNU with Intel MKL
+  gnu-mkl:
+    architecture: 'x86_E5v4_Mellanox:x86_S6g1_Mellanox'
+    compiler: 'gcc@7.4.0'
+    mpi: 'mvapich2@2.3.1 fabrics=mrail process_managers=slurm'
+    lapack: 'intel-mkl@2018.5.274'
+    python: 'python@3.7.3+optimizations+tkinter:python@2.7.16+tkinter'    
+
   # Intel is the stack used to build software that runs on CPUs with
   # a proprietary stack
   intel-stable:
@@ -487,8 +496,10 @@ packages:
       - mpi
       - lapack
     specs:
-      - nwchem@6.8 ^netlib-scalapack@2.0.2 ^python@2.7.16+tkinter
       - abinit@8.8.2~hdf5~openmp+mpi+scalapack ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^netlib-scalapack@2.0.2
+      - cp2k+mpi~plumed blas=openblas ~openmp
+        ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+      - nwchem@6.8 ^netlib-scalapack@2.0.2 ^python@2.7.16+tkinter
       # TODO: - caffe@1.0+python+opencv  ^hdf5+szip+mpi~cxx ^opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6 ^py-numpy+blas+lapack@1.12.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
       # TODO: port amber from cornalin
       #       - amber@16+mpi ^netcdf-fortran ^netcdf@4.4.1.1+mpi ^hdf5+szip+mpi~cxx ^py-scipy@0.19.0 ^py-matplotlib@2.2.3 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13
@@ -520,9 +531,6 @@ packages:
         ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
         ^plumed+mpi+gsl
       # FIXME: issues with concretization
-      # - cp2k+mpi~plumed
-      #   ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
-      #   ^parmetis ^metis@5.1.0+real64
       # - cp2k+mpi+plumed
       #   ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
       #   ^parmetis ^metis@5.1.0+real64
@@ -550,3 +558,52 @@ packages:
         +user-h5md +user-lb +user-misc +user-netcdf ~voronoi
         ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512
         ^netcdf+mpi ^hdf5+szip+mpi+hl+fortran+cxx
+
+  mpi-lapack-applications:
+    target_matrix:
+      - gnu-mkl
+    target_filter:
+      lapack:
+        - 'intel-mkl@2018.5.274'
+    requires:
+      - architecture
+      - compiler
+      - mpi
+      - lapack
+    specs:
+      #- gromacs@2016.5+mpi+plumed
+      #  ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+      #  ^plumed+mpi+gsl
+      # FIXME: issues with concretization
+      - cp2k+mpi~plumed
+        ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+      - molpro+mpi
+      #  ^intel-mkl@2018.5.274%gcc@7.4.0~ilp64+shared threads=none
+      #  ^parmetis ^metis@5.1.0+real64
+      # - cp2k+mpi+plumed
+      #   ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+      #   ^parmetis ^metis@5.1.0+real64
+      #   ^plumed+mpi+gsl
+      #- quantum-espresso+mpi+scalapack hdf5=parallel
+      #  ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+      #  ^hdf5+szip+mpi+hl+fortran+cxx
+      #- quantum-espresso+mpi+scalapack
+      #  ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+      #- yambo+mpi io=iotk,etsf-io
+      #  ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+      #  ^netcdf-fortran ^netcdf+mpi ^hdf5+szip+mpi+hl+fortran+cxx
+      #- cpmd~openmp
+      #  ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+      #- petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse
+      #  ^hdf5+szip+mpi+hl+fortran+cxx
+      #  ^mumps+mpi+parmetis+metis+scotch+ptscotch
+      #  ^parmetis ^metis@5.1.0+real64 ^scotch@6.0.6+esmumps+mpi~metis
+      #  ^python@2.7.16+tkinter
+      #- lammps build_type=Release
+      #  +asphere +body +class2 +colloid +compress +coreshell
+      #  +dipole +granular +kspace +latte +lib +manybody +mc
+      #  +meam +misc +molecule +mpi +mpiio +peri ~poems +python
+      #  +qeq +reax +replica +rigid +shock +snap +srd +user-atc
+      #  +user-h5md +user-lb +user-misc +user-netcdf ~voronoi
+      #  ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+      #  ^netcdf+mpi ^hdf5+szip+mpi+hl+fortran+cxx
