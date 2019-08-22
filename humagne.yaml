@@ -524,8 +524,6 @@ packages:
       - gromacs@2016.5+mpi+plumed
         ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
         ^plumed+mpi+gsl
-      # FIXME: issues with concretization
-      #   ^parmetis ^metis@5.1.0+real64
       - quantum-espresso+mpi+scalapack hdf5=parallel
         ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
         ^hdf5+szip+mpi+hl+fortran+cxx
