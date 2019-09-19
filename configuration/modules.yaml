@@ -80,6 +80,7 @@ modules:
       'gcc@7.4.0',
       'git',
       'gnuplot',
+      'gurobi',
       'hadoop',
       'intel',
       'jdk%gcc@4.8.5',
