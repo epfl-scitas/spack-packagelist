@@ -107,6 +107,7 @@ packages:
       - comsol@5.3
       - comsol@5.4
       - gaussian@g16-A.03
+      - gurobi@8.1.1
       - smr@2017.06
       - cfdplusplus@16.1
       - fdtd@8.20.1703
