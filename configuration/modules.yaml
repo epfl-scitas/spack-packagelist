@@ -366,3 +366,12 @@ modules:
           LD_LIBRARY_PATH: '${PREFIX}/mpich2/nemesis/lib'
         set:
           SLURM_MPI_TYPE: pmi2
+
+    metis:
+      suffixes:
+        ~real64: sp
+
+    scons:
+      suffixes:
+        '^python@:2.99': py2
+        '^python@3:': py3
