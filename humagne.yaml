@@ -261,6 +261,7 @@ packages:
       - chip-seq
       # FIXME: Concretization errors on gl vdep
       # - opencv@3.4.1 +qt+zlib+tiff+vtk+png+jpeg+imgproc+highgui build_type=Release ^qt@4.8.6 +gtk+opengl+webkit ^mesa
+      - htslib
       - hisat2
       - samtools
       - subread
