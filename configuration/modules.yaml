@@ -65,6 +65,7 @@ modules:
       'autoconf%gcc@4.8.5',
       'automake%gcc@4.8.5',
       'beast',
+      'boost%gcc@8.3.0',
       'caffe',
       'cfdplusplus',
       'cmake%gcc@4.8.5',
