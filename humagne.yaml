@@ -133,6 +133,23 @@ packages:
       - py-virtualenv
       - scons@3.0.4
 
+  # List of python packages that do not require
+  # BLAS / LAPACK installed with the bleeding edge stacks
+  bleeding_serial_python:
+    target_matrix:
+      - gnu-bleeding-edge
+    requires:
+      - architecture
+      - compiler
+      - python
+    specs:
+      - py-cython
+      - py-pip
+      - py-sympy
+      - py-ply
+      - py-virtualenv
+      - boost@1.70.0+python
+
   # Python packages that requires LAPACK
   python_lapack_openmp:
     target_matrix:
