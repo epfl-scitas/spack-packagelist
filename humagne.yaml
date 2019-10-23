@@ -148,6 +148,19 @@ packages:
       - py-sympy
       - py-ply
       - py-virtualenv
+
+  # List of python 3 packages that do not require
+  # BLAS / LAPACK installed with the bleeding edge stacks
+  bleeding_serial_python3_only:
+    target_matrix:
+      - gnu-bleeding-edge
+    target_filter:
+      python: ['python@3.7.3+optimizations+tkinter']
+    requires:
+      - architecture
+      - compiler
+      - python
+    specs:
       - boost@1.70.0+python
 
   # Python packages that requires LAPACK
