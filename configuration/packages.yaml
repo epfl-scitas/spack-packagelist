@@ -95,10 +95,10 @@ packages:
     paths:
       likwid@4.3.0 %gcc@4.8.5: /ssoft/spack/external/LIKWID/4.3.0
 
-  gurobi:
-    buildable: False
-    paths:
-      gurobi@8.1.1%gcc@4.8.5: /ssoft/spack/external/gurobi/8.1.1
+  # gurobi:
+  #   buildable: False
+  #   paths:
+  #     gurobi@8.1.1%gcc@4.8.5: /ssoft/spack/external/gurobi/8.1.1
 
   gaussian:
     buildable: False

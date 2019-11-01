@@ -71,6 +71,7 @@ packages:
       - git@2.21.0
       - git-lfs@2.7.2 ^git@2.21.0
       # - gnuplot@5.2.2 +X+pbm+wx ^pango+X
+      - gurobi@8.1.1
       - i7z@epfl-scitas
       - libtool@2.4.6
       - lmod@8.1.5
@@ -107,7 +108,6 @@ packages:
       - comsol@5.3
       - comsol@5.4
       - gaussian@g16-A.03
-      - gurobi@8.1.1
       - smr@2017.06
       - cfdplusplus@16.1
       - fdtd@8.20.1703
