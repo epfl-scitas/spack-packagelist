@@ -459,12 +459,13 @@ packages:
       - architecture
       - compiler
     specs:
+      - bcl2fastq2 ^boost+icu~mpi+python ^python@2.7.16+tkinter
       # FIXME: installation failing with gcc@7.4.0
       # - bowtie+tbb ^intel-tbb
-      - gdb~python
       - bowtie2 ^intel-tbb
-      - bcl2fastq2 ^boost+icu~mpi+python ^python@2.7.16+tkinter
+      - gdb~python
       - ncview ^netcdf~mpi ^hdf5+szip~mpi+hl+fortran+cxx
+      - polymake@3.5 ^boost+icu~mpi+python ^python@2.7.16+tkinter
       # FIXME: see https://github.com/spack/spack/issues/8025
       # - tophat ^bowtie2@2.3.4.1 ^intel-tbb@2018.2
 
