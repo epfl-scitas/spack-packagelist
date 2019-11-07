@@ -81,6 +81,7 @@ modules:
       'gcc@7.4.0',
       'git',
       'gnuplot',
+      'gromacs',
       'gurobi',
       'hadoop',
       'intel',

@@ -409,7 +409,7 @@ packages:
       - compiler
       - mpi
     specs:
-      - gromacs+mpi
+      - gromacs@2019.4+mpi
         ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512
       - foam-extend+metis+scotch+parmetis+ptscotch~paraview
         ^parmetis@4.0.3 ^metis@5.1.0+real64
@@ -491,7 +491,7 @@ packages:
       - compiler
       - mpi
     specs:
-      - gromacs+mpi ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+      - gromacs@2019.4+mpi ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
       # - namd fftw=3 interface=python
       #   ^charm backend=mpi
       #   ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
