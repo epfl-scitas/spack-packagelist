@@ -101,6 +101,7 @@ modules:
       'openmpi',
       'parallel%gcc@4.8.5',
       'picard',
+      'polymake',
       'python',
       'sbt',
       'scala',
