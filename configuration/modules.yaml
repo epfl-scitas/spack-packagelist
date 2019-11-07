@@ -81,6 +81,7 @@ modules:
       'gcc@7.4.0',
       'git',
       'gnuplot',
+      'gromacs',
       'gurobi',
       'hadoop',
       'intel',
@@ -311,6 +312,11 @@ modules:
         set:
           CUDA_LIBRARY: '${PREFIX}/lib64'
           CUDA_INCLUDE: '${PREFIX}/include'
+
+    gurobi:
+      environment:
+        set:
+          GRB_LICENSE_FILE: '${PREFIX}/gurobi.lic'
 
     'hdf5~mpi+cxx':
       environment:
