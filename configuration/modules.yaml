@@ -313,11 +313,6 @@ modules:
           CUDA_LIBRARY: '${PREFIX}/lib64'
           CUDA_INCLUDE: '${PREFIX}/include'
 
-    gurobi:
-      environment:
-        set:
-          GRB_LICENSE_FILE: '${PREFIX}/gurobi.lic'
-
     'hdf5~mpi+cxx':
       environment:
         set:
