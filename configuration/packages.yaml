@@ -109,6 +109,7 @@ packages:
     buildable: False
     paths:
       matlab@R2018a %gcc@4.8.5: /ssoft/spack/external/MATLAB/R2018a
+      matlab@R2019b %gcc@4.8.5: /ssoft/spack/external/MATLAB/R2019b
 
   maple:
     buildable: False
