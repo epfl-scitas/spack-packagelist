@@ -100,6 +100,7 @@ packages:
       - likwid@4.3.0
       - maple@2017
       - matlab@R2018a
+      - matlab@R2019b
       - mathematica@11.1.1
       - ansys@17.1
       - ansys@19.2
