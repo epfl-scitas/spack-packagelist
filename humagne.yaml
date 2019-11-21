@@ -582,3 +582,51 @@ packages:
         +user-h5md +user-lb +user-misc +user-netcdf ~voronoi
         ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512
         ^netcdf+mpi ^hdf5+szip+mpi+hl+fortran+cxx
+
+  gnu-openmpi-benchmark:
+    target_matrix:
+      - gnu-openmpi
+    requires:
+      - architecture
+      - compiler
+      - mpi
+    specs:
+      - osu-micro-benchmarks~cuda
+
+  gnu-openmpi-lapack-benchmark:
+    target_matrix:
+      - gnu-openmpi
+    requires:
+      - architecture
+      - compiler
+      - mpi
+      - lapack
+    target_filter:
+      lapack:
+        - 'openblas@0.3.6'
+    specs:
+      - hpl~openmp
+
+  gnu-bleeding-edge-benchmark:
+    target_matrix:
+      - gnu-bleeding-edge
+    requires:
+      - architecture
+      - compiler
+      - mpi
+    specs:
+      - osu-micro-benchmarks~cuda
+
+  gnu-bleeding-edge-lapack-benchmark:
+    target_matrix:
+      - gnu-bleeding-edge
+    requires:
+      - architecture
+      - compiler
+      - mpi
+      - lapack
+    target_filter:
+      lapack:
+        - 'openblas@0.3.6'
+    specs:
+      - hpl~openmp
