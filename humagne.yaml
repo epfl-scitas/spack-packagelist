@@ -270,7 +270,7 @@ packages:
       - compiler
       - python
     specs:
-      - openbabel@2.4.1
+      - openbabel@2.4.1+python
   intel_python_3:
     target_matrix:
       - intel-stable
@@ -281,7 +281,7 @@ packages:
       - compiler
       - python
     specs:
-      - openbabel@2.4.1 ^freetype@2.7.1
+      - openbabel@2.4.1+python ^freetype@2.7.1
 
   # Code compiled with all the stacks that does not require
   # MPI or LAPACK
