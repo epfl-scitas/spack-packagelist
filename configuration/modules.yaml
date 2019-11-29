@@ -98,6 +98,7 @@ modules:
       'molpro',
       'mvapich2',
       'openblas',
+      'openbabel',
       'openmpi',
       'parallel%gcc@4.8.5',
       'picard',
