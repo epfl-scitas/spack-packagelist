@@ -74,7 +74,6 @@ packages:
     buildable: False
     paths:
       cfdplusplus@16.1%gcc@4.8.5: /ssoft/spack/external/CFD++/2016.05
-      cfdplusplus@17.1%gcc@4.8.5: /ssoft/spack/external/CFD++/17.1
       cfdplusplus@19.1%gcc@4.8.5: /ssoft/spack/external/CFD++/19.1
 
   comsol:

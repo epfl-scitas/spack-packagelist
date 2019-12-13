@@ -110,6 +110,7 @@ packages:
       - gaussian@g16-A.03
       - gurobi@8.1.1
       - smr@2017.06
+      - cfdplusplus@16.1
       - cfdplusplus@19.1
       - fdtd@8.20.1703
   # TODO: check where to put these applications
