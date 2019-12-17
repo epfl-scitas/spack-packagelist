@@ -20,7 +20,7 @@ deactivate
 spack --version
 
 # Register Spack bootstrapped compilers
-TO_BE_INSTALLED=$(spack filter --not-installed $(cat stack.${SPACK_TARGET_TYPE}.txt))
+TO_BE_INSTALLED=$(spack filter --implicit $(cat stack.${SPACK_TARGET_TYPE}.txt))
 
 if [[ -n "$TO_BE_INSTALLED" ]]
 then

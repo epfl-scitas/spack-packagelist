@@ -21,7 +21,7 @@ spack --version
 spack compiler add --scope=site
 
 # Register Spack bootstrapped compilers
-to_be_installed=$(spack filter --not-installed $(cat compilers.${SPACK_TARGET_TYPE}.txt))
+to_be_installed=$(spack filter --implicit $(cat compilers.${SPACK_TARGET_TYPE}.txt))
 
 if [[ -z "${to_be_installed}" ]]
 then
