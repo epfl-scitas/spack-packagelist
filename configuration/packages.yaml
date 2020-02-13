@@ -74,6 +74,7 @@ packages:
     buildable: False
     paths:
       cfdplusplus@16.1%gcc@4.8.5: /ssoft/spack/external/CFD++/2016.05
+      cfdplusplus@19.1%gcc@4.8.5: /ssoft/spack/external/CFD++/19.1
 
   comsol:
     buildable: False
@@ -109,6 +110,7 @@ packages:
     buildable: False
     paths:
       matlab@R2018a %gcc@4.8.5: /ssoft/spack/external/MATLAB/R2018a
+      matlab@R2019b %gcc@4.8.5: /ssoft/spack/external/MATLAB/R2019b
 
   maple:
     buildable: False
