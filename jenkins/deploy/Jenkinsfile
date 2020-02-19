@@ -71,7 +71,7 @@ pipeline {
                             junit testResults:'*.xml', allowEmptyResults:true
                         }
                         failure {
-                            mattermostSend color: 'warning', message: 'Prepare production stack failed for x86_E5v4_Mellanox'
+                            mattermostSend color: 'warning', message: 'Prepare production stack failed for x86_E5v4_Mellanox. ${env.BUILD_URL}'
                         }
                     }
                 }
@@ -89,7 +89,7 @@ pipeline {
                             junit testResults:'*.xml', allowEmptyResults:true
                         }
                         failure {
-                            mattermostSend color: 'warning', message: 'Prepare production stack failed for x86_S6g1_Mellanox'
+                            mattermostSend color: 'warning', message: 'Prepare production stack failed for x86_S6g1_Mellanox. ${env.BUILD_URL}'
                         }
                     }
                 }
@@ -122,7 +122,7 @@ pipeline {
                     archiveArtifacts artifacts:'*.txt, *.yaml'
                 }
                 failure {
-                    mattermostSend color: 'warning', message: 'Populate mirror failed'
+                    mattermostSend color: 'warning', message: 'Populate mirror failed. ${env.BUILD_URL}'
                 }
             }
 
@@ -155,7 +155,7 @@ pipeline {
                             junit testResults:'*.xml', allowEmptyResults:true
                         }
                         failure {
-                            mattermostSend color: 'warning', message: 'Deploy software failed for x86_E5v4_Mellanox'
+                            mattermostSend color: 'warning', message: 'Deploy software failed for x86_E5v4_Mellanox. ${env.BUILD_URL}'
                         }
                     }
                 }
@@ -177,7 +177,7 @@ pipeline {
                             junit testResults:'*.xml', allowEmptyResults: true
                         }
                         failure {
-                            mattermostSend color: 'warning', message: 'Deploy software failed for x86_S6g1_Mellanox'
+                            mattermostSend color: 'warning', message: 'Deploy software failed for x86_S6g1_Mellanox. ${env.BUILD_URL}'
                         }
                     }
                 }
