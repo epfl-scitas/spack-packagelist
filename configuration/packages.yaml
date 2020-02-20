@@ -138,3 +138,8 @@ packages:
 
   guile:
     variants: '~threads'
+
+  vasp:
+    permissions:
+      read: group
+      group: vasp-soft

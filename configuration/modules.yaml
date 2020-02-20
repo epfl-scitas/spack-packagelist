@@ -379,3 +379,6 @@ modules:
       suffixes:
         '^python@:2.99': py2
         '^python@3:': py3
+
+    vasp:
+      template: 'modules/group_restricted.lua'
