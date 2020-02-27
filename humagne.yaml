@@ -451,7 +451,7 @@ packages:
   # MPI applications built with the Intel stack that use LAPACK
   intel-mpi-lapack-applications:
     target_matrix:
-      - intel
+      - intel-stable
     requires:
       - architecture
       - compiler

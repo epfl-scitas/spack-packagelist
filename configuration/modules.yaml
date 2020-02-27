@@ -115,6 +115,7 @@ modules:
       'tmux',
       'totalview',
       'trimmomatic',
+      'vasp',
     ]
 
     blacklist_implicits: true
