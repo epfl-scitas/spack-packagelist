@@ -553,6 +553,7 @@ packages:
       - cp2k+mpi+plumed
         ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
         ^plumed+mpi+gsl
+      - molpro@2015.1+mpi
       - molpro@2019.2+mpi
       - nwchem@6.8 ^netlib-scalapack@2.0.2 ^python@2.7.16+tkinter
       - vasp@5.4.4 ^fftw~mpi~openmp+fma simd=sse2,avx,avx2,avx512
