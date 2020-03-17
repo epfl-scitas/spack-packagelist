@@ -139,6 +139,11 @@ packages:
   guile:
     variants: '~threads'
 
+  molpro:
+    permissions:
+      read: group
+      group: molpro-soft
+
   vasp:
     permissions:
       read: group

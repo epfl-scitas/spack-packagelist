@@ -554,6 +554,7 @@ packages:
         ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
         ^plumed+mpi+gsl
       - molpro@2015.1+mpi
+      - molpro@2019.2+mpi
       - nwchem@6.8 ^netlib-scalapack@2.0.2 ^python@2.7.16+tkinter
       - vasp@5.4.4 ^fftw~mpi~openmp+fma simd=sse2,avx,avx2,avx512
       # TODO: - caffe@1.0+python+opencv  ^hdf5+szip+mpi~cxx ^opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6 ^py-numpy+blas+lapack@1.12.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
