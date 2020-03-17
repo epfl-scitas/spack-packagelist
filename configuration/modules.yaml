@@ -337,9 +337,6 @@ modules:
           - PLUMED_ROOT
     molpro:
       template: 'modules/group_restricted.lua'
-      environment:
-        prepend_path:
-          'PATH': '${PREFIX}/molprop_2015_1_linux_x86_64_i8/bin'
 
     opencv:
       environment:
