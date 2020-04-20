@@ -458,6 +458,7 @@ packages:
       - mpi
       - lapack
     specs:
+      - crystal17@1.0.2 
       - vasp@5.4.4
       #       - namd fftw=mkl interface=python @2.12 ^charm backend=mpi ^python@2.7.16+tkinter
       #       - amber@16+mpi ^netcdf-fortran ^netcdf@4.4.1.1+mpi ^hdf5+szip+mpi~cxx ^py-scipy@0.19.0 ^py-matplotlib@2.2.3 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13

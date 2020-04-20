@@ -70,6 +70,7 @@ modules:
       'cfdplusplus',
       'cmake%gcc@4.8.5',
       'comsol',
+      'crystal',
       'cuda',
       'cudnn',
       'curl%gcc@4.8.5',
@@ -309,6 +310,9 @@ modules:
       environment:
         prepend_path:
           MATLABPATH: '${PREFIX}/mli'
+
+    crystal:
+      template: 'modules/group_restricted.lua'
 
     cuda:
       environment:
