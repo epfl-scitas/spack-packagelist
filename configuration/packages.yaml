@@ -136,7 +136,7 @@ packages:
   # Concretization preferences
   ####
 
-  crystal:
+  crystal17:
     permissions:
       read: group
       group: crystal-soft
