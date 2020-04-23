@@ -136,6 +136,11 @@ packages:
   # Concretization preferences
   ####
 
+  crystal17:
+    permissions:
+      read: group
+      group: crystal-soft
+
   guile:
     variants: '~threads'
 
