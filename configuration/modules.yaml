@@ -81,6 +81,7 @@ modules:
       'gcc@8.3.0',
       'gcc@7.4.0',
       'git',
+      'glpk',
       'gnuplot',
       'gromacs',
       'gurobi',
