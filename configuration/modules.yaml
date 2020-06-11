@@ -68,6 +68,7 @@ modules:
       'boost%gcc@8.3.0',
       'caffe',
       'cfdplusplus',
+      'cgal',
       'cmake%gcc@4.8.5',
       'comsol',
       'crystal17',
