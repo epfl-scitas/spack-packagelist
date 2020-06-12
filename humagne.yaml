@@ -365,8 +365,7 @@ packages:
       - parmetis ^metis@5.1.0+real64
       - netcdf+mpi ^hdf5+szip+mpi+hl+fortran+cxx
       - netcdf-fortran ^netcdf+mpi ^hdf5+szip+mpi+hl+fortran+cxx
-  # TODO: update CGAL as described in issue SL-555
-  #       - cgal@4.12 ^boost@1.67.0+icu+mpi+python ^python@2.7.16+tkinter
+      - cgal@4.13 ^boost@1.67.0+icu+mpi+python ^python@2.7.16+tkinter
   # TODO: this package needs to be ported to the list of external repositories
   #       - gerris@snapshot ^gsl@2.3 ^gts@121130
 
