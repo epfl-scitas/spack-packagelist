@@ -464,7 +464,7 @@ packages:
       #       - nwchem@6.8 ^netlib-scalapack@2.0.2 ^python@2.7.16+tkinter
       #       # TODO: - caffe@1.0+python+opencv  ^hdf5+szip+mpi~cxx ^opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6 ^py-numpy+blas+lapack@1.12.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
       #       # TODO: - gmsh@3.0.1+mpi+hdf5+fltk+compression ^hdf5+szip+mpi~cxx
-      - fenics@2019.1.0+petsc+hdf5~trilinos+suite-sparse+mpi
+      - fenics@2019.1.0+petsc+hdf5~trilinos+suite-sparse+mpi~slepc
         ^petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse
         ^hdf5+szip+mpi+hl+fortran+cxx
         ^mumps+mpi+parmetis+metis+scotch+ptscotch
@@ -571,7 +571,7 @@ packages:
       #   ^py-numpy+blas+lapack@1.16.3
       #   ^python@3.7.3+optimizations+tkinter
       #   ^hdf5+szip+mpi+hl+fortran+cxx
-      - fenics@2019.1.0+petsc+hdf5~trilinos+suite-sparse+mpi
+      - fenics@2019.1.0+petsc+hdf5~trilinos+suite-sparse+mpi~slepc
         ^petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse
         ^hdf5+szip+mpi+hl+fortran+cxx
         ^mumps+mpi+parmetis+metis+scotch+ptscotch
