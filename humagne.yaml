@@ -469,7 +469,7 @@ packages:
         ^hdf5+szip+mpi+hl+fortran+cxx
         ^mumps+mpi+parmetis+metis+scotch+ptscotch
         ^parmetis ^metis@5.1.0+real64 ^scotch@6.0.6+esmumps+mpi~metis
-        ^python@2.7.16+tkinter
+        ^python@3.7.3+optimizations+tkinter
       #       # FIXME: - simpson@master ^gsl@2.1 ^nfft@3.3.2 ^fftw@3.3.4 ^tk@8.6.3 ^tcl@8.6.5
 
   # Serial applications built with the Intel stack that use LAPACK
@@ -576,7 +576,7 @@ packages:
         ^hdf5+szip+mpi+hl+fortran+cxx
         ^mumps+mpi+parmetis+metis+scotch+ptscotch
         ^parmetis ^metis@5.1.0+real64 ^scotch@6.0.6+esmumps+mpi~metis
-        ^python@2.7.16+tkinter
+        ^python@3.7.3+optimizations+tkinter
       # FIXME: - simpson@master ^gsl@2.1 ^nfft@3.3.2 ^fftw@3.3.4 ^tk@8.6.3 ^tcl@8.6.5
 
   mpi-lapack-applications:
