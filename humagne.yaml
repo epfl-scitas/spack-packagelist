@@ -459,18 +459,12 @@ packages:
     specs:
       - crystal17@1.0.2 
       - vasp@5.4.4
-      #       - namd fftw=mkl interface=python @2.12 ^charm backend=mpi ^python@2.7.16+tkinter
-      #       - amber@16+mpi ^netcdf-fortran ^netcdf@4.4.1.1+mpi ^hdf5+szip+mpi~cxx ^py-scipy@0.19.0 ^py-matplotlib@2.2.3 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13
-      #       - nwchem@6.8 ^netlib-scalapack@2.0.2 ^python@2.7.16+tkinter
-      #       # TODO: - caffe@1.0+python+opencv  ^hdf5+szip+mpi~cxx ^opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6 ^py-numpy+blas+lapack@1.12.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
-      #       # TODO: - gmsh@3.0.1+mpi+hdf5+fltk+compression ^hdf5+szip+mpi~cxx
-      - fenics@2019.1.0+petsc+hdf5~trilinos+suite-sparse+mpi~slepc
-        ^petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse
-        ^hdf5+szip+mpi+hl+fortran+cxx
-        ^mumps+mpi+parmetis+metis+scotch+ptscotch
-        ^parmetis ^metis@5.1.0+real64 ^scotch@6.0.6+esmumps+mpi~metis
-        ^python@3.7.3+optimizations+tkinter
-      #       # FIXME: - simpson@master ^gsl@2.1 ^nfft@3.3.2 ^fftw@3.3.4 ^tk@8.6.3 ^tcl@8.6.5
+      # - namd fftw=mkl interface=python @2.12 ^charm backend=mpi ^python@2.7.16+tkinter
+      # - amber@16+mpi ^netcdf-fortran ^netcdf@4.4.1.1+mpi ^hdf5+szip+mpi~cxx ^py-scipy@0.19.0 ^py-matplotlib@2.2.3 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13
+      # - nwchem@6.8 ^netlib-scalapack@2.0.2 ^python@2.7.16+tkinter
+      # TODO: - caffe@1.0+python+opencv  ^hdf5+szip+mpi~cxx ^opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6 ^py-numpy+blas+lapack@1.12.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
+      # TODO: - gmsh@3.0.1+mpi+hdf5+fltk+compression ^hdf5+szip+mpi~cxx
+      # FIXME: - simpson@master ^gsl@2.1 ^nfft@3.3.2 ^fftw@3.3.4 ^tk@8.6.3 ^tcl@8.6.5
 
   # Serial applications built with the Intel stack that use LAPACK
   intel-lapack-applications:
@@ -571,12 +565,6 @@ packages:
       #   ^py-numpy+blas+lapack@1.16.3
       #   ^python@3.7.3+optimizations+tkinter
       #   ^hdf5+szip+mpi+hl+fortran+cxx
-      - fenics@2019.1.0+petsc+hdf5~trilinos+suite-sparse+mpi~slepc
-        ^petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse
-        ^hdf5+szip+mpi+hl+fortran+cxx
-        ^mumps+mpi+parmetis+metis+scotch+ptscotch
-        ^parmetis ^metis@5.1.0+real64 ^scotch@6.0.6+esmumps+mpi~metis
-        ^python@3.7.3+optimizations+tkinter
       # FIXME: - simpson@master ^gsl@2.1 ^nfft@3.3.2 ^fftw@3.3.4 ^tk@8.6.3 ^tcl@8.6.5
 
   mpi-lapack-applications:
@@ -620,6 +608,12 @@ packages:
         +user-h5md +user-lb +user-misc +user-netcdf ~voronoi
         ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512
         ^netcdf+mpi ^hdf5+szip+mpi+hl+fortran+cxx
+      - fenics@2019.1.0+petsc+hdf5~trilinos+suite-sparse+mpi~slepc
+        ^petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse
+        ^hdf5+szip+mpi+hl+fortran+cxx
+        ^mumps+mpi+parmetis+metis+scotch+ptscotch
+        ^parmetis ^metis@5.1.0+real64 ^scotch@6.0.6+esmumps+mpi~metis
+        ^python@3.7.3+optimizations+tkinter
 
   gnu-openmpi-benchmark:
     target_matrix:
