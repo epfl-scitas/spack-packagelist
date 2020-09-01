@@ -6,7 +6,18 @@ pipeline {
         timestamps()
     }
 
+
+    environment {
+        STACK_RELEASE = "arvine"
+        SENV_VIRTUALENV_PATH = "/home/scitasbuild/humagne/virtualenv/senv-py27"
+        SPACK_CHECKOUT_DIR = "${sh(script:'jenkins/senv.sh spack-checkout-dir', returnStdout: true).trim()}"
+        SPACK_RELEASE = "${sh(script:'jenkins/senv.sh spack-release', returnStdout: true).trim()}"
+        SPACK_SCITAS_REPOSITORY = "${sh(script:'jenkins/senv.sh spackextra_repositories', returnStdout: true).trim()}"
+    }
+
     stages {
+        when( branch pattern: "(relases/${STACK_RELEASE}|.*/${STACK_RELEASE}/.*)", comparator: "REGEXP")
+
         stage('Update production configuration') {
             // Prepare a release branch of Spack for deployment by:
             //
@@ -19,16 +30,10 @@ pipeline {
                 label 'fidis-login'
             }
 
-            environment {
-                SPACK_CHECKOUT_DIR = "/ssoft/spack/humagne/spack.v1"
-                SPACK_SCITAS_REPOSITORY = "/ssoft/spack/humagne/scitas-repository"
-                SENV_VIRTUALENV_PATH = "/home/scitasbuild/humagne/virtualenv/senv-py27"
-            }
-
             steps {
                 // Checkout Spack
                 dir("${SPACK_CHECKOUT_DIR}") {
-                    git url: "https://github.com/epfl-scitas/spack.git", branch: "releases/humagne"
+                    git url: "https://github.com/spack/spack.git", branch: "${SPACK_RELEASE}"
                 }
 
                 // Checkout our internal repository
@@ -38,7 +43,7 @@ pipeline {
 
                 // Update the command line tool we use in production
                 // and configuration files
-                sh  'jenkins/deploy/scripts/update_production_configuration.sh'
+                sh 'jenkins/deploy/scripts/update_production_configuration.sh'
             }
         }
 
@@ -50,12 +55,6 @@ pipeline {
             //    python command
             // 2. Check if they are installed, and if not install them
             //
-
-            environment {
-                SPACK_CHECKOUT_DIR = "/ssoft/spack/humagne/spack.v1"
-                SENV_VIRTUALENV_PATH = "/home/scitasbuild/humagne/virtualenv/senv-py27"
-            }
-
             parallel {
                 stage('x86_E5v4_Mellanox') {
                     agent {
@@ -184,4 +183,31 @@ pipeline {
             }
         }
     }
+}
+
+
+def deploy_envs() {
+    environments = sh (script: "jenkins/scripts/deploy/senv.sh --list-envs --input ${STACK_RELEASE}.yaml").trim()
+    def tests = [:]
+    for (environment in environments) {
+        tests = stage("${environment}") {
+            agent {
+                label '${environment}'
+            }
+            steps {
+                sh  'jenkins/deploy/scripts/install_production_compilers.sh ${environment}'
+                sh  'jenkins/deploy/scripts/install_production_stack.sh ${environment}'
+            }
+            post {
+                always {
+                    archiveArtifacts artifacts:'*.txt, *.xml'
+                    junit testResults:'*.xml', allowEmptyResults:true
+                }
+                failure {
+                    mattermostSend color: 'warning', message: 'Prepare production stack failed for ${environment}. ${env.BUILD_URL}'
+                }
+            }
+        }
+    }
+    parallel tests
 }

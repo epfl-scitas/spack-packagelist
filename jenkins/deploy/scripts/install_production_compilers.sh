@@ -6,32 +6,32 @@
 # SPACK_CHECKOUT_DIR: path where Spack was cloned
 #
 
+environment=$1
+
 # Clean old test results from the workspace
-rm -f compilers.${SPACK_TARGET_TYPE}.xml
+mv -f compilers.${environment}.xml old_compilers.${environment}.xml
 
 # Produce a valid list of compilers
 . ${SENV_VIRTUALENV_PATH}/bin/activate
-senv compilers ${SPACK_TARGET_TYPE} --output compilers.${SPACK_TARGET_TYPE}.txt
-cat compilers.${SPACK_TARGET_TYPE}.txt
+senv --input ${STACK_RELEASE}.yaml \
+    list-compilers \
+    --env $environment
+
+if [ ! -e ${SPACK_CHECKOUT_DIR}/var/environments/${environment}/spack.yaml ]; then
+    senv --input ${STACK_RELEASE}.yaml \
+        create-env \
+        --bootstrap \
+        --env $environment
+fi
+
 deactivate
 
 # Source Spack and add the system compiler
 . ${SPACK_CHECKOUT_DIR}/share/spack/setup-env.sh
 spack --version
-spack compiler add --scope=site
 
-# Register Spack bootstrapped compilers
-to_be_installed=$(spack filter --implicit $(cat compilers.${SPACK_TARGET_TYPE}.txt))
-
-if [[ -z "${to_be_installed}" ]]
-then
-    echo "[${SPACK_TARGET_TYPE}] All compilers already installed"
-    cp resources/success.xml compilers.${SPACK_TARGET_TYPE}.xml
-else
-    spack spec -Il $(cat compilers.${SPACK_TARGET_TYPE}.txt)
-    spack install --log-format=junit --log-file=compilers.${SPACK_TARGET_TYPE}.xml $(cat compilers.${SPACK_TARGET_TYPE}.txt)
-    while read -r line
-    do
-        spack compiler add --scope=site --spec ${line}
-    done < compilers.${SPACK_TARGET_TYPE}.txt
-fi
+spack env activate ${environment}
+spack concretize --force
+spack install \
+    --log-format=junit \
+    --log-file=compilers.${environment}.xml \

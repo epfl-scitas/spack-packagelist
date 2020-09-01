@@ -4,6 +4,7 @@
 #
 # SENV_VIRTUALENV_PATH: path where to setup the virtualenv for "senv"
 # SPACK_CHECKOUT_DIR: path where Spack was cloned
+# STACK_RELEASE: version of the stack
 #
 
 SPACK_MIRROR_DIR=/ssoft/spack/mirror
@@ -14,23 +15,12 @@ spack --version
 
 . ${SENV_VIRTUALENV_PATH}/bin/activate
 
-# Generate the list of software that need to be installed, then fetch every tarball
-for target in $(senv targets)
-do
-    echo "[${target}] Computing list of packages"
-    senv packages ${target} --output="all_specs.${target}.txt"
+environments=$(senv --intput ${STACK_RELEASE}.yaml --list-envs)
 
-    echo "[${target}] Selecting the ones still to be installed"
-    # TODO: if concretization is slow this command could output also the yaml file
-    SPACK_TARGET_TYPE="${target}" spack filter --implicit $(cat all_specs.${target}.txt) > to_be_installed.${target}.txt
-    # TODO: stash concretized file to reduce deployment time later
-    #echo "[${target}] Writing concretized yaml file"
-    #spack spec -y $(cat to_be_installed.${target}.txt) > specs.${target}.yaml
-    # TODO: read directly from a yaml file to avoid concretization slowdowns
-    echo "[${target}] Populating central mirror"
-    while read -r line
-    do
-        echo "spack mirror create -D -d ${SPACK_MIRROR_DIR} ${line}"
-        SPACK_TARGET_TYPE="${target}" spack mirror create -D -d ${SPACK_MIRROR_DIR} ${line}
-    done < to_be_installed.${target}.txt
+# Generate the list of software that need to be installed, then fetch every tarball
+for environment in ${environments}
+do
+    spack env activate ${environment}
+    spack mirror create -D -d ${SPACK_MIRROR_DIR} -a
+    spack env deactivate
 done

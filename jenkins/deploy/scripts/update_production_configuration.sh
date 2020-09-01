@@ -7,6 +7,8 @@
 #
 
 # Recreate the virtualenv and update the command line
+#
+
 mkdir -p ${SENV_VIRTUALENV_PATH}
 virtualenv --version
 virtualenv -p $(which python) ${SENV_VIRTUALENV_PATH} --clear

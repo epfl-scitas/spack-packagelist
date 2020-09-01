@@ -1,0 +1,172 @@
+gcc:
+  environment:
+    set:
+     CC: gcc
+     CXX: g++
+     FC: gfortran
+     F90: gfortran
+     F77: gfortran
+
+llvm:
+  environment:
+    set:
+      CC: clang
+      CXX: clang++
+
+intel:
+  filter:
+    environment_blacklist:
+      - LD_LIBRARY_PATH
+      - CPATH
+      - CLASSPATH
+      - PS1
+  environment:
+    set:
+      CC: icc
+      CXX: icpc
+      FC: ifort
+      F90: ifort
+      F77: ifort
+intel:
+  environment:
+    prepend_path:
+      INTEL_LICENSE_FILE: /ssoft/spack/external/intel/License
+
+openmpi:
+  environment:
+    set:
+      SLURM_MPI_TYPE: pmi2
+      OMPI_MCA_btl_openib_warn_default_gid_prefix: '0'
+
+intel-mpi: # Default for Intel MPI
+  environment:
+    set:
+      I_MPI_ROOT: '${PREFIX}'
+      I_MPI_FABRICS: 'shm:ofa'
+      IPATH_NO_CPUAFFINITY: '1'
+      I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
+      I_MPI_EXTRA_FILESYSTEM: '1'
+      I_MPI_EXTRA_FILESYSTEM_LIST: gpfs
+      MPICC: mpiicc
+      MPICXX: mpiicpc
+      MPIF90: mpiifort
+      MPIF77: mpiifort
+      MPIFC: mpiifort
+
+mvapich2:
+  environment:
+    set:
+      MV2_ON_DEMAND_THRESHOLD: '1'
+      {% if environment.name == 'gacrux' or environment.name == 'helvetios' %}
+      MV2_IBA_HCA: mlx5_0
+      {% endif %}
+
+####
+# LAPACK
+####
+
+intel-mkl:
+  environment:
+    set:
+      MKLROOT: {{ environment.stable.intel.compiler_prefix }}/mkl
+      CMAKE_LIBRARY_PATH: {{ environment.stable.intel.compiler_prefix }}/mkl/lib/intel64
+
+'openblas threads=none':
+  environment:
+    set:
+      'OPENBLAS_NUM_THREADS': '1'
+
+####
+# Other software
+####
+
+quantum-espresso:
+  suffixes:
+    'hdf5=parallel': hdf5
+
+'amber@16':
+  environment:
+    set:
+      'AMBERHOME': '${PREFIX}/amber16'
+    prepend_path:
+      'PATH': '${PREFIX}/amber16/bin'
+      'LD_LIBRARY_PATH': '${PREFIX}/amber16/lib'
+
+comsol:
+  environment:
+    prepend_path:
+      MATLABPATH: '${PREFIX}/mli'
+
+crystal17:
+  template: 'modules/group_restricted.lua'
+
+cuda:
+  environment:
+    set:
+      CUDA_LIBRARY: '${PREFIX}/lib64'
+      CUDA_INCLUDE: '${PREFIX}/include'
+
+'hdf5~mpi+cxx':
+  environment:
+    set:
+      HDF5_CC: h5cc
+      HDF5_CXX: 'h5c++'
+      HDF5_FC: h5fc
+
+'hdf5+mpi~cxx':
+  environment:
+    set:
+      HDF5_CC: h5pcc
+      HDF5_FC: h5pfc
+
+plumed:
+  environment:
+    set:
+      PLUMED_KERNEL: '${PREFIX}/lib/libplumedKernel.so'
+    unset:
+      - PLUMED_ROOT
+molpro:
+  template: 'modules/group_restricted.lua'
+
+opencv:
+  environment:
+    prepend_path:
+      PYTHONPATH: '${PREFIX}/lib/python2.7/site-packages'
+
+scala:
+  autoload: 'direct'
+
+spark:
+  autoload: 'direct'
+  environment:
+    prepend_path:
+      PATH: '/ssoft/spack/scripts/all/spark'
+
+gaussian:
+  template: 'modules/group_restricted.lua'
+
+adf:
+  template: 'modules/group_restricted.lua'
+  load:
+  - 'intel'
+  - 'intel-mpi'
+
+fdtd:
+  environment:
+    prepend_path:
+      PATH: '${PREFIX}/mpich2/nemesis/bin'
+      LD_LIBRARY_PATH: '${PREFIX}/mpich2/nemesis/lib'
+    set:
+      SLURM_MPI_TYPE: pmi2
+
+metis:
+  suffixes:
+    ~real64: sp
+
+scons:
+  suffixes:
+    '^python@:2.99': py2
+    '^python@3:': py3
+
+vasp:
+  template: 'modules/group_restricted.lua'

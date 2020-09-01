@@ -1,0 +1,14 @@
+{% set spack_source_tree = spack_root +'/' + stack_release + '/spack.' + stack_version %}
+{% set spack_install_tree = spack_root +'/' + stack_release + '/' + stack_version %}
+config:
+  # Root of the installation tree
+  install_tree: {{ spack_install_tree }}/opt/spack/
+
+  module_roots:
+    lmod: {{ spack_install_tree }}/share/spack/lmod/
+    tcl: {{ spack_install_tree }}/share/spack/modules/
+
+  build_stage:
+    - {{ spack_root }}/tmp/{{ stack_release }}.{{ stack_version }}
+    - $tempdir/$user/spack-stage
+    - ~/.spack/stage

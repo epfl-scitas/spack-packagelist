@@ -6,27 +6,22 @@
 # SPACK_CHECKOUT_DIR: path where Spack was cloned
 #
 
+environment=$1
+
 # Clean the workspace
-rm -f stack.${SPACK_TARGET_TYPE}.xml
+rm -f stack.${environment}.xml
 
 # Produce a valid list of compilers
 . ${SENV_VIRTUALENV_PATH}/bin/activate
-senv stack ${SPACK_TARGET_TYPE} --output stack.${SPACK_TARGET_TYPE}.txt
-cat stack.${SPACK_TARGET_TYPE}.txt
+senv --input ${STACK_RELEASE}.yaml create-env --env ${env}
 deactivate
 
 # Source Spack and add the system compiler
 . ${SPACK_CHECKOUT_DIR}/share/spack/setup-env.sh
 spack --version
 
-# Register Spack bootstrapped compilers
-TO_BE_INSTALLED=$(spack filter --implicit $(cat stack.${SPACK_TARGET_TYPE}.txt))
+spack env activate ${environment}
 
-if [[ -n "$TO_BE_INSTALLED" ]]
-then
-    spack spec -Il ${TO_BE_INSTALLED}
-    spack install --log-format=junit --log-file=stack.${SPACK_TARGET_TYPE}.xml ${TO_BE_INSTALLED}
-else
-    echo $"[${SPACK_TARGET_TYPE} Stack already installed]"
-    cp resources/success.xml stack.${SPACK_TARGET_TYPE}.xml
-fi
+# Register Spack bootstrapped compilers
+spack concretize --force
+spack install --log-format=junit --log-file=stack.${environment}.xml

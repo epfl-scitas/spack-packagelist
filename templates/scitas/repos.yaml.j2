@@ -1,0 +1,3 @@
+{% for repo, info in extra_repos.items() %}
+- {{ info.path | absolute_path(prefix=[spack_root, stack_release, 'external_repos']) }}
+{% endfor %}

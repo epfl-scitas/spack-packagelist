@@ -1,0 +1,85 @@
+#
+# Variables for arvine
+#
+# To customise an environment add the name of the
+# environment and the value. Here we define a non
+# standard MPI for use with gcc in E5v1-IB
+#
+# gccmpi:
+#   default: openmpi
+#   E5v1-IB: mvapich2
+#
+
+# List of the environments to be managed
+spack_release: v0.15.2
+
+site: scitas
+
+stack_release: "arvine"
+stack_version: "v1"
+
+spack_root: /home/richart/test
+spack_external: external
+
+environments:
+  - "deneb"
+  - "eltanin"
+  - "fidis"
+  - "gacrux"
+  - "helvetios"
+  - "izar"
+
+mirrors:
+  local: spack-mirror
+
+extra_repos:
+  scitas-external:
+    repo: git@github.com:epfl-scitas/spack-repo-externals.git
+    path: scitas-repos-externals/scitasexternal
+  scitas-spack-packages:
+    repo: git@github.com:epfl-scitas/spack-repo-externals.git
+    path: scitas-repos-externals/scitas-spack-packages
+
+# default version of compilers mpi and openblas
+default_environment:
+  os: rhel7
+  cpu: intel
+
+  core_compiler: gcc@4.8.5 arch=linux-rhel7-haswell
+  compilers: [gcc, intel]
+  stack_types: [stable]
+
+  stable:
+    intel:
+      compiler: "intel@19.1.1"
+      mpi: "intel-mpi@2019.7.217"
+      blas: "intel-mkl@2020.0.1"
+      suite_version: '2020.1.217'
+      prefix: "external/intel/19.1.1"
+
+
+    gcc:
+      compiler: "gcc@8.4.0"
+      mpi: [ "mvapich2 process_managers=slurm fabrics=mrail threads=multiple" ]
+      blas: [ "openblas threads=none" ]
+
+izar:
+  stack_types: [stable]
+    #, bleeding_edge]
+  gpu: nvidia
+  stable:
+    gcc:
+      compiler: "gcc@8.4.0+nvptx+piclibs ^cuda@10.2.89"
+      mpi: [ "mvapich2 process_managers=slurm fabrics=mrail threads=multiple +cuda ^cuda@10.2.89" ]
+    cuda:
+      package: "cuda@10.2.89"
+      arch: "sm_70"
+
+#  bleeding_edge:
+#    gcc:
+#      compiler: "gcc@10.2.0+nvptx+piclibs ^cuda@11.0.2"
+#      mpi: [ "mvapich2-gdr process_managers=slurm +openacc ^cuda@11.0.2" ]
+#      blas: [ "openblas threads=none" ]
+#    cuda:
+#      package: "cuda@11.0.2"
+#      arch: "sm_70"

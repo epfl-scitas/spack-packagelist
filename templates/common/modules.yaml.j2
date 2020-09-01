@@ -1,0 +1,49 @@
+modules:
+  enable:
+    - tcl
+    - lmod
+  lmod:
+    hash_length: 0
+    core_compilers:
+      - {{ environment.core_compiler | filter_variant }}
+    hierarchy:
+      - mpi
+      - lapack
+
+    all:
+      suffixes:
+        {% filter indent(width=8, first=True) %}
+        {% include 'templates/common/modules_suffixes.yaml.j2' %}
+
+        {% include 'templates/{{ environment.name }}/modules_suffixes.yaml.j2' ignore missing %}
+        {% endfilter %}
+          
+      environment:
+        set:
+          ${PACKAGE}_ROOT: ${PREFIX}
+        unset: []
+
+      filter:
+        environment_blacklist: []
+
+    {% set spack_site_whitelist = 'templates/' + environment.name + '/modules_whitelist.yaml.j2' %}
+    {% if spack_site_whitelist | exists %}
+    whitelist:
+      {% filter indent(width=6, first=True) %}
+      {% include 'templates/{{ environment.name }}/modules_whitelist.yaml.j2' ignore missing %}
+      {% endfilter %}
+    {% endif %}
+
+    {% set spack_site_blacklist = 'templates/' + environment.name + '/modules_blacklist.yaml.j2' %}
+    {% if spack_site_blacklist | exists %}
+    blacklist:
+      {% filter indent(width=6, first=True) %}
+      {% include spack_site_blacklist %}
+      {% endfilter %}
+    {% endif %}
+    verbose: false
+    blacklist_implicits: {{ blacklist_implicits | default(true) }}
+
+    {% filter indent(width=4, first=True) %}
+    {% include 'templates/{{ environment.name }}/modules_lmod_specific.yaml.j2' ignore missing %}
+    {% endfilter %}

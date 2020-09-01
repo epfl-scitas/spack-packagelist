@@ -1,0 +1,47 @@
+{% set spack_source_tree = spack_root +'/' + stack_release + '/spack.' + stack_version %}
+{% set spack_install_tree = spack_root +'/' + stack_release + '/' + stack_version %}
+include:
+  - {{ spack_source_tree}}/etc/spack/compilers.yaml
+  - {{ spack_source_tree}}/etc/spack/packages.yaml
+  - {{ spack_source_tree}}/etc/spack/repos.yaml
+  - {{ spack_source_tree}}/etc/spack/modules.yaml
+  - {{ spack_source_tree}}/etc/spack/mirrors.yaml
+
+config:
+  install_tree: {{ spack_install_tree }}/opt/spack/
+      
+  module_roots:
+    lmod: {{ spack_install_tree }}/share/spack/lmod/{{ environment.name }}
+    tcl: {{ spack_install_tree }}/share/spack/modules/{{ environment.name }}
+
+  build_stage:
+    - {{ spack_root }}/tmp/
+    - $tempdir/$user/spack-stage
+    - ~/.spack/stage
+
+{% set spack_site_compilers = 'templates/' + site + '/compilers.yaml.j2' %}
+{% if spack_site_compilers | exists %}
+compilers:
+  {% include spack_site_compilers | indent %}
+{% endif %}
+
+{% set spack_site_packages = 'templates/' + site + '/packages.yaml.j2' %}
+packages:
+{% if spack_site_packages | exists %}
+  {% filter indent(width=2, first=True) %}
+  {% include spack_site_packages | indent %}
+  {% endfilter %}
+{% endif %}
+
+{% set spack_site_repos = 'templates/' + site + '/repos.yaml.j2' %}
+{% if spack_site_repos | exists %}
+repos:
+  {% include spack_site_repos | indent %}
+{% endif %}
+
+{% set spack_site_modules = 'templates/' + site + '/modules.yaml.j2' %}
+{% if spack_site_modules | exists %}
+  {% include spack_site_modules %}
+{% else %}
+  {% include 'templates/common/modules.yaml.j2' %}
+{% endif %}
