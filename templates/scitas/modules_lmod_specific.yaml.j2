@@ -61,6 +61,11 @@ mvapich2:
       MV2_IBA_HCA: mlx5_0
       {% endif %}
 
+"mvapich2+cuda":
+  environment:
+    set:
+      MV2_USE_GPU: 1
+
 ####
 # LAPACK
 ####

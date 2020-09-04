@@ -1,10 +1,10 @@
 -gcc-name={{ gcc.compiler_prefix }}/bin/gcc #
--isystem{{intel.prefix}}/compiler/include/intel64 #
--isystem{{intel.prefix}}/compiler/include/icc #
--isystem{{intel.prefix}}/compiler/include #
--Xlinker -L{{intel.prefix}}/compiler/lib/intel64 #
--Xlinker -L{{intel.prefix}}/compiler/lib/intel64_lin #
--Xlinker -rpath={{intel.prefix}}/compiler/lib/intel64 #
--Xlinker -rpath={{intel.prefix}}/compiler/lib/intel64_lin #
--Xlinker -rpath={{intel.prefix}}/mpi/intel64/libfabric/lib/ #
+-isystem{{intel.compiler_prefix}}/compiler/include/intel64 #
+-isystem{{intel.compiler_prefix}}/compiler/include/icc #
+-isystem{{intel.compiler_prefix}}/compiler/include #
+-Xlinker -L{{intel.compiler_prefix}}/compiler/lib/intel64 #
+-Xlinker -L{{intel.compiler_prefix}}/compiler/lib/intel64_lin #
+-Xlinker -rpath={{intel.compiler_prefix}}/compiler/lib/intel64 #
+-Xlinker -rpath={{intel.compiler_prefix}}/compiler/lib/intel64_lin #
+-Xlinker -rpath={{intel.compiler_prefix}}/mpi/intel64/libfabric/lib/ #
 -Xlinker -rpath={{ gcc.compiler_prefix }}/lib64 #

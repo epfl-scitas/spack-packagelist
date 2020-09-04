@@ -231,7 +231,7 @@ class SpackEnvs(object):
             self.spack_install_root,
             _absolust_path(self.configuration['spack_external'],
                            prefix=self.configuration['spack_root'])))
-        
+
         for line in spack_find.stdout:
             match = path_re.match(line)
             if match:
