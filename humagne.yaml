@@ -343,6 +343,10 @@ packages:
     specs:
       - arpack-ng~mpi
       - suite-sparse ^metis@5.1.0+real64
+      - superlu
+      - armadillo+hdf5
+        ^hdf5+szip~mpi+hl+fortran+cxx
+        ^arpack-ng~mpi
 
   # MPI code that doesn't use LAPACK
   mpi:
