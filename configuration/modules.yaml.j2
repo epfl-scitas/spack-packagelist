@@ -1,0 +1,28 @@
+modules:
+  enable:
+    - tcl
+    - lmod
+  lmod:
+    hash_length: 0
+    core_compilers:
+      - {{ environment.core_compiler | filter_variant }}
+    hierarchy:
+      - mpi
+    all:
+      suffixes:
+        +mpi: mpi
+        +openmp: openmp
+        threads=openmp: openmp
+        ^fftw+openmp: openmp
+        +cuda: cuda
+        +nvptx: nvptx
+        hdf5=parallel: h5
+        '^python@:2.99': py2
+      environment:
+        set:
+          ${PACKAGE}_ROOT: ${PREFIX}
+        unset: []
+
+      filter:
+        environment_blacklist: []
+

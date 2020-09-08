@@ -188,23 +188,28 @@ class SpackEnvs(object):
             pass
 
         for _type in customisation['environment']['stack_types']:
+            if _type not in customisation['environment']:
+                continue
+
             for compiler in customisation['environment'][_type]:
                 stack = customisation['environment'][_type][compiler]
-                if 'compiler' in stack and 'compiler_prefix' not in stack:
-                    spec_compiler = self._compiler_name(
-                        stack['compiler'],
-                        customisation
-                    )
+                if 'compiler' not in stack or 'compiler_prefix' in stack:
+                    continue
 
-                    if cache and spec_compiler in cache:
-                        spack_path = cache[spec_compiler]
-                    else:
-                        spack_path = self._spack_path(spec_compiler,
-                                                      environment)
+                spec_compiler = self._compiler_name(
+                    stack['compiler'],
+                    customisation
+                )
 
-                    if spack_path is not None:
-                        customisation['environment'][_type][compiler]['compiler_prefix'] = spack_path
-                        cache[spec_compiler] = spack_path
+                if cache and spec_compiler in cache:
+                    spack_path = cache[spec_compiler]
+                else:
+                    spack_path = self._spack_path(spec_compiler,
+                                                  environment)
+
+                if spack_path is not None:
+                    customisation['environment'][_type][compiler]['compiler_prefix'] = spack_path
+                    cache[spec_compiler] = spack_path
         with open(cache_file, 'w') as fh:
             yaml.dump(cache, fh)
         return customisation

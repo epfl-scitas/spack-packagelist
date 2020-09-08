@@ -8,8 +8,6 @@ modules:
       - {{ environment.core_compiler | filter_variant }}
     hierarchy:
       - mpi
-      - lapack
-
     all:
       suffixes:
         {% filter indent(width=8, first=True) %}

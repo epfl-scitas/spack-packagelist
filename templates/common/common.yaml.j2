@@ -41,7 +41,7 @@ repos:
 
 {% set spack_site_modules = 'templates/' + site + '/modules.yaml.j2' %}
 {% if spack_site_modules | exists %}
-  {% include spack_site_modules %}
+  {% include spack_site_modules | indent %}
 {% else %}
-  {% include 'templates/common/modules.yaml.j2' %}
+  {% include 'templates/common/modules.yaml.j2' | indent %}
 {% endif %}
