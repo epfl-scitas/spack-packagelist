@@ -25,3 +25,6 @@ spack env activate ${environment}
 # Register Spack bootstrapped compilers
 spack concretize --force
 spack install --log-format=junit --log-file=stack.${environment}.xml
+
+# not really sure why modules are not created
+spack module lmod refresh -y

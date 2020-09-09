@@ -43,7 +43,7 @@ def _compiler(value, component='cc'):
                    'f90': 'flang'}}
     return _compilers[value][component]
 
-def _absolust_path(value, prefix=None):
+def _absolut_path(value, prefix=None):
     if os.path.isabs(value):
         return value
     if prefix is None:
@@ -129,7 +129,7 @@ class SpackEnvs(object):
             lambda x: x if isinstance(x, list) else [x]
         self.spack_env.filters['filter_variant'] = _filter_variant
         self.spack_env.filters['compiler'] = _compiler
-        self.spack_env.filters['absolute_path'] = _absolust_path
+        self.spack_env.filters['absolute_path'] = _absolut_path
         self.spack_env.globals['cuda_variant'] = _cuda_variant
 
     def _create_jinja_environment(self, template_path=None):
@@ -195,7 +195,7 @@ class SpackEnvs(object):
                 stack = customisation['environment'][_type][compiler]
                 if 'compiler' not in stack or 'compiler_prefix' in stack:
                     continue
-
+                
                 spec_compiler = self._compiler_name(
                     stack['compiler'],
                     customisation
@@ -234,7 +234,7 @@ class SpackEnvs(object):
 
         path_re = re.compile('.*(({0}|{1}).*)$'.format(
             self.spack_install_root,
-            _absolust_path(self.configuration['spack_external'],
+            _absolut_path(self.configuration['spack_external'],
                            prefix=self.configuration['spack_root'])))
 
         for line in spack_find.stdout:
@@ -244,10 +244,14 @@ class SpackEnvs(object):
 
         return None
 
-    def compilers(self, environment):
+    def compilers(self, environment, stack_type=None):
         customisation = self._get_env_customisation(environment)
         compilers = []
-        for _type in customisation['environment']['stack_types']:
+        if stack_type is not None:
+            stack_types = [stack_type]
+        else:
+            stack_types = customisation['environment']['stack_types']
+        for _type in stack_types:
             for name, stack in customisation['environment'][_type].items():
                 if 'compiler' in stack:
                     compilers.append(self._compiler_name(stack['compiler'],
@@ -280,6 +284,9 @@ class SpackEnvs(object):
         with open(os.path.join(spack_yaml_root, 'spack.yaml'), 'w+') as f:
             f.write(spack_env_template.render(customisation))
 
+    def spack_release(self):
+        print(self.configuration['spack_release'])
+
     def spack_checkout_dir(self):
         print(os.path.join(
             self.configuration['spack_root'],
@@ -287,7 +294,21 @@ class SpackEnvs(object):
             'spack.{}'.format(self.configuration['stack_version'])))
 
     def spack_external_dir(self):
-        print(self.configuration['spack_external'])
+        print(_absolut_path(self.configuration['spack_external'],
+                            prefix=self.configuration['spack_root']))
+
+    def list_extra_repositories(self):
+        repositories = []
+        for item in self.configuration['extra_repos']:
+            repo = self.configuration['extra_repos'][item]
+            repo['name'] = item
+            repo['path'] = _absolut_path(
+                repo['path'],
+                prefix=[self.configuration['spack_root'],
+                        self.configuration['stack_release'],
+                        'external_repos'])
+            repositories.append(repo)
+        print(yaml.dump(repositories))
 
     def install_spack_default_configuration(self):
         jinja_file_re = re.compile('(.*\.ya?ml)\.j2$')
@@ -350,10 +371,12 @@ def list_envs(ctxt):
 
 @senv.command()
 @click.option('--env', help='Environment to list the compiler for')
+@click.option('--stack-type', help='Stack type: stable, bleeding_edge',
+              default=None, required=False)
 @click.pass_context
-def list_compilers(ctxt, env):
+def list_compilers(ctxt, env, stack_type):
     spack_envs = SpackEnvs(ctxt.parent.configuration)
-    compilers = spack_envs.compilers(env)
+    compilers = spack_envs.compilers(env, stack_type)
     for compiler in compilers:
         print('{}'.format(compiler))
 
@@ -378,6 +401,12 @@ def create_envs(ctxt, bootstrap):
 
 @senv.command()
 @click.pass_context
+def spack_release(ctxt):
+    spack_envs = SpackEnvs(ctxt.parent.configuration)
+    spack_envs.spack_release()
+
+@senv.command()
+@click.pass_context
 def spack_checkout_dir(ctxt):
     spack_envs = SpackEnvs(ctxt.parent.configuration)
     spack_envs.spack_checkout_dir()
@@ -387,6 +416,12 @@ def spack_checkout_dir(ctxt):
 def spack_external_dir(ctxt):
     spack_envs = SpackEnvs(ctxt.parent.configuration)
     spack_envs.spack_external_dir()
+
+@senv.command()
+@click.pass_context
+def list_extra_repositories(ctxt):
+    spack_envs = SpackEnvs(ctxt.parent.configuration)
+    spack_envs.list_extra_repositories()
 
 @senv.command()
 @click.pass_context

@@ -1,5 +1,8 @@
 pipeline {
-    agent none
+    agent {
+        label 'fidis-login'
+    }
+
 
     // Adds timestamps to console logs
     options {
@@ -12,7 +15,6 @@ pipeline {
         SENV_VIRTUALENV_PATH = "/home/scitasbuild/humagne/virtualenv/senv-py27"
         SPACK_CHECKOUT_DIR = "${sh(script:'jenkins/senv.sh spack-checkout-dir', returnStdout: true).trim()}"
         SPACK_RELEASE = "${sh(script:'jenkins/senv.sh spack-release', returnStdout: true).trim()}"
-        SPACK_SCITAS_REPOSITORY = "${sh(script:'jenkins/senv.sh spackextra_repositories', returnStdout: true).trim()}"
     }
 
     stages {
@@ -25,21 +27,16 @@ pipeline {
             // 2. Updating our internal Spack repository
             // 3. Copying the latest configuration files in place
             //
-
-            agent {
-                label 'fidis-login'
-            }
-
             steps {
                 // Checkout Spack
                 dir("${SPACK_CHECKOUT_DIR}") {
                     git url: "https://github.com/spack/spack.git", branch: "${SPACK_RELEASE}"
                 }
 
-                // Checkout our internal repository
-                dir("${SPACK_SCITAS_REPOSITORY}") {
-                    git url: "https://github.com/epfl-scitas/spack-repo-externals.git", branch: "master"
+                dir("${SPACK_CHECKOUT_DIR}/../external_repos") {
+                    git url: "http://github.com/epfl-scitas/spack-repo-externals.git"
                 }
+                // checkout_extra_dirs();
 
                 // Update the command line tool we use in production
                 // and configuration files
@@ -54,45 +51,7 @@ pipeline {
             // 1. Compute which compilers are needed using a
             //    python command
             // 2. Check if they are installed, and if not install them
-            //
-            parallel {
-                stage('x86_E5v4_Mellanox') {
-                    agent {
-                        label 'x86_E5v4_Mellanox.rh76.slurm1905.humagne'
-                    }
-                    steps {
-                        sh  'jenkins/deploy/scripts/install_production_compilers.sh'
-                        sh  'jenkins/deploy/scripts/install_production_stack.sh'
-                    }
-                    post {
-                        always {
-                            archiveArtifacts artifacts:'*.txt, *.xml'
-                            junit testResults:'*.xml', allowEmptyResults:true
-                        }
-                        failure {
-                            mattermostSend color: 'warning', message: 'Prepare production stack failed for x86_E5v4_Mellanox. ${env.BUILD_URL}'
-                        }
-                    }
-                }
-                stage('x86_S6g1_Mellanox') {
-                    agent {
-                        label 'x86_S6g1_Mellanox.rh76.slurm1905.humagne'
-                    }
-                    steps {
-                        sh  'jenkins/deploy/scripts/install_production_compilers.sh'
-                        sh  'jenkins/deploy/scripts/install_production_stack.sh'
-                    }
-                    post {
-                        always {
-                            archiveArtifacts artifacts:'*.txt, *.xml'
-                            junit testResults:'*.xml', allowEmptyResults:true
-                        }
-                        failure {
-                            mattermostSend color: 'warning', message: 'Prepare production stack failed for x86_S6g1_Mellanox. ${env.BUILD_URL}'
-                        }
-                    }
-                }
-            }
+            prepare_compilers()
         }
 
         stage('Populate mirror') {
@@ -102,89 +61,54 @@ pipeline {
             // to build it in a mirror.
 
             // TODO: the agent below must have access to the network
-            agent {
-                label 'fidis-login'
-            }
-
-            environment {
-                SPACK_CHECKOUT_DIR = "/ssoft/spack/humagne/spack.v1"
-                SENV_VIRTUALENV_PATH = "/home/scitasbuild/humagne/virtualenv/senv-py27"
-            }
-
             steps {
                 sh 'jenkins/deploy/scripts/populate_mirror.sh'
-                stash name:'x86_E5v4_Mellanox', includes: 'to_be_installed.x86_E5v4_Mellanox.txt'
-                stash name:'x86_S6g1_Mellanox', includes: 'to_be_installed.x86_S6g1_Mellanox.txt'
             }
-            post {
-                always {
-                    archiveArtifacts artifacts:'*.txt, *.yaml'
-                }
-                failure {
-                    mattermostSend color: 'warning', message: 'Populate mirror failed. ${env.BUILD_URL}'
-                }
-            }
-
         }
 
         stage('Deploy software') {
             // Deploy the software that is planned to be in the environment,
             // but not yet installed. Notify failures.
 
-            environment {
-                SPACK_CHECKOUT_DIR = "/ssoft/spack/humagne/spack.v1"
-                SENV_VIRTUALENV_PATH = "/home/scitasbuild/humagne/virtualenv/senv-py27"
-            }
-
-            parallel {
-                stage('x86_E5v4_Mellanox') {
-                    agent {
-                        label 'x86_E5v4_Mellanox.rh76.slurm1905.humagne'
-                    }
-
-                    steps {
-                        unstash name: 'x86_E5v4_Mellanox'
-                        sh 'jenkins/deploy/scripts/deploy_in_production.sh'
-                        echo 'Notify failures somewhere'
-                    }
-
-                    post {
-                        always {
-                            archiveArtifacts artifacts:'*.txt, *.xml'
-                            junit testResults:'*.xml', allowEmptyResults:true
-                        }
-                        failure {
-                            mattermostSend color: 'warning', message: 'Deploy software failed for x86_E5v4_Mellanox. ${env.BUILD_URL}'
-                        }
-                    }
-                }
-
-                stage('x86_S6g1_Mellanox') {
-                    agent {
-                        label 'x86_S6g1_Mellanox.rh76.slurm1905.humagne'
-                    }
-
-                    steps {
-                        unstash name: 'x86_S6g1_Mellanox'
-                        sh 'jenkins/deploy/scripts/deploy_in_production.sh'
-                        echo 'Notify failures somewhere'
-                    }
-
-                    post {
-                        always {
-                            archiveArtifacts artifacts:'*.txt, *.xml'
-                            junit testResults:'*.xml', allowEmptyResults: true
-                        }
-                        failure {
-                            mattermostSend color: 'warning', message: 'Deploy software failed for x86_S6g1_Mellanox. ${env.BUILD_URL}'
-                        }
-                    }
-                }
-            }
+            deploy_envs()
         }
     }
 }
 
+def checkout_extra_dirs() {
+    list_repositories =  readYaml text: (sh (script: 'jenkins/senv.sh list-extra-repositories').trim())
+
+    list_repositories.each {
+        dir(it.path) {
+            git url: it.repo
+        }
+    }
+}
+
+def prepare_compilers() {
+    environments = sh (script: "jenkins/scripts/deploy/senv.sh --list-envs --input ${STACK_RELEASE}.yaml").trim()
+    def tests = [:]
+    for (environment in environments) {
+        tests = stage("${environment}") {
+            agent {
+                label '${environment}'
+            }
+            steps {
+                sh  'jenkins/deploy/scripts/install_production_compilers.sh ${environment}'
+            }
+            post {
+                always {
+                    archiveArtifacts artifacts:'*.txt, *.xml'
+                    junit testResults:'*.xml', allowEmptyResults:true
+                }
+                failure {
+                    mattermostSend color: 'warning', message: 'Prepare production stack failed for ${environment}. ${env.BUILD_URL}'
+                }
+            }
+        }
+    }
+    parallel tests
+}
 
 def deploy_envs() {
     environments = sh (script: "jenkins/scripts/deploy/senv.sh --list-envs --input ${STACK_RELEASE}.yaml").trim()
@@ -195,7 +119,6 @@ def deploy_envs() {
                 label '${environment}'
             }
             steps {
-                sh  'jenkins/deploy/scripts/install_production_compilers.sh ${environment}'
                 sh  'jenkins/deploy/scripts/install_production_stack.sh ${environment}'
             }
             post {
@@ -204,7 +127,7 @@ def deploy_envs() {
                     junit testResults:'*.xml', allowEmptyResults:true
                 }
                 failure {
-                    mattermostSend color: 'warning', message: 'Prepare production stack failed for ${environment}. ${env.BUILD_URL}'
+                    mattermostSend color: 'warning', message: 'Deployement of production stack failed for ${environment}. ${env.BUILD_URL}'
                 }
             }
         }

@@ -17,5 +17,4 @@ pip install --force-reinstall -U .
 senv --help
 
 # Copy configuration files into the correct place
-cp -v configuration/* ${SPACK_CHECKOUT_DIR}/etc/spack/
-cp -v -r external/* /ssoft/spack/external/
+senv --input ${STACK_RELEASE}.yaml install-spack-default-configuration

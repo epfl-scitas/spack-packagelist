@@ -75,7 +75,7 @@ spack:
       - fastqc
       - fio
       - git-lfs
-#      - i7z # to put in epfl-scitas packages
+      - i7z
       - libtool
       - lmod
       - m4
@@ -120,16 +120,21 @@ spack:
       - valgrind~boost~mpi
       - voropp
       {% if environment.gpu == 'nvidia' %}
+      - {{ environment.stable.cuda.package }}
       - cudnn ^ {{ environment.stable.cuda.package }}
       {% endif %}
 
     - serial_packages_lapack:
       - arpack-ng~mpi
+      - armadillo+hdf5
+        ^arpack-ng~mpi
+        ^hdf5+szip~mpi+hl+fortran+cxx
       - gmsh~mpi+hdf5
         ^hdf5+szip~mpi+hl+fortran+cxx
       - magma {{ cuda_variant(environment, dep=True) }}
       - suite-sparse {{ cuda_variant(environment, dep=True) }}
         ^metis+real64
+      - superlu
 
     - gcc_serial_packages_lapack:
       - octave
@@ -139,7 +144,7 @@ spack:
     - serial_packages_python_freetype:
       - bowtie2
       - boost cxxstd=14 +icu~mpi+python+numpy
-      - hwloc +cairo {{ cuda_variant(environment, dep=True, extra_on='+nvml'}}
+      - hwloc +cairo {{ cuda_variant(environment, arch=False, dep=True, extra_on='+nvml') }}
         ^cairo+png+pdf+fc+ft
       - iq-tree@1.6.12
         ^boost cxxstd=14 +icu~mpi+python+numpy
