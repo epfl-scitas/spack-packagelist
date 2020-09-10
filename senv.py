@@ -102,14 +102,18 @@ class SpackEnvs(object):
         if prefix is None:
             prefix = self.configuration['spack_root']
 
-        self.spack_source_root = os.path.join(
-            prefix,
-            self.configuration['stack_release'],
-            'spack.{0}'.format(self.configuration['stack_version']))
-        self.spack_install_root = os.path.join(
-            prefix,
-            self.configuration['stack_release'],
-            self.configuration['stack_version'])
+        if 'stack_release' in self.configuration and 'stack_version' in self.configuration:
+            self.spack_source_root = os.path.join(
+                prefix,
+                self.configuration['stack_release'],
+                'spack.{0}'.format(self.configuration['stack_version']))
+            self.spack_install_root = os.path.join(
+                prefix,
+                self.configuration['stack_release'],
+                self.configuration['stack_version'])
+        else:
+            self.spack_source_root = os.path.join(prefix, 'spack')
+            self.spack_install_root = os.path.join(prefix, 'spack')
 
         self.spack_environment_root = os.path.join(
             self.spack_source_root,
@@ -177,9 +181,9 @@ class SpackEnvs(object):
                 self.configuration[environment])
 
         # adds the compiler prefixes if they do not exists
-        cache_file = '.{0}.{1}_cache.yaml'.format(
+        cache_file = '.{0}{1}_cache.yaml'.format(
             self.configuration['stack_release'],
-            self.configuration['stack_version'])
+            '.{0}'.format(self.configuration['stack_version']) if 'stack_version' in self.configuration else '')
         cache = {}
         try:
             with open(cache_file, 'r') as fh:
@@ -238,7 +242,7 @@ class SpackEnvs(object):
                            prefix=self.configuration['spack_root'])))
 
         for line in spack_find.stdout:
-            match = path_re.match(line)
+            match = path_re.match(line.decode('ascii'))
             if match:
                 return match.group(1)
 
@@ -288,10 +292,7 @@ class SpackEnvs(object):
         print(self.configuration['spack_release'])
 
     def spack_checkout_dir(self):
-        print(os.path.join(
-            self.configuration['spack_root'],
-            self.configuration['stack_release'],
-            'spack.{}'.format(self.configuration['stack_version'])))
+        print(self.spack_source_root)
 
     def spack_external_dir(self):
         print(_absolute_path(self.configuration['spack_external'],
