@@ -1,5 +1,11 @@
-{% set spack_source_tree = spack_root +'/' + stack_release + '/spack.' + stack_version %}
-{% set spack_install_tree = spack_root +'/' + stack_release + '/' + stack_version %}
+{% if stack_release and stack_version %}
+   {% set spack_source_tree = spack_root +'/' + stack_release + '/spack.' + stack_version %}
+   {% set spack_install_tree = spack_root +'/' + stack_release + '/' + stack_version %}
+{% else %}
+   {% set spack_source_tree = spack_root + '/' + 'spack' %}
+   {% set spack_install_tree = spack_root +'/' + 'spack' %}
+{% endif %}
+
 include:
   - {{ spack_source_tree}}/etc/spack/compilers.yaml
   - {{ spack_source_tree}}/etc/spack/packages.yaml
@@ -28,7 +34,7 @@ compilers:
 {% set spack_site_packages = 'templates/' + site + '/packages.yaml.j2' %}
 packages:
 {% if spack_site_packages | exists %}
-  {% filter indent(width=2, first=True) %}
+  {% filter indent(width=2, indentfirst=True) %}
   {% include spack_site_packages | indent %}
   {% endfilter %}
 {% endif %}
@@ -37,6 +43,11 @@ packages:
 {% if spack_site_repos | exists %}
 repos:
   {% include spack_site_repos | indent %}
+{% elif extra_repos %}
+repos:
+  {% for repo, info in extra_repos.items() %}
+- {{ info.path | absolute_path(prefix=[spack_root, stack_release, 'external_repos']) }}
+  {% endfor %}
 {% endif %}
 
 {% set spack_site_modules = 'templates/' + site + '/modules.yaml.j2' %}

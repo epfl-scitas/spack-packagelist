@@ -1,0 +1,21 @@
+{% set spack_external_root = spack_external | absolute_path(prefix=spack_root) %}
+
+cmake:
+  version: [3.16.5]
+
+openssl:
+  externals:
+    - spec: openssl@develop
+      prefix: /usr
+
+jdk:
+  externals:
+    - spec: jdk@1.8.0_222-b10
+      prefix: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64/
+
+slurm:
+  externals:
+    - spec: slurm@ 19.05.3-2
+      prefix: /usr
+
+

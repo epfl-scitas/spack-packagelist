@@ -1,0 +1,71 @@
+#
+# Main stack definition for arvine
+#
+
+# List of the environments to be managed
+spack_release: develop
+stack_release: phoenix
+
+site: scitas
+
+spack_root: /scratch/software/
+spack_external: external
+
+environments:
+  - "skylake_avx512_v100"
+  - "zen2_radeon"
+  - "cascadelake_nec"
+  - "zen"
+  - "broadwell_p100"
+
+mirrors:
+  local: .spack-mirror
+
+extra_repos:
+  scitas-external:
+    repo: http://github.com/epfl-scitas/spack-repo-externals.git
+    path: scitas-repos-externals/
+    tag: releases/arvine
+  scitas-spack-packages:
+    repo: http://github.com/epfl-scitas/scitas-spack-packages.git
+    path: scitas-spack-packages/
+    tag: releases/arvine
+
+# default version of compilers mpi and openblas
+default_environment:
+  os: rhel7
+  cpu: intel
+
+  # compiler contains the arch since it is the highest arch this compiler can
+  # compile for
+  core_compiler: gcc@4.8.5 arch=linux-rhel7-sandybridge
+  compilers: [gcc, intel]
+  stack_types: [stable]
+
+  stable:
+    intel:
+      compiler: "intel@20.0.1"
+      mpi: "intel-mpi@2019.7.217"
+      blas: "intel-mkl@2020.1.217"
+
+    gcc:
+      compiler: "gcc@9.3.0"
+      mpi: [ "mvapich2 process_managers=slurm fabrics=mrail threads=multiple" ]
+      blas: [ "openblas threads=none" ]
+
+skylake_avx512_v100:
+  gpu: nvidia
+  stable:
+    gcc:
+      compiler: "gcc@9.3.0+nvptx+piclibs ^cuda@10.2.89"
+      mpi: [ "mvapich2 process_managers=slurm fabrics=mrail threads=multiple +cuda ^cuda@10.2.89" ]
+    cuda:
+      package: "cuda@10.2.89"
+      arch: "sm_70"
+
+zen2_radeon:
+  cpu: amd
+  gpu: amd
+
+zen:
+  cpu: amd
