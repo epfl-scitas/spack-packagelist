@@ -8,6 +8,7 @@ setup(
         'Click',
         'PyYAML',
         'Jinja2',
+        'GitPython',
     ],
     entry_points='''
         [console_scripts]

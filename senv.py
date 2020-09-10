@@ -19,6 +19,7 @@ import datetime
 import jinja2
 import yaml
 import shutil
+import git
 from collections import MutableMapping
 import subprocess
 try:
@@ -296,7 +297,24 @@ class SpackEnvs(object):
 
     def spack_external_dir(self):
         print(_absolute_path(self.configuration['spack_external'],
-                            prefix=self.configuration['spack_root']))
+                             prefix=self.configuration['spack_root']))
+
+    def spack_checkout(self):
+        git.Repo.clone_from('https://github.com/spack/spack.git', self.spack_source_root,
+                            branch=self.configurationp['spack_release'])
+
+    def spack_checkout_extra_repos(self):
+        if 'extra_repos' not in self.configuration:
+            return
+
+        for repo in self.configuration['extra_repos']:
+            info = self.configuration['extra_repos'][repo]
+            options={}
+            if tag in info:
+                options['branch'] = info[tag]
+            git.Repo.clone_from(info['repo'],
+                                _absolute_path(info['path'], prefix=self.configuration['spack_root']),
+                                **tag)
 
     def list_extra_repositories(self):
         repositories = []
@@ -436,3 +454,15 @@ def install_spack_default_configuration(ctxt):
 def intel_compilers_configuration(ctxt, env):
     spack_envs = SpackEnvs(ctxt.parent.configuration)
     spack_envs.intel_compilers_configuration(env)
+
+@senv.command()
+@click.pass_context
+def spack_checkout(ctxt, env):
+    spack_envs = SpackEnvs(ctxt.parent.configuration)
+    spack_envs.spack_checkout()
+
+@senv.command()
+@click.pass_context
+def spack_checkout_extra_repos(ctxt, env):
+    spack_envs = SpackEnvs(ctxt.parent.configuration)
+    spack_envs.spack_checkout_extra_repos()
