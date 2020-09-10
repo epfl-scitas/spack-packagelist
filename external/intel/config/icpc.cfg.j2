@@ -1,10 +1,11 @@
+{% set prefix = intel.compiler_prefix +  '/compilers_and_libraries_' + intel.suite_version + '/linux/bin/intel64' %}
 -gxx-name={{ gcc.compiler_prefix }}/bin/g++ #
--isystem{{intel.compiler_prefix}}/compiler/include/intel64 #
--isystem{{intel.compiler_prefix}}/compiler/include/icc #
--isystem{{intel.compiler_prefix}}/compiler/include #
--Xlinker -L{{intel.compiler_prefix}}/compiler/lib/intel64 #
--Xlinker -L{{intel.compiler_prefix}}/compiler/lib/intel64_lin #
--Xlinker -rpath={{intel.compiler_prefix}}/compiler/lib/intel64 #
--Xlinker -rpath={{intel.compiler_prefix}}/compiler/lib/intel64_lin #
--Xlinker -rpath={{intel.compiler_prefix}}/mpi/intel64/libfabric/lib/ #
+-isystem{{prefix}}/compiler/include/intel64 #
+-isystem{{prefix}}/compiler/include/icc #
+-isystem{{prefix}}/compiler/include #
+-Xlinker -L{{prefix}}/compiler/lib/intel64 #
+-Xlinker -L{{prefix}}/compiler/lib/intel64_lin #
+-Xlinker -rpath={{prefix}}/compiler/lib/intel64 #
+-Xlinker -rpath={{prefix}}/compiler/lib/intel64_lin #
+-Xlinker -rpath={{prefix}}/mpi/intel64/libfabric/lib/ #
 -Xlinker -rpath={{ gcc.compiler_prefix }}/lib64 #
