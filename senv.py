@@ -305,9 +305,13 @@ class SpackEnvs(object):
                              prefix=self.configuration['spack_root']))
 
     def spack_checkout(self):
-        git.Repo.clone_from('https://github.com/spack/spack.git', self.spack_source_root,
-                            branch=self.configurationp['spack_release'],
-                            progress=CloneProgress())
+        if os.path.exists(self.spack_source_root):
+            repo = git.Repo(self.spack_source_root)
+            repo.remotes.origin.pull(progress=CloneProgress())
+        else:
+            git.Repo.clone_from('https://github.com/spack/spack.git', self.spack_source_root,
+                                branch=self.configuration['spack_release'],
+                                progress=CloneProgress())
 
     def spack_checkout_extra_repos(self):
         if 'extra_repos' not in self.configuration:
@@ -315,12 +319,19 @@ class SpackEnvs(object):
 
         for repo in self.configuration['extra_repos']:
             info = self.configuration['extra_repos'][repo]
+            repo_path = _absolute_path(info['path'],
+                                       prefix=[self.configuration['spack_root'],
+                                               self.configuration['stack_release'],
+                                               'external_repos']),
+
             options={ 'progress': CloneProgress() }
-            if 'tag' in info:
-                options['branch'] = info['tag']
-            git.Repo.clone_from(info['repo'],
-                                _absolute_path(info['path'], prefix=self.configuration['spack_root']),
-                                **options)
+            if os.path.exists(repo_path):
+                repo = git.Repo(self.spack_source_root)
+                repo.remotes.origin.pull(**options)
+            else:
+                if 'tag' in info:
+                    options['branch'] = info['tag']
+                    git.Repo.clone_from(info['repo'], repo_path, **options)
 
     def list_extra_repositories(self):
         repositories = []
