@@ -27,6 +27,11 @@ try:
 except ImportError:
     DEVNULL = open(os.devnull, 'wb')
 
+class CloneProgress(git.RemoteProgress):
+    def update(self, op_code, cur_count, max_count=None, message=''):
+        if message:
+            print(message)
+
 
 def _compiler(value, component='cc'):
     _compilers = {
@@ -301,7 +306,8 @@ class SpackEnvs(object):
 
     def spack_checkout(self):
         git.Repo.clone_from('https://github.com/spack/spack.git', self.spack_source_root,
-                            branch=self.configurationp['spack_release'])
+                            branch=self.configurationp['spack_release'],
+                            progress=CloneProgress())
 
     def spack_checkout_extra_repos(self):
         if 'extra_repos' not in self.configuration:
@@ -309,12 +315,12 @@ class SpackEnvs(object):
 
         for repo in self.configuration['extra_repos']:
             info = self.configuration['extra_repos'][repo]
-            options={}
-            if tag in info:
-                options['branch'] = info[tag]
+            options={ 'progress': CloneProgress() }
+            if 'tag' in info:
+                options['branch'] = info['tag']
             git.Repo.clone_from(info['repo'],
                                 _absolute_path(info['path'], prefix=self.configuration['spack_root']),
-                                **tag)
+                                **options)
 
     def list_extra_repositories(self):
         repositories = []
@@ -457,12 +463,12 @@ def intel_compilers_configuration(ctxt, env):
 
 @senv.command()
 @click.pass_context
-def spack_checkout(ctxt, env):
+def spack_checkout(ctxt):
     spack_envs = SpackEnvs(ctxt.parent.configuration)
     spack_envs.spack_checkout()
 
 @senv.command()
 @click.pass_context
-def spack_checkout_extra_repos(ctxt, env):
+def spack_checkout_extra_repos(ctxt):
     spack_envs = SpackEnvs(ctxt.parent.configuration)
     spack_envs.spack_checkout_extra_repos()
