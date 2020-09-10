@@ -322,7 +322,7 @@ class SpackEnvs(object):
             repo_path = _absolute_path(info['path'],
                                        prefix=[self.configuration['spack_root'],
                                                self.configuration['stack_release'],
-                                               'external_repos']),
+                                               'external_repos'])
 
             options={ 'progress': CloneProgress() }
             if os.path.exists(repo_path):

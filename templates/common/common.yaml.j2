@@ -21,7 +21,11 @@ config:
     tcl: {{ spack_install_tree }}/share/spack/modules/{{ environment.name }}
 
   build_stage:
-    - {{ spack_root }}/tmp/
+    {% if stack_version %}
+    - {{ spack_root }}/tmp/{{ stack_release }}.{{ stack_version }}
+    {% else %}
+    - {{ spack_root }}/tmp/{{ stack_release }}
+    {% endif %}
     - $tempdir/$user/spack-stage
     - ~/.spack/stage
 
