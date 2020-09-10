@@ -343,6 +343,7 @@ packages:
     specs:
       - arpack-ng~mpi
       - suite-sparse ^metis@5.1.0+real64
+      - superlu
 
   # MPI code that doesn't use LAPACK
   mpi:
@@ -507,6 +508,9 @@ packages:
       - lapack
     specs:
       - r+external-lapack
+      - armadillo+hdf5
+        ^hdf5+szip~mpi+hl+fortran+cxx
+        ^arpack-ng~mpi
 
   # MPI applications built with the GNU stable stack
   gnu-mpi-applications:

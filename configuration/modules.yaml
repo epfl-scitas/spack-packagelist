@@ -62,6 +62,7 @@ modules:
     whitelist: [
       'adf',
       'ansys',
+      'armadillo',
       'autoconf%gcc@4.8.5',
       'automake%gcc@4.8.5',
       'beast',
@@ -113,6 +114,7 @@ modules:
       'smr',
       'spark',
       'sra-toolkit',
+      'superlu',
       'tar%gcc@4.8.5',
       'tensorflow',
       'tmux',
