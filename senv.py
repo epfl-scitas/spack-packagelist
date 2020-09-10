@@ -144,12 +144,8 @@ class SpackEnvs(object):
 
     def _create_jinja_environment(self, template_path=None):
         if template_path is None:
-            template_path = os.path.join(
-                'templates', self.configuration['site'],
-                '{0}.yaml.j2'.format(self.configuration['stack_release']))
-
+            template_path = os.path.join('templates', 'common', 'spack.yaml.j2')
         return self.spack_env.get_template(template_path)
-
 
     def _dict_merge(self, d1, d2):
         '''

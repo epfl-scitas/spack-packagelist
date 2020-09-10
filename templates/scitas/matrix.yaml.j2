@@ -1,0 +1,34 @@
+- matrix:
+  - [${{compiler}}_python2]
+  - [$^{{compiler}}_stable_blas]
+  - [$%{{compiler}}_stable_compiler]
+
+- matrix:
+  - [$serial_python2_minimal_support]
+  - [$^{{compiler}}_python2]
+  - [^py-setuptools@44.1.0]
+  - [$^{{compiler}}_stable_blas]
+  - [$%{{compiler}}_stable_compiler]
+
+- matrix:
+  - [${{compiler}}_mpi_lapack_python2_packages]
+  - [$^{{compiler}}_python2]
+  - [$^{{compiler}}_stable_blas]
+  - [$^{{compiler}}_stable_mpi]
+  {% if environment.gpu == 'nvidia' and compiler == 'intel' %}
+  - [^{{environment.stable.cuda.package }}]
+  {% endif %}
+  - [$%{{compiler}}_stable_compiler]
+
+- matrix:
+  - [$benchmarks]
+  - [$%{{compiler}}_stable_compiler]
+
+- matrix:
+  - [$mpi_benchmarks]
+  - [$^{{compiler}}_stable_blas]
+  - [$^{{compiler}}_stable_mpi]
+  {% if environment.gpu == 'nvidia' and compiler == 'intel' %}
+  - [^{{environment.stable.cuda.package }}]
+  {% endif %}
+  - [$%{{compiler}}_stable_compiler]

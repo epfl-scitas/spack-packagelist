@@ -1,0 +1,190 @@
+# This is a Spack Environment file.
+#
+# It describes a set of packages to be installed, along with
+# configuration settings.
+#
+# {{ info_message }}
+#
+# {{ warning }}
+#
+
+spack:
+
+  {% filter indent(width=2, first=True) %}
+    {% set common_site_template = 'templates/' + site + '/common.yaml.j2' %}
+    {% if common_site_template | exists %}
+      {% include common_site_template | indent %}
+    {% else %}
+      {% include 'templates/common/common.yaml.j2' %}
+    {% endif %}
+  {% endfilter %}
+
+
+  definitions:
+    - core_compiler: {{ environment.core_compiler | list_if_not }}
+{% for type in environment.stack_types %}
+  {% for compiler, stack in environment[type].items() %}
+    {% if 'compiler' in stack %}
+    - {{compiler}}_{{type}}_compiler: {{ stack.compiler | list_if_not | filter_variant }}
+    - {{compiler}}_{{type}}_mpi: {{ stack.mpi | list_if_not }}
+    - {{compiler}}_{{type}}_blas: {{ stack.blas | list_if_not }}
+
+    - {{compiler}}_{{type}}_base_stack:
+        - ${{compiler}}_{{type}}_blas
+        - ${{compiler}}_{{type}}_mpi
+    {%endif %}
+  {% endfor %}
+
+  {% set compiler_list = environment[type].items() | map(attribute=1) | selectattr('compiler') | map(attribute='compiler') | list %}
+    - {{type}}_compilers: {{ compiler_list | filter_variant }}
+
+    - {{type}}_compilers_not_filtered: {{ compiler_list }}
+{% endfor %}
+
+    - base_gpu_packages:
+      {% if environment.gpu == 'nvidia' %}
+        {% for type in environment.stack_types %}
+          {% if 'cuda' in environment[type] %}
+      - {{ environment[type].cuda.package }}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+
+{% set definition_site_template = 'templates/' + site + '/' + stack_release + '.yaml.j2' %}
+{% filter indent(width=4, first=True) %}
+  {% include definition_site_template %}
+{% endfilter %}
+
+  specs:
+  - matrix:
+    - [$base_gpu_packages]
+    - [$%core_compiler]
+
+{% for type in environment.stack_types %}
+  # {{type}} base compilers
+  - matrix:
+    - [${{type}}_compilers_not_filtered]
+    - [$%core_compiler]
+{% endfor %}
+
+{% if not environment.bootstrap %}
+  {% for type in environment.stack_types %}
+  # {{type}} base compilers
+  - matrix:
+    - [${{type}}_compilers_not_filtered]
+    - [$%core_compiler]
+    {% for compiler, stack in environment[type].items() %}
+    {% if 'compiler' in stack %}
+  # {{type}} stack for {{compiler}} (MPI, Blas)
+  - matrix:
+    - [${{compiler}}_{{type}}_base_stack]
+    - [$%{{compiler}}_{{type}}_compiler]
+    {% endif %}
+    {% endfor %}
+  {% endfor %}
+
+  # Core packages
+  - matrix:
+    - [$core_packages]
+    - [$%core_compiler]
+
+{% for compiler in environment.compilers %}
+  - matrix:
+    - [$serial_packages]
+    - [$%{{compiler}}_stable_compiler]
+
+  - matrix:
+    - [${{compiler}}_serial_packages]
+    - [$%{{compiler}}_stable_compiler]
+
+  - matrix:
+    - [$serial_packages_lapack]
+    - [$^{{compiler}}_stable_blas]
+    - [$%{{compiler}}_stable_compiler]
+
+  - matrix:
+    - [${{compiler}}_serial_packages_lapack]
+    - [$^{{compiler}}_stable_blas]
+    - [$%{{compiler}}_stable_compiler]
+
+  - matrix:
+    - [${{compiler}}_python3]
+    - [$^{{compiler}}_stable_blas]
+    - [$%{{compiler}}_stable_compiler]
+
+  - matrix:
+    - [$serial_packages_python]
+    - [$^{{compiler}}_python3]
+    - [$^{{compiler}}_stable_blas]
+    - [$%{{compiler}}_stable_compiler]
+
+  - matrix:
+    - [${{compiler}}_serial_packages_python]
+    - [$^{{compiler}}_python3]
+    - [$^{{compiler}}_stable_blas]
+    - [$%{{compiler}}_stable_compiler]
+
+  - matrix:
+    - [$mpi_packages]
+    - [$^{{compiler}}_stable_mpi]
+    - [$%{{compiler}}_stable_compiler]
+
+  - matrix:
+    - [${{compiler}}_mpi_packages]
+    - [$^{{compiler}}_stable_blas]
+    - [$^{{compiler}}_stable_mpi]
+    {% if environment.gpu == 'nvidia' and compiler == 'intel' %}
+    - [^{{environment.stable.cuda.package }}]
+    {% endif %}
+    - [$%{{compiler}}_stable_compiler]
+
+  - matrix:
+    - [$mpi_lapack_packages]
+    - [$^{{compiler}}_stable_blas]
+    - [$^{{compiler}}_stable_mpi]
+    {% if environment.gpu == 'nvidia' and compiler == 'intel' %}
+    - [^{{environment.stable.cuda.package }}]
+    {% endif %}
+    - [$%{{compiler}}_stable_compiler]
+
+  - matrix:
+    - [${{compiler}}_mpi_lapack_packages]
+    - [$^{{compiler}}_stable_blas]
+    - [$^{{compiler}}_stable_mpi]
+    {% if environment.gpu == 'nvidia' and compiler == 'intel' %}
+    - [^{{environment.stable.cuda.package }}]
+    {% endif %}
+    - [$%{{compiler}}_stable_compiler]
+
+  - matrix:
+    - [$mpi_lapack_python_packages]
+    - [$^{{compiler}}_python3]
+    - [$^{{compiler}}_stable_blas]
+    - [$^{{compiler}}_stable_mpi]
+    {% if environment.gpu == 'nvidia' and compiler == 'intel' %}
+    - [^{{environment.stable.cuda.package }}]
+    {% endif %}
+    - [$%{{compiler}}_stable_compiler]
+
+  - matrix:
+    - [${{compiler}}_mpi_lapack_python_packages]
+    - [$^{{compiler}}_python3]
+    - [$^{{compiler}}_stable_blas]
+    - [$^{{compiler}}_stable_mpi]
+    {% if environment.gpu == 'nvidia' and compiler == 'intel' %}
+    - [^{{environment.stable.cuda.package }}]
+    {% endif %}
+    - [$%{{compiler}}_stable_compiler]
+
+{% set matrix_site_template = 'templates/' + site + '/matrix.yaml.j2' %}
+{% if matrix_site_template | exists %}
+{% filter indent(width=2, first=True) %}
+  {% include matrix_site_template %}
+{% endfilter %}
+{% endif %}
+
+{% endfor %}
+#
+{% endif %}
+
+  view: false

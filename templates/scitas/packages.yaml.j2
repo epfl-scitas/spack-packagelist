@@ -1,11 +1,8 @@
-{% set spack_env_packages = 'templates/' + site + '/' + environment.name + '/packages.yaml.j2' %}
+{% set spack_env_packages = 'templates/' + site + '/' + stack_release + '/' + environment.name + '/packages.yaml.j2' %}
 {% set spack_stack_packages = 'templates/' + site + '/' + stack_release + '/packages.yaml.j2' %}
-{% set spack_release_packages = 'templates/' + site + '/packages_' + spack_release + '.yaml.j2' %}
 
 {% if spack_env_packages | exists %}
   {% include spack_env_packages | indent %}
 {% elif spack_stack_packages | exists %}
   {% include spack_stack_packages | indent %}
-{% elif spack_release_packages | exists %}
-  {% include spack_release_packages | indent %}
 {% endif %}

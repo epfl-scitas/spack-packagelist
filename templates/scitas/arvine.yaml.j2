@@ -1,686 +1,470 @@
-# This is a Spack Environment file.
-#
-# It describes a set of packages to be installed, along with
-# configuration settings.
-#
-# {{ info_message }}
-#
-# {{ warning }}
-#
+- python3: [ python@3.7.7+optimizations+tkinter ]
+- python2: [ python@2.7.18+tkinter ]
+- pythons:
+  - python2
+  - python3
 
-spack:
+- gcc_python3:
+  - python@3.7.7+optimizations+tkinter
+- intel_python3:
+  - python@3.7.7+optimizations+tkinter ^freetype@2.7.1 ^fontconfig@2.12.1
 
-  {% filter indent(width=2, first=True) %}
-    {% set common_site_template = 'templates/' + site + '/common.yaml.j2' %}
-    {% if common_site_template | exists %}
-      {% include common_site_template | indent %}
-    {% else %}
-      {% include 'templates/common/common.yaml.j2' %}
-    {% endif %}
-  {% endfilter %}
+- gcc_python2:
+  - python@2.7.18+tkinter
+- intel_python2:
+  - python@2.7.18+tkinter ^freetype@2.7.1 ^fontconfig@2.12.1
 
+- core_packages:
+  - cmake@3.16.5
+  - git
+  - autoconf
+  - automake
+  - curl
+  - fastqc
+  - fio
+  - git-lfs
+  - i7z
+  - libtool
+  - lmod
+  - m4
+  - parallel
+  - picard
+  - sbt
+  - sratoolkit
+  - tar
+  - tmux
+  - trimmomatic
 
-  definitions:
-    - core_compiler: {{ environment.core_compiler | list_if_not }}
-{% for type in environment.stack_types %}
-  {% for compiler, stack in environment[type].items() %}
-    {% if 'compiler' in stack %}
-    - {{compiler}}_{{type}}_compiler: {{ stack.compiler | list_if_not | filter_variant }}
-    - {{compiler}}_{{type}}_mpi: {{ stack.mpi | list_if_not }}
-    - {{compiler}}_{{type}}_blas: {{ stack.blas | list_if_not }}
+- serial_packages:
+  - angsd
+  - bedtools2
+  - bwa
+  # - chip-seq
+  - eigen
+  - fastqc
+  - fftw ~mpi+openmp
+  - fftw ~mpi~openmp
+  # - freebayes
+  - gsl
+  - hdf5+szip~mpi+hl+fortran+cxx
+  - hisat2
+  - htslib
+  - intel-tbb
+  - mafft
+  - metis+real64
+  - muscle
+  - netcdf-c~mpi
+    ^hdf5+szip~mpi+hl+fortran+cxx
+  - netcdf-fortran~mpi
+    ^netcdf-c~mpi
+    ^hdf5+szip~mpi+hl+fortran+cxx
+  # - nfft
+  #   ^fftw ~mpi~openmp
+  - scotch+esmumps~metis~mpi
+  - stacks
+  - star
+  - subread
+  - tcl
+  - valgrind~boost~mpi
+  - voropp
+  {% if environment.gpu == 'nvidia' %}
+  - {{ environment.stable.cuda.package }}
+  - cudnn ^ {{ environment.stable.cuda.package }}
+  {% endif %}
 
-    - {{compiler}}_{{type}}_base_stack:
-        - ${{compiler}}_{{type}}_blas
-        - ${{compiler}}_{{type}}_mpi
-    {%endif %}
-  {% endfor %}
+- gcc_serial_packages:
+  - openblas threads=openmp
 
-  {% set compiler_list = environment[type].items() | map(attribute=1) | selectattr('compiler') | map(attribute='compiler') | list %}
-    - {{type}}_compilers: {{ compiler_list | filter_variant }}
+- intel_serial_packages:
 
-    - {{type}}_compilers_not_filtered: {{ compiler_list }}
-{% endfor %}
+- serial_packages_lapack:
+  - arpack-ng~mpi
+  - gmsh~mpi+hdf5
+    ^hdf5+szip~mpi+hl+fortran+cxx
+  - suite-sparse {{ cuda_variant(environment, dep=True) }}
+    ^metis+real64
+  - superlu
 
-    - python3: [ python@3.7.7+optimizations+tkinter ]
-    - python2: [ python@2.7.18+tkinter ]
-    - pythons:
-      - python2
-      - python3
+- gcc_serial_packages_lapack:
+  - armadillo+hdf5
+    ^arpack-ng~mpi
+    ^hdf5+szip~mpi+hl+fortran+cxx
+  - magma {{ cuda_variant(environment, dep=True) }}
+  - octave
 
-    - base_gpu_packages:
-        {% if environment.gpu == 'nvidia' %}
-          {% for type in environment.stack_types %}
-            {% if 'cuda' in environment[type] %}
-      - {{ environment[type].cuda.package }}
-            {% endif %}
-          {% endfor %}
-        {% endif %}
+- intel_serial_packages_lapack:
 
-    - gcc_python3:
-      - python@3.7.7+optimizations+tkinter
-    - intel_python3:
-      - python@3.7.7+optimizations+tkinter ^freetype@2.7.1 ^fontconfig@2.12.1
+- serial_packages_python:
+  - bowtie2
+  - boost cxxstd=14 +icu~mpi+python+numpy
+  - hwloc +cairo {{ cuda_variant(environment, arch=False, dep=True, extra_on='+nvml') }}
+    ^cairo+png+pdf+fc+ft
+  - iq-tree@1.6.12
+    ^boost cxxstd=14 +icu~mpi+python+numpy
+  - iq-tree@2.0.6
+    ^boost cxxstd=14 +icu~mpi+python+numpy
+  - mercurial
+  - ninja
+  - prinseq-lite
+    ^cairo+png+pdf+fc+ft
+  - py-biopython
+  - py-cutadapt
+  - py-cython
+  - py-deeptools
+  - py-matplotlib
+  - py-numpy
+  - py-pandas
+  - py-pip
+  - py-ply
+  - py-pybind11
+  - py-scikit-learn
+  - py-scipy
+  - py-statsmodels
+  - py-sympy
+  - py-theano {{ cuda_variant(environment, dep=True) }}
+  - py-virtualenv
+  - py-xarray
+  - samtools
+  - scons
+  - snakemake
 
-    - gcc_python2:
-      - python@2.7.18+tkinter
-    - intel_python2:
-      - python@2.7.18+tkinter ^freetype@2.7.1 ^fontconfig@2.12.1
+- serial_python2_minimal_support:
+  - py-pip
+  - py-virtualenv
+  - jellyfish
 
-    - core_packages:
-      - cmake@3.16.5
-      - git
-      - autoconf
-      - automake
-      - curl
-      - fastqc
-      - fio
-      - git-lfs
-      - i7z
-      - libtool
-      - lmod
-      - m4
-      - parallel
-      - picard
-      - sbt
-      - sratoolkit
-      - tar
-      - tmux
-      - trimmomatic
+- gcc_serial_packages_python:
+  - bcl2fastq2
+  - blast-plus@2.9.0
+  - gdb
+  - glpk+gmp
+  - libgd
+  - mummer
+    ^cairo+png+pdf+ft+fc
+  - ncview
+    ^netcdf-c~mpi
+    ^hdf5+szip~mpi+hl+fortran+cxx
+  #  Skipping build of polymake since perl-term-readline-gnu failed
+  # - polymake@3.5
+  - openbabel +python
+    ^cairo+png+pdf+fc+ft
+    ^boost cxxstd=14 +icu~mpi+python+numpy
+  - py-torch +tbb {{ cuda_variant(environment, extra_on='+magma',
+                     extra_off='~cudnn~nccl', dep=True) }}
+  {% if environment.gpu == 'nvidia' %}
+    ^magma {{ cuda_variant(environment) }}
+  {%endif%}
+  # - qt +opengl+webkit
+  #   ^cairo+png+pdf+fc+ft
+  - r +external-lapack ^openjdk@11.0.2
+    ^cairo+png+pdf+ft+fc
+  # depends on java@8
+  #- gatk
+  #  ^r +external-lapack ^openjdk@11.0.2
+  #  ^cairo+png+pdf+ft+fc
+  - spades
+  - vtk+ffmpeg~mpi+opengl2+python~qt+xdmf{%+ if environment.gpu != 'nvidia' %}+osmesa{%+ endif %}
+    ^netcdf-c~mpi
+    ^hdf5+szip~mpi+hl+fortran+cxx
+    ^boost cxxstd=14 +icu~mpi+python+numpy
+    ^llvm {{cuda_variant(environment)}}
 
-    - serial_packages:
-      - angsd
-      - bedtools2
-      - bwa
-      # - chip-seq
-      - eigen
-      - fastqc
-      - fftw ~mpi+openmp
-      - fftw ~mpi~openmp
-      # - freebayes
-      - gsl
-      - hdf5+szip~mpi+hl+fortran+cxx
-      - hisat2
-      - htslib
-      - intel-tbb
-      - mafft
-      - metis+real64
-      - muscle
-      - netcdf-c~mpi
-        ^hdf5+szip~mpi+hl+fortran+cxx
-      - netcdf-fortran~mpi
-        ^netcdf-c~mpi
-        ^hdf5+szip~mpi+hl+fortran+cxx
-      # - nfft
-      #   ^fftw ~mpi~openmp
-      - scotch+esmumps~metis~mpi
-      - stacks
-      - star
-      - subread
-      - tcl
-      - valgrind~boost~mpi
-      - voropp
-      {% if environment.gpu == 'nvidia' %}
-      - {{ environment.stable.cuda.package }}
-      - cudnn ^ {{ environment.stable.cuda.package }}
-      {% endif %}
+- intel_serial_packages_python:
+  - openbabel +python
+    ^harfbuzz@2.1.3
+    ^cairo+png+pdf+fc+ft
+    ^boost cxxstd=14 +icu~mpi+python+numpy
+  # does not compile
+  # - py-torch ~nccl~cuda~cudnn+mkldnn+tbb
+  # - qt +opengl+webkit~tools
+  #   ^harfbuzz@2.1.3
+  #   ^cairo+png+pdf+fc+ft
+  - r +external-lapack ^openjdk@11.0.2
+    ^harfbuzz@2.1.3
+    ^cairo+png+pdf+fc+ft
 
-    - gcc_serial_packages:
-      - openblas threads=openmp
+- external_packages:
+  # - adf@2017.111
+  # - ansys@19.2
+  # - cfdplusplus@19.1
+  # - comsol@5.3
+  # - comsol@5.4
+  # - fdtd@8.20.1703
+  # - gaussian@g16-A.03
+  # - gurobi@8.1.1
+  # - likwid@4.3.0
+  # - maple@2017
+  # - mathematica@11.1.1
+  # - matlab@R2019b
+  # - smr@2017.06
+  # - totalview@2017.2.11
+- intel_external_packages:
+  # - abaqus
 
-    - intel_serial_packages:
+- gcc_external_packages:
 
-    - serial_packages_lapack:
-      - arpack-ng~mpi
-      - gmsh~mpi+hdf5
-        ^hdf5+szip~mpi+hl+fortran+cxx
-      - suite-sparse {{ cuda_variant(environment, dep=True) }}
-        ^metis+real64
-      - superlu
+- mpi_packages:
+  - arpack-ng+mpi
+  - hdf5+szip+mpi+hl+fortran+cxx
+  - netcdf-c+mpi
+    ^hdf5+szip+mpi+hl+fortran+cxx
+  - netcdf-fortran+mpi
+    ^netcdf-c+mpi
+    ^hdf5+szip+mpi+hl+fortran+cxx
+  - phylobayesmpi
+  # problem with a symlink at install
+  # - foam-extend+metis+scotch+parmetis+ptscotch~paraview
+  #   ^metis+real64
+  #   ^scotch+esmumps+mpi~metis
 
-    - gcc_serial_packages_lapack:
-      - armadillo+hdf5
-        ^arpack-ng~mpi
-        ^hdf5+szip~mpi+hl+fortran+cxx
-      - magma {{ cuda_variant(environment, dep=True) }}
-      - octave
+- mpi_lapack_packages:
+  - elpa
+  - gmsh+openmp+hdf5
+    ^hdf5+szip+mpi+hl+fortran+cxx
+  - hypre {{ cuda_variant(environment, arch=False) }}
+  - parmetis
+    ^metis+real64
+  - quantum-espresso+mpi+scalapack
+  - quantum-espresso+mpi+scalapack hdf5=parallel
+    ^hdf5+szip+mpi+hl+fortran+cxx
+  - scotch+esmumps+mpi~metis
+  - superlu-dist
+    ^parmetis
+    ^metis+real64
 
-    - intel_serial_packages_lapack:
+- mpi_lapack_python_packages:
+  - boost cxxstd=14 +icu+mpi+python+numpy
+  - cgal
+    ^boost cxxstd=14 +icu+mpi+python+numpy
+  - iq-tree@1.6.12+mpi
+    ^boost cxxstd=14 +icu+mpi+python+numpy
+  - neuron+mpi+python+shared
+  - plumed+mpi+gsl
+  - py-h5py
+    ^hdf5+szip+mpi+hl+fortran+cxx
+  - py-mpi4py
 
-    - serial_packages_python:
-      - bowtie2
-      - boost cxxstd=14 +icu~mpi+python+numpy
-      - hwloc +cairo {{ cuda_variant(environment, arch=False, dep=True, extra_on='+nvml') }}
-        ^cairo+png+pdf+fc+ft
-      - iq-tree@1.6.12
-        ^boost cxxstd=14 +icu~mpi+python+numpy
-      - iq-tree@2.0.6
-        ^boost cxxstd=14 +icu~mpi+python+numpy
-      - mercurial
-      - ninja
-      - prinseq-lite
-        ^cairo+png+pdf+fc+ft
-      - py-biopython
-      - py-cutadapt
-      - py-cython
-      - py-deeptools
-      - py-matplotlib
-      - py-numpy
-      - py-pandas
-      - py-pip
-      - py-ply
-      - py-pybind11
-      - py-scikit-learn
-      - py-scipy
-      - py-statsmodels
-      - py-sympy
-      - py-theano {{ cuda_variant(environment, dep=True) }}
-      - py-virtualenv
-      - py-xarray
-      - samtools
-      - scons
-      - snakemake
+- gcc_mpi_packages:
+  - cpmd~openmp
+    ^fftw+mpi~openmp
+  #  not enough space on /tmp
+  # - cp2k+mpi~plumed {{ cuda_variant(environment) }}
+  # - cp2k+mpi+plumed {{ cuda_variant(environment) }}
+  #   ^plumed+mpi+gsl
+  - fftw+mpi+openmp
+  - fftw+mpi~openmp
+  - yambo+mpi io=iotk,etsf-io
+    ^fftw+mpi~openmp
+    ^netcdf-fortran+mpi
+    ^netcdf-c+mpi
+    ^hdf5+szip+mpi+hl+fortran+cxx
 
-    - serial_python2_minimal_support:
-      - py-pip
-      - py-virtualenv
-      - jellyfish
+- gcc_mpi_lapack_packages:
+  - abinit~hdf5~openmp+mpi+scalapack
+    ^netlib-scalapack
+  - elmerfem+mumps+openmp+hypre
+    ^mumps+mpi+parmetis+metis+scotch+ptscotch
+    ^parmetis
+    ^metis+real64
+    ^scotch+esmumps+mpi~metis
+    ^netlib-scalapack
+    ^netcdf-fortran+mpi
+    ^netcdf-c+mpi
+    ^hdf5+szip+mpi+hl+fortran+cxx
+  - gromacs+mpi {{ cuda_variant(environment, arch=False) }}
+  - mumps+mpi+parmetis+metis+scotch+ptscotch
+    ^parmetis
+    ^metis+real64
+    ^scotch+esmumps+mpi~metis
+    ^netlib-scalapack
+  - netlib-scalapack
+  # - vasp@5.4.4
+  #   ^fftw+mpi~openmp
+  #   ^ntelib-scalapack
 
-    - gcc_serial_packages_python:
-      - bcl2fastq2
-      - blast-plus@2.9.0
-      - gdb
-      - glpk+gmp
-      - libgd
-      - mummer
-        ^cairo+png+pdf+ft+fc
-      - ncview
-        ^netcdf-c~mpi
-        ^hdf5+szip~mpi+hl+fortran+cxx
-      #  Skipping build of polymake since perl-term-readline-gnu failed
-      # - polymake@3.5
-      - openbabel +python
-        ^cairo+png+pdf+fc+ft
-        ^boost cxxstd=14 +icu~mpi+python+numpy
-      - py-torch +tbb {{ cuda_variant(environment, extra_on='+magma',
-                         extra_off='~cudnn~nccl', dep=True) }}
-      {% if environment.gpu == 'nvidia' %}
-        ^magma {{ cuda_variant(environment) }}
-      {%endif%}
-      # - qt +opengl+webkit
-      #   ^cairo+png+pdf+fc+ft
-      - r +external-lapack ^openjdk@11.0.2
-        ^cairo+png+pdf+ft+fc
-      # depends on java@8
-      #- gatk
-      #  ^r +external-lapack ^openjdk@11.0.2
-      #  ^cairo+png+pdf+ft+fc
-      - spades
-      - vtk+ffmpeg~mpi+opengl2+python~qt+xdmf{%+ if environment.gpu != 'nvidia' %}+osmesa{%+ endif %}
-        ^netcdf-c~mpi
-        ^hdf5+szip~mpi+hl+fortran+cxx
-        ^boost cxxstd=14 +icu~mpi+python+numpy
-        ^llvm {{cuda_variant(environment)}}
+- gcc_mpi_lapack_python_packages:
+  - adios2+hdf5+mpi+python
+    ^hdf5+szip+mpi+hl+fortran+cxx
+  - fenics~parmetis+hdf5+scotch+suite-sparse~vtk~trilinos
+    ^slepc+arpack
+    ^arpack-ng+mpi
+    ^petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse{{ cuda_variant(environment, arch=False) }}
+    ^mumps+mpi+parmetis+metis+scotch+ptscotch
+    ^parmetis
+    ^metis+real64
+    ^scotch+esmumps+mpi~metis
+    ^netlib-scalapack
+    ^hdf5+szip+mpi+hl+fortran+cxx
+    ^suite-sparse {{ cuda_variant(environment) }}
+    ^hypre {{ cuda_variant(environment, arch=False) }}
+  - gromacs@2019.4+mpi+plumed {{ cuda_variant(environment, arch=False) }}
+    ^plumed+mpi+gsl
+  - lammps build_type=Release
+    +asphere +body +class2 +colloid +compress +coreshell
+    +dipole +granular +kspace +latte +lib +manybody +mc
+    +misc +molecule +mpi +mpiio +peri ~poems +python +qeq  +replica +rigid +shock +snap +srd
+    +user-atc +user-h5md +user-lb +user-misc +user-netcdf +voronoi {{ cuda_variant(environment) }}
+    ^netcdf-c+mpi
+    ^hdf5+szip+mpi+hl+fortran+cxx
+  - openfoam +metis
+    ^adios2+mpi+python+hdf5
+    ^hdf5+szip+mpi+hl+fortran+cxx
+    ^metis+real64
+    ^scotch+esmumps+mpi~metis
+    ^boost cxxstd=14 +icu+mpi+python+numpy
+  # problem with {{ cuda_variant(environment) }}
+  - paraview +shared +python3 +hdf5 {%+ if environment.gpu != 'nvidia' %}+osmesa{%+ endif %}
+    ^netcdf-c+mpi
+    ^hdf5+szip+mpi+hl+fortran+cxx
+    ^llvm {{cuda_variant(environment)}}
+  - petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse{{ cuda_variant(environment, arch=False) }}
+    ^mumps+mpi+parmetis+metis+scotch+ptscotch
+    ^parmetis
+    ^metis+real64
+    ^scotch+esmumps+mpi~metis
+    ^netlib-scalapack
+    ^hdf5+szip+mpi+hl+fortran+cxx
+    ^suite-sparse {{ cuda_variant(environment) }}
+    ^hypre {{ cuda_variant(environment, arch=False) }}
+  - py-petsc4py
+    ^petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse{{ cuda_variant(environment, arch=False) }}
+    ^mumps+mpi+parmetis+metis+scotch+ptscotch
+    ^parmetis
+    ^metis+real64
+    ^scotch+esmumps+mpi~metis
+    ^netlib-scalapack
+    ^hdf5+szip+mpi+hl+fortran+cxx
+    ^suite-sparse {{ cuda_variant(environment) }}
+    ^hypre {{ cuda_variant(environment, arch=False) }}
+  - py-slepc4py
+    ^slepc+arpack
+    ^arpack-ng+mpi
+    ^petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse{{ cuda_variant(environment, arch=False) }}
+    ^mumps+mpi+parmetis+metis+scotch+ptscotch
+    ^parmetis
+    ^metis+real64
+    ^scotch+esmumps+mpi~metis
+    ^netlib-scalapack
+    ^hdf5+szip+mpi+hl+fortran+cxx
+    ^suite-sparse {{ cuda_variant(environment) }}
+    ^hypre {{ cuda_variant(environment, arch=False) }}
+  # Bazel fail to install
+  # - py-tensorflow +mpi {{ cuda_variant(environment, extra_off='~nccl') }}
+  #   ^py-h5py
+  #   ^hdf5+szip+mpi+hl+fortran+cxx
+  # Needs work on the patch for cuda detection
+  # - opencv {{ cuda_variant(environment) }}
+  #   ^vtk+ffmpeg+mpi+opengl2+python~qt+xdmf{%+ if environment.gpu != 'nvidia' %}+osmesa{%+ endif %}
+  #   ^cairo+png+pdf+fc+ft
+  #   ^netcdf-c+mpi
+  #   ^hdf5+szip+mpi+hl+fortran+cxx
+  #   ^boost cxxstd=14 +icu+mpi+python+numpy
+  #   ^llvm {{cuda_variant(environment)}}
+  # - caffe {{ cuda_variant(environment, arch=False) }}
+  #   ^opencv {{ cuda_variant(environment) }}
+  #   ^vtk+ffmpeg+mpi+opengl2+python~qt+xdmf{%+ if environment.gpu != 'nvidia' %}+osmesa{%+ endif %}
+  #   ^cairo+png+pdf+fc+ft
+  #   ^netcdf-c+mpi
+  #   ^hdf5+szip+mpi+hl+fortran+cxx
+  #   ^boost cxxstd=14 +icu+mpi+python+numpy
+  #   ^llvm {{cuda_variant(environment)}}
+  - slepc+arpack
+    ^arpack-ng+mpi
+    ^petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse{{ cuda_variant(environment, arch=False) }}
+    ^mumps+mpi+parmetis+metis+scotch+ptscotch
+    ^parmetis
+    ^metis+real64
+    ^scotch+esmumps+mpi~metis
+    ^netlib-scalapack
+    ^hdf5+szip+mpi+hl+fortran+cxx
+    ^suite-sparse {{ cuda_variant(environment) }}
+    ^hypre {{ cuda_variant(environment, arch=False) }}
+  - vtk+ffmpeg+mpi+opengl2+python~qt+xdmf{%+ if environment.gpu != 'nvidia' %}+osmesa{%+ endif %}
+    ^netcdf-c+mpi
+    ^hdf5+szip+mpi+hl+fortran+cxx
+    ^boost cxxstd=14 +icu+mpi+python+numpy
+    ^llvm {{cuda_variant(environment)}}
 
-    - intel_serial_packages_python:
-      - openbabel +python
-        ^harfbuzz@2.1.3
-        ^cairo+png+pdf+fc+ft
-        ^boost cxxstd=14 +icu~mpi+python+numpy
-      - py-torch ~nccl~cuda~cudnn+mkldnn+tbb
-#      - qt +opengl+webkit~tools
-#        ^harfbuzz@2.1.3
-#        ^cairo+png+pdf+fc+ft
-      # deos not compile
-      - r +external-lapack ^openjdk@11.0.2
-        ^harfbuzz@2.1.3
-        ^cairo+png+pdf+fc+ft
+- gcc_mpi_lapack_python2_packages:
+  - molpro
+  - nwchem
+    ^netlib-scalapack
 
-#    - external_packages:
-#      - adf@2017.111
-#      - ansys@17.1
-#      - ansys@19.2
-#      - cfdplusplus@16.1
-#      - cfdplusplus@19.1
-#      - comsol@5.3
-#      - comsol@5.4
-#      - fdtd@8.20.1703
-#      - gaussian@g16-A.03
-#      - gurobi@8.1.1
-#      - likwid@4.3.0
-#      - maple@2017
-#      - mathematica@11.1.1
-#      - matlab@R2018a
-#      - matlab@R2019b
-#      - smr@2017.06
-#      - totalview@2017.2.11
-#    - intel_externals:
-#      - abaqus
+- intel_mpi_packages:
+  - crystal17@1.0.2
 
-    - mpi_packages:
-      - arpack-ng+mpi
-      - hdf5+szip+mpi+hl+fortran+cxx
-      - netcdf-c+mpi
-        ^hdf5+szip+mpi+hl+fortran+cxx
-      - netcdf-fortran+mpi
-        ^netcdf-c+mpi
-        ^hdf5+szip+mpi+hl+fortran+cxx
-      - phylobayesmpi
-      # problem with a symlink at install
-      # - foam-extend+metis+scotch+parmetis+ptscotch~paraview
-      #   ^metis+real64
-      #   ^scotch+esmumps+mpi~metis
+- intel_mpi_lapack_packages:
+  - mumps+mpi+parmetis+metis+scotch+ptscotch
+    ^parmetis
+    ^metis+real64
+    ^scotch+esmumps+mpi~metis
 
-    - mpi_lapack_packages:
-      - elpa
-      - gmsh+openmp+hdf5
-        ^hdf5+szip+mpi+hl+fortran+cxx
-      - hypre {{ cuda_variant(environment, arch=False) }}
-      - parmetis
-        ^metis+real64
-      - quantum-espresso+mpi+scalapack
-      - quantum-espresso+mpi+scalapack hdf5=parallel
-        ^hdf5+szip+mpi+hl+fortran+cxx
-      - scotch+esmumps+mpi~metis
-      - superlu-dist
-        ^parmetis
-        ^metis+real64
+- intel_mpi_lapack_python_packages:
+  # - fenics+parmetis+hdf5+scotch+suite-sparse~vtk~trilinos
+  #   ^slepc+arpack
+  #   ^arpack-ng+mpi
+  #   ^petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse{{ cuda_variant(environment, arch=False) }}
+  #   ^mumps+mpi+parmetis+metis+scotch+ptscotch
+  #   ^parmetis
+  #   ^metis+real64
+  #   ^scotch+esmumps+mpi~metis
+  #   ^hdf5+szip+mpi+hl+fortran+cxx
+  #   ^suite-sparse {{ cuda_variant(environment) }}
+  #   ^hypre {{ cuda_variant(environment, arch=False) }}
+  # internal compiler error at link
+  # - lammps build_type=Release
+  #  +asphere +body +class2 +colloid +compress +coreshell
+  #  +dipole +granular +kspace +latte +lib +manybody +mc
+  #  +misc +molecule +mpi +mpiio +peri ~poems +python +qeq  +replica +rigid +shock +snap +srd
+  #  +user-atc +user-h5md +user-lb +user-misc +user-netcdf +voronoi
+  #  ^netcdf-c+mpi
+  #  ^hdf5+szip+mpi+hl+fortran+cxx
+  # - py-tensorflow +mkl+mpi~nccl {{ cuda_variant(environment) }}
+  #   ^py-h5py
+  #   ^hdf5+szip+mpi+hl+fortran+cxx
+  # - opencv {{ cuda_variant(environment) }}
+  #   ^cairo+png+pdf+fc+ft
+  #   ^harfbuzz@2.1.3
+  #   ^vtk+ffmpeg+mpi+opengl2+python~qt+xdmf{%+ if environment.gpu != 'nvidia' %}+osmesa{%+ endif %}
+  #   ^netcdf-c+mpi
+  #   ^hdf5+szip+mpi+hl+fortran+cxx
+  #   ^boost cxxstd=14 +icu+mpi+python+numpy
+  #   ^llvm {{ cuda_variant(environment) }}
+  # - caffe {{ cuda_variant(environment, arch=False) }}
+  #   ^opencv {{ cuda_variant(environment) }}
+  #   ^vtk+ffmpeg+mpi+opengl2+python~qt+xdmf{%+ if environment.gpu != 'nvidia' %}+osmesa{%+ endif %}
+  #   ^cairo+png+pdf+fc+ft
+  #   ^harfbuzz@2.1.3
+  #   ^netcdf-c+mpi
+  #   ^hdf5+szip+mpi+hl+fortran+cxx
+  #   ^boost cxxstd=14 +icu+mpi+python+numpy
+  #   ^llvm {{ cuda_variant(environment) }}
+  - petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse{{ cuda_variant(environment, arch=False) }}
+    ^mumps+mpi+parmetis+metis+scotch+ptscotch
+    ^parmetis
+    ^metis+real64
+    ^scotch+esmumps+mpi~metis
+    ^hdf5+szip+mpi+hl+fortran+cxx
+    ^suite-sparse {{ cuda_variant(environment) }}
+    ^hypre {{ cuda_variant(environment, arch=False) }}
+  - slepc+arpack
+    ^arpack-ng+mpi
+    ^petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse{{ cuda_variant(environment, arch=False) }}
+    ^mumps+mpi+parmetis+metis+scotch+ptscotch
+    ^parmetis
+    ^metis+real64
+    ^scotch+esmumps+mpi~metis
+    ^hdf5+szip+mpi+hl+fortran+cxx
+    ^suite-sparse {{ cuda_variant(environment) }}
+    ^hypre {{ cuda_variant(environment, arch=False) }}
 
-    - mpi_lapack_python_packages:
-      - boost cxxstd=14 +icu+mpi+python+numpy
-      - cgal
-        ^boost cxxstd=14 +icu+mpi+python+numpy
-      - iq-tree@1.6.12+mpi
-        ^boost cxxstd=14 +icu+mpi+python+numpy
-      - neuron+mpi+python+shared
-      - plumed+mpi+gsl
-      - py-h5py
-        ^hdf5+szip+mpi+hl+fortran+cxx
-      - py-mpi4py
+- intel_mpi_lapack_python2_packages:
+  # - molpro@2019.2+mpi
 
-    - gcc_mpi_packages:
-      - cpmd~openmp
-        ^fftw+mpi~openmp
-      #  not enough space on /tmp
-      # - cp2k+mpi~plumed {{ cuda_variant(environment) }}
-      # - cp2k+mpi+plumed {{ cuda_variant(environment) }}
-      #   ^plumed+mpi+gsl
-      - fftw+mpi+openmp
-      - fftw+mpi~openmp
-      - yambo+mpi io=iotk,etsf-io
-        ^fftw+mpi~openmp
-        ^netcdf-fortran+mpi
-        ^netcdf-c+mpi
-        ^hdf5+szip+mpi+hl+fortran+cxx
+- benchmarks:
+  - stream
+  - stream+openmp
 
-    - gcc_mpi_lapack_packages:
-      - abinit~hdf5~openmp+mpi+scalapack
-        ^netlib-scalapack
-      - elmerfem+mumps+openmp+hypre
-        ^mumps+mpi+parmetis+metis+scotch+ptscotch
-        ^parmetis
-        ^metis+real64
-        ^scotch+esmumps+mpi~metis
-        ^netlib-scalapack
-        ^netcdf-fortran+mpi
-        ^netcdf-c+mpi
-        ^hdf5+szip+mpi+hl+fortran+cxx
-      - gromacs+mpi {{ cuda_variant(environment, arch=False) }}
-      - mumps+mpi+parmetis+metis+scotch+ptscotch
-        ^parmetis
-        ^metis+real64
-        ^scotch+esmumps+mpi~metis
-        ^netlib-scalapack
-      - netlib-scalapack
-      # - vasp@5.4.4
-      #   ^fftw+mpi~openmp
-      #   ^ntelib-scalapack
-
-    - gcc_mpi_lapack_python_packages:
-      - adios2+hdf5+mpi+python
-        ^hdf5+szip+mpi+hl+fortran+cxx
-      - fenics~parmetis+hdf5+scotch+suite-sparse~vtk~trilinos
-        ^slepc+arpack
-        ^arpack-ng+mpi
-        ^petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse{{ cuda_variant(environment, arch=False) }}
-        ^mumps+mpi+parmetis+metis+scotch+ptscotch
-        ^parmetis
-        ^metis+real64
-        ^scotch+esmumps+mpi~metis
-        ^netlib-scalapack
-        ^hdf5+szip+mpi+hl+fortran+cxx
-        ^suite-sparse {{ cuda_variant(environment) }}
-        ^hypre {{ cuda_variant(environment, arch=False) }}
-      - gromacs@2019.4+mpi+plumed {{ cuda_variant(environment, arch=False) }}
-        ^plumed+mpi+gsl
-      - lammps build_type=Release
-        +asphere +body +class2 +colloid +compress +coreshell
-        +dipole +granular +kspace +latte +lib +manybody +mc
-        +misc +molecule +mpi +mpiio +peri ~poems +python +qeq  +replica +rigid +shock +snap +srd
-        +user-atc +user-h5md +user-lb +user-misc +user-netcdf +voronoi {{ cuda_variant(environment) }}
-        ^netcdf-c+mpi
-        ^hdf5+szip+mpi+hl+fortran+cxx
-      - openfoam +metis
-        ^adios2+mpi+python+hdf5
-        ^hdf5+szip+mpi+hl+fortran+cxx
-        ^metis+real64
-        ^scotch+esmumps+mpi~metis
-        ^boost cxxstd=14 +icu+mpi+python+numpy
-      # problem with {{ cuda_variant(environment) }}
-      - paraview +shared +python3 +hdf5 {%+ if environment.gpu != 'nvidia' %}+osmesa{%+ endif %}
-        ^netcdf-c+mpi
-        ^hdf5+szip+mpi+hl+fortran+cxx
-        ^llvm {{cuda_variant(environment)}}
-      - petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse{{ cuda_variant(environment, arch=False) }}
-        ^mumps+mpi+parmetis+metis+scotch+ptscotch
-        ^parmetis
-        ^metis+real64
-        ^scotch+esmumps+mpi~metis
-        ^netlib-scalapack
-        ^hdf5+szip+mpi+hl+fortran+cxx
-        ^suite-sparse {{ cuda_variant(environment) }}
-        ^hypre {{ cuda_variant(environment, arch=False) }}
-      - py-petsc4py
-        ^petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse{{ cuda_variant(environment, arch=False) }}
-        ^mumps+mpi+parmetis+metis+scotch+ptscotch
-        ^parmetis
-        ^metis+real64
-        ^scotch+esmumps+mpi~metis
-        ^netlib-scalapack
-        ^hdf5+szip+mpi+hl+fortran+cxx
-        ^suite-sparse {{ cuda_variant(environment) }}
-        ^hypre {{ cuda_variant(environment, arch=False) }}
-      - py-slepc4py
-        ^slepc+arpack
-        ^arpack-ng+mpi
-        ^petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse{{ cuda_variant(environment, arch=False) }}
-        ^mumps+mpi+parmetis+metis+scotch+ptscotch
-        ^parmetis
-        ^metis+real64
-        ^scotch+esmumps+mpi~metis
-        ^netlib-scalapack
-        ^hdf5+szip+mpi+hl+fortran+cxx
-        ^suite-sparse {{ cuda_variant(environment) }}
-        ^hypre {{ cuda_variant(environment, arch=False) }}
-      # Bazel fail to install
-      # - py-tensorflow +mpi {{ cuda_variant(environment, extra_off='~nccl') }}
-      #   ^py-h5py
-      #   ^hdf5+szip+mpi+hl+fortran+cxx
-      # Needs work on the patch for cuda detection
-      # - opencv {{ cuda_variant(environment) }}
-      #   ^vtk+ffmpeg+mpi+opengl2+python~qt+xdmf{%+ if environment.gpu != 'nvidia' %}+osmesa{%+ endif %}
-      #   ^cairo+png+pdf+fc+ft
-      #   ^netcdf-c+mpi
-      #   ^hdf5+szip+mpi+hl+fortran+cxx
-      #   ^boost cxxstd=14 +icu+mpi+python+numpy
-      #   ^llvm {{cuda_variant(environment)}}
-      # - caffe {{ cuda_variant(environment, arch=False) }}
-      #   ^opencv {{ cuda_variant(environment) }}
-      #   ^vtk+ffmpeg+mpi+opengl2+python~qt+xdmf{%+ if environment.gpu != 'nvidia' %}+osmesa{%+ endif %}
-      #   ^cairo+png+pdf+fc+ft
-      #   ^netcdf-c+mpi
-      #   ^hdf5+szip+mpi+hl+fortran+cxx
-      #   ^boost cxxstd=14 +icu+mpi+python+numpy
-      #   ^llvm {{cuda_variant(environment)}}
-      - slepc+arpack
-        ^arpack-ng+mpi
-        ^petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse{{ cuda_variant(environment, arch=False) }}
-        ^mumps+mpi+parmetis+metis+scotch+ptscotch
-        ^parmetis
-        ^metis+real64
-        ^scotch+esmumps+mpi~metis
-        ^netlib-scalapack
-        ^hdf5+szip+mpi+hl+fortran+cxx
-        ^suite-sparse {{ cuda_variant(environment) }}
-        ^hypre {{ cuda_variant(environment, arch=False) }}
-      - vtk+ffmpeg+mpi+opengl2+python~qt+xdmf{%+ if environment.gpu != 'nvidia' %}+osmesa{%+ endif %}
-        ^netcdf-c+mpi
-        ^hdf5+szip+mpi+hl+fortran+cxx
-        ^boost cxxstd=14 +icu+mpi+python+numpy
-        ^llvm {{cuda_variant(environment)}}
-
-    - gcc_mpi_lapack_python2_packages:
-      - molpro
-      - nwchem
-        ^netlib-scalapack
-
-    - intel_mpi_packages:
-      - crystal17@1.0.2
-
-    - intel_mpi_lapack_packages:
-      - mumps+mpi+parmetis+metis+scotch+ptscotch
-        ^parmetis
-        ^metis+real64
-        ^scotch+esmumps+mpi~metis
-
-    - intel_mpi_lapack_python_packages:
-      # - fenics+parmetis+hdf5+scotch+suite-sparse~vtk~trilinos
-      #   ^slepc+arpack
-      #   ^arpack-ng+mpi
-      #   ^petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse{{ cuda_variant(environment, arch=False) }}
-      #   ^mumps+mpi+parmetis+metis+scotch+ptscotch
-      #   ^parmetis
-      #   ^metis+real64
-      #   ^scotch+esmumps+mpi~metis
-      #   ^hdf5+szip+mpi+hl+fortran+cxx
-      #   ^suite-sparse {{ cuda_variant(environment) }}
-      #   ^hypre {{ cuda_variant(environment, arch=False) }}
-      # internal compiler error at link
-      # - lammps build_type=Release
-      #  +asphere +body +class2 +colloid +compress +coreshell
-      #  +dipole +granular +kspace +latte +lib +manybody +mc
-      #  +misc +molecule +mpi +mpiio +peri ~poems +python +qeq  +replica +rigid +shock +snap +srd
-      #  +user-atc +user-h5md +user-lb +user-misc +user-netcdf +voronoi
-      #  ^netcdf-c+mpi
-      #  ^hdf5+szip+mpi+hl+fortran+cxx
-      # - py-tensorflow +mkl+mpi~nccl {{ cuda_variant(environment) }}
-      #   ^py-h5py
-      #   ^hdf5+szip+mpi+hl+fortran+cxx
-      # - opencv {{ cuda_variant(environment) }}
-      #   ^cairo+png+pdf+fc+ft
-      #   ^harfbuzz@2.1.3
-      #   ^vtk+ffmpeg+mpi+opengl2+python~qt+xdmf{%+ if environment.gpu != 'nvidia' %}+osmesa{%+ endif %}
-      #   ^netcdf-c+mpi
-      #   ^hdf5+szip+mpi+hl+fortran+cxx
-      #   ^boost cxxstd=14 +icu+mpi+python+numpy
-      #   ^llvm {{ cuda_variant(environment) }}
-      # - caffe {{ cuda_variant(environment, arch=False) }}
-      #   ^opencv {{ cuda_variant(environment) }}
-      #   ^vtk+ffmpeg+mpi+opengl2+python~qt+xdmf{%+ if environment.gpu != 'nvidia' %}+osmesa{%+ endif %}
-      #   ^cairo+png+pdf+fc+ft
-      #   ^harfbuzz@2.1.3
-      #   ^netcdf-c+mpi
-      #   ^hdf5+szip+mpi+hl+fortran+cxx
-      #   ^boost cxxstd=14 +icu+mpi+python+numpy
-      #   ^llvm {{ cuda_variant(environment) }}
-      - petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse{{ cuda_variant(environment, arch=False) }}
-        ^mumps+mpi+parmetis+metis+scotch+ptscotch
-        ^parmetis
-        ^metis+real64
-        ^scotch+esmumps+mpi~metis
-        ^hdf5+szip+mpi+hl+fortran+cxx
-        ^suite-sparse {{ cuda_variant(environment) }}
-        ^hypre {{ cuda_variant(environment, arch=False) }}
-      - slepc+arpack
-        ^arpack-ng+mpi
-        ^petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse{{ cuda_variant(environment, arch=False) }}
-        ^mumps+mpi+parmetis+metis+scotch+ptscotch
-        ^parmetis
-        ^metis+real64
-        ^scotch+esmumps+mpi~metis
-        ^hdf5+szip+mpi+hl+fortran+cxx
-        ^suite-sparse {{ cuda_variant(environment) }}
-        ^hypre {{ cuda_variant(environment, arch=False) }}
-
-    - intel_mpi_lapack_python2_packages:
-      # - molpro@2019.2+mpi
-
-    - benchmarks:
-      - stream
-      - stream+openmp
-
-    - mpi_benchmarks:
-      - hpl~openmp
-      - osu-micro-benchmarks
-
-  specs:
-  - matrix:
-    - [$base_gpu_packages]
-    - [$%core_compiler]
-
-{% for type in environment.stack_types %}
-  # {{type}} base compilers
-  - matrix:
-    - [${{type}}_compilers_not_filtered]
-    - [$%core_compiler]
-{% endfor %}
-
-{% if not environment.bootstrap %}
-  {% for type in environment.stack_types %}
-  # {{type}} base compilers
-  - matrix:
-    - [${{type}}_compilers_not_filtered]
-    - [$%core_compiler]
-    {% for compiler, stack in environment[type].items() %}
-    {% if 'compiler' in stack %}
-  # {{type}} stack for {{compiler}} (MPI, Blas)
-  - matrix:
-    - [${{compiler}}_{{type}}_base_stack]
-    - [$%{{compiler}}_{{type}}_compiler]
-    {% endif %}
-    {% endfor %}
-  {% endfor %}
-
-  # Core packages
-  - matrix:
-    - [$core_packages]
-    - [$%core_compiler]
-
-{% for compiler in environment.compilers %}
-  - matrix:
-    - [$serial_packages]
-    - [$%{{compiler}}_stable_compiler]
-
-  - matrix:
-    - [${{compiler}}_serial_packages]
-    - [$%{{compiler}}_stable_compiler]
-
-  - matrix:
-    - [$serial_packages_lapack]
-    - [$^{{compiler}}_stable_blas]
-    - [$%{{compiler}}_stable_compiler]
-
-  - matrix:
-    - [${{compiler}}_serial_packages_lapack]
-    - [$^{{compiler}}_stable_blas]
-    - [$%{{compiler}}_stable_compiler]
-
-  - matrix:
-    - [${{compiler}}_python3]
-    - [$^{{compiler}}_stable_blas]
-    - [$%{{compiler}}_stable_compiler]
-
-  - matrix:
-    - [$serial_packages_python]
-    - [$^{{compiler}}_python3]
-    - [$^{{compiler}}_stable_blas]
-    - [$%{{compiler}}_stable_compiler]
-
-  - matrix:
-    - [${{compiler}}_serial_packages_python]
-    - [$^{{compiler}}_python3]
-    - [$^{{compiler}}_stable_blas]
-    - [$%{{compiler}}_stable_compiler]
-
-  - matrix:
-    - [${{compiler}}_python2]
-    - [$^{{compiler}}_stable_blas]
-    - [$%{{compiler}}_stable_compiler]
-
-  - matrix:
-    - [$serial_python2_minimal_support]
-    - [$^{{compiler}}_python2]
-    - [^py-setuptools@44.1.0]
-    - [$^{{compiler}}_stable_blas]
-    - [$%{{compiler}}_stable_compiler]
-
-  - matrix:
-    - [$mpi_packages]
-    - [$^{{compiler}}_stable_mpi]
-    - [$%{{compiler}}_stable_compiler]
-
-  - matrix:
-    - [${{compiler}}_mpi_packages]
-    - [$^{{compiler}}_stable_blas]
-    - [$^{{compiler}}_stable_mpi]
-    {% if environment.gpu == 'nvidia' and compiler == 'intel' %}
-    - [^{{environment.stable.cuda.package }}]
-    {% endif %}
-    - [$%{{compiler}}_stable_compiler]
-
-  - matrix:
-    - [$mpi_lapack_packages]
-    - [$^{{compiler}}_stable_blas]
-    - [$^{{compiler}}_stable_mpi]
-    {% if environment.gpu == 'nvidia' and compiler == 'intel' %}
-    - [^{{environment.stable.cuda.package }}]
-    {% endif %}
-    - [$%{{compiler}}_stable_compiler]
-
-  - matrix:
-    - [${{compiler}}_mpi_lapack_packages]
-    - [$^{{compiler}}_stable_blas]
-    - [$^{{compiler}}_stable_mpi]
-    {% if environment.gpu == 'nvidia' and compiler == 'intel' %}
-    - [^{{environment.stable.cuda.package }}]
-    {% endif %}
-    - [$%{{compiler}}_stable_compiler]
-
-  - matrix:
-    - [$mpi_lapack_python_packages]
-    - [$^{{compiler}}_python3]
-    - [$^{{compiler}}_stable_blas]
-    - [$^{{compiler}}_stable_mpi]
-    {% if environment.gpu == 'nvidia' and compiler == 'intel' %}
-    - [^{{environment.stable.cuda.package }}]
-    {% endif %}
-    - [$%{{compiler}}_stable_compiler]
-
-  - matrix:
-    - [${{compiler}}_mpi_lapack_python_packages]
-    - [$^{{compiler}}_python3]
-    - [$^{{compiler}}_stable_blas]
-    - [$^{{compiler}}_stable_mpi]
-    {% if environment.gpu == 'nvidia' and compiler == 'intel' %}
-    - [^{{environment.stable.cuda.package }}]
-    {% endif %}
-    - [$%{{compiler}}_stable_compiler]
-
-  - matrix:
-    - [${{compiler}}_mpi_lapack_python2_packages]
-    - [$^{{compiler}}_python2]
-    - [$^{{compiler}}_stable_blas]
-    - [$^{{compiler}}_stable_mpi]
-    {% if environment.gpu == 'nvidia' and compiler == 'intel' %}
-    - [^{{environment.stable.cuda.package }}]
-    {% endif %}
-    - [$%{{compiler}}_stable_compiler]
-
-
-  - matrix:
-    - [$benchmarks]
-    - [$%{{compiler}}_stable_compiler]
-
-  - matrix:
-    - [$mpi_benchmarks]
-    - [$^{{compiler}}_stable_blas]
-    - [$^{{compiler}}_stable_mpi]
-    {% if environment.gpu == 'nvidia' and compiler == 'intel' %}
-    - [^{{environment.stable.cuda.package }}]
-    {% endif %}
-    - [$%{{compiler}}_stable_compiler]
-
-{% endfor %}
-#
-{% endif %}
-
-  view: false
+- mpi_benchmarks:
+  - hpl~openmp
+  - osu-micro-benchmarks
