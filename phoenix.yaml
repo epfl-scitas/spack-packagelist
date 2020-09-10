@@ -44,10 +44,10 @@ default_environment:
 
   stable:
     intel:
-      compiler: "intel@20.0.1"
+      compiler: "intel@19.1.0"
       mpi: "intel-mpi@2019.7.217"
       blas: "intel-mkl@2020.1.217"
-
+      suite_version: '2020.0.166'
     gcc:
       compiler: "gcc@9.3.0"
       mpi: [ "mvapich2 process_managers=slurm fabrics=mrail threads=multiple" ]

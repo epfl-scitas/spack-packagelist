@@ -365,11 +365,10 @@ class SpackEnvs(object):
         for _type in customisation['environment']['stack_types']:
             if 'intel' in customisation['environment'][_type]:
                 dict_ = customisation['environment'][_type]
-
-                print(dict_)
                 intel_config_path = os.path.join(
-                    dict_['intel']['compiler_prefix'],
-                    'bin', 'intel64')
+                    dict_['intel']['compiler_prefix'], 
+                    'compilers_and_libraries_{0}'.format(dict_['intel']['suite_version']),
+                    'linux', 'bin', 'intel64')
                 for _file in os.listdir('./external/intel/config'):
                     m = jinja_file_re.match(_file)
                     if not m:
