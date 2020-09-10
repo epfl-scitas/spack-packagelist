@@ -166,7 +166,7 @@ class SpackEnvs(object):
     # get the environment dict overriding the configurations
     # if there are environment specific ones
     def _get_env_customisation(self, environment):
-        if environment not in self.environments:
+        if environment not in self.environments and environment is not None:
             raise RuntimeError(
                 'The environment {0} is not defined.'
                 ' Valid environments are {1}'.format(environment,
@@ -174,6 +174,8 @@ class SpackEnvs(object):
         customisation = copy.copy(self.customisation)
 
         customisation["environment"]['name'] = environment
+        if environment is None:
+            customisation["environment"]['name'] = 'None'
 
         # create a dictionary for each environment
         env = customisation['environment']
@@ -229,13 +231,17 @@ class SpackEnvs(object):
             customisation['environment']['core_compiler'])
 
     def _spack_path(self, value, environment):
+        options = { 'stdout': subprocess.PIPE,
+                    'stderr': DEVNULL }
+        if environment is not None:
+            options['env'] = {'SPACK_ENV': os.path.join(
+                self.spack_environment_root,
+                environment)}
+
         spack_find = subprocess.Popen(
             [os.path.join(self.spack_source_root, 'bin', 'spack'),
              'find', '--paths', value],
-            stdout=subprocess.PIPE,
-            stderr=DEVNULL,
-            env={'SPACK_ENV': os.path.join(self.spack_environment_root,
-                                           environment)}
+            **options
         )
 
         path_re = re.compile('.*(({0}|{1}).*)$'.format(
@@ -252,6 +258,7 @@ class SpackEnvs(object):
 
     def compilers(self, environment, stack_type=None):
         customisation = self._get_env_customisation(environment)
+
         compilers = []
         if stack_type is not None:
             stack_types = [stack_type]
@@ -345,6 +352,7 @@ class SpackEnvs(object):
     def install_spack_default_configuration(self):
         jinja_file_re = re.compile('(.*\.ya?ml)\.j2$')
         spack_config_path = os.path.join(self.spack_source_root, 'etc', 'spack')
+        customisation = self._get_env_customisation(None)
         for _file in os.listdir('./configuration'):
             m = jinja_file_re.match(_file)
             template_path = os.path.join('./configuration', _file)
@@ -353,7 +361,7 @@ class SpackEnvs(object):
                     template_path)
                 with open(os.path.join(
                         spack_config_path, m.group(1)), 'w') as fh:
-                    fh.write(spack_env_template.render(self.customisation))
+                    fh.write(spack_env_template.render(customisation))
             else:
                 shutil.copyfile(
                     template_path,
@@ -365,10 +373,14 @@ class SpackEnvs(object):
         for _type in customisation['environment']['stack_types']:
             if 'intel' in customisation['environment'][_type]:
                 dict_ = customisation['environment'][_type]
-                intel_config_path = os.path.join(
-                    dict_['intel']['compiler_prefix'], 
-                    'compilers_and_libraries_{0}'.format(dict_['intel']['suite_version']),
-                    'linux', 'bin', 'intel64')
+                if 'external' in dict_['intel'] and dict_['intel']['external']:
+                    intel_config_path = os.path.join(
+                        dict_['intel']['compiler_prefix'], 'bin', 'intel64')
+                else:
+                    intel_config_path = os.path.join(
+                        dict_['intel']['compiler_prefix'],
+                        'compilers_and_libraries_{0}'.format(dict_['intel']['suite_version']),
+                        'linux', 'bin', 'intel64')
                 for _file in os.listdir('./external/intel/config'):
                     m = jinja_file_re.match(_file)
                     if not m:
@@ -401,7 +413,8 @@ def list_envs(ctxt):
         print('{}'.format(env))
 
 @senv.command()
-@click.option('--env', help='Environment to list the compiler for')
+@click.option('--env', help='Environment to list the compiler for',
+              default=None, required=False)
 @click.option('--stack-type', help='Stack type: stable, bleeding_edge',
               default=None, required=False)
 @click.pass_context

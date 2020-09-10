@@ -13,7 +13,7 @@ intel:
   buildable: False
   paths:
   {%for type in environment.stack_types %}
-    {% if 'intel' in environment[type] %}
+    {% if 'intel' in environment[type]  and environment[type].intel.external %}
     {{environment[type].intel.compiler}} %{{environment.core_compiler}}: {{ intel_prefix(type) }}/compilers_and_libraries_{{environment[type].intel.suite_version}}/linux
     {% endif %}
   {%endfor%}
@@ -22,7 +22,7 @@ intel-mpi:
   buildable: False
   paths:
   {%for type in environment.stack_types %}
-    {% if 'intel' in environment[type] %}
+    {% if 'intel' in environment[type] and environment[type].intel.external %}
     {{environment[type].intel.mpi}} %{{environment[type].intel.compiler}}: {{ intel_prefix(type) }}
     {% endif %}
   {%endfor%}
@@ -31,7 +31,7 @@ intel-mkl:
   buildable: False
   paths:
   {%for type in environment.stack_types %}
-    {% if 'intel' in environment[type] %}
+    {% if 'intel' in environment[type] and environment[type].intel.external %}
     {{environment[type].intel.blas}} %{{environment[type].intel.compiler}}: {{ intel_prefix(type) }}
     {{environment[type].intel.blas}} %{{environment[type].gcc.compiler | filter_variant}}: {{ intel_prefix(type) }}
     {% endif %}

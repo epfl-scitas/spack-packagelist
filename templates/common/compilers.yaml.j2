@@ -19,7 +19,11 @@
       {% if 'compiler' in stack and 'compiler_prefix' in stack %}
 - compiler:
         {% if _compiler == 'intel' %}
-          {% set prefix = stack.compiler_prefix +  '/compilers_and_libraries_' + stack['suite_version'] + '/linux/bin/intel64' %}
+          {% if stack.external %}
+            {% set prefix = stack.compiler_prefix + '/bin/intel64' %}
+          {% else %}
+            {% set prefix = stack.compiler_prefix +  '/compilers_and_libraries_' + stack['suite_version'] + '/linux/bin/intel64' %}
+          {% endif %}
         {% else %}
           {% set prefix = stack.compiler_prefix + '/bin' %}
         {% endif %}
