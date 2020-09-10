@@ -1,6 +1,6 @@
 {% if mirrors %}
 mirrors:
-  {% for _mirror, _url in mirrors.iteritems() %}
-  {{ _mirror }}: {{ _url | absolute_path(prefix=spack_root) }}
+  {% for _mirror in mirrors %}
+  {{ _mirror }}: {{ mirrors[_url] | absolute_path(prefix=spack_root) }}
   {% endfor %}
 {% endif %}
