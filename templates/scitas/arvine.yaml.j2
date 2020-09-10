@@ -124,24 +124,29 @@ spack:
       - cudnn ^ {{ environment.stable.cuda.package }}
       {% endif %}
 
+    - gcc_serial_packages:
+      - openblas threads=openmp
+
+    - intel_serial_packages:
+
     - serial_packages_lapack:
       - arpack-ng~mpi
-      - armadillo+hdf5
-        ^arpack-ng~mpi
-        ^hdf5+szip~mpi+hl+fortran+cxx
       - gmsh~mpi+hdf5
         ^hdf5+szip~mpi+hl+fortran+cxx
-      - magma {{ cuda_variant(environment, dep=True) }}
       - suite-sparse {{ cuda_variant(environment, dep=True) }}
         ^metis+real64
       - superlu
 
     - gcc_serial_packages_lapack:
+      - armadillo+hdf5
+        ^arpack-ng~mpi
+        ^hdf5+szip~mpi+hl+fortran+cxx
+      - magma {{ cuda_variant(environment, dep=True) }}
       - octave
 
     - intel_serial_packages_lapack:
 
-    - serial_packages_python_freetype:
+    - serial_packages_python:
       - bowtie2
       - boost cxxstd=14 +icu~mpi+python+numpy
       - hwloc +cairo {{ cuda_variant(environment, arch=False, dep=True, extra_on='+nvml') }}
@@ -180,7 +185,7 @@ spack:
       - py-virtualenv
       - jellyfish
 
-    - gcc_serial_packages_python_freetype:
+    - gcc_serial_packages_python:
       - bcl2fastq2
       - blast-plus@2.9.0
       - gdb
@@ -196,7 +201,11 @@ spack:
       - openbabel +python
         ^cairo+png+pdf+fc+ft
         ^boost cxxstd=14 +icu~mpi+python+numpy
-      - py-torch {{ cuda_variant(environment, extra_off='~cudnn~nccl', dep=True) }}
+      - py-torch +tbb {{ cuda_variant(environment, extra_on='+magma',
+                         extra_off='~cudnn~nccl', dep=True) }}
+      {% if environment.gpu == 'nvidia' %}
+        ^magma {{ cuda_variant(environment) }}
+      {%endif%}
       # - qt +opengl+webkit
       #   ^cairo+png+pdf+fc+ft
       - r +external-lapack ^openjdk@11.0.2
@@ -212,12 +221,12 @@ spack:
         ^boost cxxstd=14 +icu~mpi+python+numpy
         ^llvm {{cuda_variant(environment)}}
 
-    - intel_serial_packages_python_freetype:
+    - intel_serial_packages_python:
       - openbabel +python
         ^harfbuzz@2.1.3
         ^cairo+png+pdf+fc+ft
         ^boost cxxstd=14 +icu~mpi+python+numpy
-      # - py-torch ~nccl {{ cuda_variant(environment, extra_off='~cudnn', dep=True) }}
+      - py-torch ~nccl~cuda~cudnn+mkldnn+tbb
 #      - qt +opengl+webkit~tools
 #        ^harfbuzz@2.1.3
 #        ^cairo+png+pdf+fc+ft
@@ -297,8 +306,6 @@ spack:
       #   ^plumed+mpi+gsl
       - fftw+mpi+openmp
       - fftw+mpi~openmp
-      # - vasp@5.4.4
-      #   ^fftw+mpi~openmp
       - yambo+mpi io=iotk,etsf-io
         ^fftw+mpi~openmp
         ^netcdf-fortran+mpi
@@ -324,6 +331,9 @@ spack:
         ^scotch+esmumps+mpi~metis
         ^netlib-scalapack
       - netlib-scalapack
+      # - vasp@5.4.4
+      #   ^fftw+mpi~openmp
+      #   ^ntelib-scalapack
 
     - gcc_mpi_lapack_python_packages:
       - adios2+hdf5+mpi+python
@@ -429,9 +439,8 @@ spack:
         ^llvm {{cuda_variant(environment)}}
 
     - gcc_mpi_lapack_python2_packages:
-      # - molpro@2015.1+mpi
-      - molpro@2019.2+mpi
-      - nwchem@6.8
+      - molpro
+      - nwchem
         ^netlib-scalapack
 
     - intel_mpi_packages:
@@ -552,6 +561,10 @@ spack:
     - [$%{{compiler}}_stable_compiler]
 
   - matrix:
+    - [${{compiler}}_serial_packages]
+    - [$%{{compiler}}_stable_compiler]
+
+  - matrix:
     - [$serial_packages_lapack]
     - [$^{{compiler}}_stable_blas]
     - [$%{{compiler}}_stable_compiler]
@@ -567,13 +580,13 @@ spack:
     - [$%{{compiler}}_stable_compiler]
 
   - matrix:
-    - [$serial_packages_python_freetype]
+    - [$serial_packages_python]
     - [$^{{compiler}}_python3]
     - [$^{{compiler}}_stable_blas]
     - [$%{{compiler}}_stable_compiler]
 
   - matrix:
-    - [${{compiler}}_serial_packages_python_freetype]
+    - [${{compiler}}_serial_packages_python]
     - [$^{{compiler}}_python3]
     - [$^{{compiler}}_stable_blas]
     - [$%{{compiler}}_stable_compiler]

@@ -18,7 +18,7 @@ pipeline {
     }
 
     stages {
-        when( branch pattern: "(relases/${STACK_RELEASE}|.*/${STACK_RELEASE}/.*)", comparator: "REGEXP")
+        when( branch pattern: "(releases/${STACK_RELEASE}|.*/${STACK_RELEASE}/.*)", comparator: "REGEXP")
 
         stage('Update production configuration') {
             // Prepare a release branch of Spack for deployment by:

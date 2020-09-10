@@ -2,7 +2,6 @@
 # Main stack definition for arvine
 #
 
-# List of the environments to be managed
 spack_release: v0.15.4
 
 site: scitas
@@ -13,9 +12,10 @@ stack_version: "v1"
 spack_root: /home/richart/test
 spack_external: external
 
+# List of the environments to be managed
 environments:
-  - "deneb"
-  - "eltanin"
+#  - "deneb"
+#  - "eltanin"
   - "fidis"
   - "gacrux"
   - "helvetios"
@@ -27,10 +27,12 @@ mirrors:
 extra_repos:
   scitas-external:
     repo: http://github.com/epfl-scitas/spack-repo-externals.git
-    path: scitas-repos-externals/scitasexternal
+    path: scitas-repos-externals/
+    tag: releases/arvine
   scitas-spack-packages:
-    repo: http://github.com/epfl-scitas/spack-repo-externals.git
-    path: scitas-repos-externals/scitas-spack-packages
+    repo: http://github.com/epfl-scitas/scitas-spack-packages.git
+    path: scitas-spack-packages/
+    tag: releases/arvine
 
 # default version of compilers mpi and openblas
 default_environment:

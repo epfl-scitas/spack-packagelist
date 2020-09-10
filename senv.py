@@ -43,7 +43,7 @@ def _compiler(value, component='cc'):
                    'f90': 'flang'}}
     return _compilers[value][component]
 
-def _absolut_path(value, prefix=None):
+def _absolute_path(value, prefix=None):
     if os.path.isabs(value):
         return value
     if prefix is None:
@@ -129,7 +129,7 @@ class SpackEnvs(object):
             lambda x: x if isinstance(x, list) else [x]
         self.spack_env.filters['filter_variant'] = _filter_variant
         self.spack_env.filters['compiler'] = _compiler
-        self.spack_env.filters['absolute_path'] = _absolut_path
+        self.spack_env.filters['absolute_path'] = _absolute_path
         self.spack_env.globals['cuda_variant'] = _cuda_variant
 
     def _create_jinja_environment(self, template_path=None):
@@ -234,7 +234,7 @@ class SpackEnvs(object):
 
         path_re = re.compile('.*(({0}|{1}).*)$'.format(
             self.spack_install_root,
-            _absolut_path(self.configuration['spack_external'],
+            _absolute_path(self.configuration['spack_external'],
                            prefix=self.configuration['spack_root'])))
 
         for line in spack_find.stdout:
@@ -294,7 +294,7 @@ class SpackEnvs(object):
             'spack.{}'.format(self.configuration['stack_version'])))
 
     def spack_external_dir(self):
-        print(_absolut_path(self.configuration['spack_external'],
+        print(_absolute_path(self.configuration['spack_external'],
                             prefix=self.configuration['spack_root']))
 
     def list_extra_repositories(self):
@@ -302,7 +302,7 @@ class SpackEnvs(object):
         for item in self.configuration['extra_repos']:
             repo = self.configuration['extra_repos'][item]
             repo['name'] = item
-            repo['path'] = _absolut_path(
+            repo['path'] = _absolute_path(
                 repo['path'],
                 prefix=[self.configuration['spack_root'],
                         self.configuration['stack_release'],

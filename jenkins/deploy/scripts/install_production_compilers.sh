@@ -36,7 +36,6 @@ spack install \
 
 senv --input ${STACK_RELEASE}.yaml list-compilers --env ${environment} --stack-type stable | xargs -L1 spack module lmod setdefault
 
-
 # to reconfigure the compilers.yaml
 senv --input ${STACK_RELEASE}.yaml install-spack-default-configuration
 
