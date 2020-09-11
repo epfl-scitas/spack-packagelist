@@ -28,6 +28,7 @@ modules:
     {% if spack_site_whitelist | exists %}
     whitelist:
       {% filter indent(width=6, indentfirst=True) %}
+      {% include 'templates/common/modules_whitelist.yaml.j2' %}
       {% include spack_site_whitelist ignore missing %}
       {% endfilter %}
     {% endif %}

@@ -64,22 +64,25 @@ spack:
   # {{type}} base compilers
   - matrix:
     - [${{type}}_compilers_not_filtered]
+    {% if environment.gpu == 'nvidia' %}
+    - [^{{environment[type].cuda.package }}]
+    {% endif %}
     - [$%core_compiler]
+
 {% endfor %}
 
 {% if not environment.bootstrap %}
   {% for type in environment.stack_types %}
-  # {{type}} base compilers
-  - matrix:
-    - [${{type}}_compilers_not_filtered]
-    - [$%core_compiler]
     {% for compiler, stack in environment[type].items() %}
-    {% if 'compiler' in stack %}
+      {% if 'compiler' in stack %}
   # {{type}} stack for {{compiler}} (MPI, Blas)
   - matrix:
     - [${{compiler}}_{{type}}_base_stack]
-    - [$%{{compiler}}_{{type}}_compiler]
+    {% if environment.gpu == 'nvidia' %}
+    - [^{{environment[type].cuda.package }}]
     {% endif %}
+    - [$%{{compiler}}_{{type}}_compiler]
+      {% endif %}
     {% endfor %}
   {% endfor %}
 
@@ -127,13 +130,16 @@ spack:
   - matrix:
     - [$mpi_packages]
     - [$^{{compiler}}_stable_mpi]
+    {% if environment.gpu == 'nvidia' %}
+    - [^{{environment.stable.cuda.package }}]
+    {% endif %}
     - [$%{{compiler}}_stable_compiler]
 
   - matrix:
     - [${{compiler}}_mpi_packages]
     - [$^{{compiler}}_stable_blas]
     - [$^{{compiler}}_stable_mpi]
-    {% if environment.gpu == 'nvidia' and compiler == 'intel' %}
+    {% if environment.gpu == 'nvidia' %}
     - [^{{environment.stable.cuda.package }}]
     {% endif %}
     - [$%{{compiler}}_stable_compiler]
@@ -142,7 +148,7 @@ spack:
     - [$mpi_lapack_packages]
     - [$^{{compiler}}_stable_blas]
     - [$^{{compiler}}_stable_mpi]
-    {% if environment.gpu == 'nvidia' and compiler == 'intel' %}
+    {% if environment.gpu == 'nvidia' %}
     - [^{{environment.stable.cuda.package }}]
     {% endif %}
     - [$%{{compiler}}_stable_compiler]
@@ -151,7 +157,7 @@ spack:
     - [${{compiler}}_mpi_lapack_packages]
     - [$^{{compiler}}_stable_blas]
     - [$^{{compiler}}_stable_mpi]
-    {% if environment.gpu == 'nvidia' and compiler == 'intel' %}
+    {% if environment.gpu == 'nvidia' %}
     - [^{{environment.stable.cuda.package }}]
     {% endif %}
     - [$%{{compiler}}_stable_compiler]
@@ -161,7 +167,7 @@ spack:
     - [$^{{compiler}}_python3]
     - [$^{{compiler}}_stable_blas]
     - [$^{{compiler}}_stable_mpi]
-    {% if environment.gpu == 'nvidia' and compiler == 'intel' %}
+    {% if environment.gpu == 'nvidia' %}
     - [^{{environment.stable.cuda.package }}]
     {% endif %}
     - [$%{{compiler}}_stable_compiler]
@@ -171,7 +177,7 @@ spack:
     - [$^{{compiler}}_python3]
     - [$^{{compiler}}_stable_blas]
     - [$^{{compiler}}_stable_mpi]
-    {% if environment.gpu == 'nvidia' and compiler == 'intel' %}
+    {% if environment.gpu == 'nvidia' %}
     - [^{{environment.stable.cuda.package }}]
     {% endif %}
     - [$%{{compiler}}_stable_compiler]

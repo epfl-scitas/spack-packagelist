@@ -29,14 +29,10 @@ pipeline {
             //
             steps {
                 // Checkout Spack
-                dir("${SPACK_CHECKOUT_DIR}") {
-                    git url: "https://github.com/spack/spack.git", branch: "${SPACK_RELEASE}"
-                }
+                sh 'jenkins/senv.sh spack-checkout'
 
-                dir("${SPACK_CHECKOUT_DIR}/../external_repos") {
-                    git url: "http://github.com/epfl-scitas/spack-repo-externals.git"
-                }
-                // checkout_extra_dirs();
+                // Checkout extra packages sources;
+                sh 'jenkins/senv.sh spack-checkout-extra-repos'
 
                 // Update the command line tool we use in production
                 // and configuration files
@@ -47,10 +43,6 @@ pipeline {
         stage('Prepare production stack') {
             // Ensure that all the compilers that are needed in
             // production are in place.
-            //
-            // 1. Compute which compilers are needed using a
-            //    python command
-            // 2. Check if they are installed, and if not install them
             prepare_compilers()
         }
 

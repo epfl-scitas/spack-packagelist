@@ -1,18 +1,12 @@
-- python3: [ python@3.7.7+optimizations+tkinter ]
-- python2: [ python@2.7.18+tkinter ]
-- pythons:
-  - python2
-  - python3
-
 - gcc_python3:
-  - python@3.7.7+optimizations+tkinter
+  - python@{{ environment.python.3 }} +optimizations+tkinter
 - intel_python3:
-  - python@3.7.7+optimizations+tkinter ^freetype@2.7.1 ^fontconfig@2.12.1
+  - python@{{ environment.python.3 }} +optimizations+tkinter ^freetype@2.7.1 ^fontconfig@2.12.1
 
 - gcc_python2:
-  - python@2.7.18+tkinter
+  - python@{{ environment.python.2 }}+tkinter
 - intel_python2:
-  - python@2.7.18+tkinter ^freetype@2.7.1 ^fontconfig@2.12.1
+  - python@{{ environment.python.2 }}+tkinter ^freetype@2.7.1 ^fontconfig@2.12.1
 
 - core_packages:
   - cmake@3.16.5
@@ -43,7 +37,6 @@
   - eigen
   - fastqc
   - fftw ~mpi+openmp
-  - fftw ~mpi~openmp
   # - freebayes
   - gsl
   - hdf5+szip~mpi+hl+fortran+cxx
@@ -89,7 +82,9 @@
   - armadillo+hdf5
     ^arpack-ng~mpi
     ^hdf5+szip~mpi+hl+fortran+cxx
+  {% if environment.gpu == 'nvidia' %}
   - magma {{ cuda_variant(environment, dep=True) }}
+  {% endif %}
   - octave
 
 - intel_serial_packages_lapack:
@@ -109,29 +104,24 @@
     ^cairo+png+pdf+fc+ft
   - py-biopython
   - py-cutadapt
-  - py-cython
   - py-deeptools
-  - py-matplotlib
-  - py-numpy
-  - py-pandas
-  - py-pip
-  - py-ply
   - py-pybind11
   - py-scikit-learn
-  - py-scipy
   - py-statsmodels
-  - py-sympy
   - py-theano {{ cuda_variant(environment, dep=True) }}
-  - py-virtualenv
-  - py-xarray
   - samtools
   - scons
   - snakemake
+  {% filter indent(width=2, indentfirst=true) %}
+  {% include ('templates/scitas/' + stack_release + '/python_activated.yaml.j2') | indent %}
+  {% endfilter %}
 
 - serial_python2_minimal_support:
-  - py-pip
-  - py-virtualenv
   - jellyfish
+  {% filter indent(width=2, indentfirst=true) %}
+  {% include ('templates/scitas/' + stack_release + '/python2_activated.yaml.j2') %}
+  {% endfilter %}
+
 
 - gcc_serial_packages_python:
   - bcl2fastq2
@@ -187,10 +177,9 @@
   # - adf@2017.111
   # - ansys@19.2
   # - cfdplusplus@19.1
-  # - comsol@5.3
   # - comsol@5.4
   # - fdtd@8.20.1703
-  # - gaussian@g16-A.03
+  # - gaussian@g16-C.01
   # - gurobi@8.1.1
   # - likwid@4.3.0
   # - maple@2017
@@ -204,7 +193,13 @@
 - gcc_external_packages:
 
 - mpi_packages:
+  # missing source tarball
+  # - amber+mpi {{ cuda_variant(environment) }}
+  #   ^netcdf-fortran+mpi
+  #   ^netcdf-c+mpi
+  #   ^hdf5+szip+mpi+hl+fortran+cxx
   - arpack-ng+mpi
+  - fftw+mpi+openmp
   - hdf5+szip+mpi+hl+fortran+cxx
   - netcdf-c+mpi
     ^hdf5+szip+mpi+hl+fortran+cxx
@@ -251,8 +246,6 @@
   # - cp2k+mpi~plumed {{ cuda_variant(environment) }}
   # - cp2k+mpi+plumed {{ cuda_variant(environment) }}
   #   ^plumed+mpi+gsl
-  - fftw+mpi+openmp
-  - fftw+mpi~openmp
   - yambo+mpi io=iotk,etsf-io
     ^fftw+mpi~openmp
     ^netcdf-fortran+mpi

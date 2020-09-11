@@ -110,6 +110,7 @@ gaussian:
   buildable: False
   paths:
     gaussian@g16-A.03 %{{environment.core_compiler}}: {{ spack_external_root }}/gaussian/g16-A.03
+    gaussian@g16-C.01 %{{environment.core_compiler}}: {{ spack_external_root }}/gaussian/g16-C.01
 
 matlab:
   buildable: False
@@ -141,18 +142,19 @@ totalview:
 ####
 # Concretization preferences
 ####
-# crystal17:
-#   permissions:
-#     read: group
-#     group: crystal-soft
 
 guile:
   variants: '~threads'
 
-# molpro:
-#   permissions:
-#     read: group
-#     group: molpro-soft
+crystal17:
+  permissions:
+    read: group
+    group: crystal-soft
+
+molpro:
+  permissions:
+    read: group
+    group: molpro-soft
 
 vasp:
   permissions:

@@ -30,7 +30,7 @@ config:
     - ~/.spack/stage
 
 {% set spack_site_compilers = 'templates/' + site + '/compilers.yaml.j2' %}
-  compilers:
+compilers:
 {% if spack_site_compilers | exists %}
   {% include spack_site_compilers | indent %}
 {% else %}

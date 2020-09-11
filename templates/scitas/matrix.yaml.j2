@@ -15,7 +15,7 @@
   - [$^{{compiler}}_python2]
   - [$^{{compiler}}_stable_blas]
   - [$^{{compiler}}_stable_mpi]
-  {% if environment.gpu == 'nvidia' and compiler == 'intel' %}
+  {% if environment.gpu == 'nvidia' %}
   - [^{{environment.stable.cuda.package }}]
   {% endif %}
   - [$%{{compiler}}_stable_compiler]
@@ -28,7 +28,7 @@
   - [$mpi_benchmarks]
   - [$^{{compiler}}_stable_blas]
   - [$^{{compiler}}_stable_mpi]
-  {% if environment.gpu == 'nvidia' and compiler == 'intel' %}
+  {% if environment.gpu == 'nvidia' %}
   - [^{{environment.stable.cuda.package }}]
   {% endif %}
   - [$%{{compiler}}_stable_compiler]

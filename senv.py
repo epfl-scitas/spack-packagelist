@@ -394,6 +394,39 @@ class SpackEnvs(object):
                         fh.write(spack_env_template.render(dict_))
                         print('Writing file {}'.format(config_file))
 
+    def spack_list_python(self, env):
+        spack_config_path = os.path.join(self.spack_source_root, 'etc', 'spack')
+        customisation = self._get_env_customisation(env)
+        template_path = os.path.join('./templates/',
+                                     self.configuration['site'],
+                                     self.configuration['stack_release'])
+
+        python_activated = yaml.load(
+            self._create_jinja_environment(
+                os.path.join(template_path,
+                             'python_activated.yaml.j2')).render(customisation),
+            Loader=yaml.FullLoader)
+        python2_activated = yaml.load(
+            self._create_jinja_environment(
+                os.path.join(template_path,
+                             'python2_activated.yaml.j2')).render(customisation),
+            Loader=yaml.FullLoader)
+        for compiler in customisation['environment']['stable']:
+            stack = customisation['environment']['stable'][compiler]
+            if 'compiler' not in stack:
+                continue
+
+            for package in python_activated:
+                print('{0} ^python@{1} %{2}'.format(
+                    package,
+                    customisation['environment']['python'][3],
+                    _filter_variant(stack['compiler'])))
+            for package in python2_activated:
+                print('{0} ^python@{1} %{2}'.format(
+                    package,
+                    customisation['environment']['python'][2],
+                    _filter_variant(stack['compiler'])))
+
 @click.group()
 @click.option(
     '--input', default='humagne.yaml', type=click.File('r'),
@@ -491,3 +524,10 @@ def spack_checkout(ctxt):
 def spack_checkout_extra_repos(ctxt):
     spack_envs = SpackEnvs(ctxt.parent.configuration)
     spack_envs.spack_checkout_extra_repos()
+
+@senv.command()
+@click.option('--env', help='Environment to list the compiler for')
+@click.pass_context
+def list_spec_to_activate(ctxt, env):
+    spack_envs = SpackEnvs(ctxt.parent.configuration)
+    spack_envs.spack_list_python(env)

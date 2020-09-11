@@ -1,50 +1,13 @@
-- angsd
-- bedtools2
-- blast-plus
-- bowtie2
-- bwa
-- cmake
-- gcc@8.3.0
-- eigen
-- elmerfem
-- fastqc
-- fftw
-- freebayes
-- gatk
-- git
-- gmsh
-- gromacs
-- gsl
-- hpl
-- intel
-- intel-mkl
-- intel-mpi
-- intel-tbb
-- iq-tree
-- kallisto
-- mafft
-- mpich
-- muscle
-- netlib-scalapack
-- octave
-- openblas
-- openfoam
-- openjdk
-- osu-micro-benchmarks
-- perl%gcc@8.3.0
-- perl%intel
-- phylobayesmpi
-- picard
-- prinseq-lite
-- python
-- py-cutadapt
-- py-biopython
-- py-mpi4py
-- py-statsmodels
-- r^openjdk@11.0.2
-- samtools
-- snakemake
-- spades
-- sratoolkit
-- stacks
-- stream
+{% for type in environment.stack_types %}
+  {% for compiler, stack in environment[type].items() %}
+    {% if 'compiler' in stack %}
+- {{ stack.compiler}}  % {{ environment.core_compiler }}
+      {% for _mpi in (stack.mpi | list_if_not) %}
+- {{ _mpi }}%{{stack.compiler | filter_variant }}
+      {% endfor %}
+      {% for _blas in (stack.blas | list_if_not) %}
+- {{ _blas }}%{{stack.compiler | filter_variant }}
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
+{% endfor %}

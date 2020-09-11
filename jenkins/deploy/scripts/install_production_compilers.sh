@@ -18,11 +18,14 @@ senv --input ${STACK_RELEASE}.yaml \
     --env $environment
 
 if [ ! -e ${SPACK_CHECKOUT_DIR}/var/environments/${environment}/spack.yaml ]; then
-    senv --input ${STACK_RELEASE}.yaml \
-        create-env \
-        --bootstrap \
-        --env $environment
+    spack env create ${environment}
 fi
+
+senv --input ${STACK_RELEASE}.yaml \
+    create-env \
+    --bootstrap \
+    --env $environment
+
 
 # Source Spack and add the system compiler
 . ${SPACK_CHECKOUT_DIR}/share/spack/setup-env.sh

@@ -63,10 +63,15 @@ default_environment:
 izar:
   stack_types: [stable, bleeding_edge]
   gpu: nvidia
+
+  python:
+    3: 3.7.7
+    2: 2.7.18
+
   stable:
     gcc:
-      compiler: "gcc@8.4.0+nvptx+piclibs ^cuda@10.2.89"
-      mpi: [ "mvapich2 process_managers=slurm fabrics=mrail threads=multiple +cuda ^cuda@10.2.89" ]
+      compiler: "gcc@8.4.0+nvptx+piclibs"
+      mpi: [ "mvapich2 process_managers=slurm fabrics=mrail threads=multiple +cuda" ]
     cuda:
       package: "cuda@10.2.89"
       arch: "sm_70"
@@ -77,8 +82,8 @@ izar:
        # version of mvapich2 a stack with gcc 10.2.0 will need a different mpi
        # cuda 11 does not support sm_30 anymmore, gcc+nvptx need to be patched
        # and might be unstable
-       compiler: "gcc@9.3.0+nvptx+piclibs ^cuda@11.0.2"
-       mpi: [ "mvapich2 process_managers=slurm fabrics=mrail threads=multiple +cuda  ^cuda@11.0.2" ]
+       compiler: "gcc@9.3.0+nvptx+piclibs"
+       mpi: [ "mvapich2 process_managers=slurm fabrics=mrail threads=multiple +cuda" ]
        blas: [ "openblas threads=none" ]
      cuda:
        package: "cuda@11.0.2"

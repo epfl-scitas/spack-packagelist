@@ -1,1 +1,5 @@
 - cuda%{{ environment.core_compiler | filter_variant }}
+- cmake
+{% filter indent(width=2, indentfirst=true) %}
+{% include ('templates/scitas/' + stack_release + '/python_activated.yaml.j2') | indent %}
+{% endfilter %}
