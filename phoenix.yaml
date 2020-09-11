@@ -29,7 +29,7 @@ extra_repos:
   scitas-spack-packages:
     repo: http://github.com/epfl-scitas/scitas-spack-packages.git
     path: scitas-spack-packages/
-    tag: releases/arvine
+    tag: releases/phoenix
 
 # default version of compilers mpi and openblas
 default_environment:
@@ -50,7 +50,7 @@ default_environment:
       suite_version: '2020.0.166'
     gcc:
       compiler: "gcc@9.3.0"
-      mpi: [ "mvapich2 process_managers=slurm fabrics=mrail threads=multiple" ]
+      mpi: [ "mvapich2 process_managers=hydra fabrics=sock threads=multiple" ]
       blas: [ "openblas threads=none" ]
 
 skylake_avx512_v100:
@@ -58,7 +58,7 @@ skylake_avx512_v100:
   stable:
     gcc:
       compiler: "gcc@9.3.0+nvptx+piclibs ^cuda@10.2.89"
-      mpi: [ "mvapich2 process_managers=slurm fabrics=mrail threads=multiple +cuda ^cuda@10.2.89" ]
+      mpi: [ "mvapich2 process_managers=hydra fabrics=sock threads=multiple +cuda ^cuda@10.2.89" ]
     cuda:
       package: "cuda@10.2.89"
       arch: "sm_70"
