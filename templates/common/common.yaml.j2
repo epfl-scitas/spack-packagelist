@@ -22,7 +22,7 @@ config:
 
   build_stage:
     {% if stack_version %}
-    - {{ spack_root }}/tmp/{{ stack_release }}.{{ stack_version }}
+    - {{ spack_root }}/tmp/{{ stack_release }}.{{ stack_version }}/{{ environment.name }}
     {% else %}
     - {{ spack_root }}/tmp/{{ stack_release }}
     {% endif %}
