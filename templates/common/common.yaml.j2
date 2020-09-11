@@ -22,9 +22,9 @@ config:
 
   build_stage:
     {% if stack_version %}
-    - {{ spack_root }}/tmp/{{ stack_release }}.{{ stack_version }}/{{ environment.name }}
+    - {{ spack_root }}/{{ stack_release }}.{{ stack_version }}/tmp/{{ environment.name }}
     {% else %}
-    - {{ spack_root }}/tmp/{{ stack_release }}
+    - {{ spack_root }}/{{ stack_release }}/tmp/{{ environment.name }}
     {% endif %}
     - $tempdir/$user/spack-stage
     - ~/.spack/stage

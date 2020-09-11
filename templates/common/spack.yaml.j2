@@ -51,8 +51,13 @@ spack:
       {% endif %}
 
 {% set definition_site_template = 'templates/' + site + '/' + stack_release + '.yaml.j2' %}
+{% set definition_site_env_template = 'templates/' + site + '/' + stack_release + '/' + environment.name + '.yaml.j2' %}
 {% filter indent(width=4, first=True) %}
-  {% include definition_site_template %}
+   {% if definition_site_env_template | exists %}
+     {% include definition_site_env_template %}
+   {% else %}
+     {% include definition_site_template %}
+   {% endif %}
 {% endfilter %}
 
   specs:

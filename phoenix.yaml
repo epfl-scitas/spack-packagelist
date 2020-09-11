@@ -17,6 +17,7 @@ environments:
   - "cascadelake_nec"
   - "zen"
   - "broadwell_p100"
+  - "frontal"
 
 mirrors:
   local: .spack-mirror
