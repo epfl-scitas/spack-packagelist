@@ -411,6 +411,8 @@ class SpackEnvs(object):
                 os.path.join(template_path,
                              'python2_activated.yaml.j2')).render(customisation),
             Loader=yaml.FullLoader)
+        if python2_activated is None:
+            python2_activated = [] 
         for compiler in customisation['environment']['stable']:
             stack = customisation['environment']['stable'][compiler]
             if 'compiler' not in stack:
