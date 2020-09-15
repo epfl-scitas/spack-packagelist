@@ -32,7 +32,7 @@
 - intel_serial_packages:
 
 - serial_packages_lapack:
-  - superlu
+#  - superlu
 
 - gcc_serial_packages_lapack:
   {% if environment.gpu == 'nvidia' %}
@@ -42,16 +42,11 @@
 - intel_serial_packages_lapack:
 
 - serial_packages_python:
-  - py-cython
-  - py-matplotlib
-  - py-numpy
-  - py-pandas
-  - py-pip
-  - py-ply
   - py-pybind11
-  - py-scipy
   - py-theano {{ cuda_variant(environment, dep=True) }}
-  - py-virtualenv
+  {% filter indent(width=2, indentfirst=true) %}
+  {% include ('templates/scitas/' + stack_release + '/python_activated.yaml.j2') | indent %}
+  {% endfilter %}
 
 - serial_python2_minimal_support:
 
@@ -66,7 +61,7 @@
   - hdf5+szip+mpi+hl+fortran+cxx
   - netcdf-c+mpi
     ^hdf5+szip+mpi+hl+fortran+cxx
-  - netcdf-fortran+mpi
+  - netcdf-fortran
     ^netcdf-c+mpi
     ^hdf5+szip+mpi+hl+fortran+cxx
 
@@ -80,7 +75,6 @@
     ^metis+real64
 
 - mpi_lapack_python_packages:
-  - boost cxxstd=14 +icu+mpi+python+numpy
   - py-h5py
     ^hdf5+szip+mpi+hl+fortran+cxx
   - py-mpi4py
@@ -88,6 +82,7 @@
 - gcc_mpi_packages:
 
 - gcc_mpi_lapack_packages:
+  - boost cxxstd=14 +icu+mpi+python+numpy
   - mumps+mpi+parmetis+metis+scotch+ptscotch
     ^parmetis
     ^metis+real64
@@ -127,14 +122,14 @@
     ^scotch+esmumps+mpi~metis
 
 - intel_mpi_lapack_python_packages:
-  - petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse{{ cuda_variant(environment, arch=False) }}
+  - petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse
     ^mumps+mpi+parmetis+metis+scotch+ptscotch
     ^parmetis
     ^metis+real64
     ^scotch+esmumps+mpi~metis
     ^hdf5+szip+mpi+hl+fortran+cxx
-    ^suite-sparse {{ cuda_variant(environment) }}
-    ^hypre {{ cuda_variant(environment, arch=False) }}
+    ^suite-sparse
+    ^hypre
 
 - intel_mpi_lapack_python2_packages:
 
