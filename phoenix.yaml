@@ -43,6 +43,10 @@ default_environment:
   compilers: [gcc, intel]
   stack_types: [stable]
 
+  python:
+    3: 3.7.7
+    2: 2.7.18
+
   stable:
     intel:
       compiler: "intel@19.1.0"
@@ -58,8 +62,8 @@ skylake_avx512_v100:
   gpu: nvidia
   stable:
     gcc:
-      compiler: "gcc@9.3.0+nvptx+piclibs ^cuda@10.2.89"
-      mpi: [ "mvapich2 process_managers=hydra fabrics=sock threads=multiple +cuda ^cuda@10.2.89" ]
+      compiler: "gcc@9.3.0+nvptx+piclibs"
+      mpi: [ "mvapich2 process_managers=hydra fabrics=sock threads=multiple +cuda" ]
     cuda:
       package: "cuda@10.2.89"
       arch: "sm_70"
