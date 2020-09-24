@@ -87,6 +87,23 @@ def _cuda_variant(environment, arch=True,
 
     return variant
 
+def _hip_variant(environment, arch=True,
+                  extra_off='', extra_on='',
+                  stack='stable',
+                  dep=False):
+    if 'gpu' not in environment or environment['gpu'] != 'amd':
+        return '~hip{}'.format(extra_off)
+
+    variant = '+hip{}'.format(extra_on)
+    if arch:
+        variant = '{0} amd_gpu_arch={1}'.format(
+            variant,
+            environment[stack]['rocm']['arch']
+        )
+
+
+    return variant
+
 
 class SpackEnvs(object):
     def __init__(self, configuration, prefix=None):
@@ -141,6 +158,7 @@ class SpackEnvs(object):
         self.spack_env.filters['compiler'] = _compiler
         self.spack_env.filters['absolute_path'] = _absolute_path
         self.spack_env.globals['cuda_variant'] = _cuda_variant
+        self.spack_env.globals['hip_variant'] = _hip_variant
 
     def _create_jinja_environment(self, template_path=None):
         if template_path is None:
@@ -162,6 +180,29 @@ class SpackEnvs(object):
         d3 = d1.copy()
         d3.update(d2)
         return d3
+
+    # get a cache for a given operation
+    def _get_cache(self, type_):
+        class cache(object):
+            def __init__(self, type_, config):
+                
+                self.cache_file = '.{0}{1}_{2}_cache.yaml'.format(
+                    config['stack_release'],
+                    '.{0}'.format(config['stack_version']) if 'stack_version' in config else '',
+                    type_)
+
+                try:
+                    with open(self.cache_file, 'r') as fh:
+                        self.cache = yaml.load(fh, Loader=yaml.FullLoader)
+                except IOError:
+                    self.cache = None
+                    pass
+
+            def save(self):
+                with open(self.cache_file, 'w') as fh:
+                    yaml.dump(self.cache, fh)
+
+        return cache(type_, self.configuration)
 
     # get the environment dict overriding the configurations
     # if there are environment specific ones
@@ -185,16 +226,9 @@ class SpackEnvs(object):
                 self.configuration[environment])
 
         # adds the compiler prefixes if they do not exists
-        cache_file = '.{0}{1}_cache.yaml'.format(
-            self.configuration['stack_release'],
-            '.{0}'.format(self.configuration['stack_version']) if 'stack_version' in self.configuration else '')
-        cache = {}
-        try:
-            with open(cache_file, 'r') as fh:
-                cache = yaml.load(fh, Loader=yaml.FullLoader)
-        except IOError:
-            pass
-
+        cache = self._get_cache('compilers')
+        if cache.cache is None:
+            cache.cache = {}
         for _type in customisation['environment']['stack_types']:
             if _type not in customisation['environment']:
                 continue
@@ -209,17 +243,16 @@ class SpackEnvs(object):
                     customisation
                 )
 
-                if cache and spec_compiler in cache:
-                    spack_path = cache[spec_compiler]
+                if spec_compiler in cache.cache:
+                    spack_path = cache.cache[spec_compiler]
                 else:
                     spack_path = self._spack_path(spec_compiler,
                                                   environment)
 
                 if spack_path is not None:
                     customisation['environment'][_type][compiler]['compiler_prefix'] = spack_path
-                    cache[spec_compiler] = spack_path
-        with open(cache_file, 'w') as fh:
-            yaml.dump(cache, fh)
+                    cache.cache[spec_compiler] = spack_path
+        cache.save()
         return customisation
 
     def _compiler_name(self, compiler, customisation):
@@ -230,7 +263,9 @@ class SpackEnvs(object):
             compiler,
             customisation['environment']['core_compiler'])
 
-    def _spack_path(self, value, environment):
+    def _run_spack(self, *args, **kwargs):
+        environment = kwargs.pop('environment', None)
+        no_wait = kwargs.pop('no_wait', False)
         options = { 'stdout': subprocess.PIPE,
                     'stderr': DEVNULL }
         if environment is not None:
@@ -238,18 +273,23 @@ class SpackEnvs(object):
                 self.spack_environment_root,
                 environment)}
 
-        spack_find = subprocess.Popen(
-            [os.path.join(self.spack_source_root, 'bin', 'spack'),
-             'find', '--paths', value],
-            **options
-        )
+        command = [os.path.join(self.spack_source_root, 'bin', 'spack')]
+        command.extend(args)
+
+        spack = subprocess.Popen(command, **options)
+
+        return spack
+
+    def _spack_path(self, value, environment):
+        spack = self._run_spack('find', '--paths', value,
+                                environment=environment)
 
         path_re = re.compile('.*(({0}|{1}).*)$'.format(
             self.spack_install_root,
             _absolute_path(self.configuration['spack_external'],
                            prefix=self.configuration['spack_root'])))
 
-        for line in spack_find.stdout:
+        for line in spack.stdout:
             match = path_re.match(line.decode('ascii'))
             if match:
                 return match.group(1)
@@ -394,40 +434,70 @@ class SpackEnvs(object):
                         fh.write(spack_env_template.render(dict_))
                         print('Writing file {}'.format(config_file))
 
-    def spack_list_python(self, env):
+    def spack_list_python(self, env, stack_type=None):
         spack_config_path = os.path.join(self.spack_source_root, 'etc', 'spack')
         customisation = self._get_env_customisation(env)
         template_path = os.path.join('./templates/',
                                      self.configuration['site'],
                                      self.configuration['stack_release'])
+        specs = []
+        python_activated = {}
+        for ver in [2, 3]:
+            python_activated[ver] = yaml.load(
+                self._create_jinja_environment(
+                    os.path.join(
+                        template_path,
+                        'python{}_activated.yaml.j2'.format('2' if ver == 2 else ''))
+                ).render(customisation),
+                Loader=yaml.FullLoader)
+            
+            if python_activated[ver] is None:
+                python_activated[ver] = [] 
 
-        python_activated = yaml.load(
-            self._create_jinja_environment(
-                os.path.join(template_path,
-                             'python_activated.yaml.j2')).render(customisation),
-            Loader=yaml.FullLoader)
-        python2_activated = yaml.load(
-            self._create_jinja_environment(
-                os.path.join(template_path,
-                             'python2_activated.yaml.j2')).render(customisation),
-            Loader=yaml.FullLoader)
-        if python2_activated is None:
-            python2_activated = [] 
-        for compiler in customisation['environment']['stable']:
-            stack = customisation['environment']['stable'][compiler]
-            if 'compiler' not in stack:
+        if stack_type is not None:
+            stack_types = [stack_type]
+        else:
+            stack_types = customisation['environment']['stack_types']
+
+        for stack_type_ in stack_types:
+            for compiler in customisation['environment'][stack_type_]:
+                stack = customisation['environment'][stack_type_][compiler]
+                if 'compiler' not in stack:
+                    continue
+                
+                for ver in [2, 3]:
+                    spec = {
+                        'python_version': customisation['environment']['python'][ver],
+                        'compiler': _filter_variant(stack['compiler']),
+                        'arch': '',
+                    }
+                if 'arch' in customisation['environment']:
+                    spec['arch'] = ' arch={}'.format(customisation['environment']['arch'])
+                
+                for package in python_activated[ver]:
+                    spec['pkg'] = package
+                    specs.append('{pkg} ^python@{python_version} %{compiler}{arch}'.format(**spec))
+        
+        return specs            
+
+    def activate_specs(self, environment, stack_type=None):
+        specs = self.spack_list_python(environment, stack_type)
+        
+        cache = self._get_cache('activated')
+        if cache.cache is None:
+            cache.cache = []
+        for spec in specs:
+            if spec in cache.cache:
+                print ('==> {0} activated [cache]'.format(spec))
                 continue
 
-            for package in python_activated:
-                print('{0} ^python@{1} %{2}'.format(
-                    package,
-                    customisation['environment']['python'][3],
-                    _filter_variant(stack['compiler'])))
-            for package in python2_activated:
-                print('{0} ^python@{1} %{2}'.format(
-                    package,
-                    customisation['environment']['python'][2],
-                    _filter_variant(stack['compiler'])))
+            spack = self._run_spack('activate', spec, environment=environment)
+            for line in spack.stdout:
+                print(line.decode('ascii'))
+
+            cache.cache.append(spec)
+        cache.save()
+
 
 @click.group()
 @click.option(
@@ -529,7 +599,21 @@ def spack_checkout_extra_repos(ctxt):
 
 @senv.command()
 @click.option('--env', help='Environment to list the compiler for')
+@click.option('--stack-type', help='Stack type: stable, bleeding_edge',
+              default=None, required=False)
 @click.pass_context
-def list_spec_to_activate(ctxt, env):
+def list_spec_to_activate(ctxt, env, stack_type):
     spack_envs = SpackEnvs(ctxt.parent.configuration)
-    spack_envs.spack_list_python(env)
+    specs = spack_envs.spack_list_python(env, stack_type)
+    for spec in specs:
+        print(spec)
+
+
+@senv.command()
+@click.option('--env', help='Environment to list the compiler for')
+@click.option('--stack-type', help='Stack type: stable, bleeding_edge',
+              default=None, required=False)
+@click.pass_context
+def activate_specs(ctxt, env, stack_type):
+    spack_envs = SpackEnvs(ctxt.parent.configuration)
+    spack_envs.activate_specs(env, stack_type)
