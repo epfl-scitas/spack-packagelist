@@ -36,6 +36,7 @@ extra_repos:
 default_environment:
   os: rhel7
   cpu: intel
+  arch: sandybridge
 
   # compiler contains the arch since it is the highest arch this compiler can
   # compile for
@@ -60,6 +61,18 @@ default_environment:
 
 skylake_avx512_v100:
   gpu: nvidia
+  arch: skylake_avx512
+  stack_types: [old, stable]
+
+  old:
+    gcc:
+      compiler: "gcc@8.4.0+nvptx+piclibs"
+      mpi: [ "mvapich2 process_managers=hydra fabrics=sock threads=multiple +cuda" ]
+      blas: [ "openblas threads=none" ]
+    cuda:
+      package: "cuda@10.2.89"
+      arch: "sm_70"
+
   stable:
     gcc:
       compiler: "gcc@9.3.0+nvptx+piclibs"
@@ -71,6 +84,12 @@ skylake_avx512_v100:
 zen2_radeon:
   cpu: amd
   gpu: amd
+  arch: zen2
+
+  stable:
+    rocm:
+      arch: "vega906"
 
 zen:
   cpu: amd
+  arch: zen

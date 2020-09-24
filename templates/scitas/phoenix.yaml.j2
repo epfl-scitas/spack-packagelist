@@ -28,6 +28,7 @@
   {% endif %}
 
 - gcc_serial_packages:
+  - gdb
 
 - intel_serial_packages:
 
@@ -44,7 +45,15 @@
 - serial_packages_python:
   - py-pybind11
   - py-theano {{ cuda_variant(environment, dep=True) }}
-  {% filter indent(width=2, indentfirst=true) %}
+  - hwloc +cairo {{ cuda_variant(environment, arch=False, dep=True, extra_on='+nvml') }}
+    ^cairo+png+pdf+fc+ft
+#  - kokkos +hwloc std=14 +numactl +openmp {{ hip_variant(environment) }} {{ cuda_variant(environment, extra_on='+cuda_lambda +cuda_uvm +wrapper', dep=True) }} 
+#    ^hwloc +cairo {{ cuda_variant(environment, arch=False, dep=False, extra_on='+nvml') }}
+#    ^cairo+png+pdf+fc+ft
+#  {% if environment.gpu == 'nvidia' %}
+#    ^kokkos-nvcc-wrapper~mpi
+#  {% endif %}
+  {% filter indent(width=2, indentfirst=True) %}
   {% include ('templates/scitas/' + stack_release + '/python_activated.yaml.j2') | indent %}
   {% endfilter %}
 
@@ -52,9 +61,15 @@
 
 - gcc_serial_packages_python:
   - gdb
-  - py-torch {{ cuda_variant(environment, extra_off='~cudnn~nccl', dep=True) }}
+  - cube
+    ^cairo+png+pdf+fc+ft
+    ^qt~ssl
 
 - intel_serial_packages_python:
+  - cube
+    ^cairo+png+pdf+fc+ft
+    ^harfbuzz@2.1.3
+    ^qt~ssl
 
 - mpi_packages:
   - fftw+mpi+openmp
@@ -64,6 +79,9 @@
   - netcdf-fortran
     ^netcdf-c+mpi
     ^hdf5+szip+mpi+hl+fortran+cxx
+  - scorep +pdt+unwind
+    ^llvm +all_targets {{ cuda_variant(environment) }}
+  - scalasca
 
 - mpi_lapack_packages:
   - hypre {{ cuda_variant(environment, arch=False) }}
@@ -78,11 +96,12 @@
   - py-h5py
     ^hdf5+szip+mpi+hl+fortran+cxx
   - py-mpi4py
-
+  - boost cxxstd=14 +icu+mpi+python+numpy
+  - valgrind
+    ^boost cxxstd=14 +icu+mpi+python+numpy
 - gcc_mpi_packages:
 
 - gcc_mpi_lapack_packages:
-  - boost cxxstd=14 +icu+mpi+python+numpy
   - mumps+mpi+parmetis+metis+scotch+ptscotch
     ^parmetis
     ^metis+real64
@@ -109,7 +128,7 @@
     ^netlib-scalapack
     ^hdf5+szip+mpi+hl+fortran+cxx
     ^suite-sparse {{ cuda_variant(environment) }}
-    ^hypre {{ cuda_variant(environment, arch=False) }}
+    ^hypre {{ cuda_variant(environment, arch=False, dep=False) }}
 
 - gcc_mpi_lapack_python2_packages:
 
