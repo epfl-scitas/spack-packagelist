@@ -16,7 +16,7 @@ llvm:
 intel:
   filter:
     environment_blacklist:
-      - LD_LIBRARY_PATH
+#      - LD_LIBRARY_PATH
       - CPATH
       - CLASSPATH
       - PS1
@@ -27,10 +27,8 @@ intel:
       FC: ifort
       F90: ifort
       F77: ifort
-intel:
-  environment:
-    prepend_path:
-      INTEL_LICENSE_FILE: /ssoft/spack/external/intel/License
+#    prepend_path:
+#      INTEL_LICENSE_FILE: /ssoft/spack/external/intel/License
 
 openmpi:
   environment:
@@ -64,7 +62,7 @@ mvapich2:
 "mvapich2+cuda":
   environment:
     set:
-      MV2_USE_GPU: 1
+      MV2_USE_GPU: '1'
 
 ####
 # LAPACK
