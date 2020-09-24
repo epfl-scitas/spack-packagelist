@@ -1,12 +1,12 @@
 {% for type in environment.stack_types %}
   {% for compiler, stack in environment[type].items() %}
     {% if 'compiler' in stack %}
-- {{ stack.compiler}}  % {{ environment.core_compiler }}
+- {{ stack.compiler}}  %{{ environment.core_compiler }}
       {% for _mpi in (stack.mpi | list_if_not) %}
-- {{ _mpi }}%{{stack.compiler | filter_variant }}
+- {{ _mpi }} %{{stack.compiler | filter_variant }}
       {% endfor %}
       {% for _blas in (stack.blas | list_if_not) %}
-- {{ _blas }}%{{stack.compiler | filter_variant }}
+- {{ _blas }} %{{stack.compiler | filter_variant }}
       {% endfor %}
     {% endif %}
   {% endfor %}

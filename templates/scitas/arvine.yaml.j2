@@ -74,6 +74,9 @@
   - arpack-ng~mpi
   - gmsh~mpi+hdf5
     ^hdf5+szip~mpi+hl+fortran+cxx
+  {% if environment.gpu == 'nvidia' %}
+  - magma {{ cuda_variant(environment, dep=True) }}
+  {% endif %}
   - suite-sparse {{ cuda_variant(environment, dep=True) }}
     ^metis+real64
   - superlu
@@ -82,10 +85,10 @@
   - armadillo+hdf5
     ^arpack-ng~mpi
     ^hdf5+szip~mpi+hl+fortran+cxx
-  {% if environment.gpu == 'nvidia' %}
-  - magma {{ cuda_variant(environment, dep=True) }}
-  {% endif %}
   - octave
+  - caffe ~opencv +python {{ cuda_variant(environment, arch=False) }}
+    ^boost cxxstd=14 +icu~mpi+python+numpy
+    ^hdf5+szip~mpi+hl+fortran+cxx
 
 - intel_serial_packages_lapack:
 
@@ -242,10 +245,6 @@
 - gcc_mpi_packages:
   - cpmd~openmp
     ^fftw+mpi~openmp
-  #  not enough space on /tmp
-  # - cp2k+mpi~plumed {{ cuda_variant(environment) }}
-  # - cp2k+mpi+plumed {{ cuda_variant(environment) }}
-  #   ^plumed+mpi+gsl
   - yambo+mpi io=iotk,etsf-io
     ^fftw+mpi~openmp
     ^netcdf-fortran+mpi
@@ -271,13 +270,15 @@
     ^scotch+esmumps+mpi~metis
     ^netlib-scalapack
   - netlib-scalapack
-  # - vasp@5.4.4
-  #   ^fftw+mpi~openmp
-  #   ^ntelib-scalapack
 
 - gcc_mpi_lapack_python_packages:
   - adios2+hdf5+mpi+python
     ^hdf5+szip+mpi+hl+fortran+cxx
+  - cp2k+mpi~plumed {{ cuda_variant(environment) }}
+    ^fftw+mpi~openmp
+  - cp2k+mpi+plumed {{ cuda_variant(environment) }}
+    ^fftw+mpi~openmp
+    ^plumed+mpi+gsl
   - fenics~parmetis+hdf5+scotch+suite-sparse~vtk~trilinos
     ^slepc+arpack
     ^arpack-ng+mpi
@@ -290,6 +291,7 @@
     ^hdf5+szip+mpi+hl+fortran+cxx
     ^suite-sparse {{ cuda_variant(environment) }}
     ^hypre {{ cuda_variant(environment, arch=False) }}
+    ^boost cxxstd=14 +icu+mpi+python+numpy
   - gromacs@2019.4+mpi+plumed {{ cuda_variant(environment, arch=False) }}
     ^plumed+mpi+gsl
   - lammps build_type=Release
@@ -346,21 +348,13 @@
   #   ^py-h5py
   #   ^hdf5+szip+mpi+hl+fortran+cxx
   # Needs work on the patch for cuda detection
-  # - opencv {{ cuda_variant(environment) }}
-  #   ^vtk+ffmpeg+mpi+opengl2+python~qt+xdmf{%+ if environment.gpu != 'nvidia' %}+osmesa{%+ endif %}
-  #   ^cairo+png+pdf+fc+ft
-  #   ^netcdf-c+mpi
-  #   ^hdf5+szip+mpi+hl+fortran+cxx
-  #   ^boost cxxstd=14 +icu+mpi+python+numpy
-  #   ^llvm {{cuda_variant(environment)}}
-  # - caffe {{ cuda_variant(environment, arch=False) }}
-  #   ^opencv {{ cuda_variant(environment) }}
-  #   ^vtk+ffmpeg+mpi+opengl2+python~qt+xdmf{%+ if environment.gpu != 'nvidia' %}+osmesa{%+ endif %}
-  #   ^cairo+png+pdf+fc+ft
-  #   ^netcdf-c+mpi
-  #   ^hdf5+szip+mpi+hl+fortran+cxx
-  #   ^boost cxxstd=14 +icu+mpi+python+numpy
-  #   ^llvm {{cuda_variant(environment)}}
+  - opencv {{ cuda_variant(environment) }}
+    ^vtk+ffmpeg+mpi+opengl2+python~qt+xdmf{%+ if environment.gpu != 'nvidia' %}+osmesa{%+ endif %}
+    ^cairo+png+pdf+fc+ft
+    ^netcdf-c+mpi
+    ^hdf5+szip+mpi+hl+fortran+cxx
+    ^boost cxxstd=14 +icu+mpi+python+numpy
+    ^llvm {{cuda_variant(environment)}}
   - slepc+arpack
     ^arpack-ng+mpi
     ^petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse{{ cuda_variant(environment, arch=False) }}
@@ -385,6 +379,11 @@
 
 - intel_mpi_packages:
   - crystal17@1.0.2
+  - vasp {{ cuda_variant(environment) }}
+    {% if environment.gpu == 'nvidia' %}
+    ^magma {{ cuda_variant(environment) }}
+    {% endif %}
+
 
 - intel_mpi_lapack_packages:
   - mumps+mpi+parmetis+metis+scotch+ptscotch
@@ -393,17 +392,17 @@
     ^scotch+esmumps+mpi~metis
 
 - intel_mpi_lapack_python_packages:
-  # - fenics+parmetis+hdf5+scotch+suite-sparse~vtk~trilinos
-  #   ^slepc+arpack
-  #   ^arpack-ng+mpi
-  #   ^petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse{{ cuda_variant(environment, arch=False) }}
-  #   ^mumps+mpi+parmetis+metis+scotch+ptscotch
-  #   ^parmetis
-  #   ^metis+real64
-  #   ^scotch+esmumps+mpi~metis
-  #   ^hdf5+szip+mpi+hl+fortran+cxx
-  #   ^suite-sparse {{ cuda_variant(environment) }}
-  #   ^hypre {{ cuda_variant(environment, arch=False) }}
+#  - fenics~parmetis+hdf5+scotch+suite-sparse~vtk~trilinos
+#    ^slepc+arpack
+#    ^arpack-ng+mpi
+#    ^petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse{{ cuda_variant(environment, arch=False) }}
+#    ^mumps+mpi+parmetis+metis+scotch+ptscotch
+#    ^parmetis
+#    ^metis+real64
+#    ^scotch+esmumps+mpi~metis
+#    ^hdf5+szip+mpi+hl+fortran+cxx
+#    ^suite-sparse {{ cuda_variant(environment) }}
+#    ^hypre {{ cuda_variant(environment, arch=False) }}
   # internal compiler error at link
   # - lammps build_type=Release
   #  +asphere +body +class2 +colloid +compress +coreshell
@@ -461,3 +460,4 @@
 - mpi_benchmarks:
   - hpl~openmp
   - osu-micro-benchmarks
+  - hp2p
