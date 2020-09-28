@@ -8,9 +8,6 @@ set -euo pipefail
 #
 
 # Recreate the virtualenv and update the command line
-#
-
-
 echo '(Re)installing senv'
 mkdir -p ${SENV_VIRTUALENV_PATH}
 virtualenv --version

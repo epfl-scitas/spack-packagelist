@@ -9,7 +9,7 @@ set -euo pipefail
 
 environment=$1
 
-if [ x'${DRY_RUN}' != 'x' ]; then
+if [ x'${DRY_RUN}' = 'xyes' ]; then
     SPACK='echo ${SPACK_CHECKOUT_DIR}/bin/spack'
     SENV='echo senv'
 else
