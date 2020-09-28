@@ -41,7 +41,7 @@ senv --input ${STACK_RELEASE}.yaml \
 
 
 # Source Spack and add the system compiler
-spack --version
+${SPACK} --version
 
 cat list_compilers.txt | xargs -L ${SPACK} --env ${environment} install --log-format=junit --log-file=compilers.${environment}.xml
 
