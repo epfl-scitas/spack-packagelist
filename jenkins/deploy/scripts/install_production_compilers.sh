@@ -18,7 +18,9 @@ else
 fi
 
 # Clean old test results from the workspace
+set +e
 mv -f compilers.${environment}.xml old_compilers.${environment}.xml
+set -e
 
 # Produce a valid list of compilers
 . ${SENV_VIRTUALENV_PATH}/bin/activate
