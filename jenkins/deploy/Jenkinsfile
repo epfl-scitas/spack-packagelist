@@ -56,7 +56,11 @@ pipeline {
 
             // Ensure that all the compilers that are needed in
             // production are in place.
-            prepare_compilers()
+            steps {
+                script {
+                    parallel(prepare_compilers())
+                }
+            }
         }
 
     //     stage('Populate mirror') {
@@ -106,7 +110,7 @@ def prepare_compilers() {
             }
         }
     }
-    parallel tests
+    return tests
 }
 
 def deploy_envs() {
@@ -137,5 +141,5 @@ def deploy_envs() {
             }
         }
     }
-    parallel tests
+    return tests
 }
