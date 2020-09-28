@@ -104,11 +104,12 @@ def prepare_compilers() {
     environments = "${sh (script: 'jenkins/senv.sh --input ${STACK_RELEASE}.yaml list-envs', returnStdout: true).trim()}".split('\n')
     def tests = [:]
     for (environment in environments) {
+        env.environment = environment
         agent_name = get_agent_name(environment)
         
         tests["compilers-${agent_name}"] = {
             stage("compilers-${agent_name}") {
-                node('${agent_name}') {
+                node(agent_name) {
                     sh  'jenkins/deploy/scripts/install_production_compilers.sh ${environment}'
                 }
             }
