@@ -88,7 +88,7 @@ def prepare_compilers() {
     for (environment in environments) {
         env.environment = environment
         slurm_version = "${sh(script:'jenkins/senv.sh get-environment-entry --env ${environment} environment.slurm', returnStdout: true).trim()}"
-        slurm_version = slurm_version.split('.')[0,1].join('')
+        slurm_version = slurm_version.split('.')
         echo slurm_version
 
         os_version = "${sh(script:'jenkins/senv.sh get-environment-entry --env ${environment} environment.os', returnStdout: true).trim()}"
