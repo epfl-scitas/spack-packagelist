@@ -527,6 +527,10 @@ def senv(ctx, input):
     ctx.configuration = yaml.load(input, Loader=yaml.FullLoader)
 
 @senv.command()
+def status():
+    print("Senv ready to install stuff!")
+
+@senv.command()
 @click.pass_context
 def list_envs(ctxt):
     config = ctxt.parent.configuration
