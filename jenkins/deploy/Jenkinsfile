@@ -84,9 +84,10 @@ pipeline {
 
 def prepare_compilers() {
     environments = "${sh (script: 'jenkins/senv.sh --input ${STACK_RELEASE}.yaml list-envs', returnStdout: true).trim()}".split('\n')
+    print(environments)
     def tests = [:]
     for (environment in environments) {
-        sh (script: echo ${environment})
+        print(environment)
         slurm_version = "${sh(script:'jenkins/senv.sh get-environment-entry --env ${environment} slurm', returnStdout: true).trim()}".split('.')[0,1].join('')
         os_version = "${sh(script:'jenkins/senv.sh get-environment-entry --env ${environment} os', returnStdout: true).trim()}"
         agent_name = "${environment}-${STACK_RELEASE}-${os_version}-slurm${slurm_version}"
