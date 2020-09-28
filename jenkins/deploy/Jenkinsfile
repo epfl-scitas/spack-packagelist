@@ -112,10 +112,12 @@ def _define_stages(prefix, script, message) {
         jobs["${prefix}-${agent_name}"] = {
             stage("${prefix}-${agent_name}") {
                 node(agent_name) {
+                    result = ''
                     checkout scm
                     try {
                         sh  '${script} ${environment}'
                     } catch(error) {
+                        result = error
                         currentBuild.result = 'FAILURE'
                         mattermostSend color: 'warning',
                             message: '${message} failed for ${environment}. ${env.BUILD_URL} with error ${error}'
@@ -124,6 +126,9 @@ def _define_stages(prefix, script, message) {
                         allowEmptyArchive: true
                     junit testResults:'*.xml',
                         allowEmptyResults: true
+                    if (result) {
+                        throw(error)
+                    }
                 }
             }
         }

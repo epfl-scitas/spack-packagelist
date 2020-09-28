@@ -20,10 +20,7 @@ set +u
  . ${SENV_VIRTUALENV_PATH}/bin/activate
 set -u
 
-environments=$(senv --intput ${STACK_RELEASE}.yaml --list-envs)
-
 GET_ENTRY="senv --intput ${STACK_RELEASE}.yaml get-environment-entry"
-
 SPACK_MIRROR_DIR=$(${GET_ENTRY} spack_root)/$(${GET_ENTRY} mirrors.local)
 environments=$(senv --intput ${STACK_RELEASE}.yaml --list-envs)
 
