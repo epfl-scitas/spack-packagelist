@@ -348,10 +348,7 @@ class SpackEnvs(object):
                              prefix=self.configuration['spack_root']))
 
     def spack_checkout(self):
-        if os.path.exists(self.spack_source_root):
-            repo = git.Repo(self.spack_source_root)
-            repo.remotes.origin.pull(progress=CloneProgress())
-        else:
+        if not os.path.exists(self.spack_source_root):
             git.Repo.clone_from('https://github.com/spack/spack.git', self.spack_source_root,
                                 branch=self.configuration['spack_release'],
                                 progress=CloneProgress())
