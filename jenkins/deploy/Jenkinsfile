@@ -87,7 +87,9 @@ def prepare_compilers() {
     def tests = [:]
     for (environment in environments) {
         env.environment = environment
-        slurm_version = "${sh(script:'jenkins/senv.sh get-environment-entry --env ${environment} slurm', returnStdout: true).trim()}".split('.')[0,1].join('')
+        slurm_version = "${sh(script:'jenkins/senv.sh get-environment-entry --env ${environment} slurm', returnStdout: true).trim()}"
+        echo slurm_version
+        slurm_version = slurm_version.split('.')[(0..1)].join('')
         os_version = "${sh(script:'jenkins/senv.sh get-environment-entry --env ${environment} os', returnStdout: true).trim()}"
         agent_name = "${environment}-${STACK_RELEASE}-${os_version}-slurm${slurm_version}"
 
