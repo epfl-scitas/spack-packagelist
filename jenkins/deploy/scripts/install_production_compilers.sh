@@ -8,6 +8,14 @@
 
 environment=$1
 
+if [ x'${DRY_RUN}' != 'x' ]; then
+    SPACK='echo spack'
+    SENV='echo senv'
+else
+    SPACK='spack'
+    SENV='senv'
+fi
+
 # Clean old test results from the workspace
 mv -f compilers.${environment}.xml old_compilers.${environment}.xml
 
@@ -15,7 +23,7 @@ mv -f compilers.${environment}.xml old_compilers.${environment}.xml
 . ${SENV_VIRTUALENV_PATH}/bin/activate
 senv --input ${STACK_RELEASE}.yaml \
     list-compilers \
-    --env $environment
+    --env $environment > list_compilers.txt
 
 if [ ! -e ${SPACK_CHECKOUT_DIR}/var/environments/${environment}/spack.yaml ]; then
     spack env create ${environment}
@@ -23,7 +31,6 @@ fi
 
 senv --input ${STACK_RELEASE}.yaml \
     create-env \
-    --bootstrap \
     --env $environment
 
 
@@ -31,18 +38,14 @@ senv --input ${STACK_RELEASE}.yaml \
 . ${SPACK_CHECKOUT_DIR}/share/spack/setup-env.sh
 spack --version
 
-spack env activate ${environment}
-spack concretize --force
-spack install \
-    --log-format=junit \
-    --log-file=compilers.${environment}.xml
+cat list_compilers.txt | xargs -L ${SPACK} --env ${environment} install --log-format=junit --log-file=compilers.${environment}.xml
 
-senv --input ${STACK_RELEASE}.yaml list-compilers --env ${environment} --stack-type stable | xargs -L1 spack module lmod setdefault
+senv --input ${STACK_RELEASE}.yaml list-compilers --env ${environment} --stack-type stable | xargs -L1 ${SPACK} module lmod setdefault
 
 # to reconfigure the compilers.yaml
-senv --input ${STACK_RELEASE}.yaml install-spack-default-configuration
+${SENV} --input ${STACK_RELEASE}.yaml install-spack-default-configuration
 
 # this has to be changed once we have a stack similar on all machines otherwhy the config file will be rewriten for each environment
-senv --input ${STACK_RELEASE}.yaml intel-compilers-configuration --env ${environment}
+${SENV} --input ${STACK_RELEASE}.yaml intel-compilers-configuration --env ${environment}
 
 deactivate

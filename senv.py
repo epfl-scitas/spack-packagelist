@@ -498,6 +498,18 @@ class SpackEnvs(object):
             cache.cache.append(spec)
         cache.save()
 
+    def get_environment_entry(self, environment, entry):
+        path = entry.split('.')
+        customisation = self._get_env_customisation(environment)
+        node = customisation
+        for level in range(len(path) - 1):
+            node = node[path[level]]
+
+        if path[-1] in node:
+            print(node[path[-1]])
+        else:
+            print('{0} was not specified in configuration'.format(entry))
+
 
 @click.group()
 @click.option(
@@ -617,3 +629,12 @@ def list_spec_to_activate(ctxt, env, stack_type):
 def activate_specs(ctxt, env, stack_type):
     spack_envs = SpackEnvs(ctxt.parent.configuration)
     spack_envs.activate_specs(env, stack_type)
+
+@senv.command()
+@click.argument('entry', nargs=1)
+@click.option('--env', help='Environment to list the compiler for',
+              default=None)
+@click.pass_context
+def get_environment_entry(ctxt, entry, env):
+    spack_envs = SpackEnvs(ctxt.parent.configuration)
+    spack_envs.get_environment_entry(env, entry)

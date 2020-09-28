@@ -9,7 +9,7 @@ site: scitas
 stack_release: "arvine"
 stack_version: "v1"
 
-spack_root: /home/richart/test
+spack_root: /ssoft/spack
 spack_external: external
 
 # List of the environments to be managed
@@ -38,6 +38,7 @@ extra_repos:
 default_environment:
   os: rhel7
   cpu: intel
+  slurm: 20.02.5
 
   # compiler contains the arch since it is the highest arch this compiler can
   # compile for

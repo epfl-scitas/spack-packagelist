@@ -15,6 +15,3 @@ virtualenv -p $(which python) ${SENV_VIRTUALENV_PATH} --clear
 . ${SENV_VIRTUALENV_PATH}/bin/activate
 pip install --force-reinstall -U .
 senv --help
-
-# Copy configuration files into the correct place
-senv --input ${STACK_RELEASE}.yaml install-spack-default-configuration

@@ -15,6 +15,7 @@ pipeline {
         SENV_VIRTUALENV_PATH = "/home/scitasbuild/humagne/virtualenv/senv-py27"
         SPACK_CHECKOUT_DIR = "${sh(script:'jenkins/senv.sh spack-checkout-dir', returnStdout: true).trim()}"
         SPACK_RELEASE = "${sh(script:'jenkins/senv.sh spack-release', returnStdout: true).trim()}"
+        DRY_RUN= "yes"
     }
 
     stages {
@@ -81,7 +82,10 @@ def prepare_compilers() {
     environments = sh (script: "jenkins/scripts/deploy/senv.sh --list-envs --input ${STACK_RELEASE}.yaml").trim()
     def tests = [:]
     for (environment in environments) {
-        tests = stage("${environment}") {
+        slurm_version = "${sh(script:'jenkins/senv.sh get-environment-entry --env ${environment} slurm', returnStdout: true).trim().split('.')[0,1].join('')}"
+        os_version = "${sh(script:'jenkins/senv.sh get-environment-entry --env ${environment} os', returnStdout: true).trim()}"
+
+        tests = stage("${environment}-${STACK_RELEASE}-${os_version}-${slurm_version}") {
             agent {
                 label '${environment}'
             }
@@ -106,7 +110,10 @@ def deploy_envs() {
     environments = sh (script: "jenkins/scripts/deploy/senv.sh --list-envs --input ${STACK_RELEASE}.yaml").trim()
     def tests = [:]
     for (environment in environments) {
-        tests = stage("${environment}") {
+        slurm_version = "${sh(script:'jenkins/senv.sh get-environment-entry --env ${environment} slurm', returnStdout: true).trim().split('.')[0,1].join('')}"
+        os_version = "${sh(script:'jenkins/senv.sh get-environment-entry --env ${environment} os', returnStdout: true).trim()}"
+
+        tests = stage("${environment}-${STACK_RELEASE}-${os_version}-${slurm_version}") {
             agent {
                 label '${environment}'
             }

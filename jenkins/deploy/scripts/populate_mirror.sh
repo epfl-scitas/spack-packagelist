@@ -6,21 +6,27 @@
 # SPACK_CHECKOUT_DIR: path where Spack was cloned
 # STACK_RELEASE: version of the stack
 #
+environments=$(senv --intput ${STACK_RELEASE}.yaml --list-envs)
+if [ x'${DRY_RUN}' != 'x' ]; then
+    SPACK='echo ${SPACK_CHECKOUT_DIR}/bin/spack'
+    SENV='echo senv'
+else
+    SPACK='${SPACK_CHECKOUT_DIR}/bin/spack'
+    SENV='senv'
+fi
 
-SPACK_MIRROR_DIR=/ssoft/spack/mirror
+ . ${SENV_VIRTUALENV_PATH}/bin/activate
 
-# Activate 'senv' and source Spack setup file
-. ${SPACK_CHECKOUT_DIR}/share/spack/setup-env.sh
-spack --version
+GET_ENTRY=senv --intput ${STACK_RELEASE}.yaml get-environment-entry
 
-. ${SENV_VIRTUALENV_PATH}/bin/activate
-
+SPACK_MIRROR_DIR=$(${GET_ENTRY} spack_root)/$(${GET_ENTRY} mirrors.local)
 environments=$(senv --intput ${STACK_RELEASE}.yaml --list-envs)
 
+deactivate
+
+spack --version
 # Generate the list of software that need to be installed, then fetch every tarball
 for environment in ${environments}
 do
-    spack env activate ${environment}
-    spack mirror create -D -d ${SPACK_MIRROR_DIR} -a
-    spack env deactivate
+    ${SPACK} --env ${environment} mirror create -D -d ${SPACK_MIRROR_DIR} -a
 done
