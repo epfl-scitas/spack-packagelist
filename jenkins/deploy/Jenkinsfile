@@ -82,7 +82,12 @@ pipeline {
 
 def get_agent_name(environment) {
     env.environment = environment
-    slurm_version = "${sh(script:'jenkins/senv.sh get-environment-entry --env ${environment} environment.slurm', returnStdout: true).trim().split('.')[0,1].join('')}"
+    slurm_version = sh (
+        script: 'jenkins/senv.sh get-environment-entry --env ${environment} environment.slurm',
+        returnStdout: true
+    )
+    slurm_version = slurm_version.toString().trim().split('.')
+    echo slurm_version
     os_version = "${sh(script:'jenkins/senv.sh get-environment-entry --env ${environment} environment.os', returnStdout: true).trim()}"
     agent_name = "${environment}-${STACK_RELEASE}-${os_version}-slurm${slurm_version}"
     env.slurm_version = slurm_version
