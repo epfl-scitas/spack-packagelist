@@ -20,4 +20,3 @@ set +u # bug fix for virtualenv <16.2
 . ${SENV_VIRTUALENV_PATH}/bin/activate
 
 pip install --force-reinstall -U .
-senv status
