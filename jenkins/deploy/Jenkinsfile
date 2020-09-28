@@ -97,9 +97,7 @@ def get_agent_name(environment) {
     os_version = os_version_.trim()
     
     agent_name = "${environment}-${STACK_RELEASE}-${os_version}-slurm${slurm_version}"
-    env.slurm_version = slurm_version
-    env.os_version = os_version
-    sh 'env | sort'
+
     return agent_name
 }
 
