@@ -110,6 +110,8 @@ def prepare_compilers() {
         tests["compilers-${agent_name}"] = {
             stage("compilers-${agent_name}") {
                 node(agent_name) {
+                    sh  'pwd'
+                    sh  'ls'
                     sh  'jenkins/deploy/scripts/install_production_compilers.sh ${environment}'
                 }
             }
