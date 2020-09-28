@@ -74,6 +74,16 @@ pipeline {
                 }
             }
         }
+
+        stage('Activate packages') {
+            // Deploy the software that is planned to be in the environment,
+            // but not yet installed. Notify failures.
+            steps {
+                script {
+                    parallel(activate_packages())
+                }
+            }
+        }
     }
 }
 
@@ -141,4 +151,10 @@ def deploy_envs() {
     return _define_stages('deploy',
                           'jenkins/deploy/scripts/install_production_stack.sh',
                           'Deployement of production stack')
+}
+
+def activate_packages() {
+    return _define_stages('activate',
+                          'jenkins/deploy/scripts/activate_packages.sh',
+                          'Activation of packages')
 }

@@ -10,11 +10,11 @@ set -euo pipefail
 environment=$1
 
 if [ x'${DRY_RUN}' = 'xyes' ]; then
-    SPACK='echo ${SPACK_CHECKOUT_DIR}/bin/spack'
-    SENV='echo senv'
+    SPACK="echo ${SPACK_CHECKOUT_DIR}/bin/spack"
+    SENV="echo senv"
 else
-    SPACK='${SPACK_CHECKOUT_DIR}/bin/spack'
-    SENV='senv'
+    SPACK="${SPACK_CHECKOUT_DIR}/bin/spack"
+    SENV="senv"
 fi
 
 # Clean the workspace
