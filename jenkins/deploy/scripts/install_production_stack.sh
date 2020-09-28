@@ -18,7 +18,9 @@ else
 fi
 
 # Clean the workspace
+set +e
 rm -f stack.${environment}.xml
+set -e
 
 # Register Spack bootstrapped compilers
 ${SPACK} --env ${environment} concretize

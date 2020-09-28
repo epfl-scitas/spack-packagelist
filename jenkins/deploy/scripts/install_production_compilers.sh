@@ -31,7 +31,7 @@ senv --input ${STACK_RELEASE}.yaml \
     list-compilers \
     --env $environment > list_compilers.txt
 
-if [ ! -e ${SPACK_CHECKOUT_DIR}/var/environments/${environment}/spack.yaml ]; then
+if [ ! -e ${SPACK_CHECKOUT_DIR}/var/spack/environments/${environment}/spack.yaml ]; then
     ${SPACK_CHECKOUT_DIR}/bin/spack env create ${environment}
 fi
 
