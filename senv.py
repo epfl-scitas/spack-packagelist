@@ -506,7 +506,11 @@ class SpackEnvs(object):
             node = node[path[level]]
 
         if path[-1] in node:
-            print(node[path[-1]])
+            result = node[path[-1]]
+            if not isinstance(result, str):
+                print(yaml.dump(result))
+            else:
+                print(result)
         else:
             print('{0} was not specified in configuration'.format(entry))
 
