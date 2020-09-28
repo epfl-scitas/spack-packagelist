@@ -1,4 +1,5 @@
 #!/bin/bash -l
+set -euo pipefail
 
 # This script assumes that the following variables are set in the environment:
 #

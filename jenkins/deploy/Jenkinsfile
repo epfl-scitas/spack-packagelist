@@ -13,37 +13,38 @@ pipeline {
     environment {
         STACK_RELEASE = "arvine"
         SENV_VIRTUALENV_PATH = "/home/scitasbuild/${STACK_RELEASE}/virtualenv/senv-py36"
-        SPACK_CHECKOUT_DIR = "${sh(script:'jenkins/senv.sh spack-checkout-dir', returnStdout: true).trim()}"
-        SPACK_RELEASE = "${sh(script:'jenkins/senv.sh spack-release', returnStdout: true).trim()}"
         DRY_RUN= "yes"
     }
 
     stages {
-        stage('Check environment') {
-            steps {
-                sh 'env'
-            }
-        }
 
-    //     stage('Update production configuration') {
-    //         // Prepare a release branch of Spack for deployment by:
-    //         //
-    //         // 1. Updating the tracked branch
-    //         // 2. Updating our internal Spack repository
-    //         // 3. Copying the latest configuration files in place
-    //         //
-    //         steps {
+        stage('Update production configuration') {
+            // Prepare a release branch of Spack for deployment by:
+            //
+            // 1. Updating the tracked branch
+            // 2. Updating our internal Spack repository
+            // 3. Copying the latest configuration files in place
+            //
+            steps {
+                // Update the command line tool we use in production
+                // and configuration files
+                sh 'jenkins/deploy/scripts/update_production_configuration.sh'
     //             // Checkout Spack
     //             sh 'jenkins/senv.sh spack-checkout'
 
     //             // Checkout extra packages sources;
     //             sh 'jenkins/senv.sh spack-checkout-extra-repos'
-
-    //             // Update the command line tool we use in production
-    //             // and configuration files
-    //             sh 'jenkins/deploy/scripts/update_production_configuration.sh'
-    //         }
-    //     }
+                }
+        }
+        stage('Check environment') {
+            environment {
+                SPACK_CHECKOUT_DIR = "${sh(script:'jenkins/senv.sh spack-checkout-dir', returnStdout: true).trim()}"
+                SPACK_RELEASE = "${sh(script:'jenkins/senv.sh spack-release', returnStdout: true).trim()}"
+            }
+            steps {
+                sh 'env | sort'
+            }
+        }
 
     //     stage('Prepare production stack') {
     //         // Ensure that all the compilers that are needed in

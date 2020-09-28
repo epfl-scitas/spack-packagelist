@@ -1,4 +1,5 @@
 #!/bin/bash -l
+set -euo pipefail
 
 # This script assumes that the following variables are set in the environment:
 #
@@ -8,6 +9,7 @@
 
 # Recreate the virtualenv and update the command line
 #
+
 
 echo '(Re)installing senv'
 mkdir -p ${SENV_VIRTUALENV_PATH}
