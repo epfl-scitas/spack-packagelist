@@ -21,48 +21,54 @@ pipeline {
     stages {
         when( branch pattern: "(releases/${STACK_RELEASE}|.*/${STACK_RELEASE}/.*)", comparator: "REGEXP")
 
-        stage('Update production configuration') {
-            // Prepare a release branch of Spack for deployment by:
-            //
-            // 1. Updating the tracked branch
-            // 2. Updating our internal Spack repository
-            // 3. Copying the latest configuration files in place
-            //
+        stage('Check environment') {
             steps {
-                // Checkout Spack
-                sh 'jenkins/senv.sh spack-checkout'
-
-                // Checkout extra packages sources;
-                sh 'jenkins/senv.sh spack-checkout-extra-repos'
-
-                // Update the command line tool we use in production
-                // and configuration files
-                sh 'jenkins/deploy/scripts/update_production_configuration.sh'
+                sh 'env'
             }
         }
 
-        stage('Prepare production stack') {
-            // Ensure that all the compilers that are needed in
-            // production are in place.
-            prepare_compilers()
-        }
+    //     stage('Update production configuration') {
+    //         // Prepare a release branch of Spack for deployment by:
+    //         //
+    //         // 1. Updating the tracked branch
+    //         // 2. Updating our internal Spack repository
+    //         // 3. Copying the latest configuration files in place
+    //         //
+    //         steps {
+    //             // Checkout Spack
+    //             sh 'jenkins/senv.sh spack-checkout'
 
-        stage('Populate mirror') {
-            // Compute what needs to be installed in production (software that
-            // is part of the planned environment, but not installed yet). Then
-            // retrieve all the resources (tarballs, etc.) that are needed
-            // to build it in a mirror.
-            // TODO: the agent below must have access to the network
-            steps {
-                sh 'jenkins/deploy/scripts/populate_mirror.sh'
-            }
-        }
+    //             // Checkout extra packages sources;
+    //             sh 'jenkins/senv.sh spack-checkout-extra-repos'
 
-        stage('Deploy software') {
-            // Deploy the software that is planned to be in the environment,
-            // but not yet installed. Notify failures.
-            deploy_envs()
-        }
+    //             // Update the command line tool we use in production
+    //             // and configuration files
+    //             sh 'jenkins/deploy/scripts/update_production_configuration.sh'
+    //         }
+    //     }
+
+    //     stage('Prepare production stack') {
+    //         // Ensure that all the compilers that are needed in
+    //         // production are in place.
+    //         prepare_compilers()
+    //     }
+
+    //     stage('Populate mirror') {
+    //         // Compute what needs to be installed in production (software that
+    //         // is part of the planned environment, but not installed yet). Then
+    //         // retrieve all the resources (tarballs, etc.) that are needed
+    //         // to build it in a mirror.
+    //         // TODO: the agent below must have access to the network
+    //         steps {
+    //             sh 'jenkins/deploy/scripts/populate_mirror.sh'
+    //         }
+    //     }
+
+    //     stage('Deploy software') {
+    //         // Deploy the software that is planned to be in the environment,
+    //         // but not yet installed. Notify failures.
+    //         deploy_envs()
+    //     }
     }
 }
 
