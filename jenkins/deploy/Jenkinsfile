@@ -83,7 +83,7 @@ pipeline {
 def get_agent_name(environment) {
     env.environment = environment
     slurm_version_ = sh (
-        script: 'jenkins/senv.sh get-environment-entry --env ${environment} environment.slurm  | sed -e \'s/\([0-9]*\)\.\([0-9]*\).*/\1\2/\'',
+        script: "jenkins/senv.sh get-environment-entry --env ${environment} environment.slurm  | sed -e 's/\([0-9]*\)\.\([0-9]*\).*/\1\2/'",
         returnStdout: true
     )
     slurm_version = slurm_version_.trim()
