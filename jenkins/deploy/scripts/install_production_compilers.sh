@@ -10,10 +10,10 @@ set -euo pipefail
 environment=$1
 
 if [ x'${DRY_RUN}' != 'x' ]; then
-    SPACK='echo spack'
+    SPACK='echo ${SPACK_CHECKOUT_DIR}/bin/spack'
     SENV='echo senv'
 else
-    SPACK='spack'
+    SPACK='${SPACK_CHECKOUT_DIR}/bin/spack'
     SENV='senv'
 fi
 
@@ -32,7 +32,7 @@ senv --input ${STACK_RELEASE}.yaml \
     --env $environment > list_compilers.txt
 
 if [ ! -e ${SPACK_CHECKOUT_DIR}/var/environments/${environment}/spack.yaml ]; then
-    spack env create ${environment}
+    ${SPACK_CHECKOUT_DIR}/bin/spack env create ${environment}
 fi
 
 senv --input ${STACK_RELEASE}.yaml \
@@ -41,7 +41,6 @@ senv --input ${STACK_RELEASE}.yaml \
 
 
 # Source Spack and add the system compiler
-. ${SPACK_CHECKOUT_DIR}/share/spack/setup-env.sh
 spack --version
 
 cat list_compilers.txt | xargs -L ${SPACK} --env ${environment} install --log-format=junit --log-file=compilers.${environment}.xml

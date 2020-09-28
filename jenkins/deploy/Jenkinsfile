@@ -61,6 +61,9 @@ pipeline {
         }
 
     //     stage('Populate mirror') {
+    //      environment {
+     //   SPACK_CHECKOUT_DIR = "${sh(script:'jenkins/senv.sh spack-checkout-dir', returnStdout: true).trim()}"
+     //       }
     //         // Compute what needs to be installed in production (software that
     //         // is part of the planned environment, but not installed yet). Then
     //         // retrieve all the resources (tarballs, etc.) that are needed
