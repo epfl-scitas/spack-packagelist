@@ -43,7 +43,7 @@ senv --input ${STACK_RELEASE}.yaml \
 # Source Spack and add the system compiler
 ${SPACK} --version
 
-cat list_compilers.txt | xargs -L ${SPACK} --env ${environment} install --log-format=junit --log-file=compilers.${environment}.xml
+cat list_compilers.txt | xargs -L1 ${SPACK} --env ${environment} install --log-format=junit --log-file=compilers.${environment}.xml
 
 senv --input ${STACK_RELEASE}.yaml list-compilers --env ${environment} --stack-type stable | xargs -L1 ${SPACK} module lmod setdefault
 
