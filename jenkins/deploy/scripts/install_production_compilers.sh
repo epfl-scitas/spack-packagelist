@@ -49,6 +49,10 @@ ${SPACK} --env ${environment} install --log-format=junit --log-file=compilers.${
 
 senv --input ${STACK_RELEASE}.yaml list-compilers --env ${environment} --stack-type stable | xargs -L1 ${SPACK} module lmod setdefault
 
+senv --input ${STACK_RELEASE}.yaml \
+    create-env \
+    --env $environment
+
 # to reconfigure the compilers.yaml
 ${SENV} --input ${STACK_RELEASE}.yaml install-spack-default-configuration
 
