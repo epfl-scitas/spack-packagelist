@@ -82,13 +82,17 @@ pipeline {
 
 def get_agent_name(environment) {
     env.environment = environment
-    slurm_version = sh (
-        script: 'jenkins/senv.sh get-environment-entry --env ${environment} environment.slurm',
+    slurm_version_ = sh (
+        script: 'jenkins/senv.sh get-environment-entry --env ${environment} environment.slurm  | sed -e \'s/\([0-9]*\)\.\([0-9]*\).*/\1\2/\'',
         returnStdout: true
     )
-    slurm_version = slurm_version.toString().trim().split('.')
-    echo slurm_version
-    os_version = "${sh(script:'jenkins/senv.sh get-environment-entry --env ${environment} environment.os', returnStdout: true).trim()}"
+    slurm_version = slurm_version_.trim()
+    os_version_ = sh (
+            script:'jenkins/senv.sh get-environment-entry --env ${environment} environment.os',
+            returnStdout: true
+    )
+    os_version = os_version.trim()
+    
     agent_name = "${environment}-${STACK_RELEASE}-${os_version}-slurm${slurm_version}"
     env.slurm_version = slurm_version
     env.os_version = os_version
@@ -98,6 +102,7 @@ def get_agent_name(environment) {
 
 def prepare_compilers() {
     environments = "${sh (script: 'jenkins/senv.sh --input ${STACK_RELEASE}.yaml list-envs', returnStdout: true).trim()}".split('\n')
+    echo environments
     def tests = [:]
     for (environment in environments) {
         agent_name = get_agent_name(environment)
