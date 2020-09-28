@@ -108,20 +108,17 @@ def prepare_compilers() {
         
         tests["compilers-${agent_name}"] = {
             stage("compilers-${agent_name}") {
-                agent {
-                    label '${agent_name}'
-                }
-                steps {
+                node('${agent_name}') {
                     sh  'jenkins/deploy/scripts/install_production_compilers.sh ${environment}'
                 }
-                post {
-                    always {
-                        archiveArtifacts artifacts:'*.txt, *.xml'
-                        junit testResults:'*.xml', allowEmptyResults:true
-                    }
-                    failure {
-                        mattermostSend color: 'warning', message: 'Prepare production stack failed for ${environment}. ${env.BUILD_URL}'
-                    }
+            }
+            post {
+                always {
+                    archiveArtifacts artifacts:'*.txt, *.xml'
+                    junit testResults:'*.xml', allowEmptyResults:true
+                }
+                failure {
+                    mattermostSend color: 'warning', message: 'Prepare production stack failed for ${environment}. ${env.BUILD_URL}'
                 }
             }
         }
