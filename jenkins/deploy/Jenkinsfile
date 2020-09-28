@@ -19,10 +19,6 @@ pipeline {
     }
 
     stages {
-        when {
-            expression { BRANCH_NAME ==~ /(releases\/${STACK_RELEASE}|.*\/${STACK_RELEASE}\/.*)/ }
-        }
-
         stage('Check environment') {
             steps {
                 sh 'env'
