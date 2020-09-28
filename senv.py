@@ -366,7 +366,7 @@ class SpackEnvs(object):
 
             options={ 'progress': CloneProgress() }
             if os.path.exists(repo_path):
-                repo = git.Repo(self.spack_source_root)
+                repo = git.Repo(repo_path)
                 repo.remotes.origin.pull(**options)
             else:
                 if 'tag' in info:
