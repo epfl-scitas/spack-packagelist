@@ -112,7 +112,7 @@ def prepare_compilers() {
                 node(agent_name) {
                     sh  'pwd'
                     sh  'ls'
-                    sh  'jenkins/deploy/scripts/install_production_compilers.sh ${environment}'
+//                    sh  'jenkins/deploy/scripts/install_production_compilers.sh ${environment}'
                 }
             }
             post {
