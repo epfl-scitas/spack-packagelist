@@ -23,7 +23,10 @@ mv -f compilers.${environment}.xml old_compilers.${environment}.xml
 set -e
 
 # Produce a valid list of compilers
+set +u
 . ${SENV_VIRTUALENV_PATH}/bin/activate
+set -u
+
 senv --input ${STACK_RELEASE}.yaml \
     list-compilers \
     --env $environment > list_compilers.txt

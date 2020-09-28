@@ -16,7 +16,9 @@ else
     SENV='senv'
 fi
 
+set +u
  . ${SENV_VIRTUALENV_PATH}/bin/activate
+ set -u
 
 GET_ENTRY=senv --intput ${STACK_RELEASE}.yaml get-environment-entry
 
