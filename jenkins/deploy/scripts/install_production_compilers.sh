@@ -29,7 +29,7 @@ set -u
 
 senv --input ${STACK_RELEASE}.yaml \
     list-compilers \
-    --env $environment > list_compilers.txt
+    --env $environment > list_${environment}_compilers.txt
 
 if [ ! -e ${SPACK_CHECKOUT_DIR}/var/spack/environments/${environment}/spack.yaml ]; then
     ${SPACK_CHECKOUT_DIR}/bin/spack env create ${environment}
@@ -43,7 +43,7 @@ senv --input ${STACK_RELEASE}.yaml \
 # Source Spack and add the system compiler
 ${SPACK} --version
 
-compilers_to_install=${cat list_compilers.txt}
+compilers_to_install=$(cat list_${environment}_compilers.txt)
 ${SPACK} --env ${environment} install --log-format=junit --log-file=compilers.${environment}.xml ${compilers_to_install}
 
 senv --input ${STACK_RELEASE}.yaml list-compilers --env ${environment} --stack-type stable | xargs -L1 ${SPACK} module lmod setdefault

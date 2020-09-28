@@ -7,7 +7,7 @@ set -euo pipefail
 # SPACK_CHECKOUT_DIR: path where Spack was cloned
 # STACK_RELEASE: version of the stack
 #
-environments=$(senv --intput ${STACK_RELEASE}.yaml --list-envs)
+
 if [ x'${DRY_RUN}' != 'x' ]; then
     SPACK='echo ${SPACK_CHECKOUT_DIR}/bin/spack'
     SENV='echo senv'
@@ -18,16 +18,17 @@ fi
 
 set +u
  . ${SENV_VIRTUALENV_PATH}/bin/activate
- set -u
+set -u
 
-GET_ENTRY=senv --intput ${STACK_RELEASE}.yaml get-environment-entry
+environments=$(senv --intput ${STACK_RELEASE}.yaml --list-envs)
+
+GET_ENTRY="senv --intput ${STACK_RELEASE}.yaml get-environment-entry"
 
 SPACK_MIRROR_DIR=$(${GET_ENTRY} spack_root)/$(${GET_ENTRY} mirrors.local)
 environments=$(senv --intput ${STACK_RELEASE}.yaml --list-envs)
 
 deactivate
 
-spack --version
 # Generate the list of software that need to be installed, then fetch every tarball
 for environment in ${environments}
 do
