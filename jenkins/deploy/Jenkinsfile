@@ -110,6 +110,7 @@ def prepare_compilers() {
         tests["compilers-${agent_name}"] = {
             stage("compilers-${agent_name}") {
                 node(agent_name) {
+                    checkout scm
                     try {
                         sh  'pwd'
                         sh  'ls'
