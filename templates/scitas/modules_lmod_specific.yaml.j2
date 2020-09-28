@@ -67,11 +67,13 @@ mvapich2:
 # LAPACK
 ####
 
+{%if environment.stable.intel.compiler_prefix %}
 intel-mkl:
   environment:
     set:
       MKLROOT: {{ environment.stable.intel.compiler_prefix }}/mkl
       CMAKE_LIBRARY_PATH: {{ environment.stable.intel.compiler_prefix }}/mkl/lib/intel64
+{% endif %}
 
 'openblas threads=none':
   environment:
