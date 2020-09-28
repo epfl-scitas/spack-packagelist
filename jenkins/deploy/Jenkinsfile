@@ -102,7 +102,6 @@ def get_agent_name(environment) {
 
 def prepare_compilers() {
     environments = "${sh (script: 'jenkins/senv.sh --input ${STACK_RELEASE}.yaml list-envs', returnStdout: true).trim()}".split('\n')
-    echo environments
     def tests = [:]
     for (environment in environments) {
         agent_name = get_agent_name(environment)
