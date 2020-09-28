@@ -34,10 +34,10 @@ pipeline {
                 sh 'jenkins/senv.sh status'
 
                 // Checkout Spack
-                //sh 'jenkins/senv.sh spack-checkout'
+                sh 'jenkins/senv.sh spack-checkout'
 
                 // Checkout extra packages sources;
-                //sh 'jenkins/senv.sh spack-checkout-extra-repos'
+                sh 'jenkins/senv.sh spack-checkout-extra-repos'
             }
         }
         stage('Check environment') {
