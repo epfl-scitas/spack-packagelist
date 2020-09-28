@@ -116,9 +116,9 @@ def _define_stages(prefix, script, message) {
                     try {
                         sh  '${script} ${environment}'
                     } catch(error) {
+                        currentBuild.result = 'FAILURE'
                         mattermostSend color: 'warning',
                             message: '${message} failed for ${environment}. ${env.BUILD_URL} with error ${error}'
-                        currentBuild.result = 'FAILURE'
                     }
                     archiveArtifacts artifacts:'*.txt, *.xml',
                         allowEmptyArchive: true
