@@ -12,7 +12,7 @@ pipeline {
 
     environment {
         STACK_RELEASE = "arvine"
-        SENV_VIRTUALENV_PATH = "/home/scitasbuild/humagne/virtualenv/senv-py27"
+        SENV_VIRTUALENV_PATH = "/home/scitasbuild/${STACK_RELEASE}/virtualenv/senv-py36"
         SPACK_CHECKOUT_DIR = "${sh(script:'jenkins/senv.sh spack-checkout-dir', returnStdout: true).trim()}"
         SPACK_RELEASE = "${sh(script:'jenkins/senv.sh spack-release', returnStdout: true).trim()}"
         DRY_RUN= "yes"
@@ -52,7 +52,6 @@ pipeline {
             // is part of the planned environment, but not installed yet). Then
             // retrieve all the resources (tarballs, etc.) that are needed
             // to build it in a mirror.
-
             // TODO: the agent below must have access to the network
             steps {
                 sh 'jenkins/deploy/scripts/populate_mirror.sh'
@@ -62,7 +61,6 @@ pipeline {
         stage('Deploy software') {
             // Deploy the software that is planned to be in the environment,
             // but not yet installed. Notify failures.
-
             deploy_envs()
         }
     }
