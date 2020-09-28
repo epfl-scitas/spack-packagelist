@@ -100,59 +100,44 @@ def get_agent_name(environment) {
     return agent_name
 }
 
-def prepare_compilers() {
+def _define_stages(prefix, script, message) {
     environments = "${sh (script: 'jenkins/senv.sh --input ${STACK_RELEASE}.yaml list-envs', returnStdout: true).trim()}".split('\n')
-    def tests = [:]
+    env.script = script
+    def jobs = [:]
     for (environment in environments) {
         env.environment = environment
         agent_name = get_agent_name(environment)
-        
-        tests["compilers-${agent_name}"] = {
-            stage("compilers-${agent_name}") {
+
+        jobs["${prefix}-${agent_name}"] = {
+            stage("${prefix}-${agent_name}") {
                 node(agent_name) {
                     checkout scm
                     try {
-                        sh  'pwd'
-                        sh  'ls'
-//                    sh  'jenkins/deploy/scripts/install_production_compilers.sh ${environment}'
+                        sh  '${script} ${environment}'
                     } catch(error) {
-                        mattermostSend color: 'warning', message: 'Prepare production stack failed for ${environment}. ${env.BUILD_URL} with error ${error}'
+                        mattermostSend color: 'warning',
+                            message: '${message} failed for ${environment}. ${env.BUILD_URL} with error ${error}'
                         currentBuild.result = 'FAILURE'
                     }
-                    archiveArtifacts artifacts:'*.txt, *.xml'
-                    junit testResults:'*.xml', allowEmptyResults:true
+                    archiveArtifacts artifacts:'*.txt, *.xml',
+                        allowEmptyArchive: true
+                    junit testResults:'*.xml',
+                        allowEmptyResults: true
                 }
             }
         }
     }
-    return tests
+    return jobs
+}
+
+def prepare_compilers() {
+    return _define_stages('compilers',
+                          'jenkins/deploy/scripts/install_production_compilers.sh',
+                          'Prepare production stack')
 }
 
 def deploy_envs() {
-    environments = sh (script: "jenkins/senv.sh --input ${STACK_RELEASE}.yaml list-envs").trim().split('\n')
-    def tests = [:]
-    for (environment in environments) {
-        agent_name = get_agent_name(environment)
-
-        tests["deploy-${agent_name}"] = {
-            stage("deploy-${agent_name}") {
-                agent {
-                    label '${agent_name}'
-                }
-                steps {
-                    sh  'jenkins/deploy/scripts/install_production_stack.sh ${environment}'
-                }
-                post {
-                    always {
-                        archiveArtifacts artifacts:'*.txt, *.xml'
-                        junit testResults:'*.xml', allowEmptyResults:true
-                    }
-                    failure {
-                        mattermostSend color: 'warning', message: 'Deployement of production stack failed for ${environment}. ${env.BUILD_URL}'
-                    }
-                }
-            }
-        }
-    }
-    return tests
+    return _define_stages('deploy',
+                          'jenkins/deploy/scripts/install_production_stack.sh',
+                          'Deployement of production stack')
 }
