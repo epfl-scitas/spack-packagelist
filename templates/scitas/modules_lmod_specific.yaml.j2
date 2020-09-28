@@ -39,7 +39,6 @@ openmpi:
 intel-mpi: # Default for Intel MPI
   environment:
     set:
-      I_MPI_ROOT: '${PREFIX}'
       I_MPI_FABRICS: 'shm:ofa'
       IPATH_NO_CPUAFFINITY: '1'
       I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
