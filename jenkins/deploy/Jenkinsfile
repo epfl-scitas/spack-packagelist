@@ -19,7 +19,9 @@ pipeline {
     }
 
     stages {
-        when( branch pattern: "(releases/${STACK_RELEASE}|.*/${STACK_RELEASE}/.*)", comparator: "REGEXP")
+        when {
+            expression { BRANCH_NAME ==~ /(releases\/${STACK_RELEASE}|.*\/${STACK_RELEASE}\/.*)/ }
+        }
 
         stage('Check environment') {
             steps {
