@@ -9,9 +9,10 @@
 # Recreate the virtualenv and update the command line
 #
 
+echo '(Re)installing senv'
 mkdir -p ${SENV_VIRTUALENV_PATH}
 virtualenv --version
 virtualenv -p $(which python3) ${SENV_VIRTUALENV_PATH} --clear
 . ${SENV_VIRTUALENV_PATH}/bin/activate
 pip install --force-reinstall -U .
-senv --help
+senv status
