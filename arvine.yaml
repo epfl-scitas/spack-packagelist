@@ -16,9 +16,9 @@ spack_external: external
 environments:
 #  - "deneb"
 #  - "eltanin"
-  - "fidis"
-  - "gacrux"
-  - "helvetios"
+#  - "fidis"
+#  - "gacrux"
+#  - "helvetios"
   - "izar"
 
 mirrors:

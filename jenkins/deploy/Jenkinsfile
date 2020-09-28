@@ -49,11 +49,15 @@ pipeline {
             }
         }
 
-    //     stage('Prepare production stack') {
-    //         // Ensure that all the compilers that are needed in
-    //         // production are in place.
-    //         prepare_compilers()
-    //     }
+        stage('Prepare production stack') {
+            environment {
+                SPACK_CHECKOUT_DIR = "${sh(script:'jenkins/senv.sh spack-checkout-dir', returnStdout: true).trim()}"
+            }
+
+            // Ensure that all the compilers that are needed in
+            // production are in place.
+            prepare_compilers()
+        }
 
     //     stage('Populate mirror') {
     //         // Compute what needs to be installed in production (software that
@@ -74,26 +78,17 @@ pipeline {
     }
 }
 
-def checkout_extra_dirs() {
-    list_repositories =  readYaml text: (sh (script: 'jenkins/senv.sh list-extra-repositories').trim())
-
-    list_repositories.each {
-        dir(it.path) {
-            git url: it.repo
-        }
-    }
-}
-
 def prepare_compilers() {
     environments = sh (script: "jenkins/scripts/deploy/senv.sh --list-envs --input ${STACK_RELEASE}.yaml").trim()
     def tests = [:]
     for (environment in environments) {
         slurm_version = "${sh(script:'jenkins/senv.sh get-environment-entry --env ${environment} slurm', returnStdout: true).trim().split('.')[0,1].join('')}"
         os_version = "${sh(script:'jenkins/senv.sh get-environment-entry --env ${environment} os', returnStdout: true).trim()}"
+        agent_name = "${environment}-${STACK_RELEASE}-${os_version}-slurm${slurm_version}"
 
-        tests = stage("${environment}-${STACK_RELEASE}-${os_version}-${slurm_version}") {
+        tests = stage("compilers-${agent_name}") {
             agent {
-                label '${environment}'
+                label '${agent_name}'
             }
             steps {
                 sh  'jenkins/deploy/scripts/install_production_compilers.sh ${environment}'
@@ -118,10 +113,11 @@ def deploy_envs() {
     for (environment in environments) {
         slurm_version = "${sh(script:'jenkins/senv.sh get-environment-entry --env ${environment} slurm', returnStdout: true).trim().split('.')[0,1].join('')}"
         os_version = "${sh(script:'jenkins/senv.sh get-environment-entry --env ${environment} os', returnStdout: true).trim()}"
+        agent_name = "${environment}-${STACK_RELEASE}-${os_version}-slurm${slurm_version}"
 
-        tests = stage("${environment}-${STACK_RELEASE}-${os_version}-${slurm_version}") {
+        tests = stage("deploy-${agent_name}") {
             agent {
-                label '${environment}'
+                label '${agent_name}'
             }
             steps {
                 sh  'jenkins/deploy/scripts/install_production_stack.sh ${environment}'
