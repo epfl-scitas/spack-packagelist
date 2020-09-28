@@ -10,7 +10,7 @@ pipeline {
 
     environment {
         STACK_RELEASE = "arvine"
-        SENV_VIRTUALENV_PATH = "/home/scitasbuild/${STACK_RELEASE}/virtualenv/senv-py36"
+        SENV_VIRTUALENV_PATH = "/home/scitasbuild/${STACK_RELEASE}/virtualenv/senv-py27"
         DRY_RUN= "yes"
     }
 

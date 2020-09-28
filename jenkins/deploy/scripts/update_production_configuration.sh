@@ -14,7 +14,7 @@ set -euo pipefail
 echo '(Re)installing senv'
 mkdir -p ${SENV_VIRTUALENV_PATH}
 virtualenv --version
-virtualenv -p $(which python3) ${SENV_VIRTUALENV_PATH} --clear
+virtualenv -p $(which python2.7) ${SENV_VIRTUALENV_PATH} --clear
 
 set +u # bug fix for virtualenv <16.2
 . ${SENV_VIRTUALENV_PATH}/bin/activate
