@@ -75,7 +75,7 @@ pipeline {
             // but not yet installed. Notify failures.
             steps {
                 script {
-                    parallel(prepare_compilers())
+                    parallel(deploy_envs())
                 }
             }
         }
