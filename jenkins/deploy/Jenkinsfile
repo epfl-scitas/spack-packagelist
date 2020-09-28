@@ -29,17 +29,20 @@ pipeline {
                 // Update the command line tool we use in production
                 // and configuration files
                 sh 'jenkins/deploy/scripts/update_production_configuration.sh'
-    //             // Checkout Spack
-    //             sh 'jenkins/senv.sh spack-checkout'
 
-    //             // Checkout extra packages sources;
-    //             sh 'jenkins/senv.sh spack-checkout-extra-repos'
-                }
+                // Check that senv is operational
+                sh 'jenkins/senv.sh status'
+
+                // Checkout Spack
+                //sh 'jenkins/senv.sh spack-checkout'
+
+                // Checkout extra packages sources;
+                //sh 'jenkins/senv.sh spack-checkout-extra-repos'
+            }
         }
         stage('Check environment') {
             environment {
                 SPACK_CHECKOUT_DIR = "${sh(script:'jenkins/senv.sh spack-checkout-dir', returnStdout: true).trim()}"
-                SPACK_RELEASE = "${sh(script:'jenkins/senv.sh spack-release', returnStdout: true).trim()}"
             }
             steps {
                 sh 'env | sort'
