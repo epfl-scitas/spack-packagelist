@@ -83,7 +83,7 @@ pipeline {
 }
 
 def prepare_compilers() {
-    environments = sh (script: "jenkins/senv.sh --list-envs --input ${STACK_RELEASE}.yaml").trim()
+    environments = sh (script: "jenkins/senv.sh --input ${STACK_RELEASE}.yaml list-envs").trim().split('\n')
     def tests = [:]
     for (environment in environments) {
         slurm_version = "${sh(script:'jenkins/senv.sh get-environment-entry --env ${environment} slurm', returnStdout: true).trim().split('.')[0,1].join('')}"
@@ -114,7 +114,7 @@ def prepare_compilers() {
 }
 
 def deploy_envs() {
-    environments = sh (script: "jenkins/senv.sh --list-envs --input ${STACK_RELEASE}.yaml").trim()
+    environments = sh (script: "jenkins/senv.sh --input ${STACK_RELEASE}.yaml list-envs").trim().split('\n')
     def tests = [:]
     for (environment in environments) {
         slurm_version = "${sh(script:'jenkins/senv.sh get-environment-entry --env ${environment} slurm', returnStdout: true).trim().split('.')[0,1].join('')}"
