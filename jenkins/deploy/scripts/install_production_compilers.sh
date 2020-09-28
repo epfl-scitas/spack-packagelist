@@ -43,7 +43,8 @@ senv --input ${STACK_RELEASE}.yaml \
 # Source Spack and add the system compiler
 ${SPACK} --version
 
-cat list_compilers.txt | xargs -L1 ${SPACK} --env ${environment} install --log-format=junit --log-file=compilers.${environment}.xml
+compilers_to_install=${cat list_compilers.txt}
+${SPACK} --env ${environment} install --log-format=junit --log-file=compilers.${environment}.xml ${compilers_to_install}
 
 senv --input ${STACK_RELEASE}.yaml list-compilers --env ${environment} --stack-type stable | xargs -L1 ${SPACK} module lmod setdefault
 
@@ -52,5 +53,3 @@ ${SENV} --input ${STACK_RELEASE}.yaml install-spack-default-configuration
 
 # this has to be changed once we have a stack similar on all machines otherwhy the config file will be rewriten for each environment
 ${SENV} --input ${STACK_RELEASE}.yaml intel-compilers-configuration --env ${environment}
-
-deactivate
