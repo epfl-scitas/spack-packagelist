@@ -53,7 +53,7 @@ default_environment:
       mpi: "intel-mpi@2019.5.281"
       blas: "intel-mkl@2019.0.5"
       suite_version: '2019.5.281'
-      external: True
+      #external: True
 
     # gcc@8.4.0 higest supported by cuda 10.2.89 important for izar
     gcc:
