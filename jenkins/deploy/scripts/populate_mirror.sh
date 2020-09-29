@@ -32,3 +32,5 @@ for environment in ${environments}
 do
     ${SPACK} --env ${environment} mirror create -D -d ${SPACK_MIRROR_DIR} -a
 done
+
+true
