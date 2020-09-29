@@ -8,7 +8,7 @@
   {%- endif -%}
 {%- endmacro -%}
 
-{% if 'intel' in environment.compilers and environment.compilers.intel.external %}
+{% if 'intel' in environment.compilers and environment.stable.intel.external %}
 intel:
   buildable: False
   paths:
