@@ -41,6 +41,26 @@ pipeline {
             }
         }
 
+        stage('Create environments') {
+            environment {
+                SPACK_CHECKOUT_DIR = "${sh(script:'jenkins/senv.sh spack-checkout-dir', returnStdout: true).trim()}"
+            }
+
+            steps {
+                sh 'jenkins/deploy/scripts/create_environments.sh'
+            }
+        }
+
+        stage('Populate mirror') {
+            environment {
+                SPACK_CHECKOUT_DIR = "${sh(script:'jenkins/senv.sh spack-checkout-dir', returnStdout: true).trim()}"
+            }
+            // TODO: the agent below must have access to the network
+            steps {
+                sh 'jenkins/deploy/scripts/populate_mirror.sh'
+            }
+        }
+
         stage('Prepare production stack') {
             environment {
                 SPACK_CHECKOUT_DIR = "${sh(script:'jenkins/senv.sh spack-checkout-dir', returnStdout: true).trim()}"
@@ -52,16 +72,6 @@ pipeline {
                 script {
                     parallel(prepare_compilers())
                 }
-            }
-        }
-
-        stage('Populate mirror') {
-            environment {
-                SPACK_CHECKOUT_DIR = "${sh(script:'jenkins/senv.sh spack-checkout-dir', returnStdout: true).trim()}"
-            }
-            // TODO: the agent below must have access to the network
-            steps {
-                sh 'jenkins/deploy/scripts/populate_mirror.sh'
             }
         }
 

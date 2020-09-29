@@ -95,4 +95,4 @@ izar:
        mpi: "intel-mpi@2019.7.217"
        blas: "intel-mkl@2020.0.1"
        suite_version: '2020.1.217'
-       external: True
+       #external: True
