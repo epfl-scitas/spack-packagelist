@@ -75,6 +75,16 @@ pipeline {
             }
         }
 
+        stage('Populate mirror (after compiler installed)') {
+            environment {
+                SPACK_CHECKOUT_DIR = "${sh(script:'jenkins/senv.sh spack-checkout-dir', returnStdout: true).trim()}"
+            }
+            // TODO: the agent below must have access to the network
+            steps {
+                sh 'jenkins/deploy/scripts/populate_mirror.sh'
+            }
+        }
+
         stage('Deploy software') {
             // Deploy the software that is planned to be in the environment,
             // but not yet installed. Notify failures.
