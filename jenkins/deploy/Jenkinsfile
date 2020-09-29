@@ -62,10 +62,6 @@ pipeline {
         }
 
         stage('Prepare production stack') {
-            environment {
-                SPACK_CHECKOUT_DIR = "${sh(script:'jenkins/senv.sh spack-checkout-dir', returnStdout: true).trim()}"
-            }
-
             // Ensure that all the compilers that are needed in
             // production are in place.
             steps {
@@ -96,7 +92,7 @@ pipeline {
         }
 
         stage('Deploy software') {
-            // Deploy the software that is planned to be in the environment,
+             // Deploy the software that is planned to be in the environment,
             // but not yet installed. Notify failures.
             steps {
                 script {
@@ -106,7 +102,7 @@ pipeline {
         }
 
         stage('Activate packages') {
-            // Deploy the software that is planned to be in the environment,
+             // Deploy the software that is planned to be in the environment,
             // but not yet installed. Notify failures.
             steps {
                 script {
@@ -138,6 +134,7 @@ def get_agent_name(environment) {
 
 def _define_stages(prefix, script, message) {
     environments = "${sh (script: 'jenkins/senv.sh --input ${STACK_RELEASE}.yaml list-envs', returnStdout: true).trim()}".split('\n')
+    env.SPACK_CHECKOUT_DIR = "${sh(script:'jenkins/senv.sh spack-checkout-dir', returnStdout: true).trim()}"
     env.script = script
     def jobs = [:]
     for (environment in environments) {
