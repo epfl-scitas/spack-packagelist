@@ -8,7 +8,7 @@
   {%- endif -%}
 {%- endmacro -%}
 
-{% if 'intel' in environment.compilers %}
+{% if 'intel' in environment.compilers and environment.compilers.intel.external %}
 intel:
   buildable: False
   paths:
@@ -36,6 +36,7 @@ intel-mkl:
     {{environment[type].intel.blas}} %{{environment[type].gcc.compiler | filter_variant}}: {{ intel_prefix(type) }}
     {% endif %}
   {%endfor%}
+{% endif %}
 {% endif %}
 
 cmake:
