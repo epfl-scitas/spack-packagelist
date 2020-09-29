@@ -24,7 +24,7 @@ set -e
 
 # Register Spack bootstrapped compilers
 ${SPACK} --env ${environment} concretize
-${SPACK} --env ${environment} install --log-format=junit --log-file=stack.${environment}.xml
+${SPACK} --env ${environment} install -v --log-format=junit --log-file=stack.${environment}.xml
 
 # not really sure why modules are not created
 ${SPACK} --env ${environment} module lmod refresh -y
