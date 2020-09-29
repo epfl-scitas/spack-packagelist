@@ -27,7 +27,7 @@ set +u
 . ${SENV_VIRTUALENV_PATH}/bin/activate
 set -u
 
-mkdir ${SPACK_CHECKOUT_DIR}/etc/spack/licenses/intel
+mkdir -p ${SPACK_CHECKOUT_DIR}/etc/spack/licenses/intel
 cp external/intel/licenses/scitas_license.lic \
     ${SPACK_CHECKOUT_DIR}/etc/spack/licenses/intel/license.lic
 
@@ -44,13 +44,3 @@ compilers_to_install=$(cat list_${environment}_compilers.txt | sort -u)
 ${SPACK} --env ${environment} install --log-format=junit --log-file=compilers.${environment}.xml ${compilers_to_install}
 
 senv --input ${STACK_RELEASE}.yaml list-compilers --env ${environment} --stack-type stable | xargs -L1 ${SPACK} module lmod setdefault
-
-senv --input ${STACK_RELEASE}.yaml \
-    create-env \
-    --env $environment
-
-# to reconfigure the compilers.yaml
-${SENV} --input ${STACK_RELEASE}.yaml install-spack-default-configuration
-
-# this has to be changed once we have a stack similar on all machines otherwhy the config file will be rewriten for each environment
-${SENV} --input ${STACK_RELEASE}.yaml intel-compilers-configuration

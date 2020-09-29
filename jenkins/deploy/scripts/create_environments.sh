@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if [ "x$1" = "x" ]; then
+    boostrap=1
+else
+    boostrap=0
+fi
+
 set +u
 . ${SENV_VIRTUALENV_PATH}/bin/activate
 set -u
@@ -18,3 +24,10 @@ do
         create-env \
         --env $environment
 done
+
+if [ ! $boostrap ]; then
+    # to reconfigure the compilers.yaml
+    ${SENV} --input ${STACK_RELEASE}.yaml install-spack-default-configuration
+    # this has to be changed once we have a stack similar on all machines otherwhy the config file will be rewriten for each environment
+    ${SENV} --input ${STACK_RELEASE}.yaml intel-compilers-configuration
+fi

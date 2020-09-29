@@ -75,6 +75,16 @@ pipeline {
             }
         }
 
+        stage('Create environments (after compiler installed)') {
+            environment {
+                SPACK_CHECKOUT_DIR = "${sh(script:'jenkins/senv.sh spack-checkout-dir', returnStdout: true).trim()}"
+            }
+
+            steps {
+                sh 'jenkins/deploy/scripts/create_environments.sh do_config_scripts'
+            }
+        }
+
         stage('Populate mirror (after compiler installed)') {
             environment {
                 SPACK_CHECKOUT_DIR = "${sh(script:'jenkins/senv.sh spack-checkout-dir', returnStdout: true).trim()}"
