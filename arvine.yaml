@@ -73,6 +73,7 @@ izar:
     gcc:
       compiler: "gcc@8.4.0+nvptx+piclibs"
       mpi: [ "mvapich2 process_managers=slurm fabrics=mrail threads=multiple +cuda" ]
+
     cuda:
       package: "cuda@10.2.89"
       arch: "sm_70"
@@ -86,9 +87,11 @@ izar:
        compiler: "gcc@9.3.0+nvptx+piclibs"
        mpi: [ "mvapich2 process_managers=slurm fabrics=mrail threads=multiple +cuda" ]
        blas: [ "openblas threads=none" ]
+
      cuda:
        package: "cuda@11.0.2"
        arch: "sm_70"
+
      intel:
        # intel 19.1.1 is already considered a intel 20 hence the mixed versions
        compiler: "intel@19.1.1"

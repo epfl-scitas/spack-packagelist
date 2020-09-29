@@ -240,7 +240,8 @@ class SpackEnvs(object):
                 
                 spec_compiler = self._compiler_name(
                     stack['compiler'],
-                    customisation
+                    customisation,
+                    stack=customisation['environment'][_type]
                 )
 
                 if spec_compiler in cache.cache:
@@ -255,12 +256,18 @@ class SpackEnvs(object):
         cache.save()
         return customisation
 
-    def _compiler_name(self, compiler, customisation):
-        if '%' in compiler:
-            return compiler
+    def _compiler_name(self, compiler, customisation, stack=None):
+        compiler_ = copy.copy(compiler)
+
+        nvptx_re = re.compile('.*\+nvptx')
+        if stack is not None and nvptx_re.match(compiler) and 'cuda' in stack:
+            compiler_ = '{0} ^{1}'.format(compiler, stack['cuda']['package'])
+
+        if '%' in compiler_:
+            return compiler_
 
         return '{0} %{1}'.format(
-            compiler,
+            compiler_,
             customisation['environment']['core_compiler'])
 
     def _run_spack(self, *args, **kwargs):
@@ -308,7 +315,8 @@ class SpackEnvs(object):
             for name, stack in customisation['environment'][_type].items():
                 if 'compiler' in stack:
                     compilers.append(self._compiler_name(stack['compiler'],
-                                                         customisation))
+                                                         customisation,
+                                                         stack=customisation['environment'][_type]))
         return compilers
 
     def list_envs(self):
