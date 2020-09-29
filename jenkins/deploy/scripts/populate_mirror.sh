@@ -27,6 +27,7 @@ environments=$(senv --input ${STACK_RELEASE}.yaml list-envs)
 deactivate
 
 # Generate the list of software that need to be installed, then fetch every tarball
+set +e
 for environment in ${environments}
 do
     ${SPACK} --env ${environment} mirror create -D -d ${SPACK_MIRROR_DIR} -a

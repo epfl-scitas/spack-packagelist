@@ -51,16 +51,6 @@ pipeline {
             }
         }
 
-        stage('Populate mirror') {
-            environment {
-                SPACK_CHECKOUT_DIR = "${sh(script:'jenkins/senv.sh spack-checkout-dir', returnStdout: true).trim()}"
-            }
-            // TODO: the agent below must have access to the network
-            steps {
-                sh 'jenkins/deploy/scripts/populate_mirror.sh'
-            }
-        }
-
         stage('Prepare production stack') {
             // Ensure that all the compilers that are needed in
             // production are in place.
@@ -81,7 +71,15 @@ pipeline {
             }
         }
 
-        stage('Populate mirror (after compiler installed)') {
+        stage('Conctretize') {
+            steps {
+                script {
+                    parallel(concretize())
+                }
+            }
+        }
+
+        stage('Populate mirror') {
             environment {
                 SPACK_CHECKOUT_DIR = "${sh(script:'jenkins/senv.sh spack-checkout-dir', returnStdout: true).trim()}"
             }
@@ -184,4 +182,10 @@ def activate_packages() {
     return _define_stages('activate',
                           'jenkins/deploy/scripts/activate_packages.sh',
                           'Activation of packages')
+}
+
+def concretize() {
+    return _define_stages('concretize',
+                          'jenkins/deploy/scripts/concretize.sh',
+                          'Concretization of stack')
 }
