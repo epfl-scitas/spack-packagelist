@@ -25,9 +25,10 @@ do
         --env $environment
 done
 
+# to reconfigure the compilers.yaml
+${SENV} --input ${STACK_RELEASE}.yaml install-spack-default-configuration
+
 if [ ! $boostrap ]; then
-    # to reconfigure the compilers.yaml
-    ${SENV} --input ${STACK_RELEASE}.yaml install-spack-default-configuration
     # this has to be changed once we have a stack similar on all machines otherwhy the config file will be rewriten for each environment
     ${SENV} --input ${STACK_RELEASE}.yaml intel-compilers-configuration
 fi
