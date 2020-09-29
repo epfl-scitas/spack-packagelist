@@ -51,7 +51,7 @@ default_environment:
     intel:
       compiler: "intel@19.0.5"
       mpi: "intel-mpi@2019.5.281"
-      blas: "intel-mkl@2019.0.5"
+      blas: "intel-mkl@2019.5.281"
       suite_version: '2019.5.281'
       #external: True
 
@@ -96,6 +96,6 @@ izar:
        # intel 19.1.1 is already considered a intel 20 hence the mixed versions
        compiler: "intel@19.1.1"
        mpi: "intel-mpi@2019.7.217"
-       blas: "intel-mkl@2020.0.1"
+       blas: "intel-mkl@2020.1.227"
        suite_version: '2020.1.217'
        #external: True
