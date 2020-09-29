@@ -7,6 +7,15 @@ else
     boostrap=0
 fi
 
+if [ x'${DRY_RUN}' = 'xyes' ]; then
+    SPACK="echo ${SPACK_CHECKOUT_DIR}/bin/spack"
+    SENV="echo senv"
+else
+    SPACK="${SPACK_CHECKOUT_DIR}/bin/spack"
+    SENV="senv"
+fi
+
+
 set +u
 . ${SENV_VIRTUALENV_PATH}/bin/activate
 set -u
