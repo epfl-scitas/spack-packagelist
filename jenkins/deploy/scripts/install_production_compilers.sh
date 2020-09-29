@@ -27,19 +27,15 @@ set +u
 . ${SENV_VIRTUALENV_PATH}/bin/activate
 set -u
 
+mkdir ${SPACK_CHECKOUT_DIR}/etc/spack/licenses/intel
+cp external/intel/licenses/scitas_license.lic \
+    ${SPACK_CHECKOUT_DIR}/etc/spack/licenses/intel/license.lic
+
 senv --input ${STACK_RELEASE}.yaml \
     list-compilers \
     --env $environment > list_${environment}_compilers.txt
 senv --input ${STACK_RELEASE}.yaml \
     list-compilers >> list_${environment}_compilers.txt
-
-if [ ! -e ${SPACK_CHECKOUT_DIR}/var/spack/environments/${environment}/spack.yaml ]; then
-    ${SPACK_CHECKOUT_DIR}/bin/spack env create ${environment}
-fi
-
-senv --input ${STACK_RELEASE}.yaml \
-    create-env \
-    --env $environment
 
 # Source Spack and add the system compiler
 ${SPACK} --version
