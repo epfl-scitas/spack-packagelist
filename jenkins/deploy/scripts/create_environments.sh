@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [ "x$1" = "x" ]; then
+if [ "x$1" = "xno" ]; then
     boostrap=1
 else
     boostrap=0
