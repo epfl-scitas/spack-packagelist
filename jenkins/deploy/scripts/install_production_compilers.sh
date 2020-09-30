@@ -31,11 +31,13 @@ mkdir -p ${SPACK_CHECKOUT_DIR}/etc/spack/licenses/intel
 cp external/intel/licenses/scitas_license.lic \
     ${SPACK_CHECKOUT_DIR}/etc/spack/licenses/intel/license.lic
 
+echo "#### List compilers to install:"
 senv --input ${STACK_RELEASE}.yaml \
     list-compilers \
     --env $environment > list_${environment}_compilers.txt
 senv --input ${STACK_RELEASE}.yaml \
     list-compilers >> list_${environment}_compilers.txt
+cat list_${environment}_compilers.txt
 
 # Source Spack and add the system compiler
 ${SPACK} --version
@@ -44,4 +46,5 @@ compilers_to_install=$(cat list_${environment}_compilers.txt | sort -u)
 ${SPACK} --env ${environment} install -v --log-format=junit --log-file=compilers.${environment}.xml ${compilers_to_install}
 
 #${SPACK} --env ${environment}  module lmod refresh --yes
+echo "#### Setting stable compilers as default"
 senv --input ${STACK_RELEASE}.yaml list-compilers --env ${environment} --stack-type stable | xargs -L1 ${SPACK} --env ${environment}  module lmod setdefault

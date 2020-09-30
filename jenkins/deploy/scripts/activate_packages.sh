@@ -16,6 +16,7 @@ senv --input ${STACK_RELEASE}.yaml \
     list-spec-to-activate \
     --env ${environment} > list_${environment}_activate.txt
 
+echo "Activating packages"
 cat list_${environment}_activate.txt  | xargs -L1 ${SPACK} --env ${environment} activate
 
 deactivate

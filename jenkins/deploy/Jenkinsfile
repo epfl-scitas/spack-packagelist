@@ -47,7 +47,7 @@ pipeline {
             }
 
             steps {
-                sh 'jenkins/deploy/scripts/create_environments.sh no'
+                sh 'jenkins/deploy/scripts/create_environments.sh yes'
             }
         }
 
@@ -67,7 +67,7 @@ pipeline {
             }
 
             steps {
-                sh 'jenkins/deploy/scripts/create_environments.sh yes'
+                sh 'jenkins/deploy/scripts/create_environments.sh no'
             }
         }
 

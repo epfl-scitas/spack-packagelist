@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [ "x$1" = "xno" ]; then
+if [ "x$1" = "xyes" ]; then
     boostrap=1
 else
     boostrap=0
@@ -29,6 +29,7 @@ do
         ${SPACK_CHECKOUT_DIR}/bin/spack env create ${environment}
     fi
 
+    echo "#### Create environment"
     senv --input ${STACK_RELEASE}.yaml \
         create-env \
         --env $environment
@@ -37,7 +38,9 @@ done
 # to reconfigure the compilers.yaml
 ${SENV} --input ${STACK_RELEASE}.yaml install-spack-default-configuration
 
-if [ ! $boostrap ]; then
-    # this has to be changed once we have a stack similar on all machines otherwhy the config file will be rewriten for each environment
+if [ $boostrap -eq 0 ]; then
+    echo "#### Install intel compilers configuration"
+    # this has to be changed once we have a stack similar on all machines otherwhy
+    # the config file will be rewriten for each environment
     ${SENV} --input ${STACK_RELEASE}.yaml intel-compilers-configuration
 fi
