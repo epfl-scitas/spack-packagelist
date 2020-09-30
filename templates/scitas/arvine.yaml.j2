@@ -86,9 +86,6 @@
     ^arpack-ng~mpi
     ^hdf5+szip~mpi+hl+fortran+cxx
   - octave
-  - caffe ~opencv +python {{ cuda_variant(environment, arch=False) }}
-    ^boost cxxstd=14 +icu~mpi+python+numpy
-    ^hdf5+szip~mpi+hl+fortran+cxx
 
 - intel_serial_packages_lapack:
 
@@ -129,6 +126,9 @@
 - gcc_serial_packages_python:
   - bcl2fastq2
   - blast-plus@2.9.0
+  - caffe ~opencv +python {{ cuda_variant(environment, arch=False) }}
+    ^boost cxxstd=14 +icu~mpi+python+numpy
+    ^hdf5+szip~mpi+hl+fortran+cxx
   - gdb
   - glpk+gmp
   - libgd
