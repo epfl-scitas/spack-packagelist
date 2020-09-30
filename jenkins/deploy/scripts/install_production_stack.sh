@@ -22,6 +22,6 @@ set +e
 rm -f stack.${environment}.xml
 set -e
 
-${SPACK} --env ${environment} install -v --log-format=junit --log-file=stack.${environment}.xml
+${SPACK} --env ${environment} install --log-format=junit --log-file=stack.${environment}.xml
 
 ${SPACK} --env ${environment} module lmod refresh -y
