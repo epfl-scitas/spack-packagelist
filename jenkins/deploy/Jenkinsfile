@@ -146,7 +146,9 @@ def _define_stages(prefix, script, message) {
                     result = ''
                     checkout scm
                     try {
-                        sh  '${script} ${environment}'
+                        ansiColor('xterm') {
+                            sh  '${script} ${environment}'
+                        }
                     } catch(error) {
                         result = error
                         currentBuild.result = 'FAILURE'
