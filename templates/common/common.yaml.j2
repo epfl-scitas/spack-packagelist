@@ -7,7 +7,7 @@
 {% endif %}
 
 include:
-  - {{ spack_source_tree}}/etc/spack/compilers.yaml
+#  - {{ spack_source_tree}}/etc/spack/compilers.yaml
   - {{ spack_source_tree}}/etc/spack/packages.yaml
   - {{ spack_source_tree}}/etc/spack/repos.yaml
   - {{ spack_source_tree}}/etc/spack/modules.yaml
@@ -21,7 +21,11 @@ config:
     tcl: {{ spack_install_tree }}/share/spack/modules/{{ environment.name }}
 
   build_stage:
-    - $tempdir/{{ stack_release }}/{{ environment.name }}
+    {% if stack_version %}
+    - $tempdir/{{ stack_release }}.{{ stack_version }}/tmp
+    {% else %}
+    - $tempdir/{{ stack_release }}/tmp
+    {% endif %}
     - $tempdir/$user/spack-stage
     - ~/.spack/stage
 
