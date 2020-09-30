@@ -216,7 +216,8 @@
   #   ^scotch+esmumps+mpi~metis
 
 - mpi_lapack_packages:
-  - elpa
+  # fails to compile on izar, might need to modify the package to add cuda
+  #support - elpa
   - gmsh+openmp+hdf5
     ^hdf5+szip+mpi+hl+fortran+cxx
   - hypre {{ cuda_variant(environment, arch=False) }}
