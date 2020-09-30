@@ -126,7 +126,7 @@
 - gcc_serial_packages_python:
   - bcl2fastq2
   - blast-plus@2.9.0
-  - caffe ~opencv +python {{ cuda_variant(environment, arch=False) }}
+  - caffe ~opencv +python {{ cuda_variant(environment, arch=False, dep=True) }}
     ^boost cxxstd=14 +icu~mpi+python+numpy
     ^hdf5+szip~mpi+hl+fortran+cxx
   - gdb
@@ -160,7 +160,7 @@
     ^netcdf-c~mpi
     ^hdf5+szip~mpi+hl+fortran+cxx
     ^boost cxxstd=14 +icu~mpi+python+numpy
-    ^llvm {{cuda_variant(environment)}}
+    ^llvm {{cuda_variant(environment, dep=True)}}
 
 - intel_serial_packages_python:
   - openbabel +python
