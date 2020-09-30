@@ -6,6 +6,7 @@ pipeline {
     // Adds timestamps to console logs
     options {
         timestamps()
+        ansiColor('xterm')
     }
 
     environment {
