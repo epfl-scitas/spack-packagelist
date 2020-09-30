@@ -62,7 +62,8 @@ default_environment:
       blas: [ "openblas threads=none" ]
 
 izar:
-  stack_types: [stable, bleeding_edge]
+  stack_types: [stable]
+  #, bleeding_edge]
   gpu: nvidia
 
   python:
