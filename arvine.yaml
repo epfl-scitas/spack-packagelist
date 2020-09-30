@@ -23,7 +23,7 @@ environments:
 
 mirrors:
   local: mirror
-  restricted: mirror-restriced
+  restricted: mirror-restricted
 
 extra_repos:
   scitas-external:
