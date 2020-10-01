@@ -112,6 +112,7 @@
   - samtools
   - scons
   - snakemake
+  - xgboost {{ cuda_variant(environment, dep=True) }}
   {% filter indent(width=2, indentfirst=true) %}
   {% include ('templates/scitas/' + stack_release + '/python_activated.yaml.j2') | indent %}
   {% endfilter %}
@@ -200,6 +201,7 @@
     ^netcdf-fortran+mpi
     ^netcdf-c+mpi
     ^hdf5+szip+mpi+hl+fortran+cxx
+    ^boost cxxstd=14 +icu+mpi+python+numpy
   - arpack-ng+mpi
   - fftw+mpi+openmp
   - hdf5+szip+mpi+hl+fortran+cxx
