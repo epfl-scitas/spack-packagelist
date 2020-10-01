@@ -264,6 +264,7 @@
     ^netcdf-fortran+mpi
     ^netcdf-c+mpi
     ^hdf5+szip+mpi+hl+fortran+cxx
+    ^hypre {{ cuda_variant(environment, arch=False) }}
   - gromacs+mpi {{ cuda_variant(environment, arch=False) }}
   - mumps+mpi+parmetis+metis+scotch+ptscotch
     ^parmetis
