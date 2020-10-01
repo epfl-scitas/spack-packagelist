@@ -60,6 +60,7 @@
   - tcl
   - valgrind~boost~mpi
   - voropp
+  - xgboost {{ cuda_variant(environment, dep=True) }}
   {% if environment.gpu == 'nvidia' %}
   - {{ environment.stable.cuda.package }}
   - cudnn ^ {{ environment.stable.cuda.package }}
@@ -112,7 +113,6 @@
   - samtools
   - scons
   - snakemake
-  - xgboost {{ cuda_variant(environment, dep=True) }}
   {% filter indent(width=2, indentfirst=true) %}
   {% include ('templates/scitas/' + stack_release + '/python_activated.yaml.j2') | indent %}
   {% endfilter %}
