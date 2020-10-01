@@ -374,7 +374,8 @@
     ^llvm {{cuda_variant(environment)}}
 
 - gcc_mpi_lapack_python2_packages:
-  - molpro
+  # temporary remove to figure out why it does not find blas
+  # - molpro
   - nwchem
     ^netlib-scalapack
 
