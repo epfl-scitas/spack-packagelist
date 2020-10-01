@@ -9,6 +9,13 @@ set -euo pipefail
 
 environment=$1
 
+# Produce a valid list of compilers
+set +u
+. ${SENV_VIRTUALENV_PATH}/bin/activate
+set -u
+
+SPACK_CHECKOUT_DIR=$(senv --input ${STACK_RELEASE}.yaml spack-checkout-dir)
+
 if [ x'${DRY_RUN}' = 'xyes' ]; then
     SPACK="echo ${SPACK_CHECKOUT_DIR}/bin/spack"
     SENV="echo senv"
@@ -22,10 +29,6 @@ set +e
 mv -f compilers.${environment}.xml old_compilers.${environment}.xml
 set -e
 
-# Produce a valid list of compilers
-set +u
-. ${SENV_VIRTUALENV_PATH}/bin/activate
-set -u
 
 mkdir -p ${SPACK_CHECKOUT_DIR}/etc/spack/licenses/intel
 cp external/intel/licenses/scitas_license.lic \

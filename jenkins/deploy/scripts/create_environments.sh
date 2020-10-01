@@ -7,6 +7,13 @@ else
     boostrap=0
 fi
 
+
+set +u
+. ${SENV_VIRTUALENV_PATH}/bin/activate
+set -u
+
+SPACK_CHECKOUT_DIR=$(senv --input ${STACK_RELEASE}.yaml spack-checkout-dir)
+
 if [ x'${DRY_RUN}' = 'xyes' ]; then
     SPACK="echo ${SPACK_CHECKOUT_DIR}/bin/spack"
     SENV="echo senv"
@@ -14,11 +21,6 @@ else
     SPACK="${SPACK_CHECKOUT_DIR}/bin/spack"
     SENV="senv"
 fi
-
-
-set +u
-. ${SENV_VIRTUALENV_PATH}/bin/activate
-set -u
 
 environments=$(senv --input ${STACK_RELEASE}.yaml list-envs)
 
@@ -33,6 +35,8 @@ do
     senv --input ${STACK_RELEASE}.yaml \
         create-env \
         --env $environment
+
+    cat -n ${SPACK_CHECKOUT_DIR}/var/spack/environments/${environment}/spack.yaml
 done
 
 # to reconfigure the compilers.yaml

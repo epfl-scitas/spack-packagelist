@@ -34,19 +34,12 @@ pipeline {
             }
         }
         stage('Check environment') {
-            environment {
-                SPACK_CHECKOUT_DIR = "${sh(script:'jenkins/senv.sh spack-checkout-dir', returnStdout: true).trim()}"
-            }
             steps {
                 sh 'env | sort'
             }
         }
 
         stage('Create environments') {
-            environment {
-                SPACK_CHECKOUT_DIR = "${sh(script:'jenkins/senv.sh spack-checkout-dir', returnStdout: true).trim()}"
-            }
-
             steps {
                 sh 'jenkins/deploy/scripts/create_environments.sh yes'
             }
@@ -63,10 +56,6 @@ pipeline {
         }
 
         stage('Create environments (after compiler installed)') {
-            environment {
-                SPACK_CHECKOUT_DIR = "${sh(script:'jenkins/senv.sh spack-checkout-dir', returnStdout: true).trim()}"
-            }
-
             steps {
                 sh 'jenkins/deploy/scripts/create_environments.sh no'
             }
@@ -81,9 +70,6 @@ pipeline {
         }
 
         stage('Populate mirror') {
-            environment {
-                SPACK_CHECKOUT_DIR = "${sh(script:'jenkins/senv.sh spack-checkout-dir', returnStdout: true).trim()}"
-            }
             // TODO: the agent below must have access to the network
             steps {
                 sh 'jenkins/deploy/scripts/populate_mirror.sh'
@@ -133,7 +119,7 @@ def get_agent_name(environment) {
 
 def _define_stages(prefix, script, message) {
     environments = "${sh (script: 'jenkins/senv.sh --input ${STACK_RELEASE}.yaml list-envs', returnStdout: true).trim()}".split('\n')
-    env.SPACK_CHECKOUT_DIR = "${sh(script:'jenkins/senv.sh spack-checkout-dir', returnStdout: true).trim()}"
+
     env.script = script
     def jobs = [:]
     for (environment in environments) {

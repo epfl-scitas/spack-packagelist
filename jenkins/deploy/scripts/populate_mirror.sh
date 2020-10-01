@@ -8,6 +8,13 @@ set -euo pipefail
 # STACK_RELEASE: version of the stack
 #
 
+set +u
+. ${SENV_VIRTUALENV_PATH}/bin/activate
+set -u
+
+SPACK_CHECKOUT_DIR=$(senv --input ${STACK_RELEASE}.yaml spack-checkout-dir)
+
+
 if [ x'${DRY_RUN}' = 'xyes' ]; then
     SPACK="echo ${SPACK_CHECKOUT_DIR}/bin/spack"
     SENV='echo senv'
@@ -15,10 +22,6 @@ else
     SPACK="${SPACK_CHECKOUT_DIR}/bin/spack"
     SENV='senv'
 fi
-
-set +u
- . ${SENV_VIRTUALENV_PATH}/bin/activate
-set -u
 
 GET_ENTRY="senv --input ${STACK_RELEASE}.yaml get-environment-entry"
 SPACK_MIRROR_DIR=$(${GET_ENTRY} spack_root)/$(${GET_ENTRY} mirrors.local)
