@@ -197,11 +197,6 @@
 - gcc_external_packages:
 
 - mpi_packages:
-  - amber+mpi {{ cuda_variant(environment) }}
-    ^netcdf-fortran+mpi
-    ^netcdf-c+mpi
-    ^hdf5+szip+mpi+hl+fortran+cxx
-    ^boost cxxstd=14 +icu+mpi+python+numpy
   - arpack-ng+mpi
   - fftw+mpi+openmp
   - hdf5+szip+mpi+hl+fortran+cxx
@@ -233,6 +228,11 @@
     ^metis+real64
 
 - mpi_lapack_python_packages:
+  - amber+mpi {{ cuda_variant(environment) }}
+    ^netcdf-fortran+mpi
+    ^netcdf-c+mpi
+    ^hdf5+szip+mpi+hl+fortran+cxx
+    ^boost cxxstd=14 +icu+mpi+python+numpy
   - boost cxxstd=14 +icu+mpi+python+numpy
   - cgal
     ^boost cxxstd=14 +icu+mpi+python+numpy
