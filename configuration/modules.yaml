@@ -91,6 +91,7 @@ modules:
       'intel',
       'jdk%gcc@4.8.5',
       'libtool%gcc@4.8.5',
+      'libxc',
       'likwid',
       'llvm',
       'm4%gcc@4.8.5',
