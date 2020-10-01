@@ -16,4 +16,6 @@ virtualenv -p $(which python2.7) ${SENV_VIRTUALENV_PATH} --clear
 set +u # bug fix for virtualenv <16.2
 . ${SENV_VIRTUALENV_PATH}/bin/activate
 
+pip install -U pip
+
 pip install --force-reinstall -U .
