@@ -196,11 +196,10 @@
 - gcc_external_packages:
 
 - mpi_packages:
-  # missing source tarball
-  # - amber+mpi {{ cuda_variant(environment) }}
-  #   ^netcdf-fortran+mpi
-  #   ^netcdf-c+mpi
-  #   ^hdf5+szip+mpi+hl+fortran+cxx
+  - amber+mpi {{ cuda_variant(environment) }}
+    ^netcdf-fortran+mpi
+    ^netcdf-c+mpi
+    ^hdf5+szip+mpi+hl+fortran+cxx
   - arpack-ng+mpi
   - fftw+mpi+openmp
   - hdf5+szip+mpi+hl+fortran+cxx
