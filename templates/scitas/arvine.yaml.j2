@@ -279,8 +279,10 @@
     ^hdf5+szip+mpi+hl+fortran+cxx
   - cp2k+mpi~plumed {{ cuda_variant(environment) }}
     ^fftw+mpi~openmp
+    ^boost cxxstd=14 +icu+mpi+python+numpy
   - cp2k+mpi+plumed {{ cuda_variant(environment) }}
     ^fftw+mpi~openmp
+    ^boost cxxstd=14 +icu+mpi+python+numpy
     ^plumed+mpi+gsl
   - fenics~parmetis+hdf5+scotch+suite-sparse~vtk~trilinos
     ^slepc+arpack
