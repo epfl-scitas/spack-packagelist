@@ -41,6 +41,8 @@
       {% if _compiler == 'intel' %}
       set:
         LD_LIBRARY_PATH: {{ stack.compiler_prefix}}/compiler/lib/intel64_lin
+      prepend_path:
+        PATH: {{ prefix }}
       {% endif %}
       unset: []
     extra_rpaths: []
