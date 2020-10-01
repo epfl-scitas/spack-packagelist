@@ -74,6 +74,9 @@
   - arpack-ng~mpi
   - gmsh~mpi+hdf5
     ^hdf5+szip~mpi+hl+fortran+cxx
+  {% if environment.gpu == 'nvidia' %}
+  - magma {{ cuda_variant(environment, dep=True) }}
+  {% endif %}
   - suite-sparse {{ cuda_variant(environment, dep=True) }}
     ^metis+real64
   - superlu
@@ -82,9 +85,6 @@
   - armadillo+hdf5
     ^arpack-ng~mpi
       ^hdf5+szip~mpi+hl+fortran+cxx
-  {% if environment.gpu == 'nvidia' %}
-  - magma {{ cuda_variant(environment, dep=True) }}
-  {% endif %}
   - octave
 
 - intel_serial_packages_lapack:
