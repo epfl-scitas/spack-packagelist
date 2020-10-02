@@ -61,7 +61,6 @@
   - tcl
   - valgrind~boost~mpi
   - voropp
-  - xgboost {{ cuda_variant(environment, dep=True) }}
   {% if environment.gpu == 'nvidia' %}
   - {{ environment.stable.cuda.package }}
   - cudnn ^ {{ environment.stable.cuda.package }}
@@ -69,6 +68,7 @@
 
 - gcc_serial_packages:
   - openblas threads=openmp
+  - xgboost {{ cuda_variant(environment, dep=True) }}
 
 - intel_serial_packages:
 
