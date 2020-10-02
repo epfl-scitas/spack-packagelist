@@ -244,11 +244,6 @@
 - gcc_mpi_packages:
   - cpmd~openmp
     ^fftw+mpi~openmp
-  - yambo+mpi io=iotk,etsf-io
-    ^fftw+mpi~openmp
-    ^netcdf-fortran+mpi
-    ^netcdf-c+mpi
-    ^hdf5+szip+mpi+hl+fortran+cxx
 
 - gcc_mpi_lapack_packages:
   - abinit~hdf5~openmp+mpi+scalapack
@@ -270,6 +265,12 @@
     ^scotch+esmumps+mpi~metis
     ^netlib-scalapack
   - netlib-scalapack
+  - yambo+mpi io=iotk,etsf-io
+    ^fftw+mpi~openmp
+    ^netcdf-fortran+mpi
+    ^netcdf-c+mpi
+    ^hdf5+szip+mpi+hl+fortran+cxx
+    ^netlib-scalapack
 
 - gcc_mpi_lapack_python_packages:
   - adios2+hdf5+mpi+python
@@ -398,6 +399,11 @@
     ^parmetis
     ^metis+real64
     ^scotch+esmumps+mpi~metis
+  - yambo+mpi io=iotk,etsf-io
+    ^fftw+mpi~openmp
+    ^netcdf-fortran+mpi
+    ^netcdf-c+mpi
+    ^hdf5+szip+mpi+hl+fortran+cxx
 
 - intel_mpi_lapack_python_packages:
 #  - fenics~parmetis+hdf5+scotch+suite-sparse~vtk~trilinos
