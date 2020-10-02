@@ -387,10 +387,10 @@
 
 - intel_mpi_packages:
   - crystal17@1.0.2
-  # - vasp {{ cuda_variant(environment) }}
-  #   {% if environment.gpu == 'nvidia' %}
-  #   ^magma {{ cuda_variant(environment) }}
-  #   {% endif %}
+  - vasp {{ cuda_variant(environment) }}
+  {% if environment.gpu == 'nvidia' %}
+    ^magma {{ cuda_variant(environment) }}
+  {% endif %}
 
 
 - intel_mpi_lapack_packages:
