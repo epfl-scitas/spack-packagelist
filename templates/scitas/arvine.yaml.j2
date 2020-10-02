@@ -393,17 +393,18 @@
     ^magma {{ cuda_variant(environment) }}
   {% endif %}
 
+  - yambo+mpi io=iotk,etsf-io
+    ^{{environment.stable.intel.blas}}
+    ^hdf5+szip+mpi+hl+fortran+cxx
+    ^netcdf-c+mpi
+    ^netcdf-fortran+mpi
+    ^fftw+mpi~openmp
 
 - intel_mpi_lapack_packages:
   - mumps+mpi+parmetis+metis+scotch+ptscotch
     ^parmetis
     ^metis+real64
     ^scotch+esmumps+mpi~metis
-  - yambo+mpi io=iotk,etsf-io
-    ^fftw+mpi~openmp
-    ^netcdf-fortran+mpi
-    ^netcdf-c+mpi
-    ^hdf5+szip+mpi+hl+fortran+cxx
 
 - intel_mpi_lapack_python_packages:
 #  - fenics~parmetis+hdf5+scotch+suite-sparse~vtk~trilinos

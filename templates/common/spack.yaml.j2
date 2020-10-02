@@ -142,7 +142,6 @@ spack:
 
   - matrix:
     - [${{compiler}}_mpi_packages]
-    - [$^{{compiler}}_stable_blas]
     - [$^{{compiler}}_stable_mpi]
     {% if environment.gpu == 'nvidia' %}
     - [^{{environment.stable.cuda.package }}]
