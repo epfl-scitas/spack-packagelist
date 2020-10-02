@@ -33,6 +33,10 @@
   {% endif %}
   - [$%{{compiler}}_stable_compiler]
 
+- matrix:
+  - [$externals]
+  - [$%{{ environment.core_compiler }}]
+
 {% set matrix_env_specific = 'templates/' + site + '/' + stack_release + '/matrix.yaml.j2' %}
 {% if matrix_env_specific | exists %}
 {% include matrix_env_specific %}
