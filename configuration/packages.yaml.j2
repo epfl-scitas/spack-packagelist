@@ -1,0 +1,9 @@
+{% set spack_site_packages = 'templates/' + site + '/packages.yaml.j2' %}
+{% if spack_site_packages | exists %}
+packages:
+  {% filter indent(width=2, indentfirst=True) %}
+  {% include spack_site_packages | indent %}
+  {% endfilter %}
+{% else %}
+packages: {}
+{% endif %}
