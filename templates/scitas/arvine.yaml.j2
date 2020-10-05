@@ -228,6 +228,8 @@
   - superlu-dist
     ^parmetis
     ^metis+real64
+  - relion {{ cuda_variant(environment, dep_on='+double-gpu') }}
+    ^fftw+mpi~openmp
 
 - mpi_lapack_python_packages:
   - boost cxxstd=14 +icu+mpi+python+numpy
