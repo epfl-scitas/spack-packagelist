@@ -57,11 +57,9 @@ mvapich2:
       {% if environment.name == 'gacrux' or environment.name == 'helvetios' %}
       MV2_IBA_HCA: mlx5_0
       {% endif %}
-
-"mvapich2+cuda":
-  environment:
-    set:
+      {% if environment.gpu == 'nvidia' %}
       MV2_USE_GPU: '1'
+      {% endif %}
 
 ####
 # LAPACK
