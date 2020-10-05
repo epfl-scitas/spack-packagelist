@@ -208,11 +208,6 @@
     ^netcdf-c+mpi
     ^hdf5+szip+mpi+hl+fortran+cxx
   - phylobayesmpi
-  - relion {{ cuda_variant(environment, extra_on='+double-gpu') }}
-    ^fftw+mpi~openmp
-  - relion {{ cuda_variant(environment) }}
-    ^fftw+mpi~openmp
-
   # problem with a symlink at install
   # - foam-extend+metis+scotch+parmetis+ptscotch~paraview
   #   ^metis+real64
@@ -248,6 +243,10 @@
 
 - gcc_mpi_packages:
   - cpmd~openmp
+    ^fftw+mpi~openmp
+  - relion {{ cuda_variant(environment, extra_on='+double-gpu') }}
+    ^fftw+mpi~openmp
+  - relion {{ cuda_variant(environment) }}
     ^fftw+mpi~openmp
 
 - gcc_mpi_lapack_packages:
