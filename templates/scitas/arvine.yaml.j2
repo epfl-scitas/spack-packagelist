@@ -67,6 +67,10 @@
   {% endif %}
 
 - gcc_serial_packages:
+  - {{ environment.stable.intel.blas }}
+  # julia >= 0..5 conflicts with intel compilers
+  - julia+cxx+mkl
+    ^{{ environment.stable.intel.blas }}
   - openblas threads=openmp
   - xgboost {{ cuda_variant(environment, dep=True) }}
 
