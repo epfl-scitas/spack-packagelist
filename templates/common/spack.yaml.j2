@@ -185,6 +185,7 @@ spack:
     - [^{{environment.stable.cuda.package }}]
     {% endif %}
     - [$%{{compiler}}_stable_compiler]
+{% endfor %}
 
 {% set matrix_site_template = 'templates/' + site + '/matrix.yaml.j2' %}
 {% if matrix_site_template | exists %}
@@ -192,8 +193,6 @@ spack:
   {% include matrix_site_template %}
 {% endfilter %}
 {% endif %}
-
-{% endfor %}
 #
 {% endif %}
 
