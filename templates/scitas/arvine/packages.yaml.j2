@@ -41,12 +41,12 @@ intel-mkl:
 intel-vtune:
   buildable: False
   paths:
-    intel-vtune@2019.6.0.602217 %{{environment.core_compiler}}:  {{ spack_external_root }}/intel/2019.5/advisor_2019.5.0.602216
+    intel-vtune@2019.6.0.602217 %{{environment.core_compiler}}:  {{ spack_external_root }}/intel/2019.5/vtune_amplifier_2019.6.0.602217
 
 intel-advisor:
   buildable: False
   paths:
-    intel-advisor@2019.5.0.602216 %{{environment.core_compiler}}:  {{ spack_external_root }}/intel/2019.5/vtune_amplifier_2019.6.0.602217
+    intel-advisor@2019.5.0.602216 %{{environment.core_compiler}}:  {{ spack_external_root }}/intel/2019.5/advisor_2019.5.0.602216
 
 cmake:
   version: [3.16.5]
