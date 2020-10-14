@@ -67,6 +67,7 @@ modules:
       'automake%gcc@4.8.5',
       'beast',
       'boost%gcc@8.3.0',
+      'bzip',
       'caffe',
       'cfdplusplus',
       'cgal',
