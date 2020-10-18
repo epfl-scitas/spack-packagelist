@@ -57,8 +57,11 @@ mvapich2:
       {% if environment.name == 'gacrux' or environment.name == 'helvetios' %}
       MV2_IBA_HCA: mlx5_0
       {% endif %}
+      {% if environment.name == 'izar' %}
+      MV2_IBA_HCA: mlx5_1:mlx5_0
+      {% endif %}
       {% if environment.gpu == 'nvidia' %}
-      MV2_USE_GPU: '1'
+      MV2_USE_CUDA: '1'
       {% endif %}
 
 ####
