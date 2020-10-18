@@ -1,3 +1,7 @@
+all:
+  providers:
+    iconv: [libc+iconv]
+
 {% set spack_external_root = spack_external | absolute_path(prefix=spack_root) %}
 
 {%- macro intel_prefix(type) -%}
