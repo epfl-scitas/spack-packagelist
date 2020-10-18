@@ -73,7 +73,7 @@
   - julia+cxx+mkl
     ^{{ environment.stable.intel.blas }}
     ^python@{{ environment.python.3 }} +optimizations+tkinter
-  - mvapich2 process_managers=slurm fabrics=mrail threads=multiple
+  - mvapich2 process_managers=slurm fabrics=mrail threads=multiple ^libiconv
   - openblas threads=openmp
   - xgboost {{ cuda_variant(environment, dep=True) }}
 
@@ -364,11 +364,10 @@
     ^hdf5+szip+mpi+hl+fortran+cxx
     ^suite-sparse {{ cuda_variant(environment) }}
     ^hypre {{ cuda_variant(environment, arch=False) }}
-  # Bazel fail to install
   # - py-tensorflow +mpi {{ cuda_variant(environment, extra_off='~nccl') }}
+  #   ^bazel %{{ environment.core_compiler }}
   #   ^py-h5py
   #   ^hdf5+szip+mpi+hl+fortran+cxx
-  # Needs work on the patch for cuda detection
   - opencv {{ cuda_variant(environment) }}
     ^vtk+ffmpeg+mpi+opengl2+python~qt+xdmf{%+ if environment.gpu != 'nvidia' %}+osmesa{%+ endif %}
     ^cairo+png+pdf+fc+ft
