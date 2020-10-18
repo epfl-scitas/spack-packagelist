@@ -46,6 +46,7 @@ cat list_${environment}_compilers.txt
 ${SPACK} --version
 
 compilers_to_install=$(cat list_${environment}_compilers.txt | sort -u)
+${SPACK} --env ${environment} spec -Ilt ${compilers_to_install}
 ${SPACK} --env ${environment} install -v --log-format=junit --log-file=compilers.${environment}.xml ${compilers_to_install}
 
 #${SPACK} --env ${environment}  module lmod refresh --yes
