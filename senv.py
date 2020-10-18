@@ -81,7 +81,7 @@ def _cuda_variant(environment, arch=True,
         )
 
     if dep:
-        variant = '{0} ^{1}'.format(
+        variant = '{0} ^{1}^libiconv'.format(
             variant,
             environment[stack]['cuda']['package'])
 
