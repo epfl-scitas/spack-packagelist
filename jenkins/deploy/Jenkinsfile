@@ -117,7 +117,7 @@ def get_agent_name(environment) {
     return agent_name
 }
 
-def _define_stages(prefix, script, message, do_junit = True) {
+def _define_stages(prefix, script, message, do_junit = true) {
     environments = "${sh (script: 'jenkins/senv.sh --input ${STACK_RELEASE}.yaml list-envs', returnStdout: true).trim()}".split('\n')
 
     env.script = script
@@ -173,7 +173,7 @@ def activate_packages() {
     return _define_stages('activate',
                           'jenkins/deploy/scripts/activate_packages.sh',
                           'Activation of packages',
-                          False)
+                          false)
 }
 
 def concretize() {
