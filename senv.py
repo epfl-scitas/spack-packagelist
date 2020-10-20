@@ -73,15 +73,15 @@ def _cuda_variant(environment, arch=True,
     if 'gpu' not in environment or environment['gpu'] != 'nvidia':
         return '~cuda{}'.format(extra_off)
 
-    variant = '+cuda{}'.format(extra_on)
+    variant = "+cuda"
     if arch:
         variant = '{0} cuda_arch={1}'.format(
             variant,
             environment[stack]['cuda']['arch'].replace('sm_', '')
         )
-
+        variant = "{0} {1}".format(variant, extra_on)
     if dep:
-        variant = '{0} ^{1}^libiconv'.format(
+        variant = '{0} ^{1}'.format(
             variant,
             environment[stack]['cuda']['package'])
 

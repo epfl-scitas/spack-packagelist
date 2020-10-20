@@ -1,12 +1,12 @@
 - gcc_python3:
-  - python@{{ environment.python.3 }} +optimizations+tkinter
+  - python@{{ environment.python.3 }} +optimizations+tkinter^libiconv
 - intel_python3:
-  - python@{{ environment.python.3 }} +optimizations+tkinter ^freetype@2.7.1 ^fontconfig@2.12.1
+  - python@{{ environment.python.3 }} +optimizations+tkinter ^freetype@2.7.1 ^fontconfig@2.12.1^libiconv
 
 - gcc_python2:
-  - python@{{ environment.python.2 }}+tkinter
+  - python@{{ environment.python.2 }}+tkinter^libiconv
 - intel_python2:
-  - python@{{ environment.python.2 }}+tkinter ^freetype@2.7.1 ^fontconfig@2.12.1
+  - python@{{ environment.python.2 }}+tkinter ^freetype@2.7.1 ^fontconfig@2.12.1^libiconv
 
 - core_packages:
   - cmake@3.16.5
@@ -62,12 +62,13 @@
   - valgrind~boost~mpi
   - voropp
   {% if environment.gpu == 'nvidia' %}
-  - {{ environment.stable.cuda.package }}
-  - cudnn ^ {{ environment.stable.cuda.package }}
+  - {{ environment.stable.cuda.package }}^libiconv
+  - cudnn ^ {{ environment.stable.cuda.package }}^libiconv
   {% endif %}
 
 - gcc_serial_packages:
   - {{ environment.stable.intel.blas }}
+  - glpk+gmp
   # julia >= 0..5 conflicts with intel compilers
   # it is not in the gcc_serial_packages_python due to the dependecy to mkl
   - julia+cxx+mkl
@@ -84,9 +85,9 @@
   - gmsh~mpi+hdf5
     ^hdf5+szip~mpi+hl+fortran+cxx
   {% if environment.gpu == 'nvidia' %}
-  - magma {{ cuda_variant(environment, dep=True) }}
+  - magma {{ cuda_variant(environment, dep=True, extra_on='^libiconv') }}
   {% endif %}
-  - suite-sparse {{ cuda_variant(environment, dep=True) }}
+  - suite-sparse {{ cuda_variant(environment, dep=True, extra_on='^libiconv') }}
     ^metis+real64
   - superlu
 
@@ -139,7 +140,6 @@
     ^boost cxxstd=14 +icu~mpi+python+numpy
     ^hdf5+szip~mpi+hl+fortran+cxx
   - gdb
-  - glpk+gmp
   - libgd
   - mummer
     ^cairo+png+pdf+ft+fc
