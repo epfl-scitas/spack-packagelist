@@ -156,6 +156,12 @@
   {% if environment.gpu == 'nvidia' %}
     ^magma {{ cuda_variant(environment) }}
   {%endif%}
+  - py-torchvision
+    ^py-torch +tbb {{ cuda_variant(environment, extra_on='+magma',
+                     extra_off='~cudnn~nccl', dep=True) }}
+  {% if environment.gpu == 'nvidia' %}
+    ^magma {{ cuda_variant(environment) }}
+  {%endif%}
   # - qt +opengl+webkit
   #   ^cairo+png+pdf+fc+ft
   - r +external-lapack ^openjdk@11.0.2
