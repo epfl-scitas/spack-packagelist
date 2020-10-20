@@ -18,6 +18,8 @@ senv --input ${STACK_RELEASE}.yaml \
     --env ${environment} > list_${environment}_activate.txt
 
 echo "Activating packages"
-cat list_${environment}_activate.txt  | xargs -L1 ${SPACK} --env ${environment} activate
+senv --input arvine.yaml \
+    activate-specs \
+    --env izar
 
 deactivate
