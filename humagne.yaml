@@ -321,6 +321,7 @@ packages:
       - samtools
       - subread
       - libxc
+      - bzip2
 
   serial_gnu:
     target_matrix:
