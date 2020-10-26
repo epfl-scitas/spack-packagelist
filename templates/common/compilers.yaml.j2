@@ -39,10 +39,11 @@
     modules: []
     environment:
       {% if _compiler == 'intel' %}
-      set:
-        LD_LIBRARY_PATH: {{ stack.compiler_prefix}}/compiler/lib/intel64_lin
       prepend_path:
+        LD_LIBRARY_PATH: {{ stack.compiler_prefix}}/compiler/lib/intel64_lin
         PATH: {{ prefix }}
+      {% elif _compiler == 'gcc' %}
+        LD_LIBRARY_PATH: {{ stack.compiler_prefix}}/lib64
       {% endif %}
       unset: []
     extra_rpaths: []
