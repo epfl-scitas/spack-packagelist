@@ -370,10 +370,10 @@
     ^hdf5+szip+mpi+hl+fortran+cxx
     ^suite-sparse {{ cuda_variant(environment) }}
     ^hypre {{ cuda_variant(environment, arch=False) }}
-  # - py-tensorflow +mpi {{ cuda_variant(environment, extra_off='~nccl') }}
-  #   ^bazel %{{ environment.core_compiler }}
-  #   ^py-h5py
-  #   ^hdf5+szip+mpi+hl+fortran+cxx
+  - py-tensorflow +mpi {{ cuda_variant(environment, extra_off='~nccl') }}
+    ^bazel
+    ^py-h5py
+    ^hdf5+szip+mpi+hl+fortran+cxx
   - opencv {{ cuda_variant(environment) }}
     ^vtk+ffmpeg+mpi+opengl2+python~qt+xdmf{%+ if environment.gpu != 'nvidia' %}+osmesa{%+ endif %}
     ^cairo+png+pdf+fc+ft
