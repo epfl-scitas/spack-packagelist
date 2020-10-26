@@ -186,10 +186,10 @@ class SpackEnvs(object):
         class cache(object):
             def __init__(self, type_, config):
                 
-                self.cache_file = '.{0}{1}_{2}_cache.yaml'.format(
+                self.cache_file = os.path.expanduser('~/.{0}{1}_{2}_cache.yaml'.format(
                     config['stack_release'],
                     '.{0}'.format(config['stack_version']) if 'stack_version' in config else '',
-                    type_)
+                    type_))
 
                 try:
                     with open(self.cache_file, 'r') as fh:
