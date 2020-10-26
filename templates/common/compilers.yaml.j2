@@ -38,8 +38,8 @@
     target: x86_64
     modules: []
     environment:
-      {% if _compiler == 'intel' %}
       prepend_path:
+      {% if _compiler == 'intel' %}
         LD_LIBRARY_PATH: {{ stack.compiler_prefix}}/compiler/lib/intel64_lin
         PATH: {{ prefix }}
       {% elif _compiler == 'gcc' %}
