@@ -1,3 +1,6 @@
+################
+# COMPILERS
+################
 gcc:
   environment:
     set:
@@ -30,6 +33,9 @@ intel:
 #    prepend_path:
 #      INTEL_LICENSE_FILE: /ssoft/spack/external/intel/License
 
+################
+# MPI
+################
 openmpi:
   environment:
     set:
@@ -64,10 +70,9 @@ mvapich2:
       MV2_USE_CUDA: '1'
       {% endif %}
 
-####
+################
 # LAPACK
-####
-
+################
 {%if environment.stable.intel.compiler_prefix %}
 intel-mkl:
   environment:
@@ -81,21 +86,15 @@ intel-mkl:
     set:
       'OPENBLAS_NUM_THREADS': '1'
 
-####
+################
 # Other software
-####
+###############
 
-quantum-espresso:
-  suffixes:
-    'hdf5=parallel': hdf5
-
-'amber@16':
-  environment:
-    set:
-      'AMBERHOME': '${PREFIX}/amber16'
-    prepend_path:
-      'PATH': '${PREFIX}/amber16/bin'
-      'LD_LIBRARY_PATH': '${PREFIX}/amber16/lib'
+adf:
+  template: 'modules/group_restricted.lua'
+  load:
+  - 'intel'
+  - 'intel-mpi'
 
 comsol:
   environment:
@@ -111,6 +110,17 @@ cuda:
       CUDA_LIBRARY: '${PREFIX}/lib64'
       CUDA_INCLUDE: '${PREFIX}/include'
 
+fdtd:
+  environment:
+    prepend_path:
+      PATH: '${PREFIX}/mpich2/nemesis/bin'
+      LD_LIBRARY_PATH: '${PREFIX}/mpich2/nemesis/lib'
+    set:
+      SLURM_MPI_TYPE: pmi2
+
+gaussian:
+  template: 'modules/group_restricted.lua'
+
 'hdf5~mpi+cxx':
   environment:
     set:
@@ -124,54 +134,40 @@ cuda:
       HDF5_CC: h5pcc
       HDF5_FC: h5pfc
 
+metis:
+  suffixes:
+    ~real64: sp
+
+molpro:
+  template: 'modules/group_restricted.lua'
+
 plumed:
   environment:
     set:
       PLUMED_KERNEL: '${PREFIX}/lib/libplumedKernel.so'
     unset:
       - PLUMED_ROOT
-molpro:
-  template: 'modules/group_restricted.lua'
 
-opencv:
-  environment:
-    prepend_path:
-      PYTHONPATH: '${PREFIX}/lib/python2.7/site-packages'
+py-tensorflow:
+  autoload: direct
+
+quantum-espresso:
+  suffixes:
+    'hdf5=parallel': hdf5
 
 scala:
   autoload: 'direct'
+
+scons:
+  suffixes:
+    '^python@:2.99': py2
+    '^python@3:': py3
 
 spark:
   autoload: 'direct'
   environment:
     prepend_path:
       PATH: '/ssoft/spack/scripts/all/spark'
-
-gaussian:
-  template: 'modules/group_restricted.lua'
-
-adf:
-  template: 'modules/group_restricted.lua'
-  load:
-  - 'intel'
-  - 'intel-mpi'
-
-fdtd:
-  environment:
-    prepend_path:
-      PATH: '${PREFIX}/mpich2/nemesis/bin'
-      LD_LIBRARY_PATH: '${PREFIX}/mpich2/nemesis/lib'
-    set:
-      SLURM_MPI_TYPE: pmi2
-
-metis:
-  suffixes:
-    ~real64: sp
-
-scons:
-  suffixes:
-    '^python@:2.99': py2
-    '^python@3:': py3
 
 vasp:
   template: 'modules/group_restricted.lua'
