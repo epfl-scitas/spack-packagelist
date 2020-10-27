@@ -97,8 +97,15 @@ izar:
   bleeding_edge:
      gcc:
        compiler: "gcc@9.3.0+nvptx+piclibs ^libiconv"
-       mpi: [ "mvapich2 process_managers=slurm fabrics=mrail threads=multiple +cuda" ]
+       mpi:
+         - "mvapich2 process_managers=slurm fabrics=mrail threads=multiple +cuda"
 
      cuda:
        package: "cuda@11.0.2"
        arch: "sm_70"
+
+     nvhpc:
+       compiler: nvhpc+blas+lapack+mpi
+       blas: nvhpc+blas+lapack+mpi
+       mpi: nvhpc+blas+lapack+mpi
+       version: "20.9"

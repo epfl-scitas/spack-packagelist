@@ -33,6 +33,26 @@ intel:
 #    prepend_path:
 #      INTEL_LICENSE_FILE: /ssoft/spack/external/intel/License
 
+"nvhpc+mpi":
+  environment:
+    set:
+      CC: nvc
+      CXX: nvc++
+      FC: nvfortran
+      F90: nvfortran
+      F77: nvfortran
+      SLURM_MPI_TYPE: pmi2
+      OMPI_MCA_btl_openib_warn_default_gid_prefix: '0'
+
+"nvhpc~mpi":
+  environment:
+    set:
+      CC: nvc
+      CXX: nvc++
+      FC: nvfortran
+      F90: nvfortran
+      F77: nvfortran
+
 ################
 # MPI
 ################

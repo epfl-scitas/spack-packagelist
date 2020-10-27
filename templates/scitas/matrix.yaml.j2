@@ -1,4 +1,5 @@
 {% for compiler in environment.compilers %}
+  {% if compiler in environment.stable %}
 - matrix:
   - [${{compiler}}_python2]
   - [$^{{compiler}}_stable_blas]
@@ -33,7 +34,7 @@
   - [^{{environment.stable.cuda.package }}]
   {% endif %}
   - [$%{{compiler}}_stable_compiler]
-
+  {% endif %}
 {% endfor %}
 
 - matrix:

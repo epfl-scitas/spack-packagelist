@@ -79,7 +79,7 @@ spack:
 {% if not environment.bootstrap %}
   {% for type in environment.stack_types %}
     {% for compiler, stack in environment[type].items() %}
-      {% if 'compiler' in stack %}
+      {% if 'compiler' in stack and compiler != 'nvhpc' %}
   # {{type}} stack for {{compiler}} (MPI, Blas)
   - matrix:
     - [${{compiler}}_{{type}}_base_stack]
@@ -97,6 +97,7 @@ spack:
     - [$%core_compiler]
 
 {% for compiler in environment.compilers %}
+  {% if compiler in environment.stable %}
   - matrix:
     - [$serial_packages]
     - [$%{{compiler}}_stable_compiler]
@@ -185,6 +186,7 @@ spack:
     - [^{{environment.stable.cuda.package }}]
     {% endif %}
     - [$%{{compiler}}_stable_compiler]
+  {% endif %}
 {% endfor %}
 
 {% set matrix_site_template = 'templates/' + site + '/matrix.yaml.j2' %}

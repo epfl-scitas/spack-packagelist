@@ -24,6 +24,8 @@
           {% else %}
             {% set prefix = stack.compiler_prefix +  '/compilers_and_libraries_' + stack['suite_version'] + '/linux/bin/intel64' %}
           {% endif %}
+        {% elif _compiler == "nvhpc" %}
+          {% set prefix = stack.compiler_prefix + '/Linux_x86_64/' + stack.version + '/compilers/bin' %}
         {% else %}
           {% set prefix = stack.compiler_prefix + '/bin' %}
         {% endif %}

@@ -46,7 +46,12 @@ def _compiler(value, component='cc'):
         'clang': { 'cc': 'clang',
                    'c++': 'clang++',
                    'f77': 'flang',
-                   'f90': 'flang'}}
+                   'f90': 'flang'},
+        'nvhpc': { 'cc': 'nvc',
+                   'c++': 'nvc++',
+                   'f77': 'nvfortran',
+                   'f90': 'nvfortran'}}
+
     return _compilers[value][component]
 
 def _absolute_path(value, prefix=None):
