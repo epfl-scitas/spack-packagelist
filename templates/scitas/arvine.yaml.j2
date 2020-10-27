@@ -119,6 +119,8 @@
   - py-scikit-learn
   - py-statsmodels
   - py-theano {{ cuda_variant(environment, dep=True) }}
+  - py-keras
+    ^py-theano {{ cuda_variant(environment, dep=True) }}
   - samtools
   - scons
   - snakemake
@@ -348,6 +350,17 @@
     ^hdf5+szip+mpi+hl+fortran+cxx
     ^suite-sparse {{ cuda_variant(environment) }}
     ^hypre {{ cuda_variant(environment, arch=False) }}
+  - py-horovod controllers=mpi frameworks=pytorch,tensorflow,keras tensor_ops={%if environment.gpu == 'nvidia' %}nccl{% else %}mpi{% endif %}
+    ^py-torch +tbb {{ cuda_variant(environment, extra_on='+magma', extra_off='~cudnn~nccl') }}
+    {% if environment.gpu == 'nvidia' %}
+    ^magma {{ cuda_variant(environment) }}
+    {%endif%}
+    ^py-keras
+    ^py-theano {{ cuda_variant(environment) }}
+    ^py-tensorflow +mpi {{ cuda_variant(environment, extra_off='~nccl') }}
+    ^bazel
+    ^py-h5py
+    ^hdf5+szip+mpi+hl+fortran+cxx
   - py-petsc4py
     ^petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse{{ cuda_variant(environment, arch=False) }}
     ^mumps+mpi+parmetis+metis+scotch+ptscotch
