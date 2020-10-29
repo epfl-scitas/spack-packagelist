@@ -1,7 +1,7 @@
 all:
   compiler: [gcc, intel]
   providers:
-    iconv: [libiconv, libc+iconv]
+    iconv: [libiconv]
 
 {% set spack_external_root = spack_external | absolute_path(prefix=spack_root) %}
 
@@ -66,6 +66,10 @@ jdk:
   buildable: False
   paths:
     jdk@1.8.0_242-b08: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.el7_7.x86_64
+
+py-numpy:
+  # limitation due to tensorflow
+  version: [1.18]
 
 slurm:
   buildable: False
