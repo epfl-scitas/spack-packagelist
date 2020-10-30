@@ -22,8 +22,8 @@ environments:
   - "izar"
 
 mirrors:
-  local: mirror
-  restricted: mirror-restricted
+  local: spack-mirror
+  restricted: spack-mirror-restricted
 
 extra_repos:
   scitas-external:
