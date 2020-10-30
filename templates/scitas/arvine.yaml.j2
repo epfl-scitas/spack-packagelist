@@ -350,7 +350,7 @@
     ^hdf5+szip+mpi+hl+fortran+cxx
     ^suite-sparse {{ cuda_variant(environment) }}
     ^hypre {{ cuda_variant(environment, arch=False) }}
-  - py-horovod controllers=mpi frameworks=pytorch,tensorflow,keras tensor_ops={%if environment.gpu == 'nvidia' %}nccl{% else %}mpi{% endif %}
+  - py-horovod controllers=mpi frameworks=pytorch,tensorflow,keras tensor_ops={%if environment.gpu == 'nvidia' %}nccl{% else %}mpi{% endif %} {{ cuda_variant(environment) }}
     ^py-torch +tbb {{ cuda_variant(environment, extra_on='+magma', extra_off='~cudnn~nccl') }}
     {% if environment.gpu == 'nvidia' %}
     ^magma {{ cuda_variant(environment) }}
