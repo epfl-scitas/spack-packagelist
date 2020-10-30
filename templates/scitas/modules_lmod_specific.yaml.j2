@@ -93,7 +93,7 @@ mvapich2:
 ################
 # LAPACK
 ################
-{%if environment.stable.intel.compiler_prefix %}
+{%if intel in environment.compilers and environment.stable.intel.compiler_prefix %}
 intel-mkl:
   environment:
     set:

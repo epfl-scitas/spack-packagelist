@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+environment=$1 
+
 set +u
 . ${SENV_VIRTUALENV_PATH}/bin/activate
 set -u
