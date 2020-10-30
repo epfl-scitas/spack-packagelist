@@ -88,7 +88,9 @@ izar:
   stable:
     gcc:
       compiler: "gcc@8.4.0+nvptx+piclibs ^libiconv"
-      mpi: [ "mvapich2 process_managers=slurm fabrics=mrail threads=multiple +cuda" ]
+      mpi:
+        - "mvapich2 process_managers=slurm fabrics=mrail threads=multiple"
+        - "mvapich2 process_managers=slurm fabrics=mrail threads=multiple +cuda"
 
     cuda:
       package: "cuda@10.2.89"
@@ -98,6 +100,7 @@ izar:
      gcc:
        compiler: "gcc@9.3.0+nvptx+piclibs ^libiconv"
        mpi:
+         - "mvapich2 process_managers=slurm fabrics=mrail threads=multiple"
          - "mvapich2 process_managers=slurm fabrics=mrail threads=multiple +cuda"
 
      cuda:
