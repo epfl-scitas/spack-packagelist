@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+environment=$1 
 
 set +u
 . ${SENV_VIRTUALENV_PATH}/bin/activate
@@ -20,6 +21,6 @@ senv --input ${STACK_RELEASE}.yaml \
 echo "Activating packages"
 senv --input arvine.yaml \
     activate-specs \
-    --env izar
+    --env ${environment}
 
 deactivate

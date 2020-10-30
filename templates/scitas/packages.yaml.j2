@@ -5,4 +5,9 @@
   {% include spack_env_packages | indent %}
 {% elif spack_stack_packages | exists %}
   {% include spack_stack_packages | indent %}
+{% else %}
+all:
+  compiler: [gcc, intel]
+  providers:
+    iconv: [libiconv]
 {% endif %}

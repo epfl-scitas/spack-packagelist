@@ -1,4 +1,6 @@
 - cuda%{{ environment.core_compiler | filter_variant }}
 - cmake
-{% include ('templates/scitas/' + stack_release + '/python_activated.yaml.j2') %}
-
+{% set python_activated = 'templates/scitas/' + stack_release + '/python_activated.yaml.j2' %}
+{% if python_activated | exists %}
+{% include python_activated %}
+{% endif %}

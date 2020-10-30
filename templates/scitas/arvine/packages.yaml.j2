@@ -1,7 +1,7 @@
 all:
   compiler: [gcc, intel]
   providers:
-    iconv: [libiconv, libc+iconv]
+    iconv: [libiconv]
 
 {% set spack_external_root = spack_external | absolute_path(prefix=spack_root) %}
 
