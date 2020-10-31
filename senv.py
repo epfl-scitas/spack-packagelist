@@ -453,11 +453,15 @@ class SpackEnvs(object):
         specs = []
         python_activated = {}
         for ver in [2, 3]:
+            python_package_list = os.path.join(
+                template_path,
+                'python{}_activated.yaml.j2'.format('2' if ver == 2 else ''))
+            if not  os.exists(python_package_list):
+                continue
+            
             python_activated[ver] = yaml.load(
                 self._create_jinja_environment(
-                    os.path.join(
-                        template_path,
-                        'python{}_activated.yaml.j2'.format('2' if ver == 2 else ''))
+                    python_package_list
                 ).render(customisation),
                 Loader=yaml.FullLoader)
             
@@ -505,7 +509,8 @@ class SpackEnvs(object):
             for line in spack.stdout:
                 print(line.decode('ascii'))
 
-            cache.cache.append(spec)
+            if spack.returncode == 0:
+                cache.cache.append(spec)
         cache.save()
 
     def get_environment_entry(self, environment, entry):
