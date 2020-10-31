@@ -302,6 +302,7 @@ class SpackEnvs(object):
                            prefix=self.configuration['spack_root'])))
 
         for line in spack.stdout:
+
             match = path_re.match(line.decode('ascii'))
             if match:
                 return match.group(1)
@@ -444,7 +445,7 @@ class SpackEnvs(object):
                         fh.write(spack_env_template.render(dict_))
                         print('Writing file {}'.format(config_file))
 
-    def spack_list_python(self, env, stack_type=None):
+    def spack_list_python(self, env, stack_type=None, installed_only=False):
         spack_config_path = os.path.join(self.spack_source_root, 'etc', 'spack')
         customisation = self._get_env_customisation(env)
         template_path = os.path.join('./templates/',
@@ -456,7 +457,7 @@ class SpackEnvs(object):
             python_package_list = os.path.join(
                 template_path,
                 'python{}_activated.yaml.j2'.format('2' if ver == 2 else ''))
-            if not  os.exists(python_package_list):
+            if not  os.path.exists(python_package_list):
                 continue
             
             python_activated[ver] = yaml.load(
@@ -473,29 +474,49 @@ class SpackEnvs(object):
         else:
             stack_types = customisation['environment']['stack_types']
 
+        installed_pkg_re = re.compile('[0-9a-z]* (.*?)@.*')
+
         for stack_type_ in stack_types:
             for compiler in customisation['environment'][stack_type_]:
                 stack = customisation['environment'][stack_type_][compiler]
                 if 'compiler' not in stack:
                     continue
-                
+
+
                 for ver in [2, 3]:
                     spec = {
                         'python_version': customisation['environment']['python'][ver],
                         'compiler': _filter_variant(stack['compiler']),
                         'arch': '',
                     }
-                if 'arch' in customisation['environment']:
-                    spec['arch'] = ' arch={}'.format(customisation['environment']['arch'])
-                
-                for package in python_activated[ver]:
-                    spec['pkg'] = package
-                    specs.append('{pkg} ^python@{python_version} %{compiler}{arch}'.format(**spec))
+                    if 'arch' in customisation['environment']:
+                        spec['arch'] = ' arch={}'.format(customisation['environment']['arch'])
+
+                    list_installed = []
+                    if installed_only:
+                        spack = self._run_spack('dependents', '--installed',
+                                                'python@{python_version} %{compiler}{arch}'.format(**spec),
+                                                environment=env)
+
+
+                        for line in spack.stdout:
+                            match = installed_pkg_re.match(line.decode('ascii'))
+                            if match:
+                                list_installed.append(match.group(1))
+
+                    for package in python_activated[ver]:
+                        if installed_only and package not in list_installed:
+                            continue
+                        
+                        spec['pkg'] = package
+
+                        specs.append('{pkg} ^python@{python_version} %{compiler}{arch}'.format(**spec))
         
         return specs            
 
     def activate_specs(self, environment, stack_type=None):
-        specs = self.spack_list_python(environment, stack_type)
+        specs = self.spack_list_python(environment, stack_type,
+                                       installed_only=True)
         
         cache = self._get_cache('activated')
         if cache.cache is None:
@@ -639,7 +660,7 @@ def spack_checkout_extra_repos(ctxt):
 @click.pass_context
 def list_spec_to_activate(ctxt, env, stack_type):
     spack_envs = SpackEnvs(ctxt.parent.configuration)
-    specs = spack_envs.spack_list_python(env, stack_type)
+    specs = spack_envs.spack_list_python(env, stack_type, installed_only=True)
     for spec in specs:
         print(spec)
 
