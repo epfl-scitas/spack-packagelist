@@ -64,6 +64,8 @@
   {% if environment.gpu == 'nvidia' %}
   - {{ environment.stable.cuda.package }}^libiconv
   - cudnn ^ {{ environment.stable.cuda.package }}^libiconv
+  - cuda@11.0.2
+  - cuda@10.0.130
   {% endif %}
 
 - gcc_serial_packages:
