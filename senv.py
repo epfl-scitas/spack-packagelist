@@ -517,20 +517,30 @@ class SpackEnvs(object):
     def activate_specs(self, environment, stack_type=None):
         specs = self.spack_list_python(environment, stack_type,
                                        installed_only=True)
+
+        print("List of packages to activate:")
+        for spec in specs:
+            print(" - {}".format(spec))
         
         cache = self._get_cache('activated')
         if cache.cache is None:
             cache.cache = []
+
         for spec in specs:
+            print("== Trying to activate {} ==".format(spec))
             if spec in cache.cache:
-                print ('==> {0} activated [cache]'.format(spec))
+                print (' + ==> {0} activated [cache]'.format(spec))
                 continue
 
-            spack = self._run_spack('activate', spec, environment=environment)
-            for line in spack.stdout:
-                print(line.decode('ascii'))
+            spack_ = self._run_spack('activate', spec, environment=environment)
+            for line in spack_.stdout:
+                print(' + {}'.format(line.decode('ascii')))
 
-            if spack.returncode == 0:
+            if spack_.returncode is None:
+                spack_.wait()
+
+            if spack_.returncode == 0:
+                print(" = Adding {} to cache".format(spec))
                 cache.cache.append(spec)
         cache.save()
 
