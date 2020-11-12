@@ -101,6 +101,7 @@ packages:
       - likwid@4.3.0
       - maple@2017
       - matlab@R2018a
+      - matlab@R2019b
       - mathematica@11.1.1
       - ansys@17.1
       - ansys@19.2
@@ -111,6 +112,7 @@ packages:
       - gurobi@8.1.1
       - smr@2017.06
       - cfdplusplus@16.1
+      - cfdplusplus@19.1
       - fdtd@8.20.1703
   # TODO: check where to put these applications
   #       - beast@2.4.8
@@ -259,6 +261,30 @@ packages:
       - py-bioepic ^jellyfish ^py-scipy@1.2.1 ^py-numpy+blas+lapack@1.16.3
       - sicer ^py-numpy+blas+lapack@1.16.3
 
+  # Python 3 only packages
+  gnu_python_3:
+    target_matrix:
+      - gnu-stable
+    target_filter:
+      python: ['python@3.7.3+optimizations+tkinter']
+    requires:
+      - architecture
+      - compiler
+      - python
+    specs:
+      - openbabel@2.4.1+python
+  intel_python_3:
+    target_matrix:
+      - intel-stable
+    target_filter:
+      python: ['python@3.7.3+optimizations+tkinter']
+    requires:
+      - architecture
+      - compiler
+      - python
+    specs:
+      - openbabel@2.4.1+python ^freetype@2.7.1
+
   # Code compiled with all the stacks that does not require
   # MPI or LAPACK
   serial:
@@ -273,7 +299,6 @@ packages:
       - 'fftw@3.3.8~mpi~openmp+fma simd=sse2,avx,avx2,avx512'
       - 'fftw@3.3.8~mpi+openmp+fma simd=sse2,avx,avx2,avx512'
       - nfft@3.4.1 ^fftw@3.3.8~mpi~openmp+fma simd=sse2,avx,avx2,avx512
-      # FIXME: intel gives an internal compiler error - glpk@4.65+gmp
       - gsl
       - hdf5+szip~mpi+hl+fortran+cxx
       - metis@5.1.0+real64 ^guile~threads
@@ -296,6 +321,8 @@ packages:
       - hisat2
       - samtools
       - subread
+      - libxc
+      - bzip2
 
   serial_gnu:
     target_matrix:
@@ -305,6 +332,7 @@ packages:
       - compiler
     specs:
       - libgd
+      - glpk@4.65+gmp
 
   # Serial code that uses LAPACK
   lapack:
@@ -318,6 +346,7 @@ packages:
     specs:
       - arpack-ng~mpi
       - suite-sparse ^metis@5.1.0+real64
+      - superlu
 
   # MPI code that doesn't use LAPACK
   mpi:
@@ -340,8 +369,7 @@ packages:
       - parmetis ^metis@5.1.0+real64
       - netcdf+mpi ^hdf5+szip+mpi+hl+fortran+cxx
       - netcdf-fortran ^netcdf+mpi ^hdf5+szip+mpi+hl+fortran+cxx
-  # TODO: update CGAL as described in issue SL-555
-  #       - cgal@4.12 ^boost@1.67.0+icu+mpi+python ^python@2.7.16+tkinter
+      - cgal@4.13 ^boost@1.67.0+icu+mpi+python ^python@2.7.16+tkinter
   # TODO: this package needs to be ported to the list of external repositories
   #       - gerris@snapshot ^gsl@2.3 ^gts@121130
 
@@ -410,7 +438,7 @@ packages:
       - compiler
       - mpi
     specs:
-      - gromacs+mpi
+      - gromacs@2019.4+mpi
         ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512
       - foam-extend+metis+scotch+parmetis+ptscotch~paraview
         ^parmetis@4.0.3 ^metis@5.1.0+real64
@@ -423,23 +451,24 @@ packages:
       #   ^fftw~mpi~openmp+fma simd=sse2,avx,avx2,avx512 ^python@2.7.16+tkinter
       - neuron+mpi+python+shared ^python@2.7.16+tkinter
 
-      #  # MPI applications built with the Intel stack that use LAPACK
-      #  intel-mpi-lapack-applications:
-      #    target_matrix:
-      #      - intel
-      #    requires:
-      #      - architecture
-      #      - compiler
-      #      - mpi
-      #      - lapack
-      #    specs:
-      #       - namd fftw=mkl interface=python @2.12 ^charm backend=mpi ^python@2.7.16+tkinter
-      #       - amber@16+mpi ^netcdf-fortran ^netcdf@4.4.1.1+mpi ^hdf5+szip+mpi~cxx ^py-scipy@0.19.0 ^py-matplotlib@2.2.3 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13
-      #       - nwchem@6.8 ^netlib-scalapack@2.0.2 ^python@2.7.16+tkinter
-      #       # TODO: - caffe@1.0+python+opencv  ^hdf5+szip+mpi~cxx ^opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6 ^py-numpy+blas+lapack@1.12.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
-      #       # TODO: - gmsh@3.0.1+mpi+hdf5+fltk+compression ^hdf5+szip+mpi~cxx
-      #       - fenics@2017.1.0+petsc+hdf5~trilinos+suite-sparse+mpi ^petsc@3.7.6+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre ^hdf5+szip+mpi~cxx  ^mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.6+esmumps+mpi~metis ^boost@1.61.0+icu_support+mpi+python ^python@2.7.13 ^eigen@3.3.1~debug+fftw+metis+mpfr+scotch+suitesparse ^fftw@3.3.6-pl2+mpi~openmp
-      #       # FIXME: - simpson@master ^gsl@2.1 ^nfft@3.3.2 ^fftw@3.3.4 ^tk@8.6.3 ^tcl@8.6.5
+  # MPI applications built with the Intel stack that use LAPACK
+  intel-mpi-lapack-applications:
+    target_matrix:
+      - intel-stable
+    requires:
+      - architecture
+      - compiler
+      - mpi
+      - lapack
+    specs:
+      - crystal17@1.0.2 
+      - vasp@5.4.4
+      # - namd fftw=mkl interface=python @2.12 ^charm backend=mpi ^python@2.7.16+tkinter
+      # - amber@16+mpi ^netcdf-fortran ^netcdf@4.4.1.1+mpi ^hdf5+szip+mpi~cxx ^py-scipy@0.19.0 ^py-matplotlib@2.2.3 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13
+      # - nwchem@6.8 ^netlib-scalapack@2.0.2 ^python@2.7.16+tkinter
+      # TODO: - caffe@1.0+python+opencv  ^hdf5+szip+mpi~cxx ^opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6 ^py-numpy+blas+lapack@1.12.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
+      # TODO: - gmsh@3.0.1+mpi+hdf5+fltk+compression ^hdf5+szip+mpi~cxx
+      # FIXME: - simpson@master ^gsl@2.1 ^nfft@3.3.2 ^fftw@3.3.4 ^tk@8.6.3 ^tcl@8.6.5
 
   # Serial applications built with the Intel stack that use LAPACK
   intel-lapack-applications:
@@ -482,6 +511,9 @@ packages:
       - lapack
     specs:
       - r+external-lapack
+      - armadillo+hdf5
+        ^hdf5+szip~mpi+hl+fortran+cxx
+        ^arpack-ng~mpi
 
   # MPI applications built with the GNU stable stack
   gnu-mpi-applications:
@@ -492,7 +524,7 @@ packages:
       - compiler
       - mpi
     specs:
-      - gromacs+mpi ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
+      - gromacs@2019.4+mpi ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
       # - namd fftw=3 interface=python
       #   ^charm backend=mpi
       #   ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
@@ -528,7 +560,9 @@ packages:
         ^fftw+mpi~openmp+fma simd=sse2,avx,avx2,avx512
         ^plumed+mpi+gsl
       - molpro@2015.1+mpi
+      - molpro@2019.2+mpi
       - nwchem@6.8 ^netlib-scalapack@2.0.2 ^python@2.7.16+tkinter
+      - vasp@5.4.4 ^fftw~mpi~openmp+fma simd=sse2,avx,avx2,avx512
       # TODO: - caffe@1.0+python+opencv  ^hdf5+szip+mpi~cxx ^opencv@3.2.0+qt~vtk~eigen ^qt@4.8.6 ^py-numpy+blas+lapack@1.12.1 ^boost@1.63.0+icu+mpi+python ^python@2.7.13
       # TODO: port amber from cornalin
       #       - amber@16+mpi ^netcdf-fortran ^netcdf@4.4.1.1+mpi ^hdf5+szip+mpi~cxx ^py-scipy@0.19.0 ^py-matplotlib@2.2.3 ^py-numpy+blas+lapack@1.12.1 ^python@2.7.13
@@ -538,7 +572,6 @@ packages:
       #   ^py-numpy+blas+lapack@1.16.3
       #   ^python@3.7.3+optimizations+tkinter
       #   ^hdf5+szip+mpi+hl+fortran+cxx
-      # TODO: - fenics@2017.1.0+petsc+hdf5~trilinos+suite-sparse+mpi ^petsc@3.7.6+boost+double+hdf5+metis+mpi+mumps~superlu-dist~hypre ^hdf5+szip+mpi~cxx  ^mumps@5.1.1+mpi+parmetis+metis+scotch+ptscotch ^parmetis@4.0.3 ^metis@5.1.0+real64 ^scotch@6.0.6+esmumps+mpi~metis ^netlib-scalapack@2.0.2 ^boost@1.61.0+icu_support+mpi+python ^python@2.7.13 ^eigen@3.3.1~debug+fftw+metis+mpfr+scotch+suitesparse ^fftw@3.3.6-pl2+mpi~openmp
       # FIXME: - simpson@master ^gsl@2.1 ^nfft@3.3.2 ^fftw@3.3.4 ^tk@8.6.3 ^tcl@8.6.5
 
   mpi-lapack-applications:
@@ -582,3 +615,57 @@ packages:
         +user-h5md +user-lb +user-misc +user-netcdf ~voronoi
         ^fftw@3.3.8+mpi~openmp+fma simd=sse2,avx,avx2,avx512
         ^netcdf+mpi ^hdf5+szip+mpi+hl+fortran+cxx
+      - fenics@2019.1.0+petsc+hdf5~trilinos+suite-sparse+mpi~slepc
+        ^petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse
+        ^hdf5+szip+mpi+hl+fortran+cxx
+        ^mumps+mpi+parmetis+metis+scotch+ptscotch
+        ^parmetis ^metis@5.1.0+real64 ^scotch@6.0.6+esmumps+mpi~metis
+        ^python@3.7.3+optimizations+tkinter
+
+  gnu-openmpi-benchmark:
+    target_matrix:
+      - gnu-openmpi
+    requires:
+      - architecture
+      - compiler
+      - mpi
+    specs:
+      - osu-micro-benchmarks~cuda
+
+  gnu-openmpi-lapack-benchmark:
+    target_matrix:
+      - gnu-openmpi
+    requires:
+      - architecture
+      - compiler
+      - mpi
+      - lapack
+    target_filter:
+      lapack:
+        - 'openblas@0.3.6'
+    specs:
+      - hpl~openmp
+
+  gnu-bleeding-edge-benchmark:
+    target_matrix:
+      - gnu-bleeding-edge
+    requires:
+      - architecture
+      - compiler
+      - mpi
+    specs:
+      - osu-micro-benchmarks~cuda
+
+  gnu-bleeding-edge-lapack-benchmark:
+    target_matrix:
+      - gnu-bleeding-edge
+    requires:
+      - architecture
+      - compiler
+      - mpi
+      - lapack
+    target_filter:
+      lapack:
+        - 'openblas@0.3.6'
+    specs:
+      - hpl~openmp
