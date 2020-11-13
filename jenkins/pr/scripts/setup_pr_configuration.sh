@@ -98,6 +98,10 @@ deactivate
 . ${SPACK_CHECKOUT_DIR}/share/spack/setup-env.sh
 which spack
 
+# Add the central repository. This is needed for licensed software that has
+# to be built from sources and must be downloaded manually.
+spack mirror add --scope=site central_mirror /ssoft/spack/mirror
+
 for target in ${targets}
 do
     # TODO: read directly from a yaml file to avoid concretization slowdowns
@@ -113,7 +117,3 @@ do
     done < to_be_installed.${target}.txt
 done
 spack mirror add --scope=site temp_mirror ${SPACK_MIRROR_DIR}
-
-# Add the central repository. This is needed for licensed software that has
-# to be built from sources and must be downloaded manually.
-spack mirror add --scope=site central_mirror /ssoft/spack/mirror
