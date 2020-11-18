@@ -1,5 +1,5 @@
 all:
-  compiler: [gcc, intel]
+  compiler: {{ environment.compiler }}
   providers:
     iconv: [libiconv]
 
@@ -65,7 +65,9 @@ openssl:
 jdk:
   buildable: False
   paths:
+{% if cloud in environment and environment.cloud == 'gcp' %}
     jdk@1.8.0_242-b08: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.el7_7.x86_64
+{% endif %}
 
 py-numpy:
   # limitation due to tensorflow
@@ -74,11 +76,16 @@ py-numpy:
 slurm:
   buildable: False
   paths:
+{% if cloud in environment and environment.cloud == 'gcp' %}
+    slurm@ {{environment.slurm}}: /apps/slurm/slurm-{{environment.slurm}}
+{% else %}
     slurm@ {{environment.slurm}}: /usr
+{% endif %}
 
 ####
 # Third party software
 ####
+
 
 abaqus:
   buildable: False

@@ -114,5 +114,8 @@ izar:
 
 gcp-c2:
   os: centos7
-  core_compiler: gcc@4.8.5 arch=linux-centos7-haswell
+  slurm: 20.02.6
   compiler: [gcc]
+
+  core_compiler: gcc@4.8.5 arch=linux-centos7-haswell
+  cloud: gcp  

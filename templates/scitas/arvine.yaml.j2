@@ -195,6 +195,7 @@
     ^harfbuzz@2.1.3
     ^cairo+png+pdf+fc+ft
 
+{% if not cloud in environment %}
 - external_packages:
   - adf@2017.111
   - ansys@19.2
@@ -211,6 +212,7 @@
   - matlab@R2019b
   - smr@2017.06
   - totalview@2017.2.11
+{% endif %}
 
 - intel_external_packages:
   # - abaqus
@@ -281,7 +283,9 @@
     ^netcdf-c+mpi
     ^hdf5+szip+mpi+hl+fortran+cxx
     ^hypre {{ cuda_variant(environment, arch=False) }}
+{% if not cloud in environment %}
   - gromacs+mpi {{ cuda_variant(environment, arch=False) }}
+{% end if %}
   - mumps+mpi+parmetis+metis+scotch+ptscotch
     ^parmetis
     ^metis+real64
@@ -298,11 +302,13 @@
 - gcc_mpi_lapack_python_packages:
   - adios2+hdf5+mpi+python
     ^hdf5+szip+mpi+hl+fortran+cxx
+{% if not cloud in environment %}
   - amber+mpi {{ cuda_variant(environment) }}
     ^netcdf-fortran+mpi
     ^netcdf-c+mpi
     ^hdf5+szip+mpi+hl+fortran+cxx
     ^boost cxxstd=14 +icu+mpi+python+numpy
+{% endif %}
   - cp2k+mpi~plumed {{ cuda_variant(environment) }}
     ^fftw+mpi~openmp
     ^boost cxxstd=14 +icu+mpi+python+numpy
@@ -323,8 +329,10 @@
     ^suite-sparse {{ cuda_variant(environment) }}
     ^hypre {{ cuda_variant(environment, arch=False) }}
     ^boost cxxstd=14 +icu+mpi+python+numpy
+{% if not cloud in environment %}
   - gromacs@2019.4+mpi+plumed {{ cuda_variant(environment, arch=False) }}
     ^plumed+mpi+gsl
+{% endif %}
   - lammps build_type=Release
     +asphere +body +class2 +colloid +compress +coreshell
     +dipole +granular +kspace +latte +lib +manybody +mc
@@ -421,11 +429,12 @@
 
 - intel_mpi_packages:
   - crystal17@1.0.2
+{% if not cloud in environment %}
   - vasp {{ cuda_variant(environment) }}
   {% if environment.gpu == 'nvidia' %}
     ^magma {{ cuda_variant(environment) }}
   {% endif %}
-
+{% endif %}
   - yambo+mpi io=iotk,etsf-io
     ^{{environment.stable.intel.blas}}
     ^hdf5+szip+mpi+hl+fortran+cxx
