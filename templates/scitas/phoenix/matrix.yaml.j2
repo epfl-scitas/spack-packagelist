@@ -1,6 +1,6 @@
 {% if 'old' in environment.stack_types %}
   {% for compiler, stack in environment.old.items() %}
-    {% if 'compiler' in stack %}
+    {% if compiler in environment.compilers %}
 - matrix:
   - [$serial_packages]
   - [$%{{compiler}}_old_compiler]

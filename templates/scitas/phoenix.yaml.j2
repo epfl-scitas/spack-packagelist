@@ -28,13 +28,13 @@
   {% endif %}
 
 - gcc_serial_packages:
-  - gdb
+  - plasma
 
 - intel_serial_packages:
 
 - serial_packages_lapack:
 #  - superlu
-  - plasma
+
 
 - gcc_serial_packages_lapack:
   {% if environment.gpu == 'nvidia' %}
@@ -65,12 +65,15 @@
   - cube
     ^cairo+png+pdf+fc+ft
     ^qt~ssl
+  {% if environment.gpu == 'amd' %}
+  - hip
+  {% endif %}
 
 - intel_serial_packages_python:
-  - cube
-    ^cairo+png+pdf+fc+ft
-    ^harfbuzz@2.1.3
-    ^qt~ssl
+#  - cube
+#    ^cairo+png+pdf+fc+ft
+#    ^harfbuzz@2.1.3
+#    ^qt~ssl
 
 - mpi_packages:
   - fftw+mpi+openmp
@@ -80,8 +83,7 @@
   - netcdf-fortran
     ^netcdf-c+mpi
     ^hdf5+szip+mpi+hl+fortran+cxx
-  - scorep +pdt+unwind
-    ^llvm +all_targets {{ cuda_variant(environment) }}
+  - scorep +pdt+unwind~binutils {{ cuda_variant(environment, arch=False) }}
   - scalasca
 
 - mpi_lapack_packages:
@@ -97,9 +99,6 @@
   - py-h5py
     ^hdf5+szip+mpi+hl+fortran+cxx
   - py-mpi4py
-  - boost cxxstd=14 +icu+mpi+python+numpy
-  - valgrind
-    ^boost cxxstd=14 +icu+mpi+python+numpy
 - gcc_mpi_packages:
 
 - gcc_mpi_lapack_packages:
@@ -111,6 +110,9 @@
   - netlib-scalapack
 
 - gcc_mpi_lapack_python_packages:
+  - boost cxxstd=14 +icu+mpi+python+numpy
+  - valgrind
+    ^boost cxxstd=14 +icu+mpi+python+numpy
   - petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse{{ cuda_variant(environment, arch=False) }}
     ^mumps+mpi+parmetis+metis+scotch+ptscotch
     ^parmetis
@@ -136,20 +138,20 @@
 - intel_mpi_packages:
 
 - intel_mpi_lapack_packages:
-  - mumps+mpi+parmetis+metis+scotch+ptscotch
-    ^parmetis
-    ^metis+real64
-    ^scotch+esmumps+mpi~metis
+#  - mumps+mpi+parmetis+metis+scotch+ptscotch
+#    ^parmetis
+#    ^metis+real64
+#    ^scotch+esmumps+mpi~metis
 
 - intel_mpi_lapack_python_packages:
-  - petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse
-    ^mumps+mpi+parmetis+metis+scotch+ptscotch
-    ^parmetis
-    ^metis+real64
-    ^scotch+esmumps+mpi~metis
-    ^hdf5+szip+mpi+hl+fortran+cxx
-    ^suite-sparse
-    ^hypre
+#  - petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse
+#    ^mumps+mpi+parmetis+metis+scotch+ptscotch
+#    ^parmetis
+#    ^metis+real64
+#    ^scotch+esmumps+mpi~metis
+#    ^hdf5+szip+mpi+hl+fortran+cxx
+#    ^suite-sparse
+#    ^hypre
 
 - intel_mpi_lapack_python2_packages:
 
@@ -160,3 +162,5 @@
 - mpi_benchmarks:
   - hpl~openmp
   - osu-micro-benchmarks
+
+- external_packages:

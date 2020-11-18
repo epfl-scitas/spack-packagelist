@@ -24,7 +24,7 @@ spack:
     - core_compiler: {{ environment.core_compiler | list_if_not }}
 {% for type in environment.stack_types %}
   {% for compiler, stack in environment[type].items() %}
-    {% if 'compiler' in stack %}
+    {% if compiler in environment.compilers %}
     - {{compiler}}_{{type}}_compiler: {{ stack.compiler | list_if_not | filter_variant }}
     - {{compiler}}_{{type}}_mpi: {{ stack.mpi | list_if_not }}
     - {{compiler}}_{{type}}_blas: {{ stack.blas | list_if_not }}
@@ -79,7 +79,7 @@ spack:
 {% if not environment.bootstrap %}
   {% for type in environment.stack_types %}
     {% for compiler, stack in environment[type].items() %}
-      {% if 'compiler' in stack and compiler != 'nvhpc' %}
+      {% if compiler in environment.compilers and 'compiler' in stack %}
   # {{type}} stack for {{compiler}} (MPI, Blas)
   - matrix:
     - [${{compiler}}_{{type}}_base_stack]

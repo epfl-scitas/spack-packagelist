@@ -63,6 +63,7 @@ skylake_avx512_v100:
   gpu: nvidia
   arch: skylake_avx512
   stack_types: [old, stable]
+  compiler: [gcc, nvhpc]
 
   old:
     gcc:
@@ -80,11 +81,18 @@ skylake_avx512_v100:
     cuda:
       package: "cuda@10.2.89"
       arch: "sm_70"
+    nvhpc:
+      compiler: "nvhpc~mpi+blas"
+      blas: "nvhpc~mpi+blas"
+      mpi: [openmpi +cuda +thread_multiple +pmi fabrics=auto schedulers=slurm +legacylaunchers]
+      version: "20.9"
 
 zen2_radeon:
   cpu: amd
   gpu: amd
   arch: zen2
+
+  compilers: [gcc]
 
   stable:
     rocm:
@@ -93,3 +101,19 @@ zen2_radeon:
 zen:
   cpu: amd
   arch: zen
+  compilers: [gcc]
+
+cascadelake_nec:
+  arch: cascadlake
+
+broadwell_p100:
+  gpu: nvidia
+  arch: broadwell
+
+  stable:
+    gcc:
+      compiler: "gcc@9.3.0+nvptx+piclibs"
+      mpi: [ "mvapich2 process_managers=hydra fabrics=sock threads=multiple +cuda" ]
+    cuda:
+      package: "cuda@10.2.89"
+      arch: "sm_60"

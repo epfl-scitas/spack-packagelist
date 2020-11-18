@@ -7,7 +7,8 @@
 {% endif %}
 config:
   # Root of the installation tree
-  install_tree: {{ spack_install_tree }}/opt/spack/
+  install_tree:
+    root: {{ spack_install_tree }}/opt/spack/
 
   module_roots:
     lmod: {{ spack_install_tree }}/share/spack/lmod/

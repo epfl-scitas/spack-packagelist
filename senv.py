@@ -51,7 +51,6 @@ def _compiler(value, component='cc'):
                    'c++': 'nvc++',
                    'f77': 'nvfortran',
                    'f90': 'nvfortran'}}
-
     return _compilers[value][component]
 
 def _absolute_path(value, prefix=None):

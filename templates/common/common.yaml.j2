@@ -14,7 +14,8 @@ include:
   - {{ spack_source_tree}}/etc/spack/mirrors.yaml
 
 config:
-  install_tree: {{ spack_install_tree }}/opt/spack/
+  install_tree:
+    root: {{ spack_install_tree }}/opt/spack/
       
   module_roots:
     lmod: {{ spack_install_tree }}/share/spack/lmod/{{ environment.name }}
@@ -28,6 +29,8 @@ config:
     {% endif %}
     - $tempdir/$user/spack-stage
     - ~/.spack/stage
+
+  misc_cache: ~/.spack/cache/{{stack_release}}/{{environment.name}}
 
 {% set spack_site_compilers = 'templates/' + site + '/compilers.yaml.j2' %}
 compilers:
