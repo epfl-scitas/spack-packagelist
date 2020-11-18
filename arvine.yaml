@@ -20,6 +20,7 @@ environments:
 #  - "gacrux"
 #  - "helvetios"
   - "izar"
+  - "gcp-c2"
 
 mirrors:
   local: spack-mirror
@@ -110,3 +111,8 @@ izar:
        blas: nvhpc+blas+lapack+mpi
        mpi: nvhpc+blas+lapack+mpi
        version: "20.9"
+
+gcp-c2:
+  os: centos7
+  core_compiler: gcc@4.8.5 arch=linux-centos7-haswell
+  compiler: [gcc]
