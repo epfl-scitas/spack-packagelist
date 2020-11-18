@@ -8,6 +8,12 @@ set -euo pipefail
 # STACK_RELEASE: version of the stack
 #
 
+if [ "x$1" != "x" ]; then
+    filter=$1
+else
+    filter=""
+fi
+
 set +u
 . ${SENV_VIRTUALENV_PATH}/bin/activate
 set -u
@@ -25,7 +31,7 @@ fi
 
 GET_ENTRY="senv --input ${STACK_RELEASE}.yaml get-environment-entry"
 SPACK_MIRROR_DIR=$(${GET_ENTRY} spack_root)/$(${GET_ENTRY} mirrors.local)
-environments=$(senv --input ${STACK_RELEASE}.yaml list-envs $1)
+environments=$(senv --input ${STACK_RELEASE}.yaml list-envs $filter)
 
 deactivate
 

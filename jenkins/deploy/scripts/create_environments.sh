@@ -7,6 +7,11 @@ else
     boostrap=0
 fi
 
+if [ "xS2" != "x" ]; then
+    filter=$2
+else
+    filter=""
+fi
 
 set +u
 . ${SENV_VIRTUALENV_PATH}/bin/activate
@@ -22,7 +27,7 @@ else
     SENV="senv"
 fi
 
-environments=$(senv --input ${STACK_RELEASE}.yaml list-envs $2)
+environments=$(senv --input ${STACK_RELEASE}.yaml list-envs $filter)
 
 # Generate the list of software that need to be installed, then fetch every tarball
 for environment in ${environments}
