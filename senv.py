@@ -70,6 +70,12 @@ def _filter_variant(value):
         return variant.sub("", value)
     return [ variant.sub("", v) for v in value ]
 
+# Custom filter method
+def _regex_replace(s, find, replace):
+    """A non-optimal implementation of a regex filter"""
+    ns = re.sub(find, replace, s)
+    return ns
+
 def _cuda_variant(environment, arch=True,
                   extra_off='', extra_on='',
                   stack='stable',
@@ -161,6 +167,7 @@ class SpackEnvs(object):
         self.spack_env.filters['filter_variant'] = _filter_variant
         self.spack_env.filters['compiler'] = _compiler
         self.spack_env.filters['absolute_path'] = _absolute_path
+        self.spack_env.filters['regex_replace'] = _regex_replace
         self.spack_env.globals['cuda_variant'] = _cuda_variant
         self.spack_env.globals['hip_variant'] = _hip_variant
 
@@ -215,7 +222,7 @@ class SpackEnvs(object):
             raise RuntimeError(
                 'The environment {0} is not defined.'
                 ' Valid environments are {1}'.format(environment,
-                                                     self.list_envs()))
+                                                     self.list_envs(all=True)))
         customisation = copy.copy(self.customisation)
 
         customisation["environment"]['name'] = environment
@@ -324,8 +331,19 @@ class SpackEnvs(object):
                                                          stack=customisation['environment'][_type]))
         return compilers
 
-    def list_envs(self):
-        return self.environments
+    def list_envs(self, cloud=None, all=False):
+        if all:
+            return self.environments
+        envs = []
+        for env in self.environments:
+            customisation = self._get_env_customisation(env)
+            if ((cloud is None
+                and 'cloud' not in customisation['environment'])
+                or (cloud is not None
+                    and ('cloud' in customisation['environment']
+                         and customisation['environment']['cloud'] == cloud))):
+                envs.append(env)
+        return envs
 
     def write_envs(self, bootstrap=False):
         for environment in self.environments:
@@ -576,10 +594,13 @@ def status():
     print("Senv ready to install stuff!")
 
 @senv.command()
+@click.option('--cloud', default=None)
+@click.option('--all', default=False, is_flag=True)
 @click.pass_context
-def list_envs(ctxt):
+def list_envs(ctxt, cloud, all):
     config = ctxt.parent.configuration
-    for env in config['environments']:
+    spack_envs = SpackEnvs(ctxt.parent.configuration)
+    for env in spack_envs.list_envs(cloud=cloud, all=all):
         print('{}'.format(env))
 
 @senv.command()

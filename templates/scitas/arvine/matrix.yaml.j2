@@ -1,7 +1,7 @@
 #bleeding edge extra packages
 {% if 'bleeding_edge' in environment.stack_types %}
   {% for compiler, stack in environment.bleeding_edge.items() %}
-    {% if 'compiler' in stack %}
+    {% if compiler in environment.compilers and 'compiler' in stack %}
 - matrix:
   - [$bleeding_edge_serial_packages]
   - [$%{{compiler}}_bleeding_edge_compiler]

@@ -38,7 +38,7 @@ extra_repos:
 
 # default version of compilers mpi and openblas
 default_environment:
-  os: rhel7
+  os: rhel7.7
   cpu: intel
   slurm: 20.02.5
 
@@ -113,9 +113,9 @@ izar:
        version: "20.9"
 
 gcp-c2:
-  os: centos7
+  os: centos7.9
   slurm: 20.02.6
   compiler: [gcc]
 
   core_compiler: gcc@4.8.5 arch=linux-centos7-haswell
-  cloud: gcp  
+  cloud: gcp

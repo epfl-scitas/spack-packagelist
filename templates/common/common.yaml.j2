@@ -14,9 +14,13 @@ include:
   - {{ spack_source_tree}}/etc/spack/mirrors.yaml
 
 config:
+  {% if spack_release == 'v0.15.4' %}
+  install_tree: {{ spack_install_tree }}/opt/spack/
+  {% else %}
   install_tree:
     root: {{ spack_install_tree }}/opt/spack/
-      
+  {% endif %}
+
   module_roots:
     lmod: {{ spack_install_tree }}/share/spack/lmod/{{ environment.name }}
     tcl: {{ spack_install_tree }}/share/spack/modules/{{ environment.name }}

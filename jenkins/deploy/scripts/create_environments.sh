@@ -22,7 +22,7 @@ else
     SENV="senv"
 fi
 
-environments=$(senv --input ${STACK_RELEASE}.yaml list-envs)
+environments=$(senv --input ${STACK_RELEASE}.yaml list-envs $2)
 
 # Generate the list of software that need to be installed, then fetch every tarball
 for environment in ${environments}

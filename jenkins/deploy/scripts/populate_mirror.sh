@@ -25,7 +25,7 @@ fi
 
 GET_ENTRY="senv --input ${STACK_RELEASE}.yaml get-environment-entry"
 SPACK_MIRROR_DIR=$(${GET_ENTRY} spack_root)/$(${GET_ENTRY} mirrors.local)
-environments=$(senv --input ${STACK_RELEASE}.yaml list-envs)
+environments=$(senv --input ${STACK_RELEASE}.yaml list-envs $1)
 
 deactivate
 
