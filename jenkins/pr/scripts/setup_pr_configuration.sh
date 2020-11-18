@@ -116,4 +116,4 @@ do
 
     done < to_be_installed.${target}.txt
 done
-spack mirror add --scope=site temp_mirror ${SPACK_MIRROR_DIR}
+spack mirror add --scope=site temp_mirror ${SPACK_MIRROR_DIR} || true
