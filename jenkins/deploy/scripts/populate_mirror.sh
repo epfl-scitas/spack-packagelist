@@ -8,13 +8,13 @@ set -euo pipefail
 # STACK_RELEASE: version of the stack
 #
 
+set +u
 if [ "x$1" != "x" ]; then
     filter=$1
 else
     filter=""
 fi
 
-set +u
 . ${SENV_VIRTUALENV_PATH}/bin/activate
 set -u
 

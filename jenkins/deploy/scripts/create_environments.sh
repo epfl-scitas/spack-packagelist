@@ -7,13 +7,13 @@ else
     boostrap=0
 fi
 
-if [ "xS2" != "x" ]; then
+set +u
+if [ "x$2" != "x" ]; then
     filter=$2
 else
     filter=""
 fi
 
-set +u
 . ${SENV_VIRTUALENV_PATH}/bin/activate
 set -u
 
