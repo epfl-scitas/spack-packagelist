@@ -37,10 +37,12 @@
   {% endif %}
 {% endfor %}
 
+{% if not 'cloud' in environment %}
 - matrix:
   - [$external_packages]
   - [$%core_compiler]
-
+{% endif %}
+  
 {% set matrix_env_specific = 'templates/' + site + '/' + stack_release + '/matrix.yaml.j2' %}
 {% if matrix_env_specific | exists %}
 {% include matrix_env_specific %}
