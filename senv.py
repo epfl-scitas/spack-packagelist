@@ -325,7 +325,7 @@ class SpackEnvs(object):
             stack_types = customisation['environment']['stack_types']
         for _type in stack_types:
             for name, stack in customisation['environment'][_type].items():
-                if 'compiler' in stack:
+                if 'compiler' in stack and name in customisation['environment']['compilers']:
                     compilers.append(self._compiler_name(stack['compiler'],
                                                          customisation,
                                                          stack=customisation['environment'][_type]))
