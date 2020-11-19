@@ -446,7 +446,8 @@ class SpackEnvs(object):
         customisation = self._get_env_customisation(environment)
         jinja_file_re = re.compile('(.*\.cfg)\.j2$')
         for _type in customisation['environment']['stack_types']:
-            if 'intel' in customisation['environment'][_type]:
+            if ('intel' in customisation['environment'][_type]
+                and 'intel' in customisation['environment']['compilers']):
                 dict_ = customisation['environment'][_type]
                 if 'external' in dict_['intel'] and dict_['intel']['external']:
                     intel_config_path = os.path.join(
