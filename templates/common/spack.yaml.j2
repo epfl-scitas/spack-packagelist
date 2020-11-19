@@ -35,7 +35,7 @@ spack:
     {%endif %}
   {% endfor %}
 
-  {% set compiler_list = environment[type].items() | map(attribute=1) | selectattr('compiler') | map(attribute='compiler') | list %}
+  {% set compiler_list = environment.compilers | map(attribute=1) | selectattr('compiler') | map(attribute='compiler') | list %}
     - {{type}}_compilers: {{ compiler_list | filter_variant }}
 
     - {{type}}_compilers_not_filtered: {{ compiler_list }}
