@@ -267,7 +267,7 @@ class SpackEnvs(object):
         cache.save()
         return customisation
 
-    def _compiler_name(self, compiler, customisation, stack=None):
+    def _compiler_name(self, compiler, customisation, stack=None, core_compiler=None):
         compiler_ = copy.copy(compiler)
 
         nvptx_re = re.compile('.*\+nvptx')
@@ -279,7 +279,8 @@ class SpackEnvs(object):
 
         return '{0} %{1}'.format(
             compiler_,
-            customisation['environment']['core_compiler'])
+            core_compiler if core_compiler is not None
+                          else customisation['environment']['core_compiler'])
 
     def _run_spack(self, *args, **kwargs):
         environment = kwargs.pop('environment', None)
@@ -308,28 +309,34 @@ class SpackEnvs(object):
                            prefix=self.configuration['spack_root'])))
 
         for line in spack.stdout:
-
             match = path_re.match(line.decode('ascii'))
             if match:
                 return match.group(1)
 
         return None
 
-    def compilers(self, environment, stack_type=None):
-        customisation = self._get_env_customisation(environment)
-
+    def compilers(self, environment, stack_type=None, all=False):
         compilers = []
+        customisation = self._get_env_customisation(environment)
         if stack_type is not None:
             stack_types = [stack_type]
         else:
             stack_types = customisation['environment']['stack_types']
-        for _type in stack_types:
-            for name, stack in customisation['environment'][_type].items():
-                if 'compiler' in stack and name in customisation['environment']['compilers']:
-                    compilers.append(self._compiler_name(stack['compiler'],
-                                                         customisation,
-                                                         stack=customisation['environment'][_type]))
-        return compilers
+        environments = [customisation['environment']]
+        if all:
+            environments.append(self._get_env_customisation(None)['environment'])
+
+        for env in environments:
+            for _type in stack_types:
+                for name, stack in env[_type].items():
+                    if 'compiler' in stack and name in \
+                       customisation['environment']['compilers']:
+                        compilers.append(self._compiler_name(
+                            stack['compiler'],
+                            customisation,
+                            stack=customisation['environment'][_type],
+                            core_compiler=customisation['environment']['core_compiler']))
+        return list(set(compilers))
 
     def list_envs(self, cloud=None, all=False):
         if all:
@@ -608,10 +615,11 @@ def list_envs(ctxt, cloud, all):
               default=None, required=False)
 @click.option('--stack-type', help='Stack type: stable, bleeding_edge',
               default=None, required=False)
+@click.option('--all', default=False, is_flag=True)
 @click.pass_context
-def list_compilers(ctxt, env, stack_type):
+def list_compilers(ctxt, env, stack_type, all):
     spack_envs = SpackEnvs(ctxt.parent.configuration)
-    compilers = spack_envs.compilers(env, stack_type)
+    compilers = spack_envs.compilers(env, stack_type, all)
     for compiler in compilers:
         print('{}'.format(compiler))
 

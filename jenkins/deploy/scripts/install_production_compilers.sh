@@ -37,9 +37,8 @@ cp external/intel/licenses/scitas_license.lic \
 echo "#### List compilers to install:"
 senv --input ${STACK_RELEASE}.yaml \
     list-compilers \
-    --env $environment > list_${environment}_compilers.txt
-senv --input ${STACK_RELEASE}.yaml \
-    list-compilers >> list_${environment}_compilers.txt
+    --env $environment \
+    --all > list_${environment}_compilers.txt
 cat list_${environment}_compilers.txt
 
 # Source Spack and add the system compiler
