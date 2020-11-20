@@ -71,6 +71,7 @@ packages:
       - git@2.21.0
       - git-lfs@2.7.2 ^git@2.21.0
       # - gnuplot@5.2.2 +X+pbm+wx ^pango+X
+      - gurobi@9.1.0
       - i7z@epfl-scitas
       - libtool@2.4.6
       - lmod@8.1.5
