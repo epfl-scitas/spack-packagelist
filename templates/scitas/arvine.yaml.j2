@@ -263,8 +263,10 @@
   - py-mpi4py
 
 - gcc_mpi_packages:
+{% if not 'cloud' in environment %}
   - cpmd~openmp
     ^fftw+mpi~openmp
+{% endif %}
   - relion {{ cuda_variant(environment, extra_on='+double-gpu') }}
     ^fftw+mpi~openmp
   - relion {{ cuda_variant(environment) }}
