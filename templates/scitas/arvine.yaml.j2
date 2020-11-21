@@ -266,11 +266,12 @@
 {% if not 'cloud' in environment %}
   - cpmd~openmp
     ^fftw+mpi~openmp
-{% endif %}
+  #depends on tbb but not expressed in the package
   - relion {{ cuda_variant(environment, extra_on='+double-gpu') }}
     ^fftw+mpi~openmp
   - relion {{ cuda_variant(environment) }}
     ^fftw+mpi~openmp
+{% endif %}
 
 - gcc_mpi_lapack_packages:
   - abinit~hdf5~openmp+mpi+scalapack
