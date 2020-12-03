@@ -90,6 +90,8 @@ packages:
       fdtd@8.19.1416-1 %gcc@4.8.5: /ssoft/spack/external/fdtd/8.19.1416-1
       # installed due to segfault with other versions INC0204566
       fdtd@8.12.527 %gcc@4.8.5: /ssoft/spack/external/fdtd/8.12.527
+      fdtd@2020-R2-2387 %gcc@4.8.5: /ssoft/spack/external/fdtd/8.24.2387
+      fdtd@2020-R2.4-2502 %gcc@4.8.5: /ssoft/spack/external/fdtd/2020-R2.4-2502
 
   likwid:
     buildable: False
