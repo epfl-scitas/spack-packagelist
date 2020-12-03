@@ -115,6 +115,7 @@ packages:
       - cfdplusplus@16.1
       - cfdplusplus@19.1
       - fdtd@8.20.1703
+      - fdtd@2020-R2.4-2502
   # TODO: check where to put these applications
   #       - beast@2.4.8
   #       - molden
