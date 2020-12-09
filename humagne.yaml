@@ -313,7 +313,6 @@ packages:
       - bedtools2@2.27.1
       - intel-tbb ^guile~threads
       - eigen~fftw~suitesparse~metis~scotch~mpfr ^guile~threads
-      - qt@5.11.3 +opengl+webkit ^python@3.7.3+optimizations+tkinter ^guile~threads
       - star
       # FIXME: gdl (intel internal compiler error on plplot) SL-577, see gnu-serial
       - chip-seq
@@ -335,6 +334,16 @@ packages:
     specs:
       - libgd
       - glpk@4.65+gmp
+      - qt@5.11.3 +opengl+webkit ^python@3.7.3+optimizations+tkinter ^guile~threads
+
+  serial_intel:
+    target_matrix:
+      - intel-stable
+    requires:
+      - architecture
+      - compiler
+    specs:
+      - qt@5.11.3 +opengl+webkit ^python@3.7.3+optimizations+tkinter ^guile~threads ^freetype@2.7.1 ^harfbuzz@2.2.0
 
   # Serial code that uses LAPACK
   lapack:
