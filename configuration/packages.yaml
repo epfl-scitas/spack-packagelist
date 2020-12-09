@@ -143,9 +143,6 @@ packages:
       read: group
       group: crystal-soft
 
-  fftw:
-    variants: '+fma+mpi+openmp simd=avx,avx2,avx512,sse2'
-
   guile:
     variants: '~threads'
 
