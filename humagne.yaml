@@ -378,7 +378,6 @@ packages:
       # FIXME: recipe is broken as it depends on cube unconditionally
       # - scorep~shmem~pdt
       - parmetis ^metis@5.1.0+real64
-      - meep ^hdf5+szip+mpi+hl+fortran+cxx
       - netcdf+mpi ^hdf5+szip+mpi+hl+fortran+cxx
       - netcdf-fortran ^netcdf+mpi ^hdf5+szip+mpi+hl+fortran+cxx
       - cgal@4.13 ^boost@1.67.0+icu+mpi+python ^python@2.7.16+tkinter
@@ -397,6 +396,7 @@ packages:
       - lapack
     specs:
       - arpack-ng+mpi
+      - meep ^hdf5+szip+mpi+hl+fortran+cxx ^python@3.7.3+optimizations+tkinter
 
   # Libraries that needs both MPI and LAPACK - GNU specific
   mpi-lapack-libraries-gnu:
