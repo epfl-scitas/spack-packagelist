@@ -13,10 +13,7 @@ pipeline {
         STACK_RELEASE = "arvine"
         SENV_VIRTUALENV_PATH = "/home/scitasbuild/${STACK_RELEASE}/virtualenv/senv-py27"
         DRY_RUN= "yes"
-        STACK_PREFIX = """${sh(
-            script: 'echo "${GIT_BRANCH}" | grep -qe "origin/\(packages\|bugfix\|features\)/${STACK_RELEASE}/" && echo "$HOME/${STACK_RELEASE}/pr/${BUILD_TAG}"',
-            returnStdout: true
-        ).trim()}"""
+        STACK_PREFIX = get_prefix(env.BRANCH_NAME, env.STACK_RELEASE)
     }
 
     stages {
@@ -101,6 +98,16 @@ pipeline {
             }
         }
     }
+}
+
+def get_prefix(banch_name, stack_name) {
+    def pattern = /(packages|bugfix|features)\/$stack_name\//
+    if (branch_name =~ pattern) {
+        println("PR detected")
+        return "${env.HOME}/${stack_name}/pr/${env.BUILD_TAG}"
+    }
+    println("NO PR detected for branch ${branch_name}")
+    return ""
 }
 
 def get_agent_name(environment) {
