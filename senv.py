@@ -650,7 +650,7 @@ def list_compilers(ctxt, env, stack_type, all):
 @click.pass_context
 def create_env(ctxt, env, bootstrap):
     spack_envs = SpackEnvs(ctxt.parent.configuration,
-                           prefix=ctxt.prefix)
+                           prefix=ctxt.parent.prefix)
     spack_envs.write_env(env, bootstrap=bootstrap)
 
 @senv.command()
