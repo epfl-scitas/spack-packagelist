@@ -102,7 +102,7 @@ pipeline {
 
 def get_prefix(banch_name, stack_name) {
     def pattern = /(packages|bugfix|features)\/$stack_name\//
-    if (branch_name =~ pattern) {
+    if ("${branch_name}" =~ pattern) {
         println("PR detected")
         return "${env.HOME}/${stack_name}/pr/${env.BUILD_TAG}"
     }
