@@ -136,8 +136,9 @@ class SpackEnvs(object):
         if prefix is None:
             self.prefix = self.configuration['spack_root']
 
+        self.in_pr = (self.prefix != self.configuration['spack_root'])
         self.customisation['prefix'] = self.prefix
-        self.customisation['in_pr'] = (self.prefix != self.configuration['spack_root'])
+        self.customisation['in_pr'] = self.in_pr
 
         if 'stack_release' in self.configuration and 'stack_version' in self.configuration:
             self.spack_source_root = os.path.join(
@@ -343,7 +344,7 @@ class SpackEnvs(object):
         return list(set(compilers))
 
     def status(self):
-        if self.configuration['in_pr']:
+        if self.in_pr:
             print("Running in a PR:\n - in prefix: {0}\n - in upstream: {1}".format(
                 self.prefix, self.configuration['spack_root']))
         else:
