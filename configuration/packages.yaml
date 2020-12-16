@@ -149,19 +149,6 @@ packages:
   guile:
     variants: '~threads'
 
-  'python@3.7.3':
-    variants: '+optimizations+tkinter'
-
-  'python@2.7.16':
-    variants: '+tkinter'
-
-  python:
-    version: ['@3.7.3']
-
-  py-numpy:
-    variants: '+blas+lapack'
-    version: ['@0.16.3']
-
   molpro:
     permissions:
       read: group
