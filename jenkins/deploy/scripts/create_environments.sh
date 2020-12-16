@@ -21,13 +21,13 @@ SPACK_CHECKOUT_DIR=$(senv --input ${STACK_RELEASE}.yaml spack-checkout-dir)
 
 if [ x'${DRY_RUN}' = 'xyes' ]; then
     SPACK="echo ${SPACK_CHECKOUT_DIR}/bin/spack"
-    SENV="echo senv"
+    SENV="echo jenkins/senv.sh"
 else
     SPACK="${SPACK_CHECKOUT_DIR}/bin/spack"
-    SENV="senv"
+    SENV="jenkins/senv.sh"
 fi
 
-environments=$(senv --input ${STACK_RELEASE}.yaml list-envs $filter)
+environments=$(jenkins/senv.sh list-envs $filter)
 
 # Generate the list of software that need to be installed, then fetch every tarball
 for environment in ${environments}
@@ -37,19 +37,17 @@ do
     fi
 
     echo "#### Create environment"
-    senv --input ${STACK_RELEASE}.yaml \
-        create-env \
-        --env $environment
+    jenkins/senv.sh create-env --env $environment
 
     cat -n ${SPACK_CHECKOUT_DIR}/var/spack/environments/${environment}/spack.yaml
 done
 
 # to reconfigure the compilers.yaml
-${SENV} --input ${STACK_RELEASE}.yaml install-spack-default-configuration
+${SENV} install-spack-default-configuration
 
 if [[ $boostrap -eq 0 && "$filter" =~ "cloud=\w*" ]]; then
     echo "#### Install intel compilers configuration"
     # this has to be changed once we have a stack similar on all machines otherwhy
     # the config file will be rewriten for each environment
-    ${SENV} --input ${STACK_RELEASE}.yaml intel-compilers-configuration
+    ${SENV} intel-compilers-configuration
 fi

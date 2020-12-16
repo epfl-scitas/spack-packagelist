@@ -9,18 +9,16 @@ set -u
 
 SPACK_CHECKOUT_DIR=$(senv --input ${STACK_RELEASE}.yaml spack-checkout-dir)
 if [ x'${DRY_RUN}' = 'xyes' ]; then
-    SPACK="echo ${SPACK_CHECKOUT_DIR}/bin/spack"
+    SENV="echo jenkins/senv.sh"
 else
-    SPACK="${SPACK_CHECKOUT_DIR}/bin/spack"
+    SENV="jenkins/senv.sh"
 fi
 
-senv --input ${STACK_RELEASE}.yaml \
-    list-spec-to-activate \
+jenkins/senv.sh list-spec-to-activate \
     --env ${environment} > list_${environment}_activate.txt
 
 echo "Activating packages"
-senv --input arvine.yaml \
-    activate-specs \
+${SENV} activate-specs \
     --env ${environment}
 
 deactivate

@@ -140,6 +140,9 @@ class SpackEnvs(object):
         self.customisation['prefix'] = self.prefix
         self.customisation['in_pr'] = self.in_pr
 
+        if self.in_pr:
+            self.customisation['mirrors']['pr_local'] = os.path.join(prefix, 'pr-mirror')
+
         if 'stack_release' in self.configuration and 'stack_version' in self.configuration:
             self.spack_source_root = os.path.join(
                 self.prefix,

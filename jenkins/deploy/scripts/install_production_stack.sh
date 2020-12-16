@@ -20,10 +20,10 @@ SPACK_CHECKOUT_DIR=$(senv --input ${STACK_RELEASE}.yaml spack-checkout-dir)
 
 if [ x'${DRY_RUN}' = 'xyes' ]; then
     SPACK="echo ${SPACK_CHECKOUT_DIR}/bin/spack"
-    SENV="echo senv"
+    SENV="echo jenkins/senv.sh"
 else
     SPACK="${SPACK_CHECKOUT_DIR}/bin/spack"
-    SENV="senv"
+    SENV="jenkins/senv.sh"
 fi
 
 
