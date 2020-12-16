@@ -41,7 +41,7 @@ config:
 {% if in_pr %}
 upstreams:
   {{environment.name}}:
-    install_tree: {{ spack_source_tree_upstream }}/opt/spack
+    install_tree: {{ spack_install_tree_upstream }}/opt/spack
 {% endif %}
 
 {% set spack_site_compilers = 'templates/' + site + '/compilers.yaml.j2' %}

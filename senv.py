@@ -136,7 +136,8 @@ class SpackEnvs(object):
         if prefix is None:
             self.prefix = self.configuration['spack_root']
 
-        self.configuration['in_pr'] =  (self.prefix != self.configuration['spack_root'])
+        self.customisation['prefix'] = self.prefix
+        self.customisation['in_pr'] = (self.prefix != self.configuration['spack_root'])
 
         if 'stack_release' in self.configuration and 'stack_version' in self.configuration:
             self.spack_source_root = os.path.join(
