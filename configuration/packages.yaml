@@ -55,7 +55,7 @@ packages:
   # TODO: first available window is beginning of July
   abaqus:
     buildable: False
-    version: ['@6.14-1']
+    version: [6.14-1]
     paths:
       abaqus@6.14-1%intel@18.0.5: /ssoft/spack/external/abaqus/6.14-1
 
@@ -95,7 +95,7 @@ packages:
 
   likwid:
     buildable: False
-    version: ['@4.3.0']
+    version: [4.3.0]
     paths:
       likwid@4.3.0 %gcc@4.8.5: /ssoft/spack/external/LIKWID/4.3.0
 
@@ -149,18 +149,9 @@ packages:
   guile:
     variants: '~threads'
 
-  'python@3.7.3':
-    variants: '+optimizations+tkinter'
-
-  'python@2.7.16':
-    variants: '+tkinter'
-
-  python:
-    version: ['@3.7.3']
-
   py-numpy:
     variants: '+blas+lapack'
-    version: ['@0.16.3']
+    version: [0.16.3]
 
   molpro:
     permissions:
