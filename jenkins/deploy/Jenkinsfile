@@ -12,7 +12,11 @@ pipeline {
     environment {
         STACK_RELEASE = "arvine"
         SENV_VIRTUALENV_PATH = "/home/scitasbuild/${STACK_RELEASE}/virtualenv/senv-py27"
-        //DRY_RUN= "yes"
+        DRY_RUN= "yes"
+        STACK_PREFIX = """${sh(
+            script: 'if [ ${GIT_BRANCH} = "origin/releases/${STACK_RELEASE}" ] then; echo ""; elif [ ${GIT_BRANCH} ~= "origin/(packages|bugfix|features)/${STACK_RELEASE}/.*" ] then; echo "$HOME/${STACK_RELEASE}/pr/${BUILD_TAG}"',
+            returnStdout: true
+        ).trim()}"""
     }
 
     stages {
@@ -33,6 +37,7 @@ pipeline {
                 sh 'jenkins/senv.sh spack-checkout-extra-repos'
             }
         }
+
         stage('Check environment') {
             steps {
                 sh 'env | sort'

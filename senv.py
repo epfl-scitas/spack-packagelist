@@ -132,16 +132,19 @@ class SpackEnvs(object):
         for k, v in self.configuration.items():
             self.customisation[k] = v
 
+        self.prefix = prefix
         if prefix is None:
-            prefix = self.configuration['spack_root']
+            self.prefix = self.configuration['spack_root']
+
+        self.configuration['in_pr'] =  (self.prefix != self.configuration['spack_root'])
 
         if 'stack_release' in self.configuration and 'stack_version' in self.configuration:
             self.spack_source_root = os.path.join(
-                prefix,
+                self.prefix,
                 self.configuration['stack_release'],
                 'spack.{0}'.format(self.configuration['stack_version']))
             self.spack_install_root = os.path.join(
-                prefix,
+                self.prefix,
                 self.configuration['stack_release'],
                 self.configuration['stack_version'])
         else:
@@ -398,7 +401,7 @@ class SpackEnvs(object):
         for repo in self.configuration['extra_repos']:
             info = self.configuration['extra_repos'][repo]
             repo_path = _absolute_path(info['path'],
-                                       prefix=[self.configuration['spack_root'],
+                                       prefix=[self.prefix,
                                                self.configuration['stack_release'],
                                                'external_repos'])
 
@@ -409,7 +412,9 @@ class SpackEnvs(object):
             else:
                 if 'tag' in info:
                     options['branch'] = info['tag']
-                    git.Repo.clone_from(info['repo'], repo_path, **options)
+                    repo = git.Repo.clone_from(info['repo'], repo_path, **options)
+
+                    print(repo.heads)
 
     def list_extra_repositories(self):
         repositories = []
@@ -590,24 +595,30 @@ class SpackEnvs(object):
 @click.option(
     '--input', default='humagne.yaml', type=click.File('r'),
     help='YAML file containing the specification for a production environment')
+@click.option('--prefix', default=None,
+              help='Prefix of the whole installation')
 @click.pass_context
-def senv(ctx, input):
+def senv(ctx, input, prefix):
     """This command helps with common tasks needed in the SCITAS-EPFL
     continuous integration pipeline"""
     ctx.input = input
     ctx.configuration = yaml.load(input, Loader=yaml.FullLoader)
-
+    ctx.prefix = prefix
+    
 @senv.command()
-def status():
-    print("Senv ready to install stuff!")
+@click.pass_context
+def status(ctxt):
+    spack_envs = SpackEnvs(ctxt.parent.configuration,
+                           prefix=ctxt.parent.prefix)
+    spack_envs.status();
 
 @senv.command()
 @click.option('--cloud', default=None)
 @click.option('--all', default=False, is_flag=True)
 @click.pass_context
 def list_envs(ctxt, cloud, all):
-    config = ctxt.parent.configuration
-    spack_envs = SpackEnvs(ctxt.parent.configuration)
+    spack_envs = SpackEnvs(ctxt.parent.configuration,
+                           prefix=ctxt.parent.prefix)
     for env in spack_envs.list_envs(cloud=cloud, all=all):
         print('{}'.format(env))
 
@@ -619,7 +630,8 @@ def list_envs(ctxt, cloud, all):
 @click.option('--all', default=False, is_flag=True)
 @click.pass_context
 def list_compilers(ctxt, env, stack_type, all):
-    spack_envs = SpackEnvs(ctxt.parent.configuration)
+    spack_envs = SpackEnvs(ctxt.parent.configuration,
+                           prefix=ctxt.parent.prefix)
     compilers = spack_envs.compilers(env, stack_type, all)
     for compiler in compilers:
         print('{}'.format(compiler))
@@ -631,7 +643,8 @@ def list_compilers(ctxt, env, stack_type, all):
               is_flag=True)
 @click.pass_context
 def create_env(ctxt, env, bootstrap):
-    spack_envs = SpackEnvs(ctxt.parent.configuration)
+    spack_envs = SpackEnvs(ctxt.parent.configuration,
+                           prefix=ctxt.prefix)
     spack_envs.write_env(env, bootstrap=bootstrap)
 
 @senv.command()
@@ -640,44 +653,51 @@ def create_env(ctxt, env, bootstrap):
               is_flag=True)
 @click.pass_context
 def create_envs(ctxt, bootstrap):
-    spack_envs = SpackEnvs(ctxt.parent.configuration)
+    spack_envs = SpackEnvs(ctxt.parent.configuration,
+                           prefix=ctxt.parent.prefix)
     spack_envs.write_envs(bootstrap=bootstrap)
 
 @senv.command()
 @click.pass_context
 def spack_release(ctxt):
-    spack_envs = SpackEnvs(ctxt.parent.configuration)
+    spack_envs = SpackEnvs(ctxt.parent.configuration,
+                           prefix=ctxt.parent.prefix)
     spack_envs.spack_release()
 
 @senv.command()
 @click.pass_context
 def spack_checkout_dir(ctxt):
-    spack_envs = SpackEnvs(ctxt.parent.configuration)
+    spack_envs = SpackEnvs(ctxt.parent.configuration,
+                           prefix=ctxt.parent.prefix)
     spack_envs.spack_checkout_dir()
 
 @senv.command()
 @click.pass_context
 def spack_external_dir(ctxt):
-    spack_envs = SpackEnvs(ctxt.parent.configuration)
+    spack_envs = SpackEnvs(ctxt.parent.configuration,
+                           prefix=ctxt.parent.prefix)
     spack_envs.spack_external_dir()
 
 @senv.command()
 @click.pass_context
 def list_extra_repositories(ctxt):
-    spack_envs = SpackEnvs(ctxt.parent.configuration)
+    spack_envs = SpackEnvs(ctxt.parent.configuration,
+                           prefix=ctxt.parent.prefix)
     spack_envs.list_extra_repositories()
 
 @senv.command()
 @click.pass_context
 def install_spack_default_configuration(ctxt):
-    spack_envs = SpackEnvs(ctxt.parent.configuration)
+    spack_envs = SpackEnvs(ctxt.parent.configuration,
+                           prefix=ctxt.parent.prefix)
     spack_envs.install_spack_default_configuration()
 
 @senv.command()
 @click.option('--env', help='Environment to list the compiler for')
 @click.pass_context
 def intel_compilers_configuration(ctxt, env):
-    spack_envs = SpackEnvs(ctxt.parent.configuration)
+    spack_envs = SpackEnvs(ctxt.parent.configuration,
+                           prefix=ctxt.parent.prefix)
     spack_envs.intel_compilers_configuration(env)
 
 @senv.command()
@@ -710,7 +730,8 @@ def list_spec_to_activate(ctxt, env, stack_type):
               default=None, required=False)
 @click.pass_context
 def activate_specs(ctxt, env, stack_type):
-    spack_envs = SpackEnvs(ctxt.parent.configuration)
+    spack_envs = SpackEnvs(ctxt.parent.configuration,
+                           prefix=ctxt.parent.prefix)
     spack_envs.activate_specs(env, stack_type)
 
 @senv.command()
@@ -719,5 +740,6 @@ def activate_specs(ctxt, env, stack_type):
               default=None)
 @click.pass_context
 def get_environment_entry(ctxt, entry, env):
-    spack_envs = SpackEnvs(ctxt.parent.configuration)
+    spack_envs = SpackEnvs(ctxt.parent.configuration,
+                           prefix=ctxt.parent.prefix)
     spack_envs.get_environment_entry(env, entry)
