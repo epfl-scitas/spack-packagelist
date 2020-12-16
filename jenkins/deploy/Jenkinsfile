@@ -100,7 +100,7 @@ pipeline {
     }
 }
 
-def get_prefix(banch_name, stack_name) {
+def get_prefix(branch_name, stack_name) {
     def pattern = ~"origin/(packages|bugfix|features)/$stack_name/"
     if ("${branch_name}" =~ pattern) {
         println("PR detected")
