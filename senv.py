@@ -342,7 +342,7 @@ class SpackEnvs(object):
         return list(set(compilers))
 
     def status(self):
-        if self.in_pr:
+        if self.configuration['in_pr']:
             print("Running in a PR:\n - in prefix: {0}\n - in upstream: {1}".format(
                 self.prefix, self.configuration['spack_root']))
         else:
