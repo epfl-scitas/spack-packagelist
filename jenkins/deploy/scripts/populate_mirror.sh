@@ -30,7 +30,8 @@ else
 fi
 
 GET_ENTRY="jenkins/senv.sh get-environment-entry"
-SPACK_MIRROR_DIR=$(${GET_ENTRY} spack_root)/$(${GET_ENTRY} in_pr | head -n1)
+
+in_pr=$(${GET_ENTRY} in_pr | head -n1)
 if [ "${in_pr}" = "true" ]; then
     SPACK_MIRROR_DIR=$(${GET_ENTRY} mirrors.pr_local)
 else
