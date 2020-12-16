@@ -14,7 +14,7 @@ pipeline {
         SENV_VIRTUALENV_PATH = "/home/scitasbuild/${STACK_RELEASE}/virtualenv/senv-py27"
         DRY_RUN= "yes"
         STACK_PREFIX = """${sh(
-            script: 'if [[ "${GIT_BRANCH}" =~ "origin/(packages|bugfix|features)/${STACK_RELEASE}/.*" ]] then; echo "$HOME/${STACK_RELEASE}/pr/${BUILD_TAG}"; fi',
+            script: 'echo "${GIT_BRANCH}" | grep -qe "origin/\(packages\|bugfix\|features\)/${STACK_RELEASE}/" && echo "$HOME/${STACK_RELEASE}/pr/${BUILD_TAG}"',
             returnStdout: true
         ).trim()}"""
     }
