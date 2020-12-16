@@ -351,7 +351,7 @@ class SpackEnvs(object):
             print("Running in a PR:\n - in prefix: {0}\n - in upstream: {1}".format(
                 self.prefix, self.configuration['spack_root']))
         else:
-            print("Running in a PR:\n - in prefix: {0}".format(self.prefix))
+            print("Running in deploy:\n - in prefix: {0}".format(self.prefix))
 
     def list_envs(self, cloud=None, all=False):
         if all:
