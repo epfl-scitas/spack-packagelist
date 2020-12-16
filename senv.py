@@ -341,6 +341,13 @@ class SpackEnvs(object):
                             core_compiler=customisation['environment']['core_compiler']))
         return list(set(compilers))
 
+    def status(self):
+        if self.in_pr:
+            print("Running in a PR:\n - in prefix: {0}\n - in upstream: {1}".format(
+                self.prefix, self.configuration['spack_root']))
+        else:
+            print("Running in a PR:\n - in prefix: {0}".format(self.prefix))
+
     def list_envs(self, cloud=None, all=False):
         if all:
             return self.environments
@@ -413,7 +420,6 @@ class SpackEnvs(object):
                 if 'tag' in info:
                     options['branch'] = info['tag']
                     repo = git.Repo.clone_from(info['repo'], repo_path, **options)
-
                     print(repo.heads)
 
     def list_extra_repositories(self):
