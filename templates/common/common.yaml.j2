@@ -42,7 +42,7 @@ config:
 upstreams:
   {{environment.name}}:
     install_tree: {{ spack_source_tree_upstream }}/opt/spack
-{% end if %}
+{% endif %}
 
 {% set spack_site_compilers = 'templates/' + site + '/compilers.yaml.j2' %}
 compilers:
