@@ -402,9 +402,19 @@ class SpackEnvs(object):
 
     def spack_checkout(self):
         if not os.path.exists(self.spack_source_root):
-            git.Repo.clone_from('https://github.com/spack/spack.git', self.spack_source_root,
+            git.Repo.clone_from('https://github.com/spack/spack.git',
+                                self.spack_source_root,
                                 branch=self.configuration['spack_release'],
                                 progress=CloneProgress())
+        else:
+            git_repo = git.Repo(self.spack_source_root)
+            local_branch = self.configuration['spack_release']
+            git_repo.remotes.origin.fetch()
+
+            commit = git_repo.commit(local_branch)
+            if commit != git_repo.head.commit:
+                git_repo.remotes.origin.pull(local_branch)
+
 
     def spack_checkout_extra_repos(self):
         if 'extra_repos' not in self.configuration:
@@ -412,20 +422,35 @@ class SpackEnvs(object):
 
         for repo in self.configuration['extra_repos']:
             info = self.configuration['extra_repos'][repo]
-            repo_path = _absolute_path(info['path'],
-                                       prefix=[self.prefix,
-                                               self.configuration['stack_release'],
-                                               'external_repos'])
+            repo_path = _absolute_path(
+                info['path'],
+                prefix=[self.prefix,
+                        self.configuration['stack_release'],
+                        'external_repos'])
 
             options={ 'progress': CloneProgress() }
             if os.path.exists(repo_path):
-                repo = git.Repo(repo_path)
-                repo.remotes.origin.pull(**options)
+                git_repo = git.Repo(repo_path)
+                git_repo.remotes.origin.pull(**options)
             else:
                 if 'tag' in info:
                     options['branch'] = info['tag']
-                    repo = git.Repo.clone_from(info['repo'], repo_path, **options)
-                    print(repo.heads)
+                git_repo = git.Repo.clone_from(
+                    info['repo'], repo_path, **options)
+                if in_pr and 'GIT_BRANCH' in os.environ:
+                    remote_branch = os.environ['GIT_BRANCH']
+                    local_branch = remote_branch.replace('origin/', '')
+                    for ref in git_repo.remotes.origin.refs:
+                        if ref.name == remote_branch:
+                            print('Changing default branch fo repo ' +
+                                  '\"{}\" from {} to {}'.format(
+                                      repo,
+                                      git_repo.head.reference.name,
+                                      local_branch))
+                            new_ref = git_repo.create_head(local_branch, ref)
+                            new_ref.set_tracking_branch(ref)
+                            new_ref.checkout()
+                            break
 
     def list_extra_repositories(self):
         repositories = []
