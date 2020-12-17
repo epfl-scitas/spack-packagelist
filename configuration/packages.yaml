@@ -158,6 +158,10 @@ packages:
       read: group
       group: molpro-soft
 
+  py-numpy:
+    variants: '+blas+lapack'
+    version: [0.16.3]
+
   vasp:
     permissions:
       read: group
