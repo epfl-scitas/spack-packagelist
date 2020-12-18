@@ -149,10 +149,6 @@ packages:
   guile:
     variants: '~threads'
 
-  py-numpy:
-    variants: '+blas+lapack'
-    version: ['@0.16.3']
-
   molpro:
     permissions:
       read: group
