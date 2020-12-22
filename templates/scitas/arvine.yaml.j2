@@ -428,8 +428,10 @@
 - gcc_mpi_lapack_python2_packages:
   # temporary remove to figure out why it does not find blas
   # - molpro
+{% if not 'cloud' in environment %}
   - nwchem
     ^netlib-scalapack
+{% endif %}
 
 - intel_mpi_packages:
 {% if not 'cloud' in environment %}
