@@ -119,3 +119,13 @@ gcp-c2:
 
   core_compiler: gcc@4.8.5 arch=linux-centos7-haswell
   cloud: gcp
+
+  stable:
+    gcc:
+      mpi:
+        - "mvapich2 process_managers=slurm fabrics=socks threads=multiple"
+
+  bleeding_edge:
+     gcc:
+       mpi:
+         - "mvapich2 process_managers=slurm fabrics=socks threads=multiple"
