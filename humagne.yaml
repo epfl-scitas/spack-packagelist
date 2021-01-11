@@ -396,6 +396,7 @@ packages:
       - lapack
     specs:
       - arpack-ng+mpi
+      - meep ^hdf5+szip+mpi+hl+fortran+cxx ^python@3.7.3+optimizations+tkinter
 
   # Libraries that needs both MPI and LAPACK - GNU specific
   mpi-lapack-libraries-gnu:
