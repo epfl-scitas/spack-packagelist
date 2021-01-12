@@ -124,6 +124,8 @@ gcp-c2:
     gcc:
       mpi:
         - "mvapich2 process_managers=slurm fabrics=sock threads=multiple"
+        - "mvapich2 process_managers=slurm fabrics=sock threads=multiple file_systems=nfs"
+        - "mpich+slurm+verbs device=ch4 netmod=ofi pmi=pmi2"
 
   bleeding_edge:
      gcc:
