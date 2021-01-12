@@ -523,7 +523,9 @@
 - mpi_benchmarks:
   - hpl~openmp
   - osu-micro-benchmarks
+  {% if not 'cloud' in environment %}
   - hp2p
+  {% endif %}
 
 - bleeding_edge_serial_packages:
 
