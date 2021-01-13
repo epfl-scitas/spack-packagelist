@@ -81,6 +81,11 @@ mvapich2:
       MV2_USE_CUDA: '1'
       {% endif %}
 
+mpich:
+  environment:
+    set:
+      SLURM_MPI_TYPE: pmi2
+
 ################
 # LAPACK
 ################
