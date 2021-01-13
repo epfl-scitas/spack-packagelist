@@ -77,7 +77,9 @@
   - julia+cxx+mkl
     ^{{ environment.stable.intel.blas }}
     ^python@{{ environment.python.3 }} +optimizations+tkinter
+  {% if not 'cloud' in environment %}
   - mvapich2 process_managers=slurm fabrics=mrail threads=multiple {{ cuda_variant(environment, arch=False, dep=True) }}
+  {% endif %}
   - openblas threads=openmp
   - xgboost {{ cuda_variant(environment, dep=True) }}
 
