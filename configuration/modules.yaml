@@ -62,13 +62,18 @@ modules:
     whitelist: [
       'adf',
       'ansys',
+      'armadillo',
       'autoconf%gcc@4.8.5',
       'automake%gcc@4.8.5',
       'beast',
+      'boost%gcc@8.3.0',
+      'bzip2',
       'caffe',
       'cfdplusplus',
+      'cgal',
       'cmake%gcc@4.8.5',
       'comsol',
+      'crystal17',
       'cuda',
       'cudnn',
       'curl%gcc@4.8.5',
@@ -79,11 +84,15 @@ modules:
       'gcc@8.3.0',
       'gcc@7.4.0',
       'git',
+      'glpk',
       'gnuplot',
+      'gromacs',
+      'gurobi',
       'hadoop',
       'intel',
       'jdk%gcc@4.8.5',
       'libtool%gcc@4.8.5',
+      'libxc',
       'likwid',
       'llvm',
       'm4%gcc@4.8.5',
@@ -92,11 +101,14 @@ modules:
       'matlab',
       'mercurial',
       'molden',
+      'molpro',
       'mvapich2',
       'openblas',
+      'openbabel',
       'openmpi',
       'parallel%gcc@4.8.5',
       'picard',
+      'polymake',
       'python',
       'sbt',
       'scala',
@@ -104,11 +116,13 @@ modules:
       'smr',
       'spark',
       'sra-toolkit',
+      'superlu',
       'tar%gcc@4.8.5',
       'tensorflow',
       'tmux',
       'totalview',
       'trimmomatic',
+      'vasp',
     ]
 
     blacklist_implicits: true
@@ -303,6 +317,9 @@ modules:
         prepend_path:
           MATLABPATH: '${PREFIX}/mli'
 
+    crystal17:
+      template: 'modules/group_restricted.lua'
+
     cuda:
       environment:
         set:
@@ -330,9 +347,6 @@ modules:
           - PLUMED_ROOT
     molpro:
       template: 'modules/group_restricted.lua'
-      environment:
-        prepend_path:
-          'PATH': '${PREFIX}/molprop_2015_1_linux_x86_64_i8/bin'
 
     opencv:
       environment:
@@ -364,3 +378,15 @@ modules:
           LD_LIBRARY_PATH: '${PREFIX}/mpich2/nemesis/lib'
         set:
           SLURM_MPI_TYPE: pmi2
+
+    metis:
+      suffixes:
+        ~real64: sp
+
+    scons:
+      suffixes:
+        '^python@:2.99': py2
+        '^python@3:': py3
+
+    vasp:
+      template: 'modules/group_restricted.lua'

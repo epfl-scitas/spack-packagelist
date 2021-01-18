@@ -55,7 +55,7 @@ packages:
   # TODO: first available window is beginning of July
   abaqus:
     buildable: False
-    version: ['@6.14-1']
+    version: [6.14-1]
     paths:
       abaqus@6.14-1%intel@18.0.5: /ssoft/spack/external/abaqus/6.14-1
 
@@ -69,11 +69,13 @@ packages:
     paths:
       ansys@17.1%gcc@4.8.5: /ssoft/spack/external/ansys/17.1/v171
       ansys@19.2%gcc@4.8.5: /ssoft/spack/external/ansys/19.2/v192
+      ansys@2020R2%gcc@4.8.5: /ssoft/spack/external/ansys/2020R2/v202
 
   cfdplusplus:
     buildable: False
     paths:
       cfdplusplus@16.1%gcc@4.8.5: /ssoft/spack/external/CFD++/2016.05
+      cfdplusplus@19.1%gcc@4.8.5: /ssoft/spack/external/CFD++/19.1
 
   comsol:
     buildable: False
@@ -88,12 +90,18 @@ packages:
       fdtd@8.19.1416-1 %gcc@4.8.5: /ssoft/spack/external/fdtd/8.19.1416-1
       # installed due to segfault with other versions INC0204566
       fdtd@8.12.527 %gcc@4.8.5: /ssoft/spack/external/fdtd/8.12.527
+      fdtd@2020-R2-2387 %gcc@4.8.5: /ssoft/spack/external/fdtd/8.24.2387
+      fdtd@2020-R2.4-2502 %gcc@4.8.5: /ssoft/spack/external/fdtd/2020-R2.4-2502
 
   likwid:
     buildable: False
-    version: ['@4.3.0']
+    version: [4.3.0]
     paths:
       likwid@4.3.0 %gcc@4.8.5: /ssoft/spack/external/LIKWID/4.3.0
+
+  gurobi:
+    paths:
+      gurobi@8.1.1%gcc@4.8.5: /ssoft/spack/external/gurobi/8.1.1
 
   gaussian:
     buildable: False
@@ -104,6 +112,7 @@ packages:
     buildable: False
     paths:
       matlab@R2018a %gcc@4.8.5: /ssoft/spack/external/MATLAB/R2018a
+      matlab@R2019b %gcc@4.8.5: /ssoft/spack/external/MATLAB/R2019b
 
   maple:
     buildable: False
@@ -129,5 +138,27 @@ packages:
   # Concretization preferences
   ####
 
+  crystal17:
+    permissions:
+      read: group
+      group: crystal-soft
+
+  fftw:
+    variants: '+fma+mpi+openmp simd=avx,avx2,avx512,sse2'
+
   guile:
     variants: '~threads'
+
+  molpro:
+    permissions:
+      read: group
+      group: molpro-soft
+
+  py-numpy:
+    variants: '+blas+lapack'
+    version: [0.16.3]
+
+  vasp:
+    permissions:
+      read: group
+      group: vasp-soft

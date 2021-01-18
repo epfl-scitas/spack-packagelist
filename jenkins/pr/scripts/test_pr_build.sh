@@ -57,18 +57,20 @@ ccache -s
 
 # Activate python extensions
 
-# Set the line separator to be only the newline character
-#
-# https://askubuntu.com/questions/344407/how-to-read-complete-line-in-for-loop-with-spaces
-# https://unix.stackexchange.com/questions/16192/what-is-the-ifs
-#
-IFS=$'\n'
-for spec in $(cat to_be_installed.${SPACK_TARGET_TYPE}.txt)
-do
-    # Activate python extensions
-    if [[ "${spec}" =~ ^py- ]]
-    then
-        echo "[ACTIVATION] ${spec}"
-        spack activate ${spec}
-    fi
-done
+## Deactivated due to https://github.com/spack/spack/issues/13268
+
+## # Set the line separator to be only the newline character
+## #
+## # https://askubuntu.com/questions/344407/how-to-read-complete-line-in-for-loop-with-spaces
+## # https://unix.stackexchange.com/questions/16192/what-is-the-ifs
+## #
+## IFS=$'\n'
+## for spec in $(cat to_be_installed.${SPACK_TARGET_TYPE}.txt)
+## do
+##     # Activate python extensions
+##     if [[ "${spec}" =~ ^py- ]]
+##     then
+##         echo "[ACTIVATION] ${spec}"
+##         spack activate ${spec}
+##     fi
+## done
