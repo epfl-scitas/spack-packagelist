@@ -279,9 +279,8 @@ packages:
   gnu_python_2_lapack:
     target_matrix:
       - gnu-stable
-      - intel-stable
     target_filter:
-      lapack: ['openblas@0.3.6 threads=openmp', 'intel-mkl@2018.5.274']
+      lapack: ['openblas@0.3.6 threads=openmp']
       python: ['python@2.7.16+tkinter']
     requires:
       - architecture
