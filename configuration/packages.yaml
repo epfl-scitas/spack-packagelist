@@ -82,6 +82,7 @@ packages:
     paths:
       comsol@5.3 %gcc@4.8.5: /ssoft/spack/external/comsol/5.3
       comsol@5.4 %gcc@4.8.5: /ssoft/spack/external/comsol/5.4
+      comsol@5.4 %gcc@4.8.5: /ssoft/spack/external/comsol/5.6/comsol56/multiphysics/
 
   fdtd:
     buildable: False
