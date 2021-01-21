@@ -127,7 +127,7 @@ gcp-c2:
         - "mvapich2 process_managers=slurm fabrics=sock threads=multiple file_systems=nfs"
         - "mpich+slurm+verbs device=ch4 netmod=ofi pmi=pmi2"
         - "mpich+slurm pmi=pmi2"
-        - "openmpi +thread_multiple schedulers=slurm fabrics=auto +pmi
+        - "openmpi +thread_multiple schedulers=slurm fabrics=auto +pmi"
         - "intel-mpi"
 
   bleeding_edge:
