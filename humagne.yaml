@@ -259,23 +259,22 @@ packages:
       - jellyfish
 
   # Python 2 only packages that require LAPACK
-  python_2_lapack:
-    target_matrix:
-      - gnu-stable
-      - intel-stable
-    target_filter:
-      lapack: ['openblas@0.3.6 threads=openmp', 'intel-mkl@2018.5.274']
-      python: ['python@2.7.16+tkinter']
-    requires:
-      - architecture
-      - compiler
-      - python
-      - lapack
-    specs:
-      # TODO: doesn't compile with Intel compilers
-      # - py-macs2 ^py-numpy +blas +lapack@1.16.3
-      # - py-bioepic ^jellyfish ^py-scipy@1.2.1 ^py-numpy+blas+lapack@1.16.3
-      - sicer ^py-numpy+blas+lapack@1.16.3
+  # python_2_lapack:
+  #   target_matrix:
+  #     - gnu-stable
+  #     - intel-stable
+  #   target_filter:
+  #     lapack: ['openblas@0.3.6 threads=openmp', 'intel-mkl@2018.5.274']
+  #     python: ['python@2.7.16+tkinter']
+  #   requires:
+  #     - architecture
+  #     - compiler
+  #     - python
+  #     - lapack
+  #   specs:
+  #     # TODO: doesn't compile with Intel compilers
+  #     # - py-macs2 ^py-numpy +blas +lapack@1.16.3
+  #     # - py-bioepic ^jellyfish ^py-scipy@1.2.1 ^py-numpy+blas+lapack@1.16.3
 
   gnu_python_2_lapack:
     target_matrix:
