@@ -93,7 +93,7 @@ modules:
       'jdk%gcc@4.8.5',
       'libtool%gcc@4.8.5',
       'libxc',
-      'libxml2%gcc@4.8.5'
+      'libxml2%gcc@4.8.5',
       'likwid',
       'llvm',
       'm4%gcc@4.8.5',
