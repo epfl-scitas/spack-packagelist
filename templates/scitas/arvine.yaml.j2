@@ -366,6 +366,7 @@
     ^hdf5+szip+mpi+hl+fortran+cxx
     ^suite-sparse {{ cuda_variant(environment) }}
     ^hypre {{ cuda_variant(environment, arch=False) }}
+  {% if not 'cloud' in environment %}
   - py-horovod controllers=mpi frameworks=pytorch,tensorflow,keras tensor_ops={%if environment.gpu == 'nvidia' %}nccl{% else %}mpi{% endif %} {{ cuda_variant(environment) }}
     ^py-torch +tbb {{ cuda_variant(environment, extra_on='+magma', extra_off='~cudnn~nccl') }}
     {% if environment.gpu == 'nvidia' %}
@@ -377,6 +378,7 @@
     ^bazel
     ^py-h5py
     ^hdf5+szip+mpi+hl+fortran+cxx
+  {% endif %}
   - py-petsc4py
     ^petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse{{ cuda_variant(environment, arch=False) }}
     ^mumps+mpi+parmetis+metis+scotch+ptscotch
@@ -399,10 +401,12 @@
     ^hdf5+szip+mpi+hl+fortran+cxx
     ^suite-sparse {{ cuda_variant(environment) }}
     ^hypre {{ cuda_variant(environment, arch=False) }}
+  {% if not 'cloud' in environment %}
   - py-tensorflow +mpi {{ cuda_variant(environment, extra_off='~nccl') }}
     ^bazel
     ^py-h5py
     ^hdf5+szip+mpi+hl+fortran+cxx
+  {% endif %}
   - opencv {{ cuda_variant(environment) }}
     ^vtk+ffmpeg+mpi+opengl2+python~qt+xdmf{%+ if environment.gpu != 'nvidia' %}+osmesa{%+ endif %}
     ^cairo+png+pdf+fc+ft
