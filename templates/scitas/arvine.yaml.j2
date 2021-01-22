@@ -277,6 +277,7 @@
 {% endif %}
 
 - gcc_mpi_lapack_packages:
+  {% if not 'cloud' in environment %}
   - abinit~hdf5~openmp+mpi+scalapack
     ^netlib-scalapack
   - elmerfem+mumps+openmp+hypre
@@ -289,6 +290,7 @@
     ^netcdf-c+mpi
     ^hdf5+szip+mpi+hl+fortran+cxx
     ^hypre {{ cuda_variant(environment, arch=False) }}
+  {% endif %}
 {% if not 'cloud' in environment %}
   - gromacs+mpi {{ cuda_variant(environment, arch=False) }}
 {% endif %}
