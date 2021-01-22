@@ -109,6 +109,7 @@ packages:
       - totalview@2017.2.11
       - comsol@5.3
       - comsol@5.4
+      - comsol@5.6
       - gaussian@g16-A.03
       - gurobi@8.1.1
       - smr@2017.06
