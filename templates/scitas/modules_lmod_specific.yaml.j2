@@ -54,10 +54,14 @@ openmpi:
 intel-mpi: # Default for Intel MPI
   environment:
     set:
-      I_MPI_FABRICS: 'shm:ofa'
       IPATH_NO_CPUAFFINITY: '1'
+      {% if 'cloud' in environment and environment.cloud == 'gcp' %}
+      I_MPI_PMI_LIBRARY: /apps/slurm/slurm-{{environment.slurm}}/lib/libpmi.so
+      {% else %}
+      I_MPI_FABRICS: 'shm:ofa'
       I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
-      {% if environment.name != 'izar' %}
+      {% endif %}
+      {% if environment.name == 'helvetios' or environment.name == 'fidis' %}
       I_MPI_EXTRA_FILESYSTEM: '1'
       I_MPI_EXTRA_FILESYSTEM_LIST: gpfs
       {% endif %}
