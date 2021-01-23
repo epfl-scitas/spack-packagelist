@@ -56,6 +56,8 @@ intel-mpi: # Default for Intel MPI
     set:
       IPATH_NO_CPUAFFINITY: '1'
       {% if 'cloud' in environment and environment.cloud == 'gcp' %}
+      I_MPI_FABRICS: 'shm:ofi'
+      FI_PROVIDER: 'sockets'
       I_MPI_PMI_LIBRARY: /apps/slurm/slurm-{{environment.slurm}}/lib/libpmi.so
       {% else %}
       I_MPI_FABRICS: 'shm:ofa'
