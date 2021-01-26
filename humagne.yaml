@@ -176,7 +176,7 @@ packages:
       - gnu-stable
       - intel-stable
     target_filter:
-      lapack: ['openblas@0.3.6 threads=openmp', 'intel-mkl@2018.2.199']
+      lapack: ['openblas@0.3.6 threads=openmp', 'intel-mkl@2018.5.274']
     requires:
       - architecture
       - compiler
@@ -184,32 +184,46 @@ packages:
       - lapack
     specs:
       - py-numpy+blas+lapack@1.16.3
-      - py-scipy@1.2.1 ^py-numpy+blas+lapack@1.16.3
-      - py-matplotlib@2.2.3 ^py-numpy+blas+lapack@1.16.3
       # FIXME: These are missing in develop. Check if they are still needed.
       # - py-qutip+f90mc@3.1.0^py-scipy@0.17.0^py-numpy+blas+lapack@1.11.0^py-cython@0.23.5
       # - py-ase+matplotlib+scipy@3.11.0^py-matplotlib@1.4.3^py-numpy+blas+lapack@1.11.0
-      - py-scikit-learn@0.20.2 ^py-scipy@1.2.1 ^py-numpy+blas+lapack@1.16.3
-      - py-theano@1.0.4~gpu ^py-scipy@1.2.1 ^py-numpy+blas+lapack@1.16.3
       - py-pandas@0.24.1 ^py-numpy+blas+lapack@1.16.3
       - py-xarray@0.11.0 ^py-pandas@0.24.1 ^py-numpy+blas+lapack@1.16.3
-      - py-deeptools@3.2.1 ^py-matplotlib@2.2.3 ^py-scipy@1.2.1 ^py-numpy+blas+lapack@1.16.3
 
-  # gnu-python_lapack_openmp:
+  gnu-python_lapack_openmp:
+    target_matrix:
+      - gnu-stable
+    target_filter:
+      lapack: ['openblas@0.3.6 threads=openmp']
+    requires:
+      - architecture
+      - compiler
+      - python
+      - lapack
+    specs:
+      - py-matplotlib@2.2.3 ^py-numpy+blas+lapack@1.16.3
+      - py-deeptools@3.2.1 ^py-matplotlib@2.2.3 ^py-scipy@1.2.1 ^py-numpy+blas+lapack@1.16.3
+      # TODO: Pytorch apparently requires CMake
+      # - py-pytorch~cuda ^py-numpy+blas+lapack@1.16.3
+      # TODO: The code has 8 contributors and 80 followers on github, is it needed?
+      # - py-htseq@0.10.0 ^py-matplotlib@2.2.3 ^py-numpy+blas+lapack@1.16.3
+      - py-scipy@1.2.1 ^py-numpy+blas+lapack@1.16.3
+      - py-scikit-learn@0.20.2 ^py-scipy@1.2.1 ^py-numpy+blas+lapack@1.16.3
+      - py-theano@1.0.4~gpu ^py-scipy@1.2.1 ^py-numpy+blas+lapack@1.16.3
+
+  # intel-python_lapack_openmp:
   #   target_matrix:
-  #     - gnu-stable
+  #     - intel-stable
   #   target_filter:
-  #     lapack: ['openblas@0.3.6 threads=openmp']
+  #     lapack: ['intel-mkl@2018.5.274']
   #   requires:
   #     - architecture
   #     - compiler
   #     - python
   #     - lapack
   #   specs:
-  #     # TODO: Pytorch apparently requires CMake
-  #     # - py-pytorch~cuda ^py-numpy+blas+lapack@1.16.3
-  #     # TODO: The code has 8 contributors and 80 followers on github, is it needed?
-  #     # - py-htseq@0.10.0 ^py-matplotlib@2.2.3 ^py-numpy+blas+lapack@1.16.3
+  #     - py-matplotlib@2.2.3 ^py-numpy+blas+lapack@1.16.3 ^freetype@2.7.1
+  #     - py-deeptools@3.2.1 ^py-matplotlib@2.2.3 ^py-scipy@1.2.1 ^py-numpy+blas+lapack@1.16.3 ^freetype@2.7.1
 
   # gnu_python_2_only_lapack_openmp:
   #   target_matrix:
@@ -247,12 +261,28 @@ packages:
       - jellyfish
 
   # Python 2 only packages that require LAPACK
-  python_2_lapack:
+  # python_2_lapack:
+  #   target_matrix:
+  #     - gnu-stable
+  #     - intel-stable
+  #   target_filter:
+  #     lapack: ['openblas@0.3.6 threads=openmp', 'intel-mkl@2018.5.274']
+  #     python: ['python@2.7.16+tkinter']
+  #   requires:
+  #     - architecture
+  #     - compiler
+  #     - python
+  #     - lapack
+  #   specs:
+  #     # TODO: doesn't compile with Intel compilers
+  #     # - py-macs2 ^py-numpy +blas +lapack@1.16.3
+  #     # - py-bioepic ^jellyfish ^py-scipy@1.2.1 ^py-numpy+blas+lapack@1.16.3
+
+  gnu_python_2_lapack:
     target_matrix:
       - gnu-stable
-      - intel-stable
     target_filter:
-      lapack: ['openblas@0.3.6 threads=openmp', 'intel-mkl@2018.2.199']
+      lapack: ['openblas@0.3.6 threads=openmp']
       python: ['python@2.7.16+tkinter']
     requires:
       - architecture
@@ -414,7 +444,6 @@ packages:
       - netlib-scalapack
       - elpa@2017.11.001 ^netlib-scalapack
       - mumps+mpi+parmetis+metis+scotch+ptscotch ^parmetis ^metis@5.1.0+real64 ^scotch@6.0.6+esmumps+mpi~metis ^netlib-scalapack
-
 
   mpi-lapack-libraries-intel:
     target_matrix:
