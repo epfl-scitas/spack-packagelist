@@ -536,6 +536,11 @@
   {% endif %}
 
 - bleeding_edge_serial_packages:
+  {% if 'bleeding_edge' in environment.stack_types %}
+    {% if environment.gpu == 'nvidia' %}
+  - {{ environment.bleeding_edge.cuda.package }}
+    {% endif %}
+  {% endif %}
 
 - gcc_bleeding_edge_serial_packages:
 
