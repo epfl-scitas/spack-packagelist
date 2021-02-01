@@ -128,7 +128,8 @@ gcp-c2:
         - "mpich+slurm+verbs device=ch4 netmod=ofi pmi=pmi2"
         - "mpich+slurm pmi=pmi2"
         - "openmpi +thread_multiple schedulers=slurm fabrics=auto +pmi"
-        - "intel-mpi"
+        - "intel-mpi@2019.7.217"
+        - "intel-mpi@2018.4.274"
 
   bleeding_edge:
      gcc:
