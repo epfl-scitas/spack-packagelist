@@ -30,12 +30,14 @@
 
 - gcc_serial_packages:
   - plasma
+  {% if environment.gpu == 'nvidia' %}
+  - llvm +all_targets {% cuda_variant(environment, dep=True) %}
+  {% endif %}
 
 - intel_serial_packages:
 
 - serial_packages_lapack:
 #  - superlu
-
 
 - gcc_serial_packages_lapack:
   {% if environment.gpu == 'nvidia' %}
