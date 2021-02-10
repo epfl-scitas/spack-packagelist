@@ -9,6 +9,12 @@ set -euo pipefail
 #
 
 set +u
+if [ "x$1" != "x" ]; then
+    filter=$1
+else
+    filter=""
+fi
+
 . ${SENV_VIRTUALENV_PATH}/bin/activate
 set -u
 
@@ -17,15 +23,21 @@ SPACK_CHECKOUT_DIR=$(senv --input ${STACK_RELEASE}.yaml spack-checkout-dir)
 
 if [ x'${DRY_RUN}' = 'xyes' ]; then
     SPACK="echo ${SPACK_CHECKOUT_DIR}/bin/spack"
-    SENV='echo senv'
+    SENV='echo jenkins/senv.sh'
 else
     SPACK="${SPACK_CHECKOUT_DIR}/bin/spack"
-    SENV='senv'
+    SENV='jenkins/senv.sh'
 fi
 
-GET_ENTRY="senv --input ${STACK_RELEASE}.yaml get-environment-entry"
-SPACK_MIRROR_DIR=$(${GET_ENTRY} spack_root)/$(${GET_ENTRY} mirrors.local)
-environments=$(senv --input ${STACK_RELEASE}.yaml list-envs)
+GET_ENTRY="jenkins/senv.sh get-environment-entry"
+
+in_pr=$(${GET_ENTRY} in_pr | head -n1)
+if [ "${in_pr}" = "true" ]; then
+    SPACK_MIRROR_DIR=$(${GET_ENTRY} mirrors.pr_local)
+else
+    SPACK_MIRROR_DIR=$(${GET_ENTRY} spack_root)/$(${GET_ENTRY} mirrors.local)
+fi
+environments=$(jenkins/senv.sh  list-envs $filter)
 
 deactivate
 

@@ -34,11 +34,6 @@ spack:
         - ${{compiler}}_{{type}}_mpi
     {%endif %}
   {% endfor %}
-
-  {% set compiler_list = environment[type].items() | map(attribute=1) | selectattr('compiler') | map(attribute='compiler') | list %}
-    - {{type}}_compilers: {{ compiler_list | filter_variant }}
-
-    - {{type}}_compilers_not_filtered: {{ compiler_list }}
 {% endfor %}
 
     - base_gpu_packages:
@@ -66,14 +61,15 @@ spack:
     - [$%core_compiler]
 
 {% for type in environment.stack_types %}
+  {% for compiler in environment.compilers %}
   # {{type}} base compilers
   - matrix:
-    - [${{type}}_compilers_not_filtered]
+    - [${{compiler}}_{{type}}_compiler]
     {% if environment.gpu == 'nvidia' %}
     - [^{{environment[type].cuda.package }}]
     {% endif %}
     - [$%core_compiler]
-
+  {% endfor %}
 {% endfor %}
 
 {% if not environment.bootstrap %}

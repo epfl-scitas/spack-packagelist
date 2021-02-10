@@ -1,57 +1,46 @@
 ################
 # COMPILERS
 ################
-gcc:
+{% if not environment.bootstrap %}
+  {% for _type in environment.stack_types %}
+    {% for _compiler, stack in environment[_type].items() %}
+      {% if 'compiler' in stack and 'compiler_prefix' in stack %}
+"{{ stack['compiler'] }}":
+        {% if _compiler == 'intel' %}
+          {% if stack.external %}
+            {% set prefix = stack.compiler_prefix + '/bin/intel64' %}
+            {% set intel_lib_path = stack.compiler_prefix %}
+          {% else %}
+            {% set prefix = stack.compiler_prefix +  '/compilers_and_libraries_' + stack['suite_version'] + '/linux/bin/intel64' %}
+            {% set intel_lib_path = stack.compiler_prefix +  '/compilers_and_libraries_' + stack['suite_version'] + '/linux' %}
+          {% endif %}
+        {% elif _compiler == "nvhpc" %}
+          {% set prefix = stack.compiler_prefix + '/Linux_x86_64/' + stack.version + '/compilers/bin' %}
+        {% else %}
+          {% set prefix = stack.compiler_prefix + '/bin' %}
+        {% endif %}
   environment:
     set:
-     CC: gcc
-     CXX: g++
-     FC: gfortran
-     F90: gfortran
-     F77: gfortran
-
-llvm:
-  environment:
-    set:
-      CC: clang
-      CXX: clang++
-
-intel:
-  filter:
-    environment_blacklist:
-#      - LD_LIBRARY_PATH
-      - CPATH
-      - CLASSPATH
-      - PS1
-  environment:
-    set:
-      CC: icc
-      CXX: icpc
-      FC: ifort
-      F90: ifort
-      F77: ifort
-#    prepend_path:
-#      INTEL_LICENSE_FILE: /ssoft/spack/external/intel/License
-
-"nvhpc+mpi":
-  environment:
-    set:
-      CC: nvc
-      CXX: nvc++
-      FC: nvfortran
-      F90: nvfortran
-      F77: nvfortran
+      CC:  {{ prefix }}/{{ _compiler | compiler(component='cc') }}
+      CXX: {{ prefix }}/{{ _compiler | compiler(component='c++') }}
+      F77: {{ prefix }}/{{ _compiler | compiler(component='f77') }}
+      FC:  {{ prefix }}/{{ _compiler | compiler(component='f90') }}
+      F90:  {{ prefix }}/{{ _compiler | compiler(component='f90') }}
+        {% if stack['compiler'] == 'nvhpc+blas+lapack+mpi' %}
       SLURM_MPI_TYPE: pmi2
       OMPI_MCA_btl_openib_warn_default_gid_prefix: '0'
-
-"nvhpc~mpi":
-  environment:
-    set:
-      CC: nvc
-      CXX: nvc++
-      FC: nvfortran
-      F90: nvfortran
-      F77: nvfortran
+        {% endif %}
+        {% if _compiler == 'intel' %}
+    prepend_path:
+      LD_LIBRARY_PATH: {{ intel_lib_path }}/compiler/lib/intel64_lin
+        {% elif _compiler == 'gcc' %}
+    prepend_path:
+      LD_LIBRARY_PATH: {{ stack.compiler_prefix}}/lib64
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+{% endif %}
 
 ################
 # MPI
@@ -65,11 +54,41 @@ openmpi:
 intel-mpi: # Default for Intel MPI
   environment:
     set:
-      I_MPI_FABRICS: 'shm:ofa'
       IPATH_NO_CPUAFFINITY: '1'
+      {% if 'cloud' in environment and environment.cloud == 'gcp' %}
+      I_MPI_FABRICS: 'shm:ofi'
+      FI_PROVIDER: 'sockets'
+      I_MPI_PMI_LIBRARY: /apps/slurm/slurm-{{environment.slurm}}/lib/libpmi.so
+      {% else %}
+      I_MPI_FABRICS: 'shm:ofa'
       I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
+      {% endif %}
+      {% if environment.name == 'helvetios' or environment.name == 'fidis' %}
       I_MPI_EXTRA_FILESYSTEM: '1'
       I_MPI_EXTRA_FILESYSTEM_LIST: gpfs
+      {% endif %}
+      MPICC: mpiicc
+      MPICXX: mpiicpc
+      MPIF90: mpiifort
+      MPIF77: mpiifort
+      MPIFC: mpiifort
+
+intel-mpi@2018.4.275: # Default for Intel MPI
+  environment:
+    set:
+      IPATH_NO_CPUAFFINITY: '1'
+      {% if 'cloud' in environment and environment.cloud == 'gcp' %}
+      I_MPI_FABRICS: 'shm:tcp'
+      FI_PROVIDER: 'sockets'
+      I_MPI_PMI_LIBRARY: /apps/slurm/slurm-{{environment.slurm}}/lib/libpmi.so
+      {% else %}
+      I_MPI_FABRICS: 'shm:ofa'
+      I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
+      {% endif %}
+      {% if environment.name == 'helvetios' or environment.name == 'fidis' %}
+      I_MPI_EXTRA_FILESYSTEM: '1'
+      I_MPI_EXTRA_FILESYSTEM_LIST: gpfs
+      {% endif %}
       MPICC: mpiicc
       MPICXX: mpiicpc
       MPIF90: mpiifort
@@ -89,6 +108,11 @@ mvapich2:
       {% if environment.gpu == 'nvidia' %}
       MV2_USE_CUDA: '1'
       {% endif %}
+
+mpich:
+  environment:
+    set:
+      SLURM_MPI_TYPE: pmi2
 
 ################
 # LAPACK

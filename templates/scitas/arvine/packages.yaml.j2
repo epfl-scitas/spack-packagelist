@@ -1,5 +1,5 @@
 all:
-  compiler: {{ environment.compiler }}
+  compiler: {{ environment.compilers }}
   providers:
     iconv: [libiconv]
 
@@ -65,28 +65,38 @@ openssl:
 jdk:
   buildable: False
   paths:
-{% if cloud in environment and environment.cloud == 'gcp' %}
+  {% if environment.os == 'rhel7.7' %}
     jdk@1.8.0_242-b08: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.el7_7.x86_64
-{% endif %}
-
-py-numpy:
-  # limitation due to tensorflow
-  version: [1.18]
+  {% elif environment.os == 'rhel7.6' %}
+    jdk@1.8.0_222-b10: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64
+  {% elif environment.os == 'centos7.9' %}
+    jdk@1.8.0_272-b10: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64
+  {% endif %}
 
 slurm:
   buildable: False
   paths:
-{% if cloud in environment and environment.cloud == 'gcp' %}
+{% if 'cloud' in environment and environment.cloud == 'gcp' %}
     slurm@ {{environment.slurm}}: /apps/slurm/slurm-{{environment.slurm}}
 {% else %}
     slurm@ {{environment.slurm}}: /usr
 {% endif %}
 
 ####
+# Concretization preferences
+####
+guile:
+  variants: '~threads'
+
+py-numpy:
+  # limitation due to tensorflow
+  version: [1.18]
+
+
+{% if not 'cloud' in environment %}
+####
 # Third party software
 ####
-
-
 abaqus:
   buildable: False
   paths:
@@ -166,13 +176,6 @@ totalview:
   paths:
     totalview@2017.2.11 %{{environment.core_compiler}}: {{ spack_external_root }}/toolworks/totalview.2017.2.11
 
-####
-# Concretization preferences
-####
-
-guile:
-  variants: '~threads'
-
 crystal17:
   permissions:
     read: group
@@ -187,3 +190,4 @@ vasp:
   permissions:
     read: group
     group: vasp-soft
+{% endif %}

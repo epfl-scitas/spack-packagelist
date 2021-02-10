@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'fidis-login'
+        label 'gcp-c2-arvine-centos7-slurm2002'
     }
 
     // Adds timestamps to console logs
@@ -12,8 +12,7 @@ pipeline {
     environment {
         STACK_RELEASE = "arvine"
         SENV_VIRTUALENV_PATH = "/home/scitasbuild/${STACK_RELEASE}/virtualenv/senv-py27"
-        // DRY_RUN= "yes"
-        STACK_PREFIX = get_prefix(env.GIT_BRANCH, env.STACK_RELEASE)
+        //DRY_RUN= "yes"
     }
 
     stages {
@@ -34,7 +33,6 @@ pipeline {
                 sh 'jenkins/senv.sh spack-checkout-extra-repos'
             }
         }
-
         stage('Check environment') {
             steps {
                 sh 'env | sort'
@@ -43,7 +41,7 @@ pipeline {
 
         stage('Create environments') {
             steps {
-                sh 'jenkins/deploy/scripts/create_environments.sh yes'
+                sh 'jenkins/deploy/scripts/create_environments.sh yes --cloud=gcp'
             }
         }
 
@@ -59,7 +57,7 @@ pipeline {
 
         stage('Create environments (after compiler installed)') {
             steps {
-                sh 'jenkins/deploy/scripts/create_environments.sh no'
+                sh 'jenkins/deploy/scripts/create_environments.sh no --cloud=gcp'
             }
         }
 
@@ -74,7 +72,7 @@ pipeline {
         stage('Populate mirror') {
             // TODO: the agent below must have access to the network
             steps {
-                sh 'jenkins/deploy/scripts/populate_mirror.sh'
+                sh 'jenkins/deploy/scripts/populate_mirror.sh --cloud=gcp'
             }
         }
 
@@ -100,16 +98,6 @@ pipeline {
     }
 }
 
-def get_prefix(branch_name, stack_name) {
-    def pattern = ~"origin/(packages|bugfix|features)/$stack_name/"
-    if ("${branch_name}" =~ pattern) {
-        println("PR detected")
-        return "${env.HOME}/${stack_name}/pr/${env.BUILD_TAG}"
-    }
-    println("NO PR detected for branch ${branch_name}")
-    return ""
-}
-
 def get_agent_name(environment) {
     env.environment = environment
     slurm_version_ = sh (
@@ -123,14 +111,14 @@ def get_agent_name(environment) {
             returnStdout: true
     )
     os_version = os_version_.trim()
-    
+
     agent_name = "${environment}-${STACK_RELEASE}-${os_version}-slurm${slurm_version}"
 
     return agent_name
 }
 
 def _define_stages(prefix, script, message, do_junit = true) {
-    environments = "${sh (script: 'jenkins/senv.sh --input ${STACK_RELEASE}.yaml list-envs', returnStdout: true).trim()}".split('\n')
+    environments = "${sh (script: 'jenkins/senv.sh --input ${STACK_RELEASE}.yaml list-envs --cloud=gcp', returnStdout: true).trim()}".split('\n')
 
     env.script = script
     def jobs = [:]

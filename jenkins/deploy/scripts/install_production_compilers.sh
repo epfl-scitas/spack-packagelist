@@ -18,10 +18,10 @@ SPACK_CHECKOUT_DIR=$(senv --input ${STACK_RELEASE}.yaml spack-checkout-dir)
 
 if [ x'${DRY_RUN}' = 'xyes' ]; then
     SPACK="echo ${SPACK_CHECKOUT_DIR}/bin/spack"
-    SENV="echo senv"
+    SENV="echo jenkins/senv.sh"
 else
     SPACK="${SPACK_CHECKOUT_DIR}/bin/spack"
-    SENV="senv"
+    SENV="jenkins/senv.sh"
 fi
 
 # Clean old test results from the workspace
@@ -35,11 +35,9 @@ cp external/intel/licenses/scitas_license.lic \
     ${SPACK_CHECKOUT_DIR}/etc/spack/licenses/intel/license.lic
 
 echo "#### List compilers to install:"
-senv --input ${STACK_RELEASE}.yaml \
-    list-compilers \
-    --env $environment > list_${environment}_compilers.txt
-senv --input ${STACK_RELEASE}.yaml \
-    list-compilers >> list_${environment}_compilers.txt
+jenkins/senv.sh list-compilers \
+    --env $environment \
+    --all > list_${environment}_compilers.txt
 cat list_${environment}_compilers.txt
 
 # Source Spack and add the system compiler
@@ -51,4 +49,6 @@ ${SPACK} --env ${environment} install -v --log-format=junit --log-file=compilers
 
 #${SPACK} --env ${environment}  module lmod refresh --yes
 echo "#### Setting stable compilers as default"
-senv --input ${STACK_RELEASE}.yaml list-compilers --env ${environment} --stack-type stable | xargs -L1 ${SPACK} --env ${environment}  module lmod setdefault
+jenkins/senv.sh list-compilers \
+    --env ${environment} \
+    --stack-type stable | xargs -L1 ${SPACK} --env ${environment}  module lmod setdefault

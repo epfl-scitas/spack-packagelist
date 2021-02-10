@@ -1,14 +1,20 @@
 {% if stack_release and stack_version %}
-   {% set spack_source_tree = spack_root +'/' + stack_release + '/spack.' + stack_version %}
-   {% set spack_install_tree = spack_root +'/' + stack_release + '/' + stack_version %}
+   {% set spack_source_tree = prefix +'/' + stack_release + '/spack.' + stack_version %}
+   {% set spack_install_tree = prefix +'/' + stack_release + '/' + stack_version %}
+   {% set spack_install_tree_upstream = spack_root +'/' + stack_release + '/' + stack_version %}
 {% else %}
-   {% set spack_source_tree = spack_root + '/' + 'spack' %}
-   {% set spack_install_tree = spack_root +'/' + 'spack' %}
+   {% set spack_source_tree = prefix + '/' + 'spack' %}
+   {% set spack_install_tree = prefix +'/' + 'spack' %}
+   {% set spack_install_tree_upstream = spack_root +'/' + 'spack' %}
 {% endif %}
 config:
   # Root of the installation tree
+  {% if spack_release == 'v0.15.4' %}
+  install_tree: {{ spack_install_tree }}/opt/spack/
+  {% else %}
   install_tree:
     root: {{ spack_install_tree }}/opt/spack/
+  {% endif %}
 
   module_roots:
     lmod: {{ spack_install_tree }}/share/spack/lmod/
