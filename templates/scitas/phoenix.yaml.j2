@@ -22,9 +22,20 @@
   - gsl
   - intel-tbb
   - metis+real64
+  - libszip
+  - zlib
+
+- old_serial_packages:
   {% if environment.gpu == 'nvidia' %}
   - {{ environment.stable.cuda.package }}
-  - cudnn ^ {{ environment.stable.cuda.package }}
+  - cudnn
+    ^{{ environment.old.cuda.package }}
+  {% endif %}
+
+- stable_serial_packages:
+  {% if environment.gpu == 'nvidia' %}
+  - cudnn@8.0.2.39-11.0-linux-x64
+    ^{{ environment.stable.cuda.package }}
   {% endif %}
 
 - gcc_serial_packages:
@@ -38,14 +49,14 @@
 
 - gcc_serial_packages_lapack:
   {% if environment.gpu == 'nvidia' %}
-  - magma {{ cuda_variant(environment, dep=True) }}
+  - magma {{ cuda_variant(environment, dep=False) }}
   {% endif %}
 
 - intel_serial_packages_lapack:
 
 - serial_packages_python:
   - py-pybind11
-  - py-theano {{ cuda_variant(environment, dep=True) }}
+#  - py-theano {{ cuda_variant(environment, dep=True) }}
   - hwloc +cairo {{ cuda_variant(environment, arch=False, dep=True, extra_on='+nvml') }}
     ^cairo+png+pdf+fc+ft
 #  - kokkos +hwloc std=14 +numactl +openmp {{ hip_variant(environment) }} {{ cuda_variant(environment, extra_on='+cuda_lambda +cuda_uvm +wrapper', dep=True) }} 
@@ -66,6 +77,9 @@
     ^cairo+png+pdf+fc+ft
     ^qt~ssl
   {% if environment.gpu == 'amd' %}
+  - rocm-cmake
+  - rocm-smi
+  - rocminfo
   - hip
   {% endif %}
 
@@ -83,7 +97,6 @@
   - netcdf-fortran
     ^netcdf-c+mpi
     ^hdf5+szip+mpi+hl+fortran+cxx
-  - scorep +pdt+unwind~binutils {{ cuda_variant(environment, arch=False) }}
   - scalasca
 
 - mpi_lapack_packages:
@@ -132,6 +145,7 @@
     ^hdf5+szip+mpi+hl+fortran+cxx
     ^suite-sparse {{ cuda_variant(environment) }}
     ^hypre {{ cuda_variant(environment, arch=False, dep=False) }}
+  - scorep +pdt+unwind~binutils {{ cuda_variant(environment, arch=False) }}
 
 - gcc_mpi_lapack_python2_packages:
 

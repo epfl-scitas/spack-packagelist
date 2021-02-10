@@ -79,7 +79,7 @@ skylake_avx512_v100:
       compiler: "gcc@9.3.0+nvptx+piclibs"
       mpi: [ "mvapich2 process_managers=hydra fabrics=sock threads=multiple +cuda" ]
     cuda:
-      package: "cuda@10.2.89"
+      package: "cuda@11.0.2"
       arch: "sm_70"
     nvhpc:
       compiler: "nvhpc~mpi+blas"

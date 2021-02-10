@@ -6,15 +6,19 @@
   - [$%{{compiler}}_old_compiler]
 
 - matrix:
+  - [$old_serial_packages]
+  - [$%{{compiler}}_old_compiler]
+
+- matrix:
   - [$serial_packages_lapack]
   - [$^{{compiler}}_old_blas]
   - [$%{{compiler}}_old_compiler]
 
-- matrix:
-  - [${{compiler}}_serial_packages_lapack]
-  - [$^{{compiler}}_old_blas]
-  - [$%{{compiler}}_old_compiler]
-
+#- matrix:
+#  - [${{compiler}}_serial_packages_lapack]
+#  - [$^{{compiler}}_old_blas]
+#  - [$%{{compiler}}_old_compiler]
+#
 - matrix:
   - [$mpi_packages]
   - [$^{{compiler}}_old_mpi]
@@ -70,6 +74,16 @@
   {% endif %}
   - [$%{{compiler}}_old_compiler]
 
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if 'stable' in environment.stack_types %}
+  {% for compiler, stack in environment.old.items() %}
+    {% if compiler in environment.compilers %}
+- matrix:
+  - [$stable_serial_packages]
+  - [$%{{compiler}}_stable_compiler]
     {% endif %}
   {% endfor %}
 {% endif %}
