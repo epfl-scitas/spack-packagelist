@@ -73,6 +73,28 @@ intel-mpi: # Default for Intel MPI
       MPIF77: mpiifort
       MPIFC: mpiifort
 
+intel-mpi@2018.4.275: # Default for Intel MPI
+  environment:
+    set:
+      IPATH_NO_CPUAFFINITY: '1'
+      {% if 'cloud' in environment and environment.cloud == 'gcp' %}
+      I_MPI_FABRICS: 'shm:tcp'
+      FI_PROVIDER: 'sockets'
+      I_MPI_PMI_LIBRARY: /apps/slurm/slurm-{{environment.slurm}}/lib/libpmi.so
+      {% else %}
+      I_MPI_FABRICS: 'shm:ofa'
+      I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
+      {% endif %}
+      {% if environment.name == 'helvetios' or environment.name == 'fidis' %}
+      I_MPI_EXTRA_FILESYSTEM: '1'
+      I_MPI_EXTRA_FILESYSTEM_LIST: gpfs
+      {% endif %}
+      MPICC: mpiicc
+      MPICXX: mpiicpc
+      MPIF90: mpiifort
+      MPIF77: mpiifort
+      MPIFC: mpiifort
+
 mvapich2:
   environment:
     set:
