@@ -108,6 +108,7 @@ packages:
       - ansys@19.2
       - ansys@2020R2
       - totalview@2017.2.11
+      - totalview@2020.3.11
       - comsol@5.3
       - comsol@5.4
       - comsol@5.5
