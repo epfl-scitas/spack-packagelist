@@ -56,14 +56,14 @@ default_environment:
       suite_version: '2020.0.166'
     gcc:
       compiler: "gcc@9.3.0"
-      mpi: [ "mvapich2 process_managers=hydra fabrics=sock threads=multiple" ]
+      mpi: [ "mvapich2 process_managers=slurm fabrics=sock threads=multiple" ]
       blas: [ "openblas threads=none" ]
 
 skylake_avx512_v100:
   gpu: nvidia
   arch: skylake_avx512
-  stack_types: [old, stable]
-  compiler: [gcc, nvhpc]
+  stack_types: [old, stable, bleeding_edge]
+  compilers: [gcc, intel, clang]
 
   old:
     gcc:
@@ -79,13 +79,25 @@ skylake_avx512_v100:
       compiler: "gcc@9.3.0+nvptx+piclibs"
       mpi: [ "mvapich2 process_managers=hydra fabrics=sock threads=multiple +cuda" ]
     cuda:
-      package: "cuda@11.0.2"
+      package: "cuda@10.2.89"
       arch: "sm_70"
     nvhpc:
       compiler: "nvhpc~mpi+blas"
       blas: "nvhpc~mpi+blas"
       mpi: [openmpi +cuda +thread_multiple +pmi fabrics=auto schedulers=slurm +legacylaunchers]
       version: "20.9"
+
+  bleeding_edge:
+    cuda:
+      package: "cuda@11.0.2"
+      arch: "sm_70"
+    clang:
+      core_compiler: gcc@6.4.0 arch=linux-rhel7-sandybridge
+      compiler: llvm@11.0.0 +all_targets +cuda cuda_arch=70 +clang
+      compiler_cflags: -march=skylake-avx512
+      compiler_cxxflags: -march=skylake-avx512
+      mpi: [ "mvapich2 process_managers=hydra fabrics=sock threads=multiple +cuda" ]
+      blas: [ "openblas threads=none" ]
 
 zen2_radeon:
   cpu: amd

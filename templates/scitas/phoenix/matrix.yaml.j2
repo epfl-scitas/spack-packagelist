@@ -1,85 +1,88 @@
-{% if 'old' in environment.stack_types %}
-  {% for compiler, stack in environment.old.items() %}
-    {% if compiler in environment.compilers %}
+{% for _type in ['old', 'bleeding_edge'] %}
+  {% if _type in environment.stack_types %}
+{{_type}}
+    {% for compiler, stack in environment[_type].items() %}
+      {% if compiler in environment.compilers and compiler in environment[_type] %}
 - matrix:
   - [$serial_packages]
-  - [$%{{compiler}}_old_compiler]
+  - [$%{{compiler}}_{{_type}}_compiler]
 
 - matrix:
   - [$old_serial_packages]
-  - [$%{{compiler}}_old_compiler]
+  - [$%{{compiler}}_{{_type}}_compiler]
 
 - matrix:
   - [$serial_packages_lapack]
-  - [$^{{compiler}}_old_blas]
-  - [$%{{compiler}}_old_compiler]
+  - [$^{{compiler}}_{{_type}}_blas]
+  - [$%{{compiler}}_{{_type}}_compiler]
 
 #- matrix:
 #  - [${{compiler}}_serial_packages_lapack]
-#  - [$^{{compiler}}_old_blas]
-#  - [$%{{compiler}}_old_compiler]
+#  - [$^{{compiler}}_{{_type}}_blas]
+#  - [$%{{compiler}}_{{_type}}_compiler]
 #
 - matrix:
   - [$mpi_packages]
-  - [$^{{compiler}}_old_mpi]
+  - [$^{{compiler}}_{{_type}}_mpi]
   {% if environment.gpu == 'nvidia' %}
-  - [^{{environment.old.cuda.package }}]
+  - [^{{environment[_type].cuda.package }}]
   {% endif %}
-  - [$%{{compiler}}_old_compiler]
+  - [$%{{compiler}}_{{_type}}_compiler]
 
 - matrix:
   - [${{compiler}}_mpi_packages]
-  - [$^{{compiler}}_old_blas]
-  - [$^{{compiler}}_old_mpi]
+  - [$^{{compiler}}_{{_type}}_blas]
+  - [$^{{compiler}}_{{_type}}_mpi]
   {% if environment.gpu == 'nvidia' %}
-  - [^{{environment.old.cuda.package }}]
+  - [^{{environment[_type].cuda.package }}]
   {% endif %}
-  - [$%{{compiler}}_old_compiler]
+  - [$%{{compiler}}_{{_type}}_compiler]
 
 - matrix:
   - [$mpi_lapack_packages]
-  - [$^{{compiler}}_old_blas]
-  - [$^{{compiler}}_old_mpi]
+  - [$^{{compiler}}_{{_type}}_blas]
+  - [$^{{compiler}}_{{_type}}_mpi]
   {% if environment.gpu == 'nvidia' %}
-  - [^{{environment.old.cuda.package }}]
+  - [^{{environment[_type].cuda.package }}]
   {% endif %}
-  - [$%{{compiler}}_old_compiler]
+  - [$%{{compiler}}_{{_type}}_compiler]
 
 - matrix:
   - [${{compiler}}_mpi_lapack_packages]
-  - [$^{{compiler}}_old_blas]
-  - [$^{{compiler}}_old_mpi]
+  - [$^{{compiler}}_{{_type}}_blas]
+  - [$^{{compiler}}_{{_type}}_mpi]
   {% if environment.gpu == 'nvidia' %}
-  - [^{{environment.old.cuda.package }}]
+  - [^{{environment[_type].cuda.package }}]
   {% endif %}
-  - [$%{{compiler}}_old_compiler]
+  - [$%{{compiler}}_{{_type}}_compiler]
 
 - matrix:
   - [$mpi_lapack_python_packages]
   - [$^{{compiler}}_python3]
-  - [$^{{compiler}}_old_blas]
-  - [$^{{compiler}}_old_mpi]
+  - [$^{{compiler}}_{{_type}}_blas]
+  - [$^{{compiler}}_{{_type}}_mpi]
   {% if environment.gpu == 'nvidia' %}
-  - [^{{environment.old.cuda.package }}]
+  - [^{{environment[_type].cuda.package }}]
   {% endif %}
-  - [$%{{compiler}}_old_compiler]
+  - [$%{{compiler}}_{{_type}}_compiler]
 
 - matrix:
   - [${{compiler}}_mpi_lapack_python_packages]
   - [$^{{compiler}}_python3]
-  - [$^{{compiler}}_old_blas]
-  - [$^{{compiler}}_old_mpi]
+  - [$^{{compiler}}_{{_type}}_blas]
+  - [$^{{compiler}}_{{_type}}_mpi]
   {% if environment.gpu == 'nvidia' %}
-  - [^{{environment.old.cuda.package }}]
+  - [^{{environment[_type].cuda.package }}]
   {% endif %}
-  - [$%{{compiler}}_old_compiler]
+  - [$%{{compiler}}_{{_type}}_compiler]
 
-    {% endif %}
-  {% endfor %}
-{% endif %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endfor %}
 
 {% if 'stable' in environment.stack_types %}
-  {% for compiler, stack in environment.old.items() %}
+  {% for compiler, stack in environment.stable.items() %}
     {% if compiler in environment.compilers %}
 - matrix:
   - [$stable_serial_packages]
@@ -87,3 +90,4 @@
     {% endif %}
   {% endfor %}
 {% endif %}
+

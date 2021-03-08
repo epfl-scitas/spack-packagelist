@@ -1,10 +1,14 @@
 - gcc_python3:
-  - python@3.7.7+optimizations+tkinter
+  - python@{{ environment.python.3 }} +optimizations+tkinter
 - intel_python3:
-  - python@3.7.7+optimizations+tkinter ^freetype@2.7.1 ^fontconfig@2.12.1
+  - python@{{ environment.python.3 }} +optimizations+tkinter ^freetype@2.7.1 ^fontconfig@2.12.1
+
+- clang_python3:
+  - python@{{ environment.python.3 }} +optimizations+tkinter
 
 - gcc_python2:
 - intel_python2:
+- clang_python2:
 
 - core_packages:
   - cmake@3.16.5
@@ -29,33 +33,34 @@
 - old_serial_packages:
   {% if environment.gpu == 'nvidia' %}
   - {{ environment.stable.cuda.package }}
-  - cudnn
+  - cudnn@7.6.5.32-10.2-linux-x64
     ^{{ environment.old.cuda.package }}
   {% endif %}
 
 - stable_serial_packages:
   {% if environment.gpu == 'nvidia' %}
-  - cudnn@8.0.2.39-11.0-linux-x64
+  - cudnn
     ^{{ environment.stable.cuda.package }}
   {% endif %}
 
 - gcc_serial_packages:
   - plasma
-  {% if environment.gpu == 'nvidia' %}
-  - llvm +all_targets {% cuda_variant(environment, dep=True) %}
-  {% endif %}
 
 - intel_serial_packages:
+
+- clang_serial_packages:
 
 - serial_packages_lapack:
 #  - superlu
 
 - gcc_serial_packages_lapack:
-  {% if environment.gpu == 'nvidia' %}
-  - magma {{ cuda_variant(environment, dep=False) }}
-  {% endif %}
+  #{% if environment.gpu == 'nvidia' %}
+  #- magma {{ cuda_variant(environment, dep=False) }}
+  #{% endif %}
 
 - intel_serial_packages_lapack:
+
+- clang_serial_packages_lapack:
 
 - serial_packages_python:
   - py-pybind11
@@ -91,6 +96,8 @@
 #    ^cairo+png+pdf+fc+ft
 #    ^harfbuzz@2.1.3
 #    ^qt~ssl
+
+- clang_serial_packages_python:
 
 - mpi_packages:
   - fftw+mpi+openmp
@@ -151,6 +158,39 @@
   - scorep +pdt+unwind~binutils {{ cuda_variant(environment, arch=False) }}
 
 - gcc_mpi_lapack_python2_packages:
+
+- clang_mpi_packages:
+
+- clang_mpi_lapack_packages:
+  - mumps+mpi+parmetis+metis+scotch+ptscotch
+    ^parmetis
+    ^metis+real64
+    ^scotch+esmumps+mpi~metis
+    ^netlib-scalapack
+  - netlib-scalapack
+
+- clang_mpi_lapack_python_packages:
+  - boost cxxstd=14 +icu+mpi+python+numpy
+  - petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre~suite-sparse{{ cuda_variant(environment, arch=False) }}
+    ^mumps+mpi+parmetis+metis+scotch+ptscotch
+    ^parmetis
+    ^metis+real64
+    ^scotch+esmumps+mpi~metis
+    ^netlib-scalapack
+    ^hdf5+szip+mpi+hl+fortran+cxx
+    ^hypre {{ cuda_variant(environment, arch=False) }}
+  - py-petsc4py
+    ^petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre~suite-sparse{{ cuda_variant(environment, arch=False) }}
+    ^mumps+mpi+parmetis+metis+scotch+ptscotch
+    ^parmetis
+    ^metis+real64
+    ^scotch+esmumps+mpi~metis
+    ^netlib-scalapack
+    ^hdf5+szip+mpi+hl+fortran+cxx
+    ^hypre {{ cuda_variant(environment, arch=False, dep=False) }}
+  - scorep +pdt+unwind~binutils {{ cuda_variant(environment, arch=False) }}
+
+- clang_mpi_lapack_python2_packages:
 
 - intel_mpi_packages:
 
