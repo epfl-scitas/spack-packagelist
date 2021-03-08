@@ -6,36 +6,23 @@
     {% for _compiler, stack in environment[_type].items() %}
       {% if 'compiler' in stack and 'compiler_prefix' in stack %}
 "{{ stack['compiler'] }}":
-        {% if _compiler == 'intel' %}
-          {% if stack.external %}
-            {% set prefix = stack.compiler_prefix + '/bin/intel64' %}
-            {% set intel_lib_path = stack.compiler_prefix %}
-          {% else %}
-            {% set prefix = stack.compiler_prefix +  '/compilers_and_libraries_' + stack['suite_version'] + '/linux/bin/intel64' %}
-            {% set intel_lib_path = stack.compiler_prefix +  '/compilers_and_libraries_' + stack['suite_version'] + '/linux' %}
-          {% endif %}
-        {% elif _compiler == "nvhpc" %}
-          {% set prefix = stack.compiler_prefix + '/Linux_x86_64/' + stack.version + '/compilers/bin' %}
-        {% else %}
-          {% set prefix = stack.compiler_prefix + '/bin' %}
-        {% endif %}
   environment:
     set:
-      CC:  {{ prefix }}/{{ _compiler | compiler(component='cc') }}
-      CXX: {{ prefix }}/{{ _compiler | compiler(component='c++') }}
-      F77: {{ prefix }}/{{ _compiler | compiler(component='f77') }}
-      FC:  {{ prefix }}/{{ _compiler | compiler(component='f90') }}
-      F90:  {{ prefix }}/{{ _compiler | compiler(component='f90') }}
+      CC:  {{ _compiler | compiler_component('cc',  environment, _type) }}
+      CXX: {{ _compiler | compiler_component('c++', environment, _type) }}
+      F77: {{ _compiler | compiler_component('f77', environment, _type) }}
+      FC:  {{ _compiler | compiler_component('f90', environment, _type) }}
+      F90: {{ _compiler | compiler_component('f90', environment, _type) }}
         {% if stack['compiler'] == 'nvhpc+blas+lapack+mpi' %}
       SLURM_MPI_TYPE: pmi2
       OMPI_MCA_btl_openib_warn_default_gid_prefix: '0'
         {% endif %}
-        {% if _compiler == 'intel' %}
+        {% if _compiler == 'intel' or _compiler == 'gcc' or _compiler == 'clang' %}
     prepend_path:
-      LD_LIBRARY_PATH: {{ intel_lib_path }}/compiler/lib/intel64_lin
-        {% elif _compiler == 'gcc' %}
-    prepend_path:
-      LD_LIBRARY_PATH: {{ stack.compiler_prefix}}/lib64
+      {% set libdirs = _compiler | compiler_component('libdir', environment, _type) | list_if_not %}
+          {% for path in libdirs %}
+      LD_LIBRARY_PATH: {{path}}
+          {% endfor %}
         {% endif %}
       {% endif %}
     {% endfor %}
