@@ -1,6 +1,5 @@
 {% for _type in ['old', 'bleeding_edge'] %}
   {% if _type in environment.stack_types %}
-{{_type}}
     {% for compiler, stack in environment[_type].items() %}
       {% if compiler in environment.compilers and compiler in environment[_type] %}
 - matrix:
