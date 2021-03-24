@@ -69,10 +69,18 @@ def _absolute_path(value, prefix=None):
     return os.path.join(prefix, value)
 
 def _filter_variant(value):
-    variant = re.compile('[ +~^][^+~\^]+')
+    variant = re.compile('[ +~^][^+~\^@]+')
     if isinstance(value, str):
         return variant.sub("", value).strip()
     return [ variant.sub("", v).strip() for v in value ]
+
+def _version(value):
+    value = _filter_variant(value)
+    version_re = re.compile('@([^+~\^@]+)')
+    match = version_re.match(value)
+    if match:
+        return match.group(1)
+    return None
 
 # Custom filter method
 def _regex_replace(s, find, replace):
@@ -186,6 +194,7 @@ class SpackEnvs(object):
         self.spack_env.filters['compiler_component'] = self._compiler_component
         self.spack_env.filters['full_compiler_name'] = self._compiler_name
         self.spack_env.filters['spack_path'] = self._spack_path
+        self.spack_env.filters['version'] = _version
         self.spack_env.globals['cuda_variant'] = _cuda_variant
         self.spack_env.globals['hip_variant'] = _hip_variant
 
@@ -578,12 +587,11 @@ class SpackEnvs(object):
 
                     list_installed = []
                     if installed_only:
-                        spack = self._run_spack('dependents', '--installed',
-                                                'python@{python_version} %{compiler}{arch}'.format(**spec),
-                                                environment=env)
+                        stdout = self._run_spack('dependents', '--installed',
+                                                 'python@{python_version} %{compiler}{arch}'.format(**spec),
+                                                 environment=env)
 
-
-                        for line in spack.stdout:
+                        for line in stdout:
                             match = installed_pkg_re.match(line.decode('ascii'))
                             if match:
                                 list_installed.append(match.group(1))
@@ -616,8 +624,8 @@ class SpackEnvs(object):
                 print (' + ==> {0} activated [cache]'.format(spec))
                 continue
 
-            spack_ = self._run_spack('activate', spec, environment=environment)
-            for line in spack_.stdout:
+            stdout = self._run_spack('activate', spec, environment=environment)
+            for line in stdout:
                 print(' + {}'.format(line.decode('ascii')))
 
             if spack_.returncode is None:
