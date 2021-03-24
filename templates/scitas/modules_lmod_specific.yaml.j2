@@ -14,7 +14,7 @@
       FC:  {{ _compiler | compiler_component('f90', environment, _type) }}
       F90: {{ _compiler | compiler_component('f90', environment, _type) }}
         {% if stack['compiler'] == 'nvhpc+blas+lapack+mpi' %}
-      SLURM_MPI_TYPE: pmi2
+      SLURM_MPI_TYPE: pmix
       OMPI_MCA_btl_openib_warn_default_gid_prefix: '0'
         {% endif %}
         {% if _compiler == 'intel' or _compiler == 'gcc' or _compiler == 'clang' %}
