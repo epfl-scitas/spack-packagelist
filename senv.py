@@ -20,6 +20,8 @@ import jinja2
 import yaml
 import shutil
 import git
+import sys
+import logging
 from collections import MutableMapping
 import subprocess
 try:
@@ -27,31 +29,34 @@ try:
 except ImportError:
     DEVNULL = open(os.devnull, 'wb')
 
+logger = logging.getLogger(__name__)
+
+logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+
 class CloneProgress(git.RemoteProgress):
     def update(self, op_code, cur_count, max_count=None, message=''):
         if message:
             print(message)
 
-
-def _compiler(value, component='cc'):
-    _compilers = {
-        'intel': { 'cc': 'icc',
-                   'c++': 'icpc',
-                   'f77': 'ifort',
-                   'f90': 'ifort'},
-        'gcc': { 'cc': 'gcc',
-                 'c++': 'g++',
-                 'f77': 'gfortran',
-                 'f90': 'gfortran'},
-        'clang': { 'cc': 'clang',
-                   'c++': 'clang++',
-                   'f77': 'flang',
-                   'f90': 'flang'},
-        'nvhpc': { 'cc': 'nvc',
-                   'c++': 'nvc++',
-                   'f77': 'nvfortran',
-                   'f90': 'nvfortran'}}
-    return _compilers[value][component]
+COMPILERS_COMPONENTS = {
+    'intel': { 'cc': 'icc',
+               'c++': 'icpc',
+               'f77': 'ifort',
+               'f90': 'ifort',
+               'prefix': '{0}/compilers_and_libraries_{1}/linux/'},
+    'gcc': { 'cc': 'gcc',
+             'c++': 'g++',
+             'f77': 'gfortran',
+             'f90': 'gfortran'},
+    'clang': { 'cc': 'clang',
+               'c++': 'clang++',
+               'f77': 'gfortran',
+               'f90': 'gfortran'},
+    'nvhpc': { 'cc': 'nvc',
+               'c++': 'nvc++',
+               'f77': 'nvfortran',
+               'f90': 'nvfortran',
+               'prefix': '{0}/Linux_x86_64/{1}/compilers'}}
 
 def _absolute_path(value, prefix=None):
     if os.path.isabs(value):
@@ -63,12 +68,11 @@ def _absolute_path(value, prefix=None):
         return os.path.join(*prefix)
     return os.path.join(prefix, value)
 
-
 def _filter_variant(value):
     variant = re.compile('[ +~^][^+~\^]+')
     if isinstance(value, str):
-        return variant.sub("", value)
-    return [ variant.sub("", v) for v in value ]
+        return variant.sub("", value).strip()
+    return [ variant.sub("", v).strip() for v in value ]
 
 # Custom filter method
 def _regex_replace(s, find, replace):
@@ -111,9 +115,12 @@ def _hip_variant(environment, arch=True,
             environment[stack]['rocm']['arch']
         )
 
-
     return variant
 
+def _filter_compiler_name(value):
+    if isinstance(value, list):
+        return [ entry.replace('llvm', 'clang') for entry in value ]
+    return value.replace('llvm', 'clang')
 
 class SpackEnvs(object):
     def __init__(self, configuration, prefix=None):
@@ -153,8 +160,8 @@ class SpackEnvs(object):
                 self.configuration['stack_release'],
                 self.configuration['stack_version'])
         else:
-            self.spack_source_root = os.path.join(prefix, 'spack')
-            self.spack_install_root = os.path.join(prefix, 'spack')
+            self.spack_source_root = os.path.join(self.prefix, 'spack')
+            self.spack_install_root = os.path.join(self.prefix, 'spack')
 
         self.spack_environment_root = os.path.join(
             self.spack_source_root,
@@ -173,11 +180,15 @@ class SpackEnvs(object):
         self.spack_env.filters['list_if_not'] = \
             lambda x: x if isinstance(x, list) else [x]
         self.spack_env.filters['filter_variant'] = _filter_variant
-        self.spack_env.filters['compiler'] = _compiler
         self.spack_env.filters['absolute_path'] = _absolute_path
         self.spack_env.filters['regex_replace'] = _regex_replace
+        self.spack_env.filters['filter_compiler_name'] = _filter_compiler_name
+        self.spack_env.filters['compiler_component'] = self._compiler_component
+        self.spack_env.filters['full_compiler_name'] = self._compiler_name
+        self.spack_env.filters['spack_path'] = self._spack_path
         self.spack_env.globals['cuda_variant'] = _cuda_variant
         self.spack_env.globals['hip_variant'] = _hip_variant
+
 
     def _create_jinja_environment(self, template_path=None):
         if template_path is None:
@@ -245,70 +256,78 @@ class SpackEnvs(object):
                 self.configuration[environment])
 
         # adds the compiler prefixes if they do not exists
-        cache = self._get_cache('compilers')
-        if cache.cache is None:
-            cache.cache = {}
-        for _type in customisation['environment']['stack_types']:
-            if _type not in customisation['environment']:
+        env = customisation['environment']
+        for _type in env['stack_types']:
+            if _type not in env:
                 continue
 
-            for compiler in customisation['environment'][_type]:
-                stack = customisation['environment'][_type][compiler]
+            for compiler in env[_type]:
+                stack = env[_type][compiler]
                 if 'compiler' not in stack or 'compiler_prefix' in stack:
                     continue
                 
                 spec_compiler = self._compiler_name(
-                    stack['compiler'],
-                    customisation,
-                    stack=customisation['environment'][_type]
-                )
+                    stack, env, stack_type=_type)
 
-                if spec_compiler in cache.cache:
-                    spack_path = cache.cache[spec_compiler]
-                else:
-                    spack_path = self._spack_path(spec_compiler,
-                                                  environment)
+                spack_path = self._spack_path(spec_compiler, environment=environment)
 
                 if spack_path is not None:
-                    customisation['environment'][_type][compiler]['compiler_prefix'] = spack_path
-                    cache.cache[spec_compiler] = spack_path
-        cache.save()
+                    env[_type][compiler]['compiler_prefix'] = spack_path
+
         return customisation
 
-    def _compiler_name(self, compiler, customisation, stack=None, core_compiler=None):
-        compiler_ = copy.copy(compiler)
+    def _compiler_name(self, compiler_stack, environment, stack_type=None):
+        compiler_ = copy.copy(compiler_stack['compiler'])
 
-        nvptx_re = re.compile('.*\+nvptx')
-        if stack is not None and nvptx_re.match(compiler) and 'cuda' in stack:
-            compiler_ = '{0} ^{1}'.format(compiler, stack['cuda']['package'])
+        stack = None
+        if stack_type is not None:
+            stack = environment[stack_type]
+
+        nvptx_re = re.compile('.*\+(nvptx|cuda)')
+        if stack is not None and nvptx_re.match(compiler_) and 'cuda' in stack:
+            compiler_ = '{0} ^{1}'.format(compiler_, stack['cuda']['package'])
 
         if '%' in compiler_:
             return compiler_
 
-        return '{0} %{1}'.format(
-            compiler_,
-            core_compiler if core_compiler is not None
-                          else customisation['environment']['core_compiler'])
+        core_compiler = environment['core_compiler']
+        if 'core_compiler' in compiler_stack:
+            core_compiler = compiler_stack['core_compiler'] 
 
-    def _run_spack(self, *args, **kwargs):
-        environment = kwargs.pop('environment', None)
+        return '{0} %{1}'.format(compiler_, core_compiler)
+
+    def _run_spack(self, *args, environment=None, **kwargs):
         no_wait = kwargs.pop('no_wait', False)
         options = { 'stdout': subprocess.PIPE,
-                    'stderr': DEVNULL }
+                    'stderr': subprocess.PIPE }
         if environment is not None:
-            options['env'] = {'SPACK_ENV': os.path.join(
+            options['env'] = {
+                'SPACK_ENV': os.path.join(
                 self.spack_environment_root,
-                environment)}
+                environment)
+            }
 
         command = [os.path.join(self.spack_source_root, 'bin', 'spack')]
         command.extend(args)
 
         spack = subprocess.Popen(command, **options)
+        stdout, stderr = spack.communicate()
+        logger.debug("Running command: {0}".format(command))
+        logger.debug("Stdout: {0}".format(stdout.decode('utf-8')))
+        logger.debug("Stderr: {0}".format(stderr.decode('utf-8')))
+        return stdout.decode('ascii').split('\n')
 
-        return spack
+    def _spack_path(self, value, environment=None):
+        logger.debug('Searching path of \'{}\''.format(value))
+        cache = self._get_cache('compilers')
+        if cache.cache is None:
+            cache.cache = {}
 
-    def _spack_path(self, value, environment):
-        spack = self._run_spack('find', '--paths', value,
+        if value in cache.cache:
+            logger.debug("Path found in cache {}".format(cache.cache[value]))
+            return cache.cache[value]
+        
+        stdout = self._run_spack('find', '--paths', value,
                                 environment=environment)
 
         path_re = re.compile('.*(({0}|{1}).*)$'.format(
@@ -316,10 +335,14 @@ class SpackEnvs(object):
             _absolute_path(self.configuration['spack_external'],
                            prefix=self.configuration['spack_root'])))
 
-        for line in spack.stdout:
-            match = path_re.match(line.decode('ascii'))
+        for line in stdout:
+            match = path_re.match(line)
             if match:
-                return match.group(1)
+                spack_path = match.group(1)
+                logger.debug("Path found match {}".format(spack_path))
+                cache.cache[value] = spack_path
+                cache.save()
+                return spack_path
 
         return None
 
@@ -337,18 +360,14 @@ class SpackEnvs(object):
         for env in environments:
             for _type in stack_types:
                 for name, stack in env[_type].items():
-                    if 'compiler' in stack and name in \
-                       customisation['environment']['compilers']:
+                    if 'compiler' in stack and name in env['compilers']:
                         compilers.append(self._compiler_name(
-                            stack['compiler'],
-                            customisation,
-                            stack=customisation['environment'][_type],
-                            core_compiler=customisation['environment']['core_compiler']))
+                            stack, env, stack_type=_type))
         return list(set(compilers))
 
     def status(self):
         if self.in_pr:
-            print("Running in a PR:\n - in prefix: {0}\n - in upstream: {1}".format(
+             print("Running in a PR:\n - in prefix: {0}\n - in upstream: {1}".format(
                 self.prefix, self.configuration['spack_root']))
         else:
             print("Running in deploy:\n - in prefix: {0}".format(self.prefix))
@@ -357,14 +376,12 @@ class SpackEnvs(object):
         if all:
             return self.environments
         envs = []
-        for env in self.environments:
-            customisation = self._get_env_customisation(env)
-            if ((cloud is None
-                and 'cloud' not in customisation['environment'])
-                or (cloud is not None
-                    and ('cloud' in customisation['environment']
-                         and customisation['environment']['cloud'] == cloud))):
-                envs.append(env)
+        for env_name in self.environments:
+            customisation = self._get_env_customisation(env_name)
+            env = customisation['environment']
+            if ((cloud is None and 'cloud' not in env)
+                 or (cloud is not None and ('cloud' in env and env['cloud'] == cloud))):
+                envs.append(env_name)
         return envs
 
     def write_envs(self, bootstrap=False):
@@ -627,19 +644,81 @@ class SpackEnvs(object):
             print('{0} was not specified in configuration'.format(entry))
 
 
+    def _compiler_component(self, value, component,
+                            environment, stack_type=None, prefix=None):   
+        _components = COMPILERS_COMPONENTS[value]
+        bindir = None
+        libdir = None
+
+        logger.debug(
+            'Compiler component {} for compiler {} [stack_type={}, prefix={}]'.format(
+                component, value, stack_type, prefix))
+
+        if stack_type is not None:
+            stack = environment[stack_type][value]
+
+        if prefix is None:
+            if 'compiler_prefix' not in stack:
+                prefix = self._spack_path(
+                    self._compiler_name(value, environment, stack_type=stack_type))
+            else:
+                prefix = stack['compiler_prefix']
+
+        if value == 'intel':
+            if 'external' not in stack or not stack['external']:
+                prefix = _components['prefix'].format(
+                    stack['compiler_prefix'], stack['suite_version'])
+            bindir = os.path.join(prefix, 'bin/intel64')
+            libdir = os.path.join(prefix, 'compiler/lib/intel64_lin')
+        elif value == "nvhpc":
+            prefix = _components['prefix'].format(
+                stack['compiler_prefix'], stack['version'])
+        elif value == 'clang':
+            core_compiler_prefix = self._spack_path(stack['core_compiler'])
+            cc_libdir = os.path.join(core_compiler_prefix, 'lib64')
+
+            core_compiler = _regex_replace(
+                _filter_variant(stack['core_compiler']), '@[.0-9]*', '')
+            if component in ['f77', 'f90']:
+                return self._compiler_component(core_compiler, component,
+                                                environment,
+                                                prefix=core_compiler_prefix)
+            libdir = [cc_libdir]
+        else:
+            libdir = os.path.join(prefix, 'lib64')
+
+        # default bindir and libdir
+        if bindir is None:
+            bindir = os.path.join(prefix, 'bin')
+        if libdir is None:
+            libdir = os.path.join(prefix, 'lib')
+
+        if component == 'prefix':
+            return prefix
+        elif component == 'libdir':
+            return libdir
+        elif component == 'bindir':
+            return bindir
+
+        return os.path.join(bindir, _components[component])
+    
+
 @click.group()
 @click.option(
     '--input', default='humagne.yaml', type=click.File('r'),
     help='YAML file containing the specification for a production environment')
 @click.option('--prefix', default=None,
               help='Prefix of the whole installation')
+@click.option('--debug', default=False, is_flag=True)
 @click.pass_context
-def senv(ctx, input, prefix):
+def senv(ctx, input, prefix, debug):
     """This command helps with common tasks needed in the SCITAS-EPFL
     continuous integration pipeline"""
     ctx.input = input
     ctx.configuration = yaml.load(input, Loader=yaml.FullLoader)
     ctx.prefix = prefix
+    if debug:
+        logger.setLevel(logging.DEBUG)
     
 @senv.command()
 @click.pass_context

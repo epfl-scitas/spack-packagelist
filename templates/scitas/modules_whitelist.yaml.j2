@@ -3,7 +3,7 @@
   {% for type in environment.stack_types %}
     {% for compiler, stack in environment[type].items() %}
       {% if 'compiler' in stack %}
-- cuda % {{ stack.compiler | filter_variant }}
+- cuda % {{ stack.compiler | filter_variant | filter_compiler_name }}
       {% endif %}
     {% endfor %}
   {% endfor %}

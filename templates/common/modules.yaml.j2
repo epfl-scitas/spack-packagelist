@@ -6,13 +6,22 @@ modules:
     hash_length: 0
     core_compilers:
       - {{ environment.core_compiler | filter_variant }}
+{% if not environment.bootstrap %}
+  {% for _type in environment.stack_types %}
+    {% for _compiler, stack in environment[_type].items() %}
+      {% if _compiler in environment.compilers  and 'core_compiler' in stack %}
+      - {{ stack.core_compiler }}
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+{% endif %}
+
     hierarchy:
       - mpi
     all:
       suffixes:
         {% filter indent(width=8, indentfirst=True) %}
         {% include 'templates/common/modules_suffixes.yaml.j2' %}
-
         {% include 'templates/{{ site }}/modules_suffixes.yaml.j2' ignore missing %}
         {% endfilter %}
           
@@ -25,17 +34,24 @@ modules:
         environment_blacklist: []
 
     {% set spack_site_whitelist = 'templates/' + site + '/modules_whitelist.yaml.j2' %}
-    {% if spack_site_whitelist | exists %}
     whitelist:
       {% filter indent(width=6, indentfirst=True) %}
       {% include 'templates/common/modules_whitelist.yaml.j2' %}
       {% include spack_site_whitelist ignore missing %}
       {% endfilter %}
-    {% endif %}
 
     {% set spack_site_blacklist = 'templates/' + site + '/modules_blacklist.yaml.j2' %}
     {% if spack_site_blacklist | exists %}
     blacklist:
+{% if not environment.bootstrap %}
+  {% for _type in environment.stack_types %}
+    {% for _compiler, stack in environment[_type].items() %}
+      {% if _compiler in environment.compilers  and 'core_compiler' in stack %}
+      - {{ stack.core_compiler }}
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+{% endif %}
       {% filter indent(width=6, indentfirst=True) %}
       {% include spack_site_blacklist %}
       {% endfilter %}

@@ -24,10 +24,17 @@ spack:
     - core_compiler: {{ environment.core_compiler | list_if_not }}
 {% for type in environment.stack_types %}
   {% for compiler, stack in environment[type].items() %}
-    {% if compiler in environment.compilers %}
-    - {{compiler}}_{{type}}_compiler: {{ stack.compiler | list_if_not | filter_variant }}
+    {% if compiler in environment.compilers  %}
+    - {{compiler}}_{{type}}_compiler: {{ stack.compiler | list_if_not | filter_variant | filter_compiler_name }}
+    - {{compiler}}_{{type}}_compiler_full: {{ stack.compiler | list_if_not }}
     - {{compiler}}_{{type}}_mpi: {{ stack.mpi | list_if_not }}
     - {{compiler}}_{{type}}_blas: {{ stack.blas | list_if_not }}
+    - {{compiler}}_{{type}}_core_compiler:
+    {% if 'core_compiler' in environment[type][compiler] %}
+      - {{ environment[type][compiler].core_compiler }}
+    {% else %}
+      - {{ environment.core_compiler }}
+    {% endif %}
 
     - {{compiler}}_{{type}}_base_stack:
         - ${{compiler}}_{{type}}_blas
@@ -61,14 +68,16 @@ spack:
     - [$%core_compiler]
 
 {% for type in environment.stack_types %}
-  {% for compiler in environment.compilers %}
+  {% for compiler, stack in environment[type].items() %}
+    {% if compiler in environment.compilers  %}
   # {{type}} base compilers
   - matrix:
-    - [${{compiler}}_{{type}}_compiler]
+    - [${{compiler}}_{{type}}_compiler_full]
     {% if environment.gpu == 'nvidia' %}
     - [^{{environment[type].cuda.package }}]
     {% endif %}
-    - [$%core_compiler]
+    - [$%{{compiler}}_{{type}}_core_compiler]
+    {%endif%}
   {% endfor %}
 {% endfor %}
 
@@ -186,12 +195,12 @@ spack:
 {% endfor %}
 
 {% set matrix_site_template = 'templates/' + site + '/matrix.yaml.j2' %}
-{% if matrix_site_template | exists %}
-{% filter indent(width=2, first=True) %}
+  {% if matrix_site_template | exists %}
+  {% filter indent(width=2, first=True) %}
   {% include matrix_site_template %}
-{% endfilter %}
+  {% endfilter %}
+  {% endif %}
 {% endif %}
-#
-{% endif %}
+
 
   view: false
