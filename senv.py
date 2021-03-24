@@ -296,8 +296,9 @@ class SpackEnvs(object):
 
         return '{0} %{1}'.format(compiler_, core_compiler)
 
-    def _run_spack(self, *args, environment=None, **kwargs):
+    def _run_spack(self, *args, **kwargs):
         no_wait = kwargs.pop('no_wait', False)
+        environment = kwargs.pop('environment', None)
         options = { 'stdout': subprocess.PIPE,
                     'stderr': subprocess.PIPE }
         if environment is not None:
