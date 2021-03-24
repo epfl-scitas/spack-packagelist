@@ -82,14 +82,14 @@ skylake_avx512_v100:
       package: "cuda@10.2.89"
       arch: "sm_70"
     nvhpc:
-      compiler: "nvhpc~mpi+blas"
-      blas: "nvhpc~mpi+blas"
-      mpi: [openmpi +cuda +thread_multiple +pmi fabrics=auto schedulers=slurm +legacylaunchers]
-      version: "20.9"
+      compiler: "nvhpc@21.2+mpi+blas"
+      blas: "nvhpc@21.2+mpi+blas"
+      mpi: nvhpc@21.2+mpi+blas
+      version: "21.2"
 
   bleeding_edge:
     cuda:
-      package: "cuda@11.0.2"
+      package: "cuda@10.1.243"
       arch: "sm_70"
     clang:
       core_compiler: gcc@6.4.0 arch=linux-rhel7-sandybridge
