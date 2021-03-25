@@ -278,7 +278,8 @@ class SpackEnvs(object):
                 spec_compiler = self._compiler_name(
                     stack, env, stack_type=_type)
 
-                spack_path = self._spack_path(spec_compiler, environment=environment)
+                spack_path = self._compiler_component(compiler, "prefix", env,
+                                                      stack_type=_type)
 
                 if spack_path is not None:
                     env[_type][compiler]['compiler_prefix'] = spack_path
@@ -320,9 +321,11 @@ class SpackEnvs(object):
         command = [os.path.join(self.spack_source_root, 'bin', 'spack')]
         command.extend(args)
 
+        logger.debug("Running command: {0} (with env {1})".format(
+            ' '.join(command), options['env'] if 'env' in options else {}))
+        
         spack = subprocess.Popen(command, **options)
         stdout, stderr = spack.communicate()
-        logger.debug("Running command: {0}".format(command))
         logger.debug("Stdout: {0}".format(stdout.decode('utf-8')))
         logger.debug("Stderr: {0}".format(stderr.decode('utf-8')))
         return stdout.decode('ascii').split('\n')
@@ -354,6 +357,7 @@ class SpackEnvs(object):
                 cache.save()
                 return spack_path
 
+        logger.info("No path found for {}".format(value))
         return None
 
     def compilers(self, environment, stack_type=None, all=False):
@@ -654,7 +658,8 @@ class SpackEnvs(object):
 
 
     def _compiler_component(self, value, component,
-                            environment, stack_type=None, prefix=None):   
+                            environment, stack_type=None, prefix=None):
+        """Get the specified component of a compiler defined as a name and a stack"""
         _components = COMPILERS_COMPONENTS[value]
         bindir = None
         libdir = None
@@ -669,7 +674,8 @@ class SpackEnvs(object):
         if prefix is None:
             if 'compiler_prefix' not in stack:
                 prefix = self._spack_path(
-                    self._compiler_name(value, environment, stack_type=stack_type))
+                    self._compiler_name(stack, environment, stack_type=stack_type))
+                stack['compiler_prefix'] = prefix
             else:
                 prefix = stack['compiler_prefix']
 
