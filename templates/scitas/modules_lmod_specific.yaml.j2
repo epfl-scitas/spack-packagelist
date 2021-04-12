@@ -33,6 +33,17 @@
 '^cuda':
   autoload: direct
 
+nvhpc
+  environment:
+    set:
+      CC:  nvc
+      CXX: nc++
+      F77: nvfortran
+      FC:  nvfortran
+      F90: nvfortran
+      SLURM_MPI_TYPE: pmix
+      OMPI_MCA_btl_openib_warn_default_gid_prefix: '0'
+
 ################
 # MPI
 ################
