@@ -69,15 +69,17 @@ def _absolute_path(value, prefix=None):
     return os.path.join(prefix, value)
 
 def _filter_variant(value):
-    variant = re.compile('[ +~^][^+~\^@]+')
+    variant = re.compile('([ +~][^ %+~@]+)*([ ^%][^ ^%]+)*')
     if isinstance(value, str):
         return variant.sub("", value).strip()
     return [ variant.sub("", v).strip() for v in value ]
 
 def _version(value):
-    value = _filter_variant(value)
+    filtered_value = _filter_variant(value)
+    logger.debug("Trying to extract version of {} [{}]".format(
+        filtered_value, value))
     version_re = re.compile('@([^+~\^@]+)')
-    match = version_re.match(value)
+    match = version_re.match(filtered_value)
     if match:
         return match.group(1)
     return None
@@ -670,11 +672,16 @@ class SpackEnvs(object):
 
         if stack_type is not None:
             stack = environment[stack_type][value]
+        else:
+            stack = {}
+
+        if stack:
+            compiler_spec = self._compiler_name(stack, environment, stack_type=stack_type)
+            logger.debug("Compiler spec: {}".format(compiler_spec))
 
         if prefix is None:
             if 'compiler_prefix' not in stack:
-                prefix = self._spack_path(
-                    self._compiler_name(stack, environment, stack_type=stack_type))
+                prefix = self._spack_path(compiler_spec)
                 stack['compiler_prefix'] = prefix
             else:
                 prefix = stack['compiler_prefix']
@@ -687,13 +694,13 @@ class SpackEnvs(object):
             libdir = os.path.join(prefix, 'compiler/lib/intel64_lin')
         elif value == "nvhpc":
             prefix = _components['prefix'].format(
-                stack['compiler_prefix'], stack['version'])
+                stack['compiler_prefix'], _version(compiler_spec))
         elif value == 'clang':
             core_compiler_prefix = self._spack_path(stack['core_compiler'])
             cc_libdir = os.path.join(core_compiler_prefix, 'lib64')
 
             core_compiler = _regex_replace(
-                _filter_variant(stack['core_compiler']), '@[.0-9]*', '')
+                _filter_variant(stack['core_compiler']), '[@+~^][.0-9]*', '')
             if component in ['f77', 'f90']:
                 return self._compiler_component(core_compiler, component,
                                                 environment,
@@ -714,6 +721,8 @@ class SpackEnvs(object):
             return libdir
         elif component == 'bindir':
             return bindir
+        elif component == 'spec':
+            return compiler_spec
 
         return os.path.join(bindir, _components[component])
     
