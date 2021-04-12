@@ -697,12 +697,18 @@ class SpackEnvs(object):
                     compiler_spec))
             return None
 
+        if component == 'prefix':
+            return prefix
+
         if value == 'intel':
+            logger.debug("INTEL PREFIX {}".format(prefix))
+
             if 'external' not in stack or not stack['external']:
                 prefix = _components['prefix'].format(
                     stack['compiler_prefix'], stack['suite_version'])
             bindir = os.path.join(prefix, 'bin/intel64')
             libdir = os.path.join(prefix, 'compiler/lib/intel64_lin')
+            logger.debug("INTEL BINDIR {}".format(bindir))
         elif value == "nvhpc":
             prefix = _components['prefix'].format(
                 stack['compiler_prefix'], _version(compiler_spec))
@@ -726,9 +732,7 @@ class SpackEnvs(object):
         if libdir is None:
             libdir = os.path.join(prefix, 'lib')
 
-        if component == 'prefix':
-            return prefix
-        elif component == 'libdir':
+        if component == 'libdir':
             return libdir
         elif component == 'bindir':
             return bindir
