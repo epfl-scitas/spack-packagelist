@@ -393,6 +393,8 @@ class SpackEnvs(object):
             return self.environments
         envs = []
         for env_name in self.environments:
+            logger.debug(
+                "Getting env custimuization for env {}".format(env_name))
             customisation = self._get_env_customisation(env_name)
             env = customisation['environment']
             if ((cloud is None and 'cloud' not in env)
@@ -676,7 +678,9 @@ class SpackEnvs(object):
             stack = {}
 
         if stack:
-            compiler_spec = self._compiler_name(stack, environment, stack_type=stack_type)
+            compiler_spec = self._compiler_name(stack,
+                                                environment,
+                                                stack_type=stack_type)
             logger.debug("Compiler spec: {}".format(compiler_spec))
 
         if prefix is None:
@@ -685,6 +689,13 @@ class SpackEnvs(object):
                 stack['compiler_prefix'] = prefix
             else:
                 prefix = stack['compiler_prefix']
+
+        if prefix is None:
+            logger.warning(
+                "No prefix found for {},"
+                " this coupiler must not be installed on this machine".format(
+                    compiler_spec))
+            return None
 
         if value == 'intel':
             if 'external' not in stack or not stack['external']:
