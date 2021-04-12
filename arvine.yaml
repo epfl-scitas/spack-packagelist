@@ -86,7 +86,7 @@ default_environment:
 izar:
   gpu: nvidia
 
-  compilers: [gcc, intel, nvhpc]
+  compilers: [gcc, intel]
 
   stable:
     gcc:
@@ -108,10 +108,11 @@ izar:
        package: "cuda@11.0.2"
        arch: "sm_70"
 
-     nvhpc:
-       compiler: "nvhpc@21.2+blas+lapack+mpi"
-       blas: "nvhpc@21.2+blas+lapack+mpi"
-       mpi: "nvhpc@21.2+blas+lapack+mpi"
+     # cannot use it as a compiler
+     # nvhpc:
+     #   compiler: "nvhpc@21.2+blas+lapack+mpi"
+     #   blas: "nvhpc@21.2+blas+lapack+mpi"
+     #   mpi: "nvhpc@21.2+blas+lapack+mpi"
 
 gcp-c2:
   os: centos7.9

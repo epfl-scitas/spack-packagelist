@@ -28,6 +28,11 @@
   - tar
   - tmux
   - trimmomatic
+  {% if environment.gpu == 'nvidia' %}
+  # hack to install nvhpc without having a full stack
+  - nvhpc@20.9+mpi+blas+lapack
+  - nvhpc@21.2+mpi+blas+lapack
+  {% endif %}
 
 - serial_packages:
   - angsd
@@ -70,8 +75,6 @@
   - cuda@10.0.130
   - cuda@10.1.243
   - cuda@11.0.2
-  # hack to install nvhpc without having a full stack
-  - nvhpc@20.9+mpi+blas+lapack
   {% endif %}
 
 - gcc_serial_packages:
