@@ -14,13 +14,11 @@ spack_external: external
 
 # List of the environments to be managed
 environments:
-#  - "deneb"
-#  - "eltanin"
-#  - "fidis"
-#  - "gacrux"
-#  - "helvetios"
+  - "fidis"
+  - "gacrux"
+#  - "helvetios" == "gacrux"
   - "izar"
-  - "gcp-c2"
+#  - "gcp-c2"
 
 mirrors:
   local: spack-mirror
