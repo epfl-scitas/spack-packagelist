@@ -8,7 +8,7 @@ set -euo pipefail
 #
 
 environment=$(echo $NODE_LABELS | cut -d '-' -f 1)
-echo "Environment "$environment"
+echo "Environment $environment"
 
 # Produce a valid list of compilers
 set +u
