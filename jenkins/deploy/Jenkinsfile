@@ -145,6 +145,10 @@ def _define_stages(prefix, script, message, do_junit = true) {
                     checkout scm
                     try {
                         ansiColor('xterm') {
+                            sh 'env'
+                        }
+
+                        ansiColor('xterm') {
                             sh '${script} ${environment}'
                         }
                     } catch(error) {
