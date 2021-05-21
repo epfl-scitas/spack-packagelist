@@ -7,7 +7,7 @@ set -euo pipefail
 # SPACK_CHECKOUT_DIR: path where Spack was cloned
 #
 
-environment=$(echo $NODE_LABELS | cut -f '-' -d 1)
+environment=$(echo $NODE_LABELS | cut -d '-' -f 1)
 echo "Environment "$environment"
 
 # Produce a valid list of compilers
