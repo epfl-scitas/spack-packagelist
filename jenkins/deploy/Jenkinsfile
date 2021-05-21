@@ -141,7 +141,6 @@ def _define_stages(prefix, script, message, do_junit = true) {
                 node(agent_name) {
                     env.environment = environment
                     def result = ''
-                    def error
                     checkout scm
                     try {
                         ansiColor('xterm') {
