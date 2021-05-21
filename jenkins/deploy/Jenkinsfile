@@ -133,7 +133,7 @@ def _define_stages(prefix, script, message, do_junit = true) {
     def environments = "${sh (script: 'jenkins/senv.sh --input ${STACK_RELEASE}.yaml list-envs', returnStdout: true).trim()}".split('\n')
 
     def jobs = [:]
-    for (def environment in environments) {
+    for (environment in environments) {
         def agent_name = get_agent_name(environment)
 
         jobs["${prefix}-${agent_name}"] = {
