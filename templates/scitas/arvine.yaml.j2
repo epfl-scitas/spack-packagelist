@@ -418,13 +418,13 @@
     ^py-h5py
     ^hdf5+szip+mpi+hl+fortran+cxx
   {% endif %}
-  - opencv {{ cuda_variant(environment) }}
+  - opencv +vtk+contrib {{ cuda_variant(environment) }}
     ^vtk+ffmpeg+mpi+opengl2+python~qt+xdmf{%+ if environment.gpu != 'nvidia' %}+osmesa{%+ endif %}
-    ^cairo+png+pdf+fc+ft
     ^netcdf-c+mpi
     ^hdf5+szip+mpi+hl+fortran+cxx
     ^boost cxxstd=14 +icu+mpi+python+numpy
     ^llvm {{cuda_variant(environment)}}
+    #^cairo+png+pdf+fc+ft
   - slepc+arpack
     ^arpack-ng+mpi
     ^petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse{{ cuda_variant(environment, arch=False) }}
