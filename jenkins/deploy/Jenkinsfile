@@ -140,7 +140,7 @@ def _define_stages(prefix, script, message, do_junit = true) {
             stage("${prefix}-${agent_name}") {
                 node(agent_name) {
                     env.environment = environment
-                    env.script = script
+                    env.scripts = script
                     def result = ''
                     checkout scm
                     try {
@@ -164,9 +164,9 @@ def _define_stages(prefix, script, message, do_junit = true) {
                     }
                 }
             }
-
-
-            return}} jobs
+        }
+    }
+    return jobs
 }
 
 def prepare_compilers() {
