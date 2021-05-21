@@ -17,7 +17,7 @@ environments:
 #  - "fidis"
   - "gacrux"
 #  - "helvetios" == "gacrux"
-#  - "izar"
+  - "izar"
 #  - "gcp-c2"
 
 mirrors:
