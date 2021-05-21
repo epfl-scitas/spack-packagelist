@@ -140,12 +140,12 @@ def _define_stages(prefix, script, message, do_junit = true) {
             stage("${prefix}-${agent_name}") {
                 node(agent_name) {
                     env.environment = environment
-                    env.scripts = script
+                    env.script = script
                     def result = ''
                     checkout scm
                     try {
                         ansiColor('xterm') {
-                            sh  '${script} ${environment}'
+                            sh '${script} ${environment}'
                         }
                     } catch(error) {
                         result = error
