@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-environment=$1 
+environment=$(echo $NODE_LABELS | cut -d '-' -f 1)
+echo "Environment $environment"
 
 set +u
 . ${SENV_VIRTUALENV_PATH}/bin/activate

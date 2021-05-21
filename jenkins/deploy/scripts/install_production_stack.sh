@@ -6,7 +6,8 @@ set -euo pipefail
 # SENV_VIRTUALENV_PATH: path where to find the virtualenv for "senv"
 #
 
-environment=$1
+environment=$(echo $NODE_LABELS | cut -d '-' -f 1)
+echo "Environment $environment"
 
 set +e
 rm -f stack.${environment}.xml
