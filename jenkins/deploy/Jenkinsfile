@@ -130,25 +130,24 @@ def get_agent_name(environment) {
 }
 
 def _define_stages(prefix, script, message, do_junit = true) {
-    environments = "${sh (script: 'jenkins/senv.sh --input ${STACK_RELEASE}.yaml list-envs', returnStdout: true).trim()}".split('\n')
+    def environments = "${sh (script: 'jenkins/senv.sh --input ${STACK_RELEASE}.yaml list-envs', returnStdout: true).trim()}".split('\n')
 
-    env.script = script
     def jobs = [:]
-    for (environment in environments) {
-        env.environment = environment
-        agent_name = get_agent_name(environment)
+    for (def environment in environments) {
+        def agent_name = get_agent_name(environment)
 
         jobs["${prefix}-${agent_name}"] = {
             stage("${prefix}-${agent_name}") {
                 node(agent_name) {
-                    result = ''
+                    env.environment = environment
+                    def result = ''
                     checkout scm
                     try {
                         ansiColor('xterm') {
                             sh  '${script} ${environment}'
                         }
                     } catch(error) {
-                        result = error
+                        def result = error
                         currentBuild.result = 'FAILURE'
                         mattermostSend color: 'warning',
                             message: "${message} failed for ${environment}. ${env.BUILD_URL} with error ${error}"
