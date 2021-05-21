@@ -141,13 +141,14 @@ def _define_stages(prefix, script, message, do_junit = true) {
                 node(agent_name) {
                     env.environment = environment
                     def result = ''
+                    def error
                     checkout scm
                     try {
                         ansiColor('xterm') {
                             sh  '${script} ${environment}'
                         }
                     } catch(error) {
-                        def result = error
+                        result = error
                         currentBuild.result = 'FAILURE'
                         mattermostSend color: 'warning',
                             message: "${message} failed for ${environment}. ${env.BUILD_URL} with error ${error}"
