@@ -278,10 +278,11 @@
 {% if not 'cloud' in environment %}
   - cpmd~openmp
     ^fftw+mpi~openmp
-  #depends on tbb but not expressed in the package
-  - relion {{ cuda_variant(environment, extra_on='+double-gpu') }}
+  {% if environment.gpu == 'nvidia' %}
+  - relion ~mklfft {{ cuda_variant(environment, extra_on='+double-gpu') }}
     ^fftw+mpi~openmp
-  - relion {{ cuda_variant(environment) }}
+  {% endif %}
+  - relion ~mklfft {{ cuda_variant(environment) }}
     ^fftw+mpi~openmp
 {% endif %}
 
@@ -456,6 +457,9 @@
   - vasp {{ cuda_variant(environment) }}
   {% if environment.gpu == 'nvidia' %}
     ^magma {{ cuda_variant(environment) }}
+  {% endif %}
+  {% if not 'gpu' in environment %}
+  - relion +mklfft
   {% endif %}
 {% endif %}
   - yambo+mpi io=iotk,etsf-io
