@@ -62,6 +62,7 @@ openssl:
   paths:
     openssl@develop: /usr
 
+{% if not global_package is defined %}
 jdk:
   buildable: False
   paths:
@@ -73,7 +74,6 @@ jdk:
     jdk@1.8.0_242-b08: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.el7_7.x86_64
     jdk@1.8.0_222-b10: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64
 {% endif %}
-{% if not global_package is defined %}
   {% if environment.os == 'rhel7.7' %}
   version: [1.8.0_242-b08]
   {% elif environment.os == 'rhel7.6' %}
@@ -89,10 +89,8 @@ slurm:
 {% if 'cloud' in environment and environment.cloud == 'gcp' %}
     slurm@ {{environment.slurm}}: /apps/slurm/slurm-{{environment.slurm}}
 {% else %}
-    slurm@20.02.5: /usr
-    slurm@19.05.3-2: /usr
+    slurm@{{environment.slurm}}: /usr
 {% endif %}
-{% if not global_package is defined %}
   version: [{{environment.slurm}}]
 {% endif %}
 ####
