@@ -66,14 +66,14 @@ openssl:
 jdk:
   buildable: False
   paths:
-{% if 'cloud' in environment and environment.cloud == 'gcp' %}
-  {% if environment.os == 'centos7.9' %}
+  {% if 'cloud' in environment and environment.cloud == 'gcp' %}
+    {% if environment.os == 'centos7.9' %}
     jdk@1.8.0_272-b10: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64
-  {% endif %}
-{% else %}
+    {% endif %}
+  {% else %}
     jdk@1.8.0_242-b08: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.el7_7.x86_64
     jdk@1.8.0_222-b10: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64
-{% endif %}
+  {% endif %}
   {% if environment.os == 'rhel7.7' %}
   version: [1.8.0_242-b08]
   {% elif environment.os == 'rhel7.6' %}
@@ -81,16 +81,15 @@ jdk:
   {% elif environment.os == 'centos7.9' %}
   version: [1.8.0_272-b10]
   {% endif %}
-{% endif %}
 
 slurm:
   buildable: False
   paths:
-{% if 'cloud' in environment and environment.cloud == 'gcp' %}
+  {% if 'cloud' in environment and environment.cloud == 'gcp' %}
     slurm@ {{environment.slurm}}: /apps/slurm/slurm-{{environment.slurm}}
-{% else %}
+  {% else %}
     slurm@{{environment.slurm}}: /usr
-{% endif %}
+  {% endif %}
   version: [{{environment.slurm}}]
 {% endif %}
 ####
