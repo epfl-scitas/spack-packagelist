@@ -459,7 +459,7 @@
     ^magma {{ cuda_variant(environment) }}
   {% endif %}
   {% if not 'gpu' in environment %}
-  - relion +mklfft
+  - relion +mklfft ~cuda
   {% endif %}
 {% endif %}
   - yambo+mpi io=iotk,etsf-io
