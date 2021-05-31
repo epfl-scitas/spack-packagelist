@@ -212,6 +212,13 @@ py-torch:
 py-torchvision:
   autoload: direct
 
+# https://bitbucket.org/mpi4py/mpi4py/issues/160/bad-termination-when-running-on-xsede
+# MPI4PY uses MPI_THREAD_MULTIPLE in the MPI_Init_thread
+'py-mpi4py^mvapich2':
+  environment:
+    set:
+      MV2_ENABLE_AFFINITY=0
+
 quantum-espresso:
   suffixes:
     'hdf5=parallel': hdf5
