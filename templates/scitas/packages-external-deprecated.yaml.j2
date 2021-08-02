@@ -1,0 +1,109 @@
+{% if not 'cloud' in environment %}
+{% set spack_external_root = spack_external | absolute_path(prefix=spack_root) %}
+####
+# Third party software
+####
+abaqus:
+  buildable: False
+  paths:
+    abaqus@6.14-1%intel@18.0.5: {{ spack_external_root }}/abaqus/6.14-1
+
+adf:
+  buildable: False
+  paths:
+    adf@2017.111 %{{environment.core_compiler}}: {{ spack_external_root }}/adf/adf2017.111
+
+ansys:
+  buildable: False
+  paths:
+    ansys@17.1%{{environment.core_compiler}}: {{ spack_external_root }}/ansys/17.1/v171
+    ansys@19.2%{{environment.core_compiler}}: {{ spack_external_root }}/ansys/19.2/v192
+
+cfdplusplus:
+  buildable: False
+  paths:
+    cfdplusplus@16.1%{{environment.core_compiler}}: {{ spack_external_root }}/CFD++/2016.05
+    cfdplusplus@19.1%{{environment.core_compiler}}: {{ spack_external_root }}/CFD++/19.1
+
+comsol:
+  buildable: False
+  paths:
+    comsol@5.3 %{{environment.core_compiler}}: {{ spack_external_root }}/comsol/5.3
+    comsol@5.4 %{{environment.core_compiler}}: {{ spack_external_root }}/comsol/5.4
+
+fdtd:
+  buildable: False
+  paths:
+    fdtd@8.20.1703 %{{environment.core_compiler}}: {{ spack_external_root }}/fdtd/8.20.1703
+    fdtd@8.19.1416-1 %{{environment.core_compiler}}: {{ spack_external_root }}/fdtd/8.19.1416-1
+    # installed due to segfault with other versions INC0204566
+    fdtd@8.12.527 %{{environment.core_compiler}}: {{ spack_external_root }}/fdtd/8.12.527
+
+likwid:
+  buildable: False
+  paths:
+    likwid@4.3.0 %{{environment.core_compiler}}: {{ spack_external_root }}/LIKWID/4.3.0
+
+gurobi:
+  buildable: False
+  paths:
+    gurobi@8.1.1%{{environment.core_compiler}}: {{ spack_external_root }}/gurobi/8.1.1
+
+gaussian:
+  buildable: False
+  paths:
+    gaussian@g16-A.03 %{{environment.core_compiler}}: {{ spack_external_root }}/gaussian/g16-A.03
+    gaussian@g16-C.01 %{{environment.core_compiler}}: {{ spack_external_root }}/gaussian/g16-C.01
+
+intel-vtune:
+  buildable: False
+  paths:
+    intel-vtune@2019.6.0.602217 %{{environment.core_compiler}}:  {{ spack_external_root }}/intel/2019.5/vtune_amplifier_2019.6.0.602217
+
+intel-advisor:
+  buildable: False
+  paths:
+    intel-advisor@2019.5.0.602216 %{{environment.core_compiler}}:  {{ spack_external_root }}/intel/2019.5/advisor_2019.5.0.602216
+
+matlab:
+  buildable: False
+  paths:
+    matlab@R2018a %{{environment.core_compiler}}: {{ spack_external_root }}/MATLAB/R2018a
+    matlab@R2019b %{{environment.core_compiler}}: {{ spack_external_root }}/MATLAB/R2019b
+
+maple:
+  buildable: False
+  paths:
+    maple@2017 %{{environment.core_compiler}}: {{ spack_external_root }}/Maple/2017
+
+mathematica:
+  buildable: False
+  paths:
+    mathematica@9.0.1 %{{environment.core_compiler}}: {{ spack_external_root }}/Mathematica/9.0.1
+    mathematica@11.1.1 %{{environment.core_compiler}}: {{ spack_external_root }}/Mathematica/11.1.1
+
+smr:
+  buildable: False
+  paths:
+    smr@2017.06 %{{environment.core_compiler}}: {{ spack_external_root }}/SMR/2017.06
+
+totalview:
+  buildable: False
+  paths:
+    totalview@2017.2.11 %{{environment.core_compiler}}: {{ spack_external_root }}/toolworks/totalview.2017.2.11
+
+crystal17:
+  permissions:
+    read: group
+    group: crystal-soft
+
+molpro:
+  permissions:
+    read: group
+    group: molpro-soft
+
+vasp:
+  permissions:
+    read: group
+    group: vasp-soft
+{% endif %}

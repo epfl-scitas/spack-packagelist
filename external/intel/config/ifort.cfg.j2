@@ -1,5 +1,13 @@
 {% set prefix = intel.compiler_prefix +  '/compilers_and_libraries_' + intel.suite_version + '/linux' %}
+{%- if stack_release == 'arvine' %}
 -gcc-name={{ gcc.compiler_prefix }}/bin/gcc #
+-Xlinker -rpath={{ gcc.compiler_prefix }}/lib64 #
+{%- else %}
+  {%- if 'core_compiler_prefix' in intel %}
+-gcc-name={{ intel.core_compiler_prefix  }}/bin/gcc #
+-Xlinker -rpath={{ intel.core_compiler_prefix }}/lib64 #
+  {%- endif %}
+{%- endif %}
 -isystem{{prefix}}/compiler/include/intel64 #
 -isystem{{prefix}}/compiler/include/icc #
 -isystem{{prefix}}/compiler/include #
@@ -8,4 +16,3 @@
 -Xlinker -rpath={{prefix}}/compiler/lib/intel64 #
 -Xlinker -rpath={{prefix}}/compiler/lib/intel64_lin #
 -Xlinker -rpath={{prefix}}/mpi/intel64/libfabric/lib/ #
--Xlinker -rpath={{ gcc.compiler_prefix }}/lib64 #

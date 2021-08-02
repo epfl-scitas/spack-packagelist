@@ -1,0 +1,124 @@
+- gcc_python3:
+  - python@{{ environment.python.3 }} +optimizations+tkinter
+- intel_python3:
+  - python@{{ environment.python.3 }} +optimizations+tkinter
+    ^freetype@2.7.1 ^fontconfig@2.12.1
+- oneapi_python3:
+  - python@{{ environment.python.3 }} +optimizations+tkinter
+    ^freetype@2.7.1
+    ^fontconfig@2.12.1
+
+- gcc_python2:
+  - python@{{ environment.python.2 }}+tkinter
+- intel_python2:
+  - python@{{ environment.python.2 }}+tkinter
+    ^freetype@2.7.1
+    ^fontconfig@2.12.1
+- oneapi_python2:
+  - python@{{ environment.python.2 }}+tkinter
+    ^freetype@2.7.1
+    ^fontconfig@2.12.1
+
+- core_packages:
+  - cmake@3.16.5
+  - git
+  - autoconf
+  - automake
+  - curl
+  - fastqc
+  - git-lfs
+  - i7z
+  - libtool
+  - lmod
+  - m4
+  - parallel
+  - picard
+  - sbt
+  - sratoolkit
+  - tar
+  - tmux
+  - trimmomatic
+
+- serial_packages: []
+
+- serial_packages_lapack: []
+
+- serial_packages_python: []
+
+- serial_python2_minimal_support: []
+
+{% if not 'cloud' in environment %}
+- external_packages: []
+{% endif %}
+
+- intel_external_packages: []
+
+- gcc_external_packages: []
+
+- mpi_packages: []
+
+- mpi_lapack_packages: []
+
+- mpi_lapack_python_packages: []
+
+- gcc_serial_packages:
+  - fio
+      
+- gcc_serial_packages_lapack: []
+
+- gcc_serial_packages_python: []
+
+- gcc_mpi_packages: []
+
+- gcc_mpi_lapack_packages: []
+
+- gcc_mpi_lapack_python_packages: []
+
+- gcc_mpi_lapack_python2_packages: []
+
+- intel_serial_packages: []
+
+- intel_serial_packages_lapack: []
+
+- intel_serial_packages_python: []
+
+- intel_mpi_packages: []
+
+- intel_mpi_lapack_packages: []
+
+- intel_mpi_lapack_python_packages: []
+
+- intel_mpi_lapack_python2_packages: []
+
+- oneapi_serial_packages: []
+
+- oneapi_serial_packages_lapack: []
+
+- oneapi_serial_packages_python: []
+
+- oneapi_mpi_packages: []
+
+- oneapi_mpi_lapack_packages: []
+
+- oneapi_mpi_lapack_python_packages: []
+
+- oneapi_mpi_lapack_python2_packages: []
+
+- benchmarks:
+  - stream
+  - stream+openmp
+
+- mpi_benchmarks:
+  - hpl~openmp
+  - osu-micro-benchmarks
+  {% if not 'cloud' in environment %}
+  - hp2p
+  {% endif %}
+
+- bleeding_edge_serial_packages: []
+
+- gcc_bleeding_edge_serial_packages: []
+
+- intel_bleeding_edge_serial_packages: []
+
+- nvhpc_bleeding_edge_serial_packages: []

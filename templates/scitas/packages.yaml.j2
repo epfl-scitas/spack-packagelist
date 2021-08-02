@@ -11,3 +11,9 @@ all:
   providers:
     iconv: [libiconv]
 {% endif %}
+
+{% if stack_release == 'arvine' %}
+{% include 'templates/scitas/packages-external-deprecated.yaml.j2' | indent %}
+{% else %}
+{% include 'templates/scitas/packages-external.yaml.j2' | indent %}
+{% endif %}

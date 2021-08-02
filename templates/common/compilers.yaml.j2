@@ -4,13 +4,26 @@
   {% if stack_type != None %}
     {% set stack = environment[stack_type][_compiler] %}
   {% endif %}
+  {% set _is_installed =  _compiler | compiler_component('is_installed',  environment,
+     stack_type, prefix=prefix) %}
+  {% macro add_variable(var_name, compiler, component) -%}
+    {% set dirs = compiler | compiler_component(component, environment, stack_type, prefix=prefix) | list_if_not %}
+    {% for path in dirs %}
+        {{var_name}}: {{ path }}
+    {% endfor %}
+  {%- endmacro -%}
+  {% if _is_installed %}
 - compiler:
     spec: {{ compiler_w_version }}
     paths:
-      cc:  {{ _compiler | compiler_component('cc',  environment, stack_type, prefix=prefix) }}
-      cxx: {{ _compiler | compiler_component('c++', environment, stack_type, prefix=prefix) }}
-      f77: {{ _compiler | compiler_component('f77', environment, stack_type, prefix=prefix) }}
-      fc:  {{ _compiler | compiler_component('f90', environment, stack_type, prefix=prefix) }}
+      cc:  {{ _compiler | compiler_component('cc',  environment,
+              stack_type, prefix=prefix) }}
+      cxx: {{ _compiler | compiler_component('c++', environment,
+              stack_type, prefix=prefix) }}
+      f77: {{ _compiler | compiler_component('f77', environment,
+              stack_type, prefix=prefix) }}
+      fc:  {{ _compiler | compiler_component('f90', environment,
+              stack_type, prefix=prefix) }}
   {% if stack and 'compiler_cflags' in stack or 'compiler_cxxflags' in stack %}
     flags: 
       cflags: {{ stack.compiler_cflags }}
@@ -22,16 +35,17 @@
     target: x86_64
     modules: []
     environment:
+      {% if _compiler == 'intel' or _compiler == 'gcc' or _compiler == 'clang' or _compiler == 'oneapi' %}
       prepend_path:
-      {% if _compiler == 'intel' or _compiler == 'gcc' or _compiler == 'clang' %}
-        PATH: {{ _compiler | compiler_component('bindir', environment, stack_type, prefix=prefix) }}
-      {% set libdirs = _compiler | compiler_component('libdir', environment, stack_type, prefix=prefix) | list_if_not %}
-        {% for path in libdirs %}
-        LD_LIBRARY_PATH: {{ path }}
-        {% endfor %}
+{{ add_variable('PATH', _compiler,  'bindir') -}}
+{{ add_variable('LD_LIBRARY_PATH', _compiler,  'libdir') -}}
+        {% if _compiler == 'oneapi' %}
+{{ add_variable('CPATH', _compiler,  'incdir') -}}
+        {% endif %}
       {% endif %}
       unset: []
     extra_rpaths: []
+  {% endif %}
 {%- endmacro %}
 
 {{ compiler_entry(environment.core_compiler, environment, prefix='/usr') }}
@@ -43,7 +57,7 @@
 {{ compiler_entry(stack.compiler, environment, stack_type=_type) }}
       {% endif %}
       {% if 'core_compiler' in stack %}
-       	 {% set core_compiler_prefix = stack['core_compiler'] | spack_path %}
+        {% set core_compiler_prefix = stack['core_compiler'] | spack_path %}
 {{ compiler_entry(stack['core_compiler'], environment, prefix=core_compiler_prefix) }}
       {% endif %}
     {% endfor %}

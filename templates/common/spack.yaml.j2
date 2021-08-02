@@ -43,6 +43,7 @@ spack:
   {% endfor %}
 {% endfor %}
 
+{% if gpu in environment %}
     - base_gpu_packages:
       {% if environment.gpu == 'nvidia' %}
         {% for type in environment.stack_types %}
@@ -51,6 +52,7 @@ spack:
           {% endif %}
         {% endfor %}
       {% endif %}
+{% endif %}
 
 {% set definition_site_template = 'templates/' + site + '/' + stack_release + '.yaml.j2' %}
 {% set definition_site_env_template = 'templates/' + site + '/' + stack_release + '/' + environment.name + '.yaml.j2' %}
@@ -63,9 +65,11 @@ spack:
 {% endfilter %}
 
   specs:
+{% if gpu in environment %}
   - matrix:
     - [$base_gpu_packages]
     - [$%core_compiler]
+{% endif %}
 
 {% for type in environment.stack_types %}
   {% for compiler, stack in environment[type].items() %}

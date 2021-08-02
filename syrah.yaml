@@ -1,0 +1,84 @@
+#
+# Main stack definition for arvine
+#
+spack_release: 'develop'
+
+site: scitas
+
+stack_release: "syrah"
+stack_version: "v1"
+
+spack_root: /ssoft/spack
+spack_external: external
+
+# List of the environments to be managed
+environments:
+  - "fidis"
+  - "gacrux"
+  - "izar"
+#  - "gcp-c2"
+
+mirrors:
+  local: spack-mirror
+  restricted: spack-mirror-restricted
+
+extra_repos:
+  scitas-external:
+    repo: http://github.com/epfl-scitas/spack-repo-externals.git
+    path: scitas-repos-externals/
+    tag: releases/arvine
+  scitas-spack-packages:
+    repo: http://github.com/epfl-scitas/scitas-spack-packages.git
+    path: scitas-spack-packages/
+    tag: releases/syrah
+
+# default version of compilers mpi and openblas
+default_environment:
+  os: rhel7.7
+  cpu: intel
+  slurm: 20.02.5
+
+  python:
+    3: 3.8.6
+    2: 2.7.18
+
+  # compiler contains the arch since it is the highest arch this compiler can
+  # compile for
+  core_compiler: gcc@4.8.5 arch=linux-rhel7-haswell
+  compilers: [gcc, intel, oneapi]
+  stack_types: [stable]
+
+  stable:
+    intel:
+      core_compiler: "gcc@8.4.0"
+      compiler: "intel@20.0.4"
+      mpi: "intel-mpi@2019.8.254"
+      blas: "intel-mkl@2020.3.279"
+      suite_version: '2020.4.304'
+    gcc:
+      compiler: "gcc@10.2.0"
+      mpi: "mvapich2 process_managers=slurm fabrics=mrail threads=multiple"
+      blas: "openblas threads=none"
+
+  bleeding_edge:
+    oneapi:
+      core_compiler: "gcc@8.4.0"
+      compiler: "intel-oneapi-compilers@2021.2.0"
+      blas: "intel-oneapi-mkl@2021.2.0"
+      mpi: "intel-oneapi-mpi@2021.2.0"
+
+izar:
+  gpu: nvidia
+
+  compilers: [gcc, intel]
+
+  stable:
+    cuda:
+      package: "cuda@11.3.1"
+      arch: "sm_70"
+
+  #bleeding_edge:
+  #   nvhpc:
+  #     compiler: "nvhpc@21.5+blas+lapack+mpi"
+  #     blas: "nvhpc@21.5+blas+lapack+mpi"
+  #     mpi: "nvhpc@21.5+blas+lapack+mpi"

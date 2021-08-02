@@ -60,7 +60,7 @@ default_environment:
 
     # gcc@8.4.0 higest supported by cuda 10.2.89 important for izar
     gcc:
-      compiler: "gcc@8.4.0"
+      compiler: "gcc~nvptx@8.4.0"
       mpi: [ "mvapich2 process_managers=slurm fabrics=mrail threads=multiple" ]
       blas: [ "openblas threads=none" ]
 
@@ -70,7 +70,7 @@ default_environment:
       # version of mvapich2 a stack with gcc 10.2.0 will need a different mpi
       # cuda 11 does not support sm_30 anymmore, gcc+nvptx need to be patched
       # and might be unstable
-      compiler: "gcc@9.3.0"
+      compiler: "gcc~nvptx@9.3.0"
       mpi: [ "mvapich2 process_managers=slurm fabrics=mrail threads=multiple" ]
       blas: [ "openblas threads=none" ]
 

@@ -9,11 +9,11 @@
 {% endif %}
 
 include:
-#  - {{ spack_source_tree}}/etc/spack/compilers.yaml
-  - {{ spack_source_tree }}/etc/spack/packages.yaml
   - {{ spack_source_tree }}/etc/spack/repos.yaml
-  - {{ spack_source_tree }}/etc/spack/modules.yaml
   - {{ spack_source_tree }}/etc/spack/mirrors.yaml
+  # - {{ spack_source_tree}}/etc/spack/compilers.yaml
+  # - {{ spack_source_tree }}/etc/spack/packages.yaml
+  # - {{ spack_source_tree }}/etc/spack/modules.yaml
 
 config:
   {% if spack_release == 'v0.15.4' %}
@@ -29,7 +29,7 @@ config:
 
   build_stage:
     {% if stack_version %}
-    - $tempdir/{{ stack_release }}.{{ stack_version }}/tmp
+    - {{ prefix }}/{{ stack_release }}/tmp.{{ stack_version }}
     {% else %}
     - $tempdir/{{ stack_release }}/tmp
     {% endif %}
