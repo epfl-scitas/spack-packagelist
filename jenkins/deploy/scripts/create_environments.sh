@@ -32,11 +32,11 @@ environments=$(jenkins/senv.sh list-envs $filter)
 # Generate the list of software that need to be installed, then fetch every tarball
 for environment in ${environments}
 do
+    echo "#### Create environment ${environment}"
     if [ ! -e ${SPACK_CHECKOUT_DIR}/var/spack/environments/${environment}/spack.yaml ]; then
         ${SPACK_CHECKOUT_DIR}/bin/spack env create ${environment}
     fi
 
-    echo "#### Create environment"
     jenkins/senv.sh create-env --env $environment
 
     cat -n ${SPACK_CHECKOUT_DIR}/var/spack/environments/${environment}/spack.yaml

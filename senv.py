@@ -389,11 +389,6 @@ class SpackEnvs(object):
             _absolute_path(self.configuration['spack_external'],
                            prefix=self.configuration['spack_root'])))
 
-        print('.*(({0}|{1}).*)$'.format(
-            self.spack_install_root,
-            _absolute_path(self.configuration['spack_external'],
-                           prefix=self.configuration['spack_root'])))
-
         for line in stdout:
             match = path_re.match(line)
             if match:
