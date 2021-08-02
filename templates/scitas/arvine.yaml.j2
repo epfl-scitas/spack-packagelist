@@ -90,6 +90,13 @@
   {% if not 'cloud' in environment %}
   - mvapich2 process_managers=slurm fabrics=mrail threads=multiple {{ cuda_variant(environment, arch=False, dep=True) }}
   {% endif %}
+  - node-js
+    ^python@{{ environment.python.3 }}~tkinter~optimizations
+    ^openssl@1.1.1b
+  - npm
+    ^node-js
+    ^python@{{ environment.python.3 }}~tkinter~optimizations
+    ^openssl@1.1.1b
   - openblas threads=openmp
   - xgboost {{ cuda_variant(environment, dep=True) }}
 
@@ -163,11 +170,6 @@
   - ncview
     ^netcdf-c~mpi
     ^hdf5+szip~mpi+hl+fortran+cxx
-  - node-js
-    ^openssl@1.1.1b
-  - npm
-    ^node-js
-    ^openssl@1.1.1b
   #  Skipping build of polymake since perl-term-readline-gnu failed
   # - polymake@3.5
   - openbabel +python
