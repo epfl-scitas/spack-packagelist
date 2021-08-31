@@ -39,6 +39,12 @@ slurm:
   {% endif %}
   version: [{{environment.slurm}}]
 {% endif %}
+
+singularity:
+  buildable: False
+  paths:
+    singularity~suid@3.6.2-1.el7: /usr
+
 ####
 # Concretization preferences
 ####

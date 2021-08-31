@@ -194,6 +194,9 @@
   #- gatk
   #  ^r +external-lapack ^openjdk@11.0.2
   #  ^cairo+png+pdf+ft+fc
+  {% if environment.name == 'izar' %}
+  - py-spython
+  {% endif %}
   - spades
   - vtk+ffmpeg~mpi+opengl2+python~qt+xdmf{%+ if environment.gpu != 'nvidia' %}+osmesa{%+ endif %}
     ^netcdf-c~mpi
