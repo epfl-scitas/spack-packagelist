@@ -369,7 +369,7 @@ class SpackEnvs(object):
         stdout, stderr = spack.communicate()
         logger.debug("Stdout: {0}".format(stdout.decode('utf-8')))
         logger.debug("Stderr: {0}".format(stderr.decode('utf-8')))
-        return stdout.decode('ascii').split('\n')
+        return stdout.decode('ascii').split('\n'), stderr, spack
 
     def _spack_path(self, value, environment=None):
         logger.debug('Searching path of \'{}\''.format(value))
@@ -381,8 +381,9 @@ class SpackEnvs(object):
             logger.debug("Path found in cache {}".format(cache.cache[value]))
             return cache.cache[value]
         
-        stdout = self._run_spack('location', '--install-dir', value,
-                                environment=environment)
+        stdout, stderr, comm = self._run_spack(
+            'location', '--install-dir', value,
+            environment=environment)
 
         path_re = re.compile('.*(({0}|{1}).*)$'.format(
             self.spack_install_root,
@@ -667,9 +668,10 @@ class SpackEnvs(object):
 
                     list_installed = []
                     if installed_only:
-                        stdout = self._run_spack('dependents', '--installed',
-                                                 'python@{python_version} %{compiler}{arch}'.format(**spec),
-                                                 environment=env)
+                        stdout, stderr, comm = self._run_spack(
+                            'dependents', '--installed',
+                            'python@{python_version} %{compiler}{arch}'.format(**spec),
+                            environment=env)
 
                         for line in stdout:
                             match = installed_pkg_re.match(line.decode('ascii'))
@@ -704,14 +706,14 @@ class SpackEnvs(object):
                 print (' + ==> {0} activated [cache]'.format(spec))
                 continue
 
-            stdout = self._run_spack('activate', spec, environment=environment)
+            stdout, stderr, comm = self._run_spack('activate', spec, environment=environment)
             for line in stdout:
                 print(' + {}'.format(line.decode('ascii')))
 
-            if spack_.returncode is None:
+            if comm.returncode is None:
                 spack_.wait()
 
-            if spack_.returncode == 0:
+            if comm.returncode == 0:
                 print(" = Adding {} to cache".format(spec))
                 cache.cache.append(spec)
         cache.save()
