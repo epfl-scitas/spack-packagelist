@@ -21,171 +21,40 @@
   - autoconf
   - automake
   - curl
-  - fastqc
   - git-lfs
   - i7z
   - libtool
   - lmod
   - m4
-  - parallel
-  - picard
-  - sbt
-  - sratoolkit
   - tar
   - tmux
-  - trimmomatic
 
-- serial_packages:
-  - angsd
-  - bedtools2
-  - bwa
-  - bzip2
-  # - chip-seq
-  - cgns~mpi
-    ^hdf5+szip~mpi+hl+fortran+cxx
-  - eigen
-  - fastqc
-  - fftw ~mpi+openmp
-  # - freebayes
-  - gsl
-  - hdf5+szip~mpi+hl+fortran+cxx
-  - hisat2
-  - htslib
-  - intel-tbb
-  - libxc
-  - mafft
-  - metis+real64
-  - muscle
-  - med~mpi
-    ^hdf5+szip~mpi+hl+fortran+cxx
-  - netcdf-c~mpi
-    ^hdf5+szip~mpi+hl+fortran+cxx
-  - netcdf-fortran
-    ^netcdf-c~mpi
-    ^hdf5+szip~mpi+hl+fortran+cxx
-  # - nfft
-  #   ^fftw ~mpi~openmp
-  - scotch+esmumps~metis~mpi
-    ^flex@2.6.4
-  - stacks
-  - star
-  - subread
-  - tcl
-  - valgrind~boost~mpi
-  - voropp
+- serial_packages: []
   {% if environment.gpu == 'nvidia' %}
   - {{ environment.stable.cuda.package }}
-  - cuda@10.0.130
-  - cuda@10.1.243
-  - cuda@10.2.89
-  - cuda@11.0.2
-  - cudnn@7.6.5.32-10.0
-  - cudnn@8.0.2.39-10.2
-  - cudnn@8.0.2.39-11.0
-  - cudnn@8.2.0.53-11.3
   {% endif %}
 
-- serial_packages_lapack:
-  - arpack-ng~mpi
-  - gmsh~mpi+hdf5+med+cgns
-    ^cgns~mpi
-    ^med~mpi
-    ^hdf5+szip~mpi+hl+fortran+cxx
-  - suite-sparse {{ cuda_variant(environment, dep=True, arch=False) }}
-    ^metis+real64
-  - superlu
+- serial_packages_lapack: []
 
 - serial_packages_python:
-  - bowtie2
-  - boost cxxstd=14 +icu~mpi+python+numpy
-  - hwloc +cairo {{ cuda_variant(environment, arch=False, dep=True, extra_on='+nvml') }}
-    ^cairo+png+pdf+fc+ft
-  - iq-tree@1.6.12
-    ^boost cxxstd=14 +icu~mpi+python+numpy
-  - iq-tree@2.0.6
-    ^boost cxxstd=14 +icu~mpi+python+numpy
-  - mercurial
-  - ninja
-  - prinseq-lite
-    ^cairo+png+pdf+fc+ft
-  - py-biopython
-  - py-cutadapt
-  - py-deeptools
-  - py-pybind11
-  - py-scikit-learn
-  - py-statsmodels
-  - py-theano {{ cuda_variant(environment, dep=True) }}
-  - py-keras
-  - samtools
-  - scons
-  # needs python < 3.7
-  # - snakemake
   {% filter indent(width=2, indentfirst=true) %}
   {% include ('templates/scitas/' + stack_release + '/python_activated.yaml.j2') | indent %}
   {% endfilter %}
 
 - serial_python2_minimal_support:
-  - jellyfish
-  - scons
   {% filter indent(width=2, indentfirst=true) %}
   {% include ('templates/scitas/' + stack_release + '/python2_activated.yaml.j2') %}
   {% endfilter %}
 
-- mpi_packages:
-  - arpack-ng+mpi
-  - cgns+mpi
-    ^hdf5+szip+mpi+hl+fortran+cxx
-  - fftw+mpi+openmp
-  - hdf5+szip+mpi+hl+fortran+cxx
-#  cmake problem in the detection of hdf5 parallel
-#  - med+mpi
-#    ^hdf5+szip+mpi+hl+fortran+cxx
-  - netcdf-c+mpi+parallel-netcdf
-    ^parallel-netcdf+fortran+cxx
-    ^hdf5+szip+mpi+hl+fortran+cxx
-  - parallel-netcdf+fortran+cxx
-  - phylobayesmpi
-  # problem with a symlink at install
-  # - foam-extend+metis+scotch+parmetis+ptscotch~paraview
-  #  ^metis+real64
-  #  ^scotch+esmumps+mpi~metis
+- mpi_packages: []
 
-- mpi_lapack_packages:
-  - gmsh+openmp+hdf5+cgns~med
-    ^cgns+mpi
-    ^hdf5+szip+mpi+hl+fortran+cxx
-    # ^med+mpi
-  - hypre {{ cuda_variant(environment, arch=False) }}
-  - parmetis
-    ^metis+real64
-  - quantum-espresso+mpi+scalapack
-  - quantum-espresso+mpi+scalapack hdf5=parallel
-    ^hdf5+szip+mpi+hl+fortran+cxx
-  - scotch+esmumps+mpi~metis
-    ^flex@2.6.4
-  - superlu-dist
-    ^parmetis
-    ^metis+real64
+- mpi_lapack_packages: []
 
-- mpi_lapack_python_packages:
-  - boost cxxstd=14 +icu+mpi+python+numpy
-  - cgal
-    ^boost cxxstd=14 +icu+mpi+python+numpy
-  - iq-tree@1.6.12+mpi
-    ^boost cxxstd=14 +icu+mpi+python+numpy
-  - neuron+mpi+python
-  - plumed+mpi+gsl
-  - py-h5py
-    ^hdf5+szip+mpi+hl+fortran+cxx
-  - py-mpi4py
+- mpi_lapack_python_packages: []
 
-- gcc_serial_packages:
-  - fio
+- gcc_serial_packages: []
       
-- gcc_serial_packages_lapack:
-  {% if environment.gpu == 'nvidia' %}
-  - magma {{ cuda_variant(environment, dep=True) }}
-  {% endif %}
+- gcc_serial_packages_lapack: []
 
 - gcc_serial_packages_python: []
 
