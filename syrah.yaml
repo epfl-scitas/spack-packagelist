@@ -11,6 +11,9 @@ stack_version: "v1"
 spack_root: /ssoft/spack
 spack_external: external
 
+lmod:
+  hierarchy: [mpi, cuda]
+
 # List of the environments to be managed
 environments:
   - "fidis"
@@ -39,7 +42,7 @@ default_environment:
   slurm: 20.02.5
 
   python:
-    3: 3.8.6
+    3: 3.8.11
     2: 2.7.18
 
   # compiler contains the arch since it is the highest arch this compiler can
@@ -60,17 +63,14 @@ default_environment:
       mpi: "mvapich2 process_managers=slurm fabrics=mrail threads=multiple"
       blas: "openblas threads=none"
 
-  bleeding_edge:
     oneapi:
       core_compiler: "gcc@8.4.0"
-      compiler: "intel-oneapi-compilers@2021.2.0"
-      blas: "intel-oneapi-mkl@2021.2.0"
-      mpi: "intel-oneapi-mpi@2021.2.0"
+      compiler: "intel-oneapi-compilers@2021.3.0"
+      blas: "intel-oneapi-mkl@2021.3.0"
+      mpi: "intel-oneapi-mpi@2021.3.0"
 
 izar:
   gpu: nvidia
-
-  compilers: [gcc, intel]
 
   stable:
     cuda:

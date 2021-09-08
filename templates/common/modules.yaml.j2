@@ -16,8 +16,12 @@ modules:
   {% endfor %}
 {% endif %}
 
+{% if lmod is defined %}
+    hierarchy: {{ lmod.hierarchy }}
+{% else %}
     hierarchy:
       - mpi
+{% endif %}
     all:
       suffixes:
         {% filter indent(width=8, indentfirst=True) %}
