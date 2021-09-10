@@ -98,6 +98,7 @@
     ^python@{{ environment.python.3 }}~tkinter~optimizations
     ^openssl@1.1.1b
   - openblas threads=openmp
+  - python@{{ environment.python.3 }}+tkinter~optimizations+debug
   - xgboost {{ cuda_variant(environment, dep=True) }}
 
 - intel_serial_packages:
