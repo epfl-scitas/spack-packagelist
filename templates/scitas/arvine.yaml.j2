@@ -72,11 +72,13 @@
   - cuda@10.0.130
   - cuda@10.1.243
   - cuda@11.0.2
+  - cuda@11.1.1
   - cudnn ^{{ environment.stable.cuda.package }} ^libiconv
   - cudnn@8.0.2.39-10.2-linux-x64 ^{{ environment.stable.cuda.package }} ^libiconv
-  - cudnn@8.0.2.39-11.0-linux-x64 ^cuda@11.0.2 ^libiconv
   - cudnn@7.4.2.24-10.0-linux-x64 ^cuda@10.0.130
   - cudnn@7.6.0.64-10.0-linux-x64 ^cuda@10.0.130
+  - cudnn@8.0.2.39-11.0-linux-x64 ^cuda@11.0.2 ^libiconv
+  - cudnn@8.0.5.39-11.1-linux-x64 ^cuda@11.1.1
   {% endif %}
 
 - gcc_serial_packages:
