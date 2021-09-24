@@ -31,3 +31,11 @@ fi
 ${SPACK} --env ${environment} install --log-format=junit --log-file=stack.${environment}.xml
 
 ${SPACK} --env ${environment} module lmod refresh -y
+
+if [ ${environment} = 'gacrux' ]; then
+    _prefix=$(${SENV} get-environment-entry prefix)
+    _stack_release=$(${SENV} get-environment-entry stack_release)
+    _stack_version=$(${SENV} get-environment-entry stack_version)
+    cd ${_prefix}/${_stack_release}/${_stack_version}/share/spack/lmod
+    ln -sf gacrux helvetios
+fi
