@@ -1,12 +1,12 @@
 - gcc_python3:
-  - python@{{ environment.python.3 }} +optimizations+tkinter^libiconv
+  - python@{{ environment.python.3 }} {{ environment.python.variant.3 }} ^libiconv
 - intel_python3:
-  - python@{{ environment.python.3 }} +optimizations+tkinter ^freetype@2.7.1 ^fontconfig@2.12.1^libiconv
+  - python@{{ environment.python.3 }} {{ environment.python.variant.3 }} ^freetype@2.7.1 ^fontconfig@2.12.1^libiconv
 
 - gcc_python2:
-  - python@{{ environment.python.2 }}+tkinter^libiconv
+  - python@{{ environment.python.2 }} {{ environment.python.variant.2 }} ^libiconv
 - intel_python2:
-  - python@{{ environment.python.2 }}+tkinter ^freetype@2.7.1 ^fontconfig@2.12.1^libiconv
+  - python@{{ environment.python.2 }} {{ environment.python.variant.2 }} ^freetype@2.7.1 ^fontconfig@2.12.1^libiconv
 
 - core_packages:
   - cmake@3.16.5
@@ -88,7 +88,7 @@
   # it is not in the gcc_serial_packages_python due to the dependecy to mkl
   - julia+cxx+mkl
     ^{{ environment.stable.intel.blas }}
-    ^python@{{ environment.python.3 }} +optimizations+tkinter
+    ^python@{{ environment.python.3 }}{{ environment.python.variant.3 }}
   {% if not 'cloud' in environment %}
   - mvapich2 process_managers=slurm fabrics=mrail threads=multiple {{ cuda_variant(environment, arch=False, dep=True) }}
   {% endif %}

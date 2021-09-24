@@ -643,6 +643,10 @@ class SpackEnvs(object):
             if python_activated[ver] is None:
                 python_activated[ver] = [] 
 
+            logger.debug(
+                'List of packages to activate for python {}: {}'.format(
+                    ver, python_activated[ver]))
+
         if stack_type is not None:
             stack_types = [stack_type]
         else:
@@ -656,21 +660,47 @@ class SpackEnvs(object):
                 if 'compiler' not in stack:
                     continue
 
+                logger.debug(
+                    'List of packages to activate for stack {}'.format(
+                        stack))
 
                 for ver in [2, 3]:
                     spec = {
                         'python_version': customisation['environment']['python'][ver],
+                        'python_variants': customisation['environment']['python']['variant'][ver],
                         'compiler': _filter_variant(stack['compiler']),
                         'arch': '',
                     }
+                    arch = None
                     if 'arch' in customisation['environment']:
-                        spec['arch'] = ' arch={}'.format(customisation['environment']['arch'])
+                        arch = customisation['environment']['arch']
+                    else:
+                        if 'arch' in stack:
+                            arch = stack['arch']
+                        else:
+                            stdout, stderr, comm = self._run_spack(
+                                'arch'.format(**spec),
+                                environment=env)
+                            spec['arch'] = ' arch={}'.format(
+                                stdout[0].decode('ascii').strip())
+
+                    if  arch is not None:
+                        spec['arch'] = ' arch=linux-{}-{}'.format(
+                            re.sub('([a-z]+[0-9]+)(\.[0-9]+)+',
+                                   '\\1',
+                                   customisation['environment']['os']),
+                            arch)
+
+                    python_spec = 'python@{python_version} {python_variants} %{compiler}{arch}'.format(**spec)
+                    logger.debug(
+                        'Python spec to consider {}'.format(
+                            python_spec))
 
                     list_installed = []
                     if installed_only:
                         stdout, stderr, comm = self._run_spack(
                             'dependents', '--installed',
-                            'python@{python_version} %{compiler}{arch}'.format(**spec),
+                            python_spec,
                             environment=env)
 
                         for line in stdout:
@@ -681,10 +711,8 @@ class SpackEnvs(object):
                     for package in python_activated[ver]:
                         if installed_only and package not in list_installed:
                             continue
-                        
-                        spec['pkg'] = package
 
-                        specs.append('{pkg} ^python@{python_version} %{compiler}{arch}'.format(**spec))
+                        specs.append('{} ^{}'.format(package, python_spec))
         
         return specs            
 
