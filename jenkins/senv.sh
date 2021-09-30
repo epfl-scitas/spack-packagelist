@@ -3,10 +3,15 @@ set -eo pipefail
 . ${SENV_VIRTUALENV_PATH}/bin/activate
 
 prefix_=""
-if [ "$STACK_PREFIX" != "" ]
+if [ "x${STACK_PREFIX}" != "x" ]
 then
-    prefix_="--prefix=${STACK_PREFIX}"
+    prefix_="--prefix ${STACK_PREFIX}"
+fi
+
+if [ "x${SENV_OVERRIDE}" == "x" ]; then
+    SENV_OVERRIDE='{}'
 fi
 
 set -u
-senv --input ${STACK_RELEASE}.yaml ${prefix_} $@
+echo "senv --input ${STACK_RELEASE}.yaml --override "${SENV_OVERRIDE}" ${prefix_} $@" 1>&2
+senv --input ${STACK_RELEASE}.yaml --override "${SENV_OVERRIDE}" ${prefix_} $@
