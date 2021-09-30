@@ -7,7 +7,7 @@ spack_release: v0.15.4
 site: scitas
 
 stack_release: "arvine"
-stack_version: "v1"
+stack_version: "v2"
 
 spack_root: /ssoft/spack
 spack_external: external
@@ -36,7 +36,7 @@ extra_repos:
 
 # default version of compilers mpi and openblas
 default_environment:
-  os: rhel7.7
+  os: rhel8.4
   cpu: intel
   slurm: 20.02.5
 
@@ -46,7 +46,7 @@ default_environment:
 
   # compiler contains the arch since it is the highest arch this compiler can
   # compile for
-  core_compiler: gcc@4.8.5 arch=linux-rhel7-haswell
+  core_compiler: gcc@8.4.1 arch=linux-rhel8-haswell
   compilers: [gcc, intel]
   stack_types: [stable, bleeding_edge]
 
@@ -137,9 +137,7 @@ gcp-c2:
          - "mvapich2 process_managers=slurm fabrics=sock threads=multiple"
 
 gacrux:
-  os: rhel7.6
   slurm: 19.05.3-2
 
 fidis:
-  os: rhel7.6
   slurm: 19.05.3-2
