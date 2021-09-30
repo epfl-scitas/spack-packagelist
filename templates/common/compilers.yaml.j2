@@ -24,7 +24,7 @@
               stack_type, prefix=prefix) }}
       fc:  {{ _compiler | compiler_component('f90', environment,
               stack_type, prefix=prefix) }}
-  {% if stack and 'compiler_cflags' in stack or 'compiler_cxxflags' in stack %}
+  {% if stack is defined and ('compiler_cflags' in stack or 'compiler_cxxflags' in stack) %}
     flags: 
       cflags: {{ stack.compiler_cflags }}
       cxxflags: {{ stack.compiler_cxxflags }}
