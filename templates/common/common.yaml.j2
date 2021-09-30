@@ -55,7 +55,7 @@ compilers:
 {% set spack_site_packages = 'templates/' + site + '/packages.yaml.j2' %}
 packages:
 {% if spack_site_packages | exists %}
-  {% filter indent(width=2, indentfirst=True) %}
+  {% filter indent(width=2, first=True) %}
   {% include spack_site_packages | indent %}
   {% endfilter %}
 {% endif %}

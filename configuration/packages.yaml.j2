@@ -2,7 +2,7 @@
 {% if spack_site_packages | exists %}
 packages:
   {% set global_package=True %}
-  {% filter indent(width=2, indentfirst=True) %}
+  {% filter indent(width=2, first=True) %}
   {% include spack_site_packages | indent %}
   {% endfilter %}
 {% else %}

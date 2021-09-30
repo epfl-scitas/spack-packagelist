@@ -24,7 +24,7 @@ modules:
 {% endif %}
     all:
       suffixes:
-        {% filter indent(width=8, indentfirst=True) %}
+        {% filter indent(width=8, first=True) %}
         {% include 'templates/common/modules_suffixes.yaml.j2' %}
         {% include 'templates/{{ site }}/modules_suffixes.yaml.j2' ignore missing %}
         {% endfilter %}
@@ -39,7 +39,7 @@ modules:
 
     {% set spack_site_whitelist = 'templates/' + site + '/modules_whitelist.yaml.j2' %}
     whitelist:
-      {% filter indent(width=6, indentfirst=True) %}
+      {% filter indent(width=6, first=True) %}
       {% include 'templates/common/modules_whitelist.yaml.j2' %}
       {% include spack_site_whitelist ignore missing %}
       {% endfilter %}
@@ -56,7 +56,7 @@ modules:
     {% endfor %}
   {% endfor %}
 {% endif %}
-      {% filter indent(width=6, indentfirst=True) %}
+      {% filter indent(width=6, first=True) %}
       {% include spack_site_blacklist %}
       {% endfilter %}
     {% endif %}
@@ -64,6 +64,6 @@ modules:
     verbose: false
     blacklist_implicits: {{ blacklist_implicits | default(true) }}
 
-    {% filter indent(width=4, indentfirst=True) %}
+    {% filter indent(width=4, first=True) %}
     {% include 'templates/' + site + '/modules_lmod_specific.yaml.j2' ignore missing %}
     {% endfilter %}

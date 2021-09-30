@@ -73,7 +73,7 @@
 #  {% if environment.gpu == 'nvidia' %}
 #    ^kokkos-nvcc-wrapper~mpi
 #  {% endif %}
-  {% filter indent(width=2, indentfirst=True) %}
+  {% filter indent(width=2, first=True) %}
   {% include ('templates/scitas/' + stack_release + '/python_activated.yaml.j2') | indent %}
   {% endfilter %}
 

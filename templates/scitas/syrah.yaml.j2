@@ -37,12 +37,12 @@
 - serial_packages_lapack: []
 
 - serial_packages_python:
-  {% filter indent(width=2, indentfirst=true) %}
+  {% filter indent(width=2, first=true) %}
   {% include ('templates/scitas/' + stack_release + '/python_activated.yaml.j2') | indent %}
   {% endfilter %}
 
 - serial_python2_minimal_support:
-  {% filter indent(width=2, indentfirst=true) %}
+  {% filter indent(width=2, first=true) %}
   {% include ('templates/scitas/' + stack_release + '/python2_activated.yaml.j2') %}
   {% endfilter %}
 
