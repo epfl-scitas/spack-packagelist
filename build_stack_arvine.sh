@@ -1,6 +1,6 @@
 #!/bin/bash
 set -euo pipefail
-export DRY_RUN='yes'
+export DRY_RUN='no'
 export STACK_RELEASE="arvine"
 export SENV_VIRTUALENV_PATH="${HOME}/${STACK_RELEASE}/virtualenv/senv-py36"
 export SPACK_PYTHON=python3.6
