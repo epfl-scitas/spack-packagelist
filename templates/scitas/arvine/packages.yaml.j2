@@ -29,16 +29,16 @@ jdk:
   version: [1.8.0_222-b10]
   {% endif %}
 
-slurm:
-  buildable: False
-  paths:
-  {% if 'cloud' in environment and environment.cloud == 'gcp' %}
-    slurm@ {{environment.slurm}}: /apps/slurm/slurm-{{environment.slurm}}
-  {% else %}
-    slurm@{{environment.slurm}}: /usr
-  {% endif %}
-  version: [{{environment.slurm}}]
-{% endif %}
+#slurm:
+#  buildable: False
+#  paths:
+#  {% if 'cloud' in environment and environment.cloud == 'gcp' %}
+#    slurm@ {{environment.slurm}}: /apps/slurm/slurm-{{environment.slurm}}
+#  {% else %}
+#    slurm@{{environment.slurm}}: /usr
+#  {% endif %}
+#  version: [{{environment.slurm}}]
+#{% endif %}
 
 singularity:
   buildable: False
