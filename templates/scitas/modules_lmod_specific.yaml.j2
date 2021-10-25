@@ -66,8 +66,8 @@ intel-mpi: # Default for Intel MPI
       I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
       {% endif %}
       {% if environment.name == 'helvetios' or environment.name == 'fidis' %}
-      I_MPI_EXTRA_FILESYSTEM: '1'
-      I_MPI_EXTRA_FILESYSTEM_LIST: gpfs
+      I_MPI_EXTRA_FILESYSTEM: '0'
+      # I_MPI_EXTRA_FILESYSTEM_LIST: gpfs
       {% endif %}
       MPICC: mpiicc
       MPICXX: mpiicpc
