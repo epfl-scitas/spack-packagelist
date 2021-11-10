@@ -35,9 +35,57 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
 class CloneProgress(git.RemoteProgress):
+    """ This class controls the progress of git operations.
+        The `print_op_codes` variable helps on debug. If set
+        to True, the progress will not be shown and instead
+        the list of operation codes will be displayed. This
+        is helpfull for deciding when to line break """
+    print_op_codes = False
+    op_codes_to_break_line = [10,65]
+    last_op_code = [66]
+
+    def _backspace(self, n):
+        """ Erase the contents of the current line and place
+            the typewriter at the begining of the line """
+        sys.stdout.write((b'\x08' * n).decode())
+        sys.stdout.write((b'\x20' * n).decode())
+        sys.stdout.write((b'\x08' * n).decode())
+        sys.stdout.flush()
+
+    def _line_break_conditions(self, op_code):
+        """ Set conditions for line break """
+        line_break = False
+        if op_code in self.op_codes_to_break_line:
+            line_break = True
+        return line_break
+
+    def _line_break(self):
+        """ Moves the typewriter to the next line """
+        sys.stdout.write("\n")
+        sys.stdout.flush()
+
+    def _last_line(self, op_code):
+        """ Inserts a line break for last line """
+        if op_code in self.last_op_code:
+            self._line_break()
+
+    def _do_print_op_codes(self, op_code):
+        """ Writes the current op_code. This can be
+            usefull to developers if git API changes """
+        sys.stdout.write(str(op_code) + ",")
+        sys.stdout.flush()
+
     def update(self, op_code, cur_count, max_count=None, message=''):
-        if message:
-            print(message)
+        """ Displays git clone progress """
+        if self.print_op_codes:
+            self._do_print_op_codes(op_code)
+        else:
+            if self._line_break_conditions(op_code):
+                self._line_break()
+            self._backspace(100)
+            sys.stdout.write(self._cur_line)
+            sys.stdout.flush()
+            self._last_line(op_code)
 
 COMPILERS_COMPONENTS = {
     'intel': {
