@@ -1,7 +1,6 @@
 #
 # Main stack definition for arvine
 #
-
 spack_release: v0.15.4
 
 site: scitas

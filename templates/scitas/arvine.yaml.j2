@@ -1,12 +1,12 @@
 - gcc_python3:
-  - python@{{ environment.python.3 }} +optimizations+tkinter^libiconv
+  - python@{{ environment.python.3 }} +optimizations+tkinter ^fontconfig@2.13.1^libiconv
 - intel_python3:
-  - python@{{ environment.python.3 }} +optimizations+tkinter ^freetype@2.7.1 ^fontconfig@2.12.1^libiconv
+  - python@{{ environment.python.3 }} +optimizations+tkinter ^freetype@2.7.1 ^fontconfig@2.12.2^libiconv
 
 - gcc_python2:
-  - python@{{ environment.python.2 }}+tkinter^libiconv
+  - python@{{ environment.python.2 }}+tkinter ^fontconfig@2.13.1^libiconv
 - intel_python2:
-  - python@{{ environment.python.2 }}+tkinter ^freetype@2.7.1 ^fontconfig@2.12.1^libiconv
+  - python@{{ environment.python.2 }}+tkinter^freetype@2.7.1 ^fontconfig@2.12.2^libiconv
 
 - core_packages:
   - cmake@3.16.5
@@ -86,7 +86,7 @@
   # it is not in the gcc_serial_packages_python due to the dependecy to mkl
   - julia+cxx+mkl
     ^{{ environment.stable.intel.blas }}
-    ^python@{{ environment.python.3 }} +optimizations+tkinter
+    ^python@{{ environment.python.3 }} +optimizations+tkinter ^fontconfig@2.13.1
   {% if not 'cloud' in environment %}
   - mvapich2 process_managers=slurm fabrics=mrail threads=multiple {{ cuda_variant(environment, arch=False, dep=True) }}
   {% endif %}
@@ -112,6 +112,9 @@
   - suite-sparse {{ cuda_variant(environment, dep=True, extra_on='^libiconv') }}
     ^metis+real64
   - superlu
+  - ncview
+    ^netcdf-c~mpi
+    ^hdf5+szip~mpi+hl+fortran+cxx
 
 - gcc_serial_packages_lapack:
   - armadillo+hdf5
@@ -158,7 +161,8 @@
 
 
 - gcc_serial_packages_python:
-  - bcl2fastq2
+  # needs boost@1.54 (https://backwardincompatible.com/post/169360794395/compiling-illumina-bcl2fastq-220-on-ubuntu-with)
+  # - bcl2fastq2 ^boost cxxstd=98 +icu~mpi+python+numpy
   - blast-plus@2.9.0
   - caffe ~opencv +python {{ cuda_variant(environment, arch=False, dep=True) }}
     ^boost cxxstd=14 +icu~mpi+python+numpy
@@ -167,9 +171,6 @@
   - libgd
   - mummer
     ^cairo+png+pdf+ft+fc
-  - ncview
-    ^netcdf-c~mpi
-    ^hdf5+szip~mpi+hl+fortran+cxx
   #  Skipping build of polymake since perl-term-readline-gnu failed
   # - polymake@3.5
   - openbabel +python
@@ -214,9 +215,9 @@
   # - qt +opengl+webkit~tools
   #   ^harfbuzz@2.1.3
   #   ^cairo+png+pdf+fc+ft
-  - r +external-lapack ^openjdk@11.0.2
-    ^harfbuzz@2.1.3
-    ^cairo+png+pdf+fc+ft
+  # - r +external-lapack ^openjdk@11.0.2
+  #   ^harfbuzz@2.1.3
+  #   ^cairo+png+pdf+fc+ft
 
 {% if not 'cloud' in environment %}
 - external_packages:
@@ -465,20 +466,20 @@
 - intel_mpi_packages:
 {% if not 'cloud' in environment %}
   - crystal17@1.0.2
-  - vasp {{ cuda_variant(environment) }}
-  {% if environment.gpu == 'nvidia' %}
-    ^magma {{ cuda_variant(environment) }}
+  # - vasp {{ cuda_variant(environment) }}
+  # {% if environment.gpu == 'nvidia' %}
+  #   ^magma {{ cuda_variant(environment) }}
   {% endif %}
   {% if not 'gpu' in environment %}
   - relion +mklfft ~cuda
   {% endif %}
 {% endif %}
-  - yambo+mpi io=iotk,etsf-io
-    ^{{environment.stable.intel.blas}}
-    ^hdf5+szip+mpi+hl+fortran+cxx
-    ^netcdf-c+mpi
-    ^netcdf-fortran+mpi
-    ^fftw+mpi~openmp
+  # - yambo+mpi io=iotk,etsf-io
+  #   ^{{environment.stable.intel.blas}}
+  #   ^hdf5+szip+mpi+hl+fortran+cxx
+  #   ^netcdf-c+mpi
+  #   ^netcdf-fortran+mpi
+  #   ^fftw+mpi~openmp
 
 - intel_mpi_lapack_packages:
   - mumps+mpi+parmetis+metis+scotch+ptscotch

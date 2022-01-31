@@ -47,7 +47,9 @@ done
 # to reconfigure the compilers.yaml
 ${SENV} install-spack-default-configuration
 
-if [[ $boostrap -eq 0 && "$filter" =~ "cloud=\w*" ]]; then
+echo "Bootstrap $boostrap $filter"
+
+if [[ $boostrap -eq 0 && ! "x$filter" =~ "cloud=\w*" ]]; then
     echo "#### Install intel compilers configuration"
     # this has to be changed once we have a stack similar on all machines otherwhy
     # the config file will be rewriten for each environment

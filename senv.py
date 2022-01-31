@@ -790,8 +790,9 @@ class SpackEnvs(object):
             if 'external' not in stack or not stack['external']:
                 prefix = _components['prefix'].format(
                     stack['compiler_prefix'], stack['suite_version'])
-            bindir = [os.path.join(prefix, 'bin/intel64'), os.path.join(prefix, 'bin')]
-            libdir = os.path.join(prefix, 'compiler/lib/intel64_lin')
+            bindir = [os.path.join(prefix, 'bin/intel64'),
+                      os.path.join(prefix, 'bin')]
+            libdir = [os.path.join(prefix, 'compiler/lib/intel64_lin')]
             #logger.debug("INTEL BINDIR {}".format(bindir))
         elif value == 'oneapi':
             #logger.debug("INTEL PREFIX {}".format(prefix))

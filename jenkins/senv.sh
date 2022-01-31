@@ -14,4 +14,4 @@ fi
 
 set -u
 echo "senv --input ${STACK_RELEASE}.yaml --override "${SENV_OVERRIDE}" ${prefix_} $@" 1>&2
-senv --input ${STACK_RELEASE}.yaml --override "${SENV_OVERRIDE}" ${prefix_} $@
+senv --input ${STACK_RELEASE}.yaml --debug --override "${SENV_OVERRIDE}" ${prefix_} $@
