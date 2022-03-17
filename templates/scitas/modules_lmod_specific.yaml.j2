@@ -33,6 +33,12 @@
 '^cuda':
   autoload: direct
 
+nvhpc:
+  environment:
+    set:
+      SLURM_MPI_TYPE: pmix
+      OMPI_MCA_btl_openib_warn_default_gid_prefix: '0'
+
 ################
 # MPI
 ################
