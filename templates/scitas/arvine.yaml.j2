@@ -252,12 +252,14 @@
   - smr@2017.06
   - totalview@2017.2.11
   - totalview@2020.3.11
-{% endif %}
 
 - intel_external_packages:
-  # - abaqus
+  - castep@21.11 ^intel-mpi ^intel-mkl
 
 - gcc_external_packages:
+
+{% endif %}
+
 
 - mpi_packages:
   - arpack-ng+mpi
