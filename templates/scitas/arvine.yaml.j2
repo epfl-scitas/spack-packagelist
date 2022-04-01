@@ -488,6 +488,7 @@
   {% endif %}
   {% if not 'gpu' in environment %}
   - relion +mklfft ~cuda
+  - freefem +mpi +petsc ^/ohnennk
   {% endif %}
 {% endif %}
   - yambo+mpi io=iotk,etsf-io
