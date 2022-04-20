@@ -35,6 +35,12 @@
   {% endif %}
   - [$%{{compiler}}_stable_compiler]
   {% endif %}
+
+  {% if not 'cloud' in environment %}
+- matrix:
+  - [${{compiler}}_external_packages]
+  - [$%{{compiler}}_stable_compiler]
+  {% endif %}
 {% endfor %}
 
 {% if not 'cloud' in environment %}
