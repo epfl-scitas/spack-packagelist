@@ -26,6 +26,14 @@ cfdplusplus:
     cfdplusplus@16.1%{{environment.core_compiler}}: {{ spack_external_root }}/CFD++/2016.05
     cfdplusplus@19.1%{{environment.core_compiler}}: {{ spack_external_root }}/CFD++/19.1
 
+castep:
+  buildable: False
+  paths:
+    castep@21.11%intel@19.0.5 ^intel-mpi ^intel-mkl: {{ spack_external_root }}/CASTEP/CASTEP-21.11/bin/linux_x86_64_ifort--mpi
+  permissions:
+    read: group
+    group: castep-soft
+
 comsol:
   buildable: False
   paths:
