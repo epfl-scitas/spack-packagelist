@@ -562,6 +562,17 @@
     ^hdf5+szip+mpi+hl+fortran+cxx
     ^suite-sparse {{ cuda_variant(environment) }}
     ^hypre {{ cuda_variant(environment, arch=False) }}
+  - freefem +mpi+petsc
+    ^slepc+arpack
+    ^arpack-ng+mpi
+    ^petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse{{ cuda_variant(environment, arch=False) }}
+    ^mumps+mpi+parmetis+metis+scotch+ptscotch
+    ^parmetis
+    ^metis+real64
+    ^scotch+esmumps+mpi~metis
+    ^hdf5+szip+mpi+hl+fortran+cxx
+    ^suite-sparse {{ cuda_variant(environment) }}
+    ^hypre {{ cuda_variant(environment, arch=False) }}
 
 - intel_mpi_lapack_python2_packages:
   # - molpro@2019.2+mpi
