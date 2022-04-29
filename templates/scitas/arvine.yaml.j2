@@ -255,7 +255,6 @@
   - totalview@2020.3.11
 
 - intel_external_packages:
-  - castep@21.11 ^{{ environment.stable.intel.blas }} ^{{ environment.stable.intel.mpi }}
 
 - gcc_external_packages:
 
@@ -508,6 +507,7 @@
     ^parmetis
     ^metis+real64
     ^scotch+esmumps+mpi~metis
+  - castep
 
 - intel_mpi_lapack_python_packages:
 #  - fenics~parmetis+hdf5+scotch+suite-sparse~vtk~trilinos
