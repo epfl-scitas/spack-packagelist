@@ -9,6 +9,10 @@
 - matrix:
   - [${{compiler}}_bleeding_edge_serial_packages]
   - [$%{{compiler}}_bleeding_edge_compiler]
+
+- matrix:
+  - [${{compiler}}_bleeding_edge_mpi_packages]
+  - [$%{{compiler}}_bleeding_edge_compiler]
     {% endif %}
   {% endfor %}
 {% endif %}
