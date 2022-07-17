@@ -22,6 +22,8 @@ ansys:
       prefix: {{ spack_external_root }}/ansys/17.1/v171
     - spec: "ansys@19.2%{{environment.core_compiler}}"
       prefix: {{ spack_external_root }}/ansys/19.2/v192
+    - spec: "ansys@22.1%{{environment.core_compiler}}"
+      prefix: {{ spack_external_root }}/ansys/2022R1/v221
 
 cfdplusplus:
   buildable: False
@@ -103,6 +105,8 @@ mathematica:
       prefix: {{ spack_external_root }}/Mathematica/9.0.1
     - spec: "mathematica@11.1.1 %{{environment.core_compiler}}"
       prefix: {{ spack_external_root }}/Mathematica/11.1.1
+    - spec: "mathematica@13.0 %{{environment.core_compiler}}"
+      prefix: {{ spack_external_root }}/Mathematica/13.0
 
 smr:
   buildable: False

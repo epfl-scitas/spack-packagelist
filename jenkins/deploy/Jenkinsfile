@@ -79,7 +79,7 @@ pipeline {
         }
 
         stage('Deploy software') {
-             // Deploy the software that is planned to be in the environment,
+            // Deploy the software that is planned to be in the environment,
             // but not yet installed. Notify failures.
             steps {
                 script {
@@ -89,7 +89,7 @@ pipeline {
         }
 
         stage('Activate packages') {
-             // Deploy the software that is planned to be in the environment,
+            // Deploy the software that is planned to be in the environment,
             // but not yet installed. Notify failures.
             steps {
                 script {

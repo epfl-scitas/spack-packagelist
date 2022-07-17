@@ -1,12 +1,12 @@
 - gcc_python3:
-  - python@{{ environment.python.3 }} +optimizations+tkinter ^fontconfig@2.13.1^libiconv
+  - python@{{ environment.python.3 }} {{ environment.python.variant.3 }} ^libiconv
 - intel_python3:
-  - python@{{ environment.python.3 }} +optimizations+tkinter ^freetype@2.7.1 ^fontconfig@2.12.2^libiconv
+  - python@{{ environment.python.3 }} {{ environment.python.variant.3 }} ^freetype@2.7.1 ^fontconfig@2.12.1^libiconv
 
 - gcc_python2:
-  - python@{{ environment.python.2 }}+tkinter ^fontconfig@2.13.1^libiconv
+  - python@{{ environment.python.2 }} {{ environment.python.variant.2 }} ^libiconv
 - intel_python2:
-  - python@{{ environment.python.2 }}+tkinter^freetype@2.7.1 ^fontconfig@2.12.2^libiconv
+  - python@{{ environment.python.2 }} {{ environment.python.variant.2 }} ^freetype@2.7.1 ^fontconfig@2.12.1^libiconv
 
 - core_packages:
   - cmake@3.16.5
@@ -42,6 +42,7 @@
   # - chip-seq
   - eigen
   - fastqc
+  - ffmpeg
   - fftw ~mpi+openmp
   # - freebayes
   - gsl
@@ -49,10 +50,14 @@
   - hisat2
   - htslib
   - intel-tbb
+  - jasper
   - libxc
   - mafft
   - metis+real64
   - muscle
+  - namd interface=tcl
+    ^charmpp~smp backend=verbs build-target=charm++
+    ^fftw~mpi+openmp
   - netcdf-c~mpi
     ^hdf5+szip~mpi+hl+fortran+cxx
   - netcdf-fortran~mpi
@@ -72,21 +77,28 @@
   - cuda@10.0.130
   - cuda@10.1.243
   - cuda@11.0.2
+  - cuda@11.1.1
+  - cuda@11.2.2
+  - cuda@11.6.2
   - cudnn ^{{ environment.stable.cuda.package }} ^libiconv
   - cudnn@8.0.2.39-10.2-linux-x64 ^{{ environment.stable.cuda.package }} ^libiconv
-  - cudnn@8.0.2.39-11.0-linux-x64 ^cuda@11.0.2 ^libiconv
   - cudnn@7.4.2.24-10.0-linux-x64 ^cuda@10.0.130
   - cudnn@7.6.0.64-10.0-linux-x64 ^cuda@10.0.130
+  - cudnn@8.0.2.39-11.0-linux-x64 ^cuda@11.0.2 ^libiconv
+  - cudnn@8.0.5.39-11.1-linux-x64 ^cuda@11.1.1
+  - cudnn@8.1.1.33-11.2-linux-x64 ^cuda@11.2.2
+  - cudnn@8.4.1.50-11.6-linux-x64 ^cuda@11.6.2
   {% endif %}
 
 - gcc_serial_packages:
   - {{ environment.stable.intel.blas }}
+  - ffmpeg +libx264
   - glpk+gmp
   # julia >= 0..5 conflicts with intel compilers
   # it is not in the gcc_serial_packages_python due to the dependecy to mkl
   - julia+cxx+mkl
     ^{{ environment.stable.intel.blas }}
-    ^python@{{ environment.python.3 }} +optimizations+tkinter ^fontconfig@2.13.1
+    ^python@{{ environment.python.3 }}{{ environment.python.variant.3 }}
   {% if not 'cloud' in environment %}
   - mvapich2 process_managers=slurm fabrics=mrail threads=multiple {{ cuda_variant(environment, arch=False, dep=True) }}
   {% endif %}
@@ -98,6 +110,8 @@
     ^python@{{ environment.python.3 }}~tkinter~optimizations
     ^openssl@1.1.1b
   - openblas threads=openmp
+  - python@{{ environment.python.3 }}+tkinter~optimizations+debug
+  - sox
   - xgboost {{ cuda_variant(environment, dep=True) }}
 
 - intel_serial_packages:
@@ -140,7 +154,9 @@
   - py-biopython
   - py-cutadapt
   - py-deeptools
+  - py-macs2
   - py-pybind11
+  - py-pybigwig
   - py-scikit-learn
   - py-statsmodels
   - py-theano {{ cuda_variant(environment, dep=True) }}
@@ -223,25 +239,35 @@
 - external_packages:
   - adf@2017.111
   - ansys@19.2
+  - ansys@2020R2
+  - ansys@2022R1
   - cfdplusplus@19.1
   - comsol@5.4
+  - comsol@5.6
   - fdtd@8.20.1703
+  - fdtd@2020-R2.4-2502
+  - fdtd@2021-R2.2-2806
+  - fdtd@2022-R1.1-2963
   - gaussian@g16-C.01
   - gurobi@8.1.1
+#  - gurobi@9.1.0
   - intel-vtune@2019.6.0.602217
   - intel-advisor@2019.5.0.602216
   - likwid@4.3.0
   - maple@2017
   - mathematica@11.1.1
+  - mathematica@13.0  
   - matlab@R2019b
   - smr@2017.06
   - totalview@2017.2.11
-{% endif %}
+  - totalview@2020.3.11
 
 - intel_external_packages:
-  # - abaqus
 
 - gcc_external_packages:
+
+{% endif %}
+
 
 - mpi_packages:
   - arpack-ng+mpi
@@ -273,6 +299,9 @@
   - superlu-dist
     ^parmetis
     ^metis+real64
+  - openfoam-org +metis
+    ^metis+real64
+    ^scotch+esmumps+mpi~metis
 
 - mpi_lapack_python_packages:
   - boost cxxstd=14 +icu+mpi+python+numpy
@@ -486,6 +515,7 @@
     ^parmetis
     ^metis+real64
     ^scotch+esmumps+mpi~metis
+  - castep
 
 - intel_mpi_lapack_python_packages:
 #  - fenics~parmetis+hdf5+scotch+suite-sparse~vtk~trilinos
@@ -545,6 +575,17 @@
     ^hdf5+szip+mpi+hl+fortran+cxx
     ^suite-sparse {{ cuda_variant(environment) }}
     ^hypre {{ cuda_variant(environment, arch=False) }}
+  - freefem +mpi+petsc
+    ^slepc+arpack
+    ^arpack-ng+mpi
+    ^petsc~int64+double+hdf5+metis+mpi+mumps+superlu-dist+hypre+suite-sparse{{ cuda_variant(environment, arch=False) }}
+    ^mumps+mpi+parmetis+metis+scotch+ptscotch
+    ^parmetis
+    ^metis+real64
+    ^scotch+esmumps+mpi~metis
+    ^hdf5+szip+mpi+hl+fortran+cxx
+    ^suite-sparse {{ cuda_variant(environment) }}
+    ^hypre {{ cuda_variant(environment, arch=False) }}
 
 - intel_mpi_lapack_python2_packages:
   # - molpro@2019.2+mpi
@@ -568,7 +609,13 @@
   {% endif %}
 
 - gcc_bleeding_edge_serial_packages:
+  - openblas threads=openmp
 
 - intel_bleeding_edge_serial_packages:
 
 - nvhpc_bleeding_edge_serial_packages:
+
+- gcc_bleeding_edge_mpi_packages:
+  - fftw+mpi+openmp
+
+- intel_bleeding_edge_mpi_packages:

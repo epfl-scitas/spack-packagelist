@@ -42,6 +42,9 @@ default_environment:
   python:
     3: 3.7.7
     2: 2.7.18
+    variant:
+      3: +optimizations+tkinter~debug
+      2: +tkinter~debug
 
   # compiler contains the arch since it is the highest arch this compiler can
   # compile for
@@ -90,6 +93,7 @@ izar:
       compiler: "gcc@8.4.0+nvptx+piclibs"
       mpi:
         - "mvapich2 process_managers=slurm fabrics=mrail threads=multiple"
+      arch: 'skylake_avx512'
 
     cuda:
       package: "cuda@10.2.89"

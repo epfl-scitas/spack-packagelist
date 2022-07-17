@@ -36,11 +36,6 @@
 nvhpc:
   environment:
     set:
-      CC:  nvc
-      CXX: nc++
-      F77: nvfortran
-      FC:  nvfortran
-      F90: nvfortran
       SLURM_MPI_TYPE: pmix
       OMPI_MCA_btl_openib_warn_default_gid_prefix: '0'
 
@@ -66,8 +61,8 @@ intel-mpi: # Default for Intel MPI
       I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
       {% endif %}
       {% if environment.name == 'helvetios' or environment.name == 'fidis' %}
-      I_MPI_EXTRA_FILESYSTEM: '1'
-      I_MPI_EXTRA_FILESYSTEM_LIST: gpfs
+      I_MPI_EXTRA_FILESYSTEM: '0'
+      # I_MPI_EXTRA_FILESYSTEM_LIST: gpfs
       {% endif %}
       MPICC: mpiicc
       MPICXX: mpiicpc
@@ -239,3 +234,7 @@ spark:
 
 vasp:
   template: 'modules/group_restricted.lua'
+
+ffmpeg:
+  suffixes:
+    '+libx264': h264
