@@ -16,4 +16,5 @@ else
     SPACK="${SPACK_CHECKOUT_DIR}/bin/spack"
 fi
 
-${SPACK} -v --env ${environment} concretize
+echo "${SPACK} -d --env ${environment} concretize"
+${SPACK} -d --env ${environment} concretize
