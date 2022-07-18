@@ -11,7 +11,7 @@ pipeline {
 
     environment {
         STACK_RELEASE = "arvine"
-        SENV_VIRTUALENV_PATH = "/home/scitasbuild/${STACK_RELEASE}/virtualenv/senv-py27"
+        SENV_VIRTUALENV_PATH = "/home/scitasbuild/${STACK_RELEASE}/virtualenv/senv-py36"
         //DRY_RUN= "yes"
         STACK_PREFIX = get_prefix(env.GIT_BRANCH, env.STACK_RELEASE)
     }

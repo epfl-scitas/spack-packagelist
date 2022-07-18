@@ -9,7 +9,7 @@ set -euo pipefail
 
 set +u
 if [ "x${SPACK_PYTHON}" == "x" ]; then
-    SPACK_PYTHON=python2.7
+    SPACK_PYTHON=python3.6
 fi
 set -u
 

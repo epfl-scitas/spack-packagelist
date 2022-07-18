@@ -30,14 +30,14 @@ extra_repos:
     tag: releases/arvine
   scitas-spack-packages:
     repo: http://github.com/epfl-scitas/scitas-spack-packages.git
-    path: scitas-spack-packages/
-    tag: releases/arvine
+    path: scitas-spack-packages.v2/
+    tag: releases/arvine.v2
 
 # default version of compilers mpi and openblas
 default_environment:
-  os: rhel8.4
+  os: rhel8.5
   cpu: intel
-  slurm: 20.02.5
+  slurm: 22.05.2
 
   python:
     3: 3.7.7
@@ -145,5 +145,3 @@ gacrux:
 fidis:
   slurm: 19.05.3-2
 
-helvetios:
-  slurm: 22.05.2

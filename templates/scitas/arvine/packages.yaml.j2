@@ -27,18 +27,22 @@ jdk:
   paths:
     jdk@1.8.0_222-b10: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el7_6.x86_64
   version: [1.8.0_222-b10]
+  {% elif environment.os == 'rhel8.5' %}
+  paths:
+    jdk@18.0.1+10-1: /usr/lib/jvm/java-18-openjdk-18.0.1.0.10-1.rolling.el8.x86_64/
+  version: [@18.0.1+10-1]
   {% endif %}
 
-#slurm:
-#  buildable: False
-#  paths:
-#  {% if 'cloud' in environment and environment.cloud == 'gcp' %}
-#    slurm@ {{environment.slurm}}: /apps/slurm/slurm-{{environment.slurm}}
-#  {% else %}
-#    slurm@{{environment.slurm}}: /usr
-#  {% endif %}
-#  version: [{{environment.slurm}}]
-#{% endif %}
+slurm:
+  buildable: False
+  paths:
+  {% if 'cloud' in environment and environment.cloud == 'gcp' %}
+    slurm@ {{environment.slurm}}: /apps/slurm/slurm-{{environment.slurm}}
+  {% else %}
+    slurm@{{environment.slurm}}: /usr
+  {% endif %}
+  version: [{{environment.slurm}}]
+{% endif %}
 
 singularity:
   buildable: False
