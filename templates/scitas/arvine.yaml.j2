@@ -36,7 +36,6 @@
 
 - serial_packages:
   - angsd
-  - bedtools2
   - bwa
   - bzip2
   # - chip-seq
@@ -139,6 +138,7 @@
 - intel_serial_packages_lapack:
 
 - serial_packages_python:
+  - bedtools2
   - bowtie2
   - boost cxxstd=14 +icu~mpi+python+numpy
   - hwloc +cairo {{ cuda_variant(environment, arch=False, dep=True, extra_on='+nvml') }}
