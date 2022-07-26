@@ -730,7 +730,7 @@ class SpackEnvs(object):
                                 'arch'.format(**spec),
                                 environment=env)
                             spec['arch'] = ' arch={}'.format(
-                                stdout[0].decode('ascii').strip())
+                                stdout[0].strip())
 
                     if  arch is not None:
                         spec['arch'] = ' arch=linux-{}-{}'.format(
