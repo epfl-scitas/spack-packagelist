@@ -205,8 +205,8 @@
   {%endif%}
   # - qt +opengl+webkit
   #   ^cairo+png+pdf+fc+ft
-  #- r +external-lapack ^openjdk@11.0.2
-  #  ^cairo+png+pdf+ft+fc
+  - r +external-lapack ^openjdk@11.0.2
+    ^cairo+png+pdf+ft+fc
   # depends on java@8
   #- gatk
   #  ^r +external-lapack ^openjdk@11.0.2
@@ -329,8 +329,8 @@
 
 - gcc_mpi_lapack_packages:
   {% if not 'cloud' in environment %}
-#  - abinit~hdf5~openmp+mpi+scalapack
-#    ^netlib-scalapack
+  - abinit~hdf5~openmp+mpi+scalapack
+    ^netlib-scalapack
   - elmerfem+mumps+openmp+hypre
     ^mumps+mpi+parmetis+metis+scotch+ptscotch
     ^parmetis
@@ -362,11 +362,11 @@
   - adios2+hdf5+mpi+python
     ^hdf5+szip+mpi+hl+fortran+cxx
 {% if not 'cloud' in environment %}
-#  - amber+mpi {{ cuda_variant(environment) }}
-#    ^netcdf-fortran+mpi
-#    ^netcdf-c+mpi
-#    ^hdf5+szip+mpi+hl+fortran+cxx
-#    ^boost cxxstd=14 +icu+mpi+python+numpy
+  - amber+mpi {{ cuda_variant(environment) }}
+    ^netcdf-fortran+mpi
+    ^netcdf-c+mpi
+    ^hdf5+szip+mpi+hl+fortran+cxx
+    ^boost cxxstd=14 +icu+mpi+python+numpy
 {% endif %}
   - cp2k+mpi~plumed {{ cuda_variant(environment) }}
     ^fftw+mpi~openmp
