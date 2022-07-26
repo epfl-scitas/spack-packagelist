@@ -752,7 +752,7 @@ class SpackEnvs(object):
                             environment=env)
 
                         for line in stdout:
-                            match = installed_pkg_re.match(line.decode('ascii'))
+                            match = installed_pkg_re.match(line)
                             if match:
                                 list_installed.append(match.group(1))
 
@@ -784,7 +784,7 @@ class SpackEnvs(object):
 
             stdout, stderr, comm = self._run_spack('activate', spec, environment=environment)
             for line in stdout:
-                print(' + {}'.format(line.decode('ascii')))
+                print(' + {}'.format(line))
 
             if comm.returncode is None:
                 spack_.wait()
