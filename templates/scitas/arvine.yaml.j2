@@ -496,6 +496,7 @@
 {% if not 'cloud' in environment %}
   - crystal17@1.0.2
   - vasp {{ cuda_variant(environment) }}
+    ^fftw+mpi+openmp
   {% if environment.gpu == 'nvidia' %}
     ^magma {{ cuda_variant(environment) }}
   {% endif %}
@@ -508,7 +509,7 @@
     ^hdf5+szip+mpi+hl+fortran+cxx
     ^netcdf-c+mpi
     ^netcdf-fortran+mpi
-    ^fftw+mpi~openmp
+    ^fftw+mpi+openmp
 
 - intel_mpi_lapack_packages:
   - mumps+mpi+parmetis+metis+scotch+ptscotch
