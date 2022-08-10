@@ -1,2 +1,7 @@
 {% set prefix = intel.compiler_prefix +  '/compilers_and_libraries_' + intel.suite_version + '/linux' %}
+-isystem{{prefix}}/compiler/include/intel64 #
+-Xlinker -L{{prefix}}/compiler/lib/intel64 #
+-Xlinker -L{{prefix}}/compiler/lib/intel64_lin #
+-Xlinker -rpath={{prefix}}/compiler/lib/intel64 #
+-Xlinker -rpath={{prefix}}/compiler/lib/intel64_lin #
 -Xlinker -rpath={{prefix}}/mpi/intel64/libfabric/lib/ #
