@@ -495,8 +495,8 @@
 - intel_mpi_packages:
 {% if not 'cloud' in environment %}
   - crystal17@1.0.2
-  - vasp {{ cuda_variant(environment) }}
-    ^fftw+mpi+openmp
+#  - vasp {{ cuda_variant(environment) }}
+#    ^fftw+mpi+openmp
   {% if environment.gpu == 'nvidia' %}
     ^magma {{ cuda_variant(environment) }}
   {% endif %}
