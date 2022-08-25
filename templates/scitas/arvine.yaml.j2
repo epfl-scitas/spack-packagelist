@@ -504,12 +504,12 @@
   - relion +mklfft ~cuda
   {% endif %}
 {% endif %}
-  - yambo+mpi io=iotk,etsf-io
-    ^{{environment.stable.intel.blas}}
-    ^hdf5+szip+mpi+hl+fortran+cxx
-    ^netcdf-c+mpi
-    ^netcdf-fortran+mpi
-    ^fftw+mpi+openmp
+#  - yambo+mpi io=iotk,etsf-io
+#    ^{{environment.stable.intel.blas}}
+#    ^hdf5+szip+mpi+hl+fortran+cxx
+#    ^netcdf-c+mpi
+#    ^netcdf-fortran+mpi
+#    ^fftw+mpi+openmp
 
 - intel_mpi_lapack_packages:
   - mumps+mpi+parmetis+metis+scotch+ptscotch
