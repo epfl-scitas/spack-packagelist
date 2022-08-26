@@ -517,8 +517,7 @@
     ^metis+real64
     ^scotch+esmumps+mpi~metis
   - castep
-#  - vasp {{ cuda_variant(environment) }}
-#    ^fftw+mpi+openmp
+  - vasp {{ cuda_variant(environment) }}
 
 - intel_mpi_lapack_python_packages:
 #  - fenics~parmetis+hdf5+scotch+suite-sparse~vtk~trilinos
