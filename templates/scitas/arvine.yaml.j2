@@ -231,9 +231,9 @@
   # - qt +opengl+webkit~tools
   #   ^harfbuzz@2.1.3
   #   ^cairo+png+pdf+fc+ft
-  #- r +external-lapack ^openjdk@11.0.2
-  #  ^harfbuzz@2.1.3
-  #  ^cairo+png+pdf+fc+ft
+  - r +external-lapack ^openjdk@11.0.2
+    ^harfbuzz@2.1.3
+    ^cairo+png+pdf+fc+ft
 
 {% if not 'cloud' in environment %}
 - external_packages:
