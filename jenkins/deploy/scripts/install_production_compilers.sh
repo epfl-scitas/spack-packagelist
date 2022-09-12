@@ -55,3 +55,7 @@ echo "#### Setting stable compilers as default"
 jenkins/senv.sh list-compilers \
     --env ${environment} \
     --stack-type stable | xargs -L1 ${SPACK} --env ${environment}  module lmod setdefault
+
+mkdir -p ${SPACK_CHECKOUT_DIR}/etc/spack/licenses/gurobi
+cp external/gurobi/licenses/gurobi.lic \
+    ${SPACK_CHECKOUT_DIR}/etc/spack/licenses/gurobi/
