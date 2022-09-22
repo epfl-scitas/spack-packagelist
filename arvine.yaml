@@ -15,7 +15,7 @@ spack_external: external
 # List of the environments to be managed
 environments:
   - "fidis"
-  - "gacrux"
+  #- "gacrux"
 #  - "helvetios" == "gacrux"
   - "izar"
 #  - "gcp-c2"
