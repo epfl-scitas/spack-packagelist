@@ -33,7 +33,11 @@
   {% endif %}
     operating_system: {{ environment.os | regex_replace('([a-z]+[0-9]+)(\.[0-9]+)+', '\\1') }}
     target: x86_64
+  {% if _compiler == 'intel' %}
+    modules: [{{ compiler_w_version | regex_replace('@', '/') }}]
+  {% else %}
     modules: []
+  {% endif %}
     environment:
       {% if _compiler == 'intel' or _compiler == 'gcc' or _compiler == 'clang' or _compiler == 'oneapi' %}
       prepend_path:
